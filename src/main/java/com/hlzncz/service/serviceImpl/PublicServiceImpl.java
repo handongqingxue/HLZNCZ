@@ -20,4 +20,9 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.selectParCaiDan();
 	}
 
+	public List<CaiDan> selectChildCaiDan(Integer parId) {
+		// TODO Auto-generated method stub
+		return publicDao.selectChildCaiDan(parId);
+	}
+
 }

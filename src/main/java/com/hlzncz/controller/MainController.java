@@ -23,6 +23,15 @@ public class MainController {
 		
 		List<CaiDan> leftNavList = publicService.selectParCaiDan();
 		request.setAttribute("leftNavList", leftNavList);
+
+		Integer parId = leftNavList.get(0).getId();
+		List<CaiDan> topNavList = publicService.selectChildCaiDan(parId);
+		for (CaiDan caiDan : topNavList) {
+			List<CaiDan> childList = publicService.selectChildCaiDan(caiDan.getId());
+			caiDan.setChildList(childList);
+		}
+		request.setAttribute("topNavList", topNavList);
+		
 		return "index";
 	}
 }

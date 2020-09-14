@@ -1,6 +1,7 @@
 package com.hlzncz.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CaiDan implements Serializable {
 
@@ -50,5 +51,12 @@ public class CaiDan implements Serializable {
 	private Integer jb;
 	private Integer px;
 	private Integer sjId;
+	private List<CaiDan> childList;
+	public List<CaiDan> getChildList() {
+		return childList;
+	}
+	public void setChildList(List<CaiDan> childList) {
+		this.childList = childList;
+	}
 
 }

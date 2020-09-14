@@ -7,4 +7,6 @@ import com.hlzncz.entity.CaiDan;
 public interface PublicService {
 
 	public List<CaiDan> selectParCaiDan();
+
+	public List<CaiDan> selectChildCaiDan(Integer parId);
 }
