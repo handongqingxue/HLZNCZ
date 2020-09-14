@@ -12,16 +12,44 @@
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 $(function(){
-	var marginLeft=0;
+	resetNavLoc();
+});
+
+function resetNavLoc(){
+	var fiml=0;
 	$("#top_nav_div #first_item_div").each(function(i){
 		if(i>=1){
-			marginLeft+=110;
-			$(this).css("margin-left",marginLeft+"px");
-			var length=$("#top_nav_div #second_nav_div").eq(i-1).find(".second_item_div").length;
-			$(this).css("margin-top","-"+(length*40+60)+"px");
+			fiml+=110;
+			$(this).css("margin-left",fiml+"px");
+			var length=$("#top_nav_div .second_nav_div").eq(i-1).find(".second_item_div").length;
+			if($("#top_nav_div .second_nav_div").eq(i-1).css("display")=="none"){
+				$(this).css("margin-top","-50px");
+			}
+			else{
+				$(this).css("margin-top","-"+(length*40+60)+"px");
+			}
 		}
 	});
-});
+
+	var snml=20;
+	$("#top_nav_div .second_nav_div").each(function(i){
+		if(i>=1){
+			snml+=110;
+			$(this).css("margin-left",snml+"px");
+		}
+	});
+}
+
+function showSecondNav(snId){
+	var display=$("#second_nav_div"+snId).css("display");
+	if(display=="block"){
+		$("#second_nav_div"+snId).css("display","none");
+	}
+	else{
+		$("#second_nav_div"+snId).css("display","block");
+	}
+	resetNavLoc();
+}
 </script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -51,6 +79,7 @@ body{
 	-webkit-transform: translateZ(0);
 	background-color: #fff;
 	border-radius: 4px;
+	display: none;
 }
 .top_nav_div .second_nav_div .second_item_div{
 	width: 90px;height: 40px;line-height: 40px;font-size: 14px;color: rgba(0,0,0,.65);text-align:center;
@@ -62,13 +91,13 @@ body{
 	<div style="width: 288px;height:90px;line-height:90px;font-size: 20px;color: #fff;text-align: center;background: #002140;">智能称重</div>
 	<div class="left_nav_div">
 	<c:forEach items="${requestScope.leftNavList }" var="item">
-		<a href=""><div class="item_div">${item.mc }</div></a>
+		<a href="${item.lj }"><div class="item_div">${item.mc }</div></a>
 	</c:forEach>
 	</div>
 	<div class="top_nav_div" id="top_nav_div">
 	<c:forEach items="${requestScope.topNavList }" var="item">
-		<div class="first_item_div" id="first_item_div">${item.mc }</div>
-		<div class="second_nav_div" id="second_nav_div">
+		<div class="first_item_div" id="first_item_div" onclick="showSecondNav(${item.id })">${item.mc }</div>
+		<div class="second_nav_div" id="second_nav_div${item.id }">
 			<c:forEach items="${item.childList }" var="childItem">
 			<div class="second_item_div">${childItem.mc }</div>
 			</c:forEach>
