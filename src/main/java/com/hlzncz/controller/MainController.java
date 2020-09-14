@@ -1,5 +1,9 @@
 package com.hlzncz.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +19,10 @@ public class MainController {
 	private PublicService publicService;
 	
 	@RequestMapping(value="/toIndex")
-	public String toIndex() {
+	public String toIndex(HttpServletRequest request) {
 		
-		CaiDan caiDan = publicService.selectParCaiDan();
-		System.out.println("===="+caiDan.getMc());
+		List<CaiDan> leftNavList = publicService.selectParCaiDan();
+		request.setAttribute("leftNavList", leftNavList);
 		return "index";
 	}
 }

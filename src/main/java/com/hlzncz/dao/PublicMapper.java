@@ -1,8 +1,10 @@
 package com.hlzncz.dao;
 
+import java.util.List;
+
 import com.hlzncz.entity.CaiDan;
 
 public interface PublicMapper {
 
-	public CaiDan selectParCaiDan();
+	public List<CaiDan> selectParCaiDan();
 }
