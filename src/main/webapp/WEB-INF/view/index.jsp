@@ -62,6 +62,9 @@ body{
 	background: #001529;
 	padding: 1px;
 }
+.left_nav_div a{
+	text-decoration: none;
+}
 .left_nav_div .item_div{
 	width: 262px;height:40px;line-height:40px;font-size: 14px;color: rgb(163,173,180);padding-left:24px; background: #001529;margin-top: 3px;
 }
