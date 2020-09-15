@@ -53,8 +53,8 @@ public class MyRealm extends AuthorizingRealm{
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		YongHu msg=new YongHu(token.getUsername(),String.valueOf(token.getPassword()));
-		YongHu resultMsg=yongHuMapper.getYongHu(msg);
+		YongHu yh=new YongHu(token.getUsername(),String.valueOf(token.getPassword()));
+		YongHu resultMsg=yongHuMapper.getYongHu(yh);
 		if(token.getUsername().equals(resultMsg.getYhm())
 				&&
 				String.valueOf(token.getPassword()).equals(resultMsg.getYsmm())){

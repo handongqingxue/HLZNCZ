@@ -70,6 +70,10 @@ public class YongHu implements Serializable {
 		this.role = role;
 	}
 	
+	public YongHu() {
+		super();
+	}
+	
 	public YongHu(String yhm,String ysmm) {
 		this.yhm=yhm;
 		this.ysmm=ysmm;

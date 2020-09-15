@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
+var path='<%=basePath %>';
 function focusYHM(){
 	var yhm=$("#yhm_inp").val();
 	if(yhm=="请填写用户名"||yhm=="用户名不能有特殊字符"||yhm=="用户名首尾不能出现下划线\'_\'"){
@@ -53,14 +54,14 @@ function login(){
 	if(checkYHM()){
 		if(checkMM()){
 			var yhm=$("#yhm_inp").val();
-			var mm=$("#mm_inp").val();
+			var ysmm=$("#mm_inp").val();
 			//var loginVCode=$("#loginVCode").val();
-			$.post("main/login",
-				{yhm:yhm,mm:mm},
+			$.post(path+"main/login",
+				{yhm:yhm,ysmm:ysmm},
 				function(json){
 		        	console.log(json)
 		        	if(json.status==0){
-		        		window.location.href=baseUrl+json.url;
+		        		window.location.href=path+json.url;
 		        	}else if(json.status==1){
 		        		alert(json.msg);
 		        	}
