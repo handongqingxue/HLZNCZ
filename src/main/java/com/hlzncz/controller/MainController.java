@@ -19,6 +19,12 @@ public class MainController {
 	@Autowired
 	private PublicService publicService;
 	
+	@RequestMapping(value="/toLogin")
+	public String toLogin() {
+		
+		return "login";
+	}
+	
 	@RequestMapping(value="/toIndex")
 	public String toIndex(HttpServletRequest request) {
 		

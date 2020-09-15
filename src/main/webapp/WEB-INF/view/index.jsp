@@ -66,13 +66,30 @@ body{
 	text-decoration: none;
 }
 .left_nav_div .item_div{
-	width: 262px;height:40px;line-height:40px;font-size: 14px;color: rgb(163,173,180);padding-left:24px; background: #001529;margin-top: 3px;
+	width: 262px;
+	height:40px;
+	line-height:40px;
+	margin-top: 3px;
+	font-size: 14px;
+	color: rgb(163,173,180);
+	padding-left:24px; 
+	background: #001529;
 }
 .top_nav_div{
-	width: 100%;height: 50px;margin-left: 288px;margin-top: -100vh;font-size: 16px;background: #fff;border-bottom: 1px solid #40a9ff;
+	width: 100%;
+	height: 50px;
+	margin-left: 288px;
+	margin-top: -100vh;
+	font-size: 16px;
+	background: #fff;
+	border-bottom: 1px solid #40a9ff;
 }
 .top_nav_div .first_item_div{
-	width: 110px;height: 50px;line-height: 50px;color: #1890ff;text-align:center;
+	width: 110px;
+	height: 50px;
+	line-height: 50px;
+	color: #1890ff;
+	text-align:center;
 }
 .top_nav_div .second_nav_div{
 	width: 90px;
@@ -85,7 +102,12 @@ body{
 	display: none;
 }
 .top_nav_div .second_nav_div .second_item_div{
-	width: 90px;height: 40px;line-height: 40px;font-size: 14px;color: rgba(0,0,0,.65);text-align:center;
+	width: 90px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	color: rgba(0,0,0,.65);
+	text-align:center;
 }
 </style>
 </head>
