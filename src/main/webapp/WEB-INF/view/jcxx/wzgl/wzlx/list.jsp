@@ -8,6 +8,14 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	$("#search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var mc=$("#mc_inp").val();
+			tab1.datagrid("load",{mc:mc});
+		}
+	});
+	
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
@@ -16,7 +24,7 @@ $(function(){
 		}
 	});
 	
-	$("#batchAdd_but").linkbutton({
+	$("#output_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
 			if(checkIfPaid())
@@ -32,7 +40,7 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"模版生成",
+		title:"物资类型-列表",
 		url:path+"main/queryWuZiLeiXingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
@@ -40,23 +48,19 @@ $(function(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"xh",title:"序号",width:200,formatter:function(value,row){
-				return row.index;
-			}},
 			{field:"mc",title:"名称",width:200},
             {field:"bz",title:"备注",width:200},
 			{field:"px",title:"排序",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/merchant/main/goBrowseHtmlGoodsSPZS?moduleType="+row.moduleType+"&goodsNumber="+row.goodsNumber+"&accountNumber="+row.accountNumber+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/merchant/main/goEditModule?trade=spzs&moduleType="+row.moduleType+"&goodsNumber="+row.goodsNumber+"&accountNumber="+row.accountNumber+"\">编辑</a>"
-            	+"&nbsp;|&nbsp;<a onclick=\"deleteByIds("+value+")\">删除</a>";
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/merchant/main/goEditModule?trade=spzs&moduleType="+row.moduleType+"&goodsNumber="+row.goodsNumber+"&accountNumber="+row.accountNumber+"\">修改</a>";
             	return str;
             }}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{productName:"<div style=\"text-align:center;\"><a href=\"${pageContext.request.contextPath}/merchant/main/goAddModule?trade=spzs&moduleType=redWine\">点击生成商品模版</a><div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"productName",colspan:3});
+				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:4});
 				data.total=0;
 			}
 			
@@ -92,7 +96,7 @@ function reSizeCol(){
 
 function setFitWidthInParent(o){
 	var width=$(o).css("width");
-	return width.substring(0,width.length-2)-270;
+	return width.substring(0,width.length-2)-340;
 }
 </script>
 <title>物资类型</title>
@@ -102,8 +106,11 @@ function setFitWidthInParent(o){
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
-			<a id="add_but" style="margin-left: 13px;">添加</a>
-			<a id="batchAdd_but">Excel批量生成</a>
+			<span style="margin-left: 13px;">名称：</span>
+			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
+			<a id="add_but">添加</a>
+			<a id="output_but">导出</a>
 			<a id="remove_but">删除</a>
 		</div>
 		<table id="tab1">
