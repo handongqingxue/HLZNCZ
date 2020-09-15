@@ -1,6 +1,8 @@
 package com.hlzncz.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.entity.YongHu;
 import com.hlzncz.service.PublicService;
 
@@ -29,18 +32,50 @@ public class MainController {
 	@Autowired
 	private PublicService publicService;
 	
-	@RequestMapping(value="/toLogin")
-	public String toLogin() {
+	@RequestMapping(value="/goLogin")
+	public String goLogin() {
 		
 		return "login";
 	}
 	
-	@RequestMapping(value="/toIndex")
-	public String toIndex(HttpServletRequest request) {
+	@RequestMapping(value="/goIndex")
+	public String goIndex(HttpServletRequest request) {
 		
 		selectNav(request);
 		
 		return "index";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzlx")
+	public String goWzlx(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/wzgl/wzlx/list";
+	}
+	
+	/**
+	 * 查询物资类型
+	 * @param mc
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryWuZiLeiXingList")
+	@ResponseBody
+	public Map<String, Object> queryWuZiLeiXingList(String mc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryWuZiLeiXingForInt(mc);
+		List<WuZiLeiXing> wzlxList=publicService.queryWuZiLeiXingList(mc, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", wzlxList);
+		
+		return jsonMap;
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
@@ -71,7 +106,7 @@ public class MainController {
 		
 		plan.setStatus(0);
 		plan.setMsg("验证通过");
-		plan.setUrl("/main/toIndex");
+		plan.setUrl("main/goIndex");
 		return JsonUtil.getJsonFromObject(plan);
 	}
 	

@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 $(function(){
 	resetNavLoc();
@@ -127,6 +126,9 @@ body{
 	border-radius: 4px;
 	display: none;
 }
+.top_nav_div .second_nav_div a{
+	text-decoration: none;
+}
 .top_nav_div .second_nav_div .second_item_div{
 	width: 90px;
 	height: 40px;
@@ -170,7 +172,7 @@ body{
 <div class="zncz_txt_div">智能称重</div>
 <div class="left_nav_div">
 <c:forEach items="${requestScope.leftNavList }" var="item">
-	<a href="${item.lj }"><div class="item_div">${item.mc }</div></a>
+	<a href="<%=basePath %>${item.lj }"><div class="item_div">${item.mc }</div></a>
 </c:forEach>
 </div>
 <div class="top_nav_div" id="top_nav_div">
@@ -178,7 +180,7 @@ body{
 	<div class="first_item_div" id="first_item_div" onclick="showSecondNav(${item.id })">${item.mc }</div>
 	<div class="second_nav_div" id="second_nav_div${item.id }">
 		<c:forEach items="${item.childList }" var="childItem">
-		<div class="second_item_div">${childItem.mc }</div>
+		<a href="<%=basePath %>${childItem.lj }"><div class="second_item_div">${childItem.mc }</div></a>
 		</c:forEach>
 	</div>
 </c:forEach>

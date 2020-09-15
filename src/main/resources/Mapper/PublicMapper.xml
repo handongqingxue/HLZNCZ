@@ -10,5 +10,18 @@
 	<select id="selectChildCaiDan" resultType="com.hlzncz.entity.CaiDan">
 		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0}
 	</select>
+	<select id="queryWuZiLeiXingForInt" resultType="java.lang.Integer">
+		select count(*) from wu_zi_lei_xing where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if> 
+	</select>
+	<select id="queryWuZiLeiXingList" resultType="com.hlzncz.entity.WuZiLeiXing">
+		select * from wu_zi_lei_xing where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if>
+		 limit ${param2},${param3}
+	</select>
 	
 </mapper>

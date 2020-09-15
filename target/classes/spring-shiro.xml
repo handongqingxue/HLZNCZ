@@ -21,10 +21,10 @@
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/main/toLogin" />
+		<property name="loginUrl" value="/main/goLogin" />
 		<property name="filterChainDefinitions">
 			<value>
-				/main/toLogin=anon
+				/main/goLogin=anon
 				/main/login=anon
 				/resource/**=anon
 				/**=authc
