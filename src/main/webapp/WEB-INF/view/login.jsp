@@ -113,6 +113,7 @@ body{
 	color: #fff;
 	background-color: #1890ff;
 	border-radius: 4px;
+	cursor: pointer;
 }
 </style>
 </head>

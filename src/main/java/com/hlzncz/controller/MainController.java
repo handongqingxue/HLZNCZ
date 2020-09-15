@@ -95,4 +95,12 @@ public class MainController {
 		}
 		request.setAttribute("topNavList", topNavList);
 	}
+	
+	@RequestMapping(value="/exit")
+	public String exit(HttpSession session) {
+		System.out.println("ÍË³ö½Ó¿Ú");
+		Subject currentUser = SecurityUtils.getSubject();       
+	    currentUser.logout();    
+		return "login";
+	}
 }
