@@ -7,7 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 $(function(){
-	$("#edit_div").dialog({
+	$("#detail_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:150,
@@ -15,12 +15,12 @@ $(function(){
 		left:308
 	});
 
-	$("#edit_div table").css("width",(setFitWidthInParent("body")-15)+"px");
-	$("#edit_div table").css("magin","-100px");
-	$("#edit_div table td").css("padding-left","50px");
-	$("#edit_div table td").css("padding-right","20px");
-	$("#edit_div table td").css("font-size","15px");
-	$("#edit_div table tr").css("height","45px");
+	$("#detail_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#detail_div table").css("magin","-100px");
+	$("#detail_div table td").css("padding-left","50px");
+	$("#detail_div table td").css("padding-right","20px");
+	$("#detail_div table td").css("font-size","15px");
+	$("#detail_div table tr").css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
 	$(".panel.window .panel-title").css("color","#000");
@@ -44,7 +44,7 @@ function setFitWidthInParent(o){
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
-	<div id="edit_div">
+	<div id="detail_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.wzlx.id }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">

@@ -109,7 +109,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteWuZiLeiXing",
+			$.post(path + "main/deleteWuZi",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

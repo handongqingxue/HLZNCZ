@@ -8,7 +8,7 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	$("#edit_div").dialog({
+	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:231,
@@ -21,13 +21,13 @@ $(function(){
         ]
 	});
 
-	$("#edit_div table").css("width",(setFitWidthInParent("body")-15)+"px");
-	$("#edit_div table").css("magin","-100px");
-	$("#edit_div table td").css("padding-left","50px");
-	$("#edit_div table td").css("padding-right","20px");
-	$("#edit_div table td").css("font-size","15px");
-	$("#edit_div table tr").eq(0).css("height","90px");
-	$("#edit_div table tr").eq(1).css("height","45px");
+	$("#new_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#new_div table").css("magin","-100px");
+	$("#new_div table td").css("padding-left","50px");
+	$("#new_div table td").css("padding-right","20px");
+	$("#new_div table td").css("font-size","15px");
+	$("#new_div table tr").eq(0).css("height","90px");
+	$("#new_div table tr").eq(1).css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
 	$(".panel.window .panel-title").css("color","#000");
@@ -101,7 +101,7 @@ function setFitWidthInParent(o){
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
-	<div id="edit_div">
+	<div id="new_div">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">

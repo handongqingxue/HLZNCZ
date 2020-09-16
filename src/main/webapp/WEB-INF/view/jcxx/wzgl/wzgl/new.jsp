@@ -13,7 +13,7 @@ $(function(){
 });
 
 function initEditDialog(){
-	$("#edit_div").dialog({
+	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:231,
@@ -26,13 +26,13 @@ function initEditDialog(){
         ]
 	});
 
-	$("#edit_div table").css("width",(setFitWidthInParent("body")-15)+"px");
-	$("#edit_div table").css("magin","-100px");
-	$("#edit_div table td").css("padding-left","50px");
-	$("#edit_div table td").css("padding-right","20px");
-	$("#edit_div table td").css("font-size","15px");
-	$("#edit_div table tr").eq(0).css("height","90px");
-	$("#edit_div table tr").eq(1).css("height","45px");
+	$("#new_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#new_div table").css("magin","-100px");
+	$("#new_div table td").css("padding-left","50px");
+	$("#new_div table td").css("padding-right","20px");
+	$("#new_div table td").css("font-size","15px");
+	$("#new_div table tr").eq(0).css("height","90px");
+	$("#new_div table tr").eq(1).css("height","45px");
 
 	$(".panel.window").eq(0).css("margin-top","20px");
 	$(".panel.window .panel-title").eq(0).css("color","#000");
@@ -45,8 +45,8 @@ function initEditDialog(){
 	$(".window-shadow").eq(0).css("margin-top","20px");
 	$(".window,.window .window-body").eq(0).css("border-color","#ddd");
 
-	$("#edit_div #ok_but").css("left","45%");
-	$("#edit_div #ok_but").css("position","absolute");
+	$("#new_div #ok_but").css("left","45%");
+	$("#new_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
@@ -171,8 +171,8 @@ function saveWZLX(){
 		$.messager.alert("提示","请选择要删除的信息！","warning");
 		return false;
 	}
-	$("#edit_div #wzlx_hid").val(row.id);
-	$("#edit_div #wzlxmc_span").text(row.mc);
+	$("#new_div #wzlx_hid").val(row.id);
+	$("#new_div #wzlxmc_span").text(row.mc);
 	openWZLXDialog(0);
 }
 
@@ -185,8 +185,8 @@ function checkNew(){
 }
 
 function newWuZi(){
-	var mc=$("#edit_div #mc").val();
-	var wzlxId=$("#edit_div #wzlx_hid").val();
+	var mc=$("#new_div #mc").val();
+	var wzlxId=$("#new_div #wzlx_hid").val();
 	
 	$.post(path+"main/newWuZi",
 		{mc:mc,wzlxId:wzlxId},
@@ -256,7 +256,7 @@ function initWindowMarginLeft(){
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
-	<div id="edit_div">
+	<div id="new_div">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">

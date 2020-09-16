@@ -35,4 +35,6 @@ public interface PublicMapper {
 	public int newWuZi(WuZi wz);
 
 	public int editWuZi(WuZi wz);
+
+	public int deleteWuZi(List<String> idList);
 }

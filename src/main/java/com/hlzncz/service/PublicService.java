@@ -33,4 +33,6 @@ public interface PublicService {
 	public int newWuZi(WuZi wz);
 
 	public int editWuZi(WuZi wz);
+
+	public int deleteWuZi(String ids);
 }

@@ -97,4 +97,13 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.editWuZi(wz);
 	}
 
+	@Override
+	public int deleteWuZi(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count=publicDao.deleteWuZi(idList);
+		return count;
+	}
+
 }

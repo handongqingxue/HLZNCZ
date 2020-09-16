@@ -88,6 +88,12 @@
 		#{id}
 		</foreach>
 	</delete>
+	<delete id="deleteWuZi">
+		delete from wu_zi where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 	<select id="queryWuZiForInt" resultType="java.lang.Integer">
 		select count(*) from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
 		<if test="mc!=''&amp;mc!=null">
