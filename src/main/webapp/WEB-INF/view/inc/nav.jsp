@@ -16,6 +16,8 @@ function resetNavLoc(){
 		if(i>=1){
 			fiml+=110;
 			$(this).css("margin-left",fiml+"px");
+			/*
+			//这块代码是一开始三级菜单的position属性没有设置成absolute的时候写的，后来datagrid把三级菜单挡住了，就把三级菜单的position属性设置为absolute，让其上浮了，于是现在就把这块代码注释掉了
 			if($("#top_nav_div .second_nav_div").eq(i-1).css("display")=="none"){
 				$(this).css("margin-top","-50px");
 			}
@@ -23,6 +25,8 @@ function resetNavLoc(){
 				var length=$("#top_nav_div .second_nav_div").eq(i-1).find(".second_item_div").length;
 				$(this).css("margin-top","-"+(length*40+60)+"px");
 			}
+			*/
+			$(this).css("margin-top","-50px");
 		}
 	});
 
@@ -34,6 +38,8 @@ function resetNavLoc(){
 		}
 	});
 	
+	/*
+	//这块代码是一开始三级菜单的position属性没有设置成absolute的时候写的，后来datagrid把三级菜单挡住了，就把三级菜单的position属性设置为absolute，让其上浮了，于是现在就把这块代码注释掉了
 	var sndl=$("#top_nav_div .second_nav_div").length;
 	if($("#top_nav_div .second_nav_div").eq(sndl-1).css("display")=="none"){
 		$("#yhm_div").css("margin-top","-50px");
@@ -44,6 +50,9 @@ function resetNavLoc(){
 		$("#yhm_div").css("margin-top","-"+(lsidl*40+60)+"px");
 		$("#yhcz_div").css("margin-top","-"+(lsidl*40+7)+"px");
 	}
+	*/
+	$("#yhm_div").css("margin-top","-50px");
+	$("#yhcz_div").css("margin-top","3px");
 }
 
 function showSecondNav(snId){
@@ -123,7 +132,9 @@ body{
 	box-shadow: 0 2px 8px rgba(0,0,0,.15);
 	-webkit-transform: translateZ(0);
 	background-color: #fff;
+	position: absolute;
 	border-radius: 4px;
+	z-index: 9002;
 	display: none;
 }
 .top_nav_div .second_nav_div a{
@@ -148,10 +159,12 @@ body{
 .yhcz_div{
 	width: 110px;
 	height: 120px;
-	float: right;
 	box-shadow: 0 2px 8px rgba(0,0,0,.15);
 	-webkit-transform: translateZ(0);
 	background-color: #fff;
+	position: absolute;
+	right: 37px;
+	z-index: 1;
 	border-radius: 4px;
 	display: none;
 }

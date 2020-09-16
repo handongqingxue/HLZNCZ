@@ -3,6 +3,7 @@ package com.hlzncz.service;
 import java.util.List;
 
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 
 public interface PublicService {
@@ -22,4 +23,10 @@ public interface PublicService {
 	public int editWuZiLeiXing(WuZiLeiXing wzlx);
 
 	public int deleteWuZiLeiXing(String ids);
+
+	public int queryWuZiForInt(String mc, String wzlxmc);
+
+	public List<WuZi> queryWuZiList(String mc, String wzlxmc, int page, int rows, String sort, String order);
+
+	public WuZi selectWuZiById(String id);
 }

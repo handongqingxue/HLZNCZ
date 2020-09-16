@@ -63,5 +63,27 @@
 		#{id}
 		</foreach>
 	</delete>
+	<select id="queryWuZiForInt" resultType="java.lang.Integer">
+		select count(*) from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
+		<if test="mc!=''&amp;mc!=null">
+			and wz.mc like CONCAT('%',#{mc},'%')
+		</if> 
+		<if test="wzlxmc!=''&amp;wzlxmc!=null">
+			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
+		</if> 
+	</select>
+	<select id="queryWuZiList" resultType="com.hlzncz.entity.WuZi">
+		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
+		<if test="mc!=''&amp;mc!=null">
+			and wz.mc like CONCAT('%',#{mc},'%')
+		</if> 
+		<if test="wzlxmc!=''&amp;wzlxmc!=null">
+			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
+		</if> 
+		limit ${param3},${param4}
+	</select>
+	<select id="selectWuZiById" resultType="com.hlzncz.entity.WuZi">
+		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi wz,wu_zi_lei_xing wzlx where wz.wzlxId=wzlx.id and wz.id=#{0}
+	</select>
 	
 </mapper>

@@ -22,6 +22,7 @@ import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
 
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.entity.YongHu;
 import com.hlzncz.service.PublicService;
@@ -83,6 +84,36 @@ public class MainController {
 		request.setAttribute("wzlx", wzlx);
 		
 		return "jcxx/wzgl/wzlx/edit";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzgl/list")
+	public String goWzglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/wzgl/wzgl/list";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzgl/detail")
+	public String goWzglDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		WuZi wz=publicService.selectWuZiById(id);
+		request.setAttribute("wz", wz);
+		
+		return "jcxx/wzgl/wzgl/detail";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzgl/edit")
+	public String goWzglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		WuZi wz=publicService.selectWuZiById(id);
+		request.setAttribute("wz", wz);
+		
+		return "jcxx/wzgl/wzgl/edit";
 	}
 	
 	/**
@@ -163,6 +194,21 @@ public class MainController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
+	}
+	
+	@RequestMapping(value="/queryWuZiList")
+	@ResponseBody
+	public Map<String, Object> queryWuZiList(String mc,String wzlxmc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryWuZiForInt(mc,wzlxmc);
+		List<WuZi> wzList=publicService.queryWuZiList(mc, wzlxmc, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", wzList);
+		
+		return jsonMap;
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")

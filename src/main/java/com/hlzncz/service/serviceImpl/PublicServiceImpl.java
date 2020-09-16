@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hlzncz.dao.PublicMapper;
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.service.PublicService;
 
@@ -64,6 +65,24 @@ public class PublicServiceImpl implements PublicService {
 		List<String> idList = Arrays.asList(ids.split(","));
 		count=publicDao.deleteWuZiLeiXing(idList);
 		return count;
+	}
+
+	@Override
+	public int queryWuZiForInt(String mc, String wzlxmc) {
+		// TODO Auto-generated method stub
+		return publicDao.queryWuZiForInt(mc,wzlxmc);
+	}
+
+	@Override
+	public List<WuZi> queryWuZiList(String mc, String wzlxmc, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryWuZiList(mc, wzlxmc, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public WuZi selectWuZiById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectWuZiById(id);
 	}
 
 }
