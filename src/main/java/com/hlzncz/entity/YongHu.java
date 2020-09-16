@@ -70,6 +70,7 @@ public class YongHu implements Serializable {
 		this.role = role;
 	}
 	
+	//https://blog.csdn.net/qq_43416276/article/details/102981480
 	public YongHu() {
 		super();
 	}

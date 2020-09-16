@@ -14,4 +14,8 @@ public interface PublicService {
 	public int queryWuZiLeiXingForInt(String mc);
 
 	public List<WuZiLeiXing> queryWuZiLeiXingList(String mc, int page, int rows, String sort, String order);
+
+	public WuZiLeiXing selectWuZiLeiXingById(String id);
+
+	public int editWuZiLeiXing(WuZiLeiXing wzlx);
 }

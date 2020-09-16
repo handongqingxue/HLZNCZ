@@ -23,5 +23,11 @@
 		</if>
 		 limit ${param2},${param3}
 	</select>
+	<select id="selectWuZiLeiXingById" resultType="com.hlzncz.entity.WuZiLeiXing">
+		select * from wu_zi_lei_xing where id=#{0}
+	</select>
+	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
+		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
+	</update>
 	
 </mapper>

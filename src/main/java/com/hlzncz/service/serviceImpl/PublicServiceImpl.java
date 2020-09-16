@@ -38,4 +38,16 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.queryWuZiLeiXingList(mc, (page-1)*rows, rows, sort, order);
 	}
 
+	@Override
+	public WuZiLeiXing selectWuZiLeiXingById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectWuZiLeiXingById(id);
+	}
+
+	@Override
+	public int editWuZiLeiXing(WuZiLeiXing wzlx) {
+		// TODO Auto-generated method stub
+		return publicDao.editWuZiLeiXing(wzlx);
+	}
+
 }

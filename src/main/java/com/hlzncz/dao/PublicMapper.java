@@ -16,4 +16,8 @@ public interface PublicMapper {
 	public int queryWuZiLeiXingForInt(@Param("mc") String mc);
 
 	public List<WuZiLeiXing> queryWuZiLeiXingList(@Param("mc") String mc, int i, int rows, String sort, String order);
+
+	public WuZiLeiXing selectWuZiLeiXingById(String id);
+
+	public int editWuZiLeiXing(WuZiLeiXing wzlx);
 }

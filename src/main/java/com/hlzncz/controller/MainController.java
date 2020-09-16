@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
+
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.entity.YongHu;
@@ -46,12 +47,34 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping(value="/jcxx/wzgl/wzlx")
-	public String goWzlx(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/wzgl/wzlx/list")
+	public String goWzlxList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
 		return "jcxx/wzgl/wzlx/list";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzlx/detail")
+	public String goWzlxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		WuZiLeiXing wzlx=publicService.selectWuZiLeiXingById(id);
+		request.setAttribute("wzlx", wzlx);
+		
+		return "jcxx/wzgl/wzlx/detail";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzlx/edit")
+	public String goWzlxEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		WuZiLeiXing wzlx=publicService.selectWuZiLeiXingById(id);
+		request.setAttribute("wzlx", wzlx);
+		
+		return "jcxx/wzgl/wzlx/edit";
 	}
 	
 	/**
@@ -75,6 +98,24 @@ public class MainController {
 		jsonMap.put("total", count);
 		jsonMap.put("rows", wzlxList);
 		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/editWuZiLeiXing")
+	@ResponseBody
+	public Map<String, Object> editWuZiLeiXing(WuZiLeiXing wzlx) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editWuZiLeiXing(wzlx);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑物资类型成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑物资类型失败！");
+		}
 		return jsonMap;
 	}
 	
@@ -115,13 +156,13 @@ public class MainController {
 		List<CaiDan> leftNavList = publicService.selectParCaiDan();
 		request.setAttribute("leftNavList", leftNavList);
 
-		String id = request.getParameter("id");
+		String fnid = request.getParameter("fnid");
 		Integer parId = null;
-		if(StringUtils.isEmpty(id)) {
+		if(StringUtils.isEmpty(fnid)) {
 			parId = leftNavList.get(0).getId();
 		}
 		else {
-			parId=Integer.parseInt(id);
+			parId=Integer.parseInt(fnid);
 		}
 		List<CaiDan> topNavList = publicService.selectChildCaiDan(parId);
 		for (CaiDan caiDan : topNavList) {
