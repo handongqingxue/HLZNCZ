@@ -29,4 +29,6 @@ public interface PublicService {
 	public List<WuZi> queryWuZiList(String mc, String wzlxmc, int page, int rows, String sort, String order);
 
 	public WuZi selectWuZiById(String id);
+
+	public int editWuZi(WuZi wz);
 }

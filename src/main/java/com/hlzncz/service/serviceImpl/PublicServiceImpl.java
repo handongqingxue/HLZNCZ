@@ -85,4 +85,10 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.selectWuZiById(id);
 	}
 
+	@Override
+	public int editWuZi(WuZi wz) {
+		// TODO Auto-generated method stub
+		return publicDao.editWuZi(wz);
+	}
+
 }

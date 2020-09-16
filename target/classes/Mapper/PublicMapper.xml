@@ -57,6 +57,9 @@
 	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
 	</update>
+	<update id="editWuZi" parameterType="com.hlzncz.entity.WuZi">
+		update wu_zi set mc=#{mc},bjsj=now(),wzlxId=#{wzlxId} where id=#{id}
+	</update>
 	<delete id="deleteWuZiLeiXing">
 		delete from wu_zi_lei_xing where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">

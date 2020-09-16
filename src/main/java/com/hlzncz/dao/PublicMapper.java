@@ -31,4 +31,6 @@ public interface PublicMapper {
 	public List<WuZi> queryWuZiList(@Param("mc") String mc, @Param("wzlxmc") String wzlxmc, int i, int rows, String sort, String order);
 
 	public WuZi selectWuZiById(String id);
+
+	public int editWuZi(WuZi wz);
 }

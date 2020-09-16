@@ -64,7 +64,7 @@ function initSelectWzlxDialog(){
         	   openWZLXDialog(0);
            }},
            {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
-        	   	
+        	   	saveWZLX();
            }}
         ]
 	});
@@ -94,6 +94,7 @@ function initSelectWzlxDialog(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
 	initWZLXTab();
+	openWZLXDialog(0);
 }
 
 function initWZLXTab(){
@@ -109,6 +110,7 @@ function initWZLXTab(){
 		url:path+"main/queryWuZiLeiXingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("#select_wzlx_div"),
+		singleSelect:true,
 		pagination:true,
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
@@ -163,20 +165,32 @@ function openWZLXDialog(flag){
 	}
 }
 
+function saveWZLX(){
+	var row=wzlxTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	$("#edit_div #wzlx_hid").val(row.id);
+	$("#edit_div #wzlxmc_span").text(row.mc);
+	openWZLXDialog(0);
+}
+
 function checkEdit(){
 	if(checkMC()){
-		editWuZiLeiXing();
+		if(checkWZLXId()){
+			editWuZi();
+		}
 	}
 }
 
-function editWuZiLeiXing(){
-	var id=$("#id").val();
-	var mc=$("#mc").val();
-	var bz=$("#bz").val();
-	var px=$("#px").val();
+function editWuZi(){
+	var id=$("#edit_div #id").val();
+	var mc=$("#edit_div #mc").val();
+	var wzlxId=$("#edit_div #wzlx_hid").val();
 	
 	$.post(path+"main/editWuZiLeiXing",
-		{id:id,mc:mc,bz:bz,px:px},
+		{id:id,mc:mc,wzlxId:wzlxId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -204,6 +218,17 @@ function checkMC(){
 		$("#mc").css("color","#E15748");
     	$("#mc").val("名称不能为空");
     	return false;
+	}
+	else
+		return true;
+}
+
+//验证物资类型
+function checkWZLXId(){
+	var wzlxId = $("#wzlx_hid").val();
+	if(wzlxId==null||wzlxId==""){
+	  	alert("请选择物资类型");
+	  	return false;
 	}
 	else
 		return true;
@@ -246,7 +271,8 @@ function initWindowMarginLeft(){
 				物资类型
 			</td>
 			<td style="width:30%;">
-				<span style="cursor: pointer;" onclick="openWZLXDialog(1)">${requestScope.wz.wzlxmc }</span>
+				<input type="hidden" id="wzlx_hid"/>
+				<span id="wzlxmc_span" style="cursor: pointer;" onclick="openWZLXDialog(1)">${requestScope.wz.wzlxmc }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">

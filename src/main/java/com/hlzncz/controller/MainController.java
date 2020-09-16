@@ -210,6 +210,24 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/editWuZi")
+	@ResponseBody
+	public Map<String, Object> editWuZi(WuZi wz) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editWuZi(wz);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑物资成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑物资失败！");
+		}
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
