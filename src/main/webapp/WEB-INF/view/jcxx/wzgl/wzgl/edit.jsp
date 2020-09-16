@@ -8,6 +8,11 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	initEditDialog();
+	initSelectWzlxDialog();
+});
+
+function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
@@ -29,22 +34,134 @@ $(function(){
 	$("#edit_div table tr").eq(0).css("height","90px");
 	$("#edit_div table tr").eq(1).css("height","45px");
 
-	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window").eq(0).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(0).css("color","#000");
+	$(".panel.window .panel-title").eq(0).css("font-size","15px");
+	$(".panel.window .panel-title").eq(0).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(0).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window-shadow").eq(0).css("margin-top","20px");
+	$(".window,.window .window-body").eq(0).css("border-color","#ddd");
 
-	$("#ok_but").css("left","45%");
-	$("#ok_but").css("position","absolute");
+	$("#edit_div #ok_but").css("left","45%");
+	$("#edit_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-});
+}
+
+function initSelectWzlxDialog(){
+	wzlxDialog=$("#select_wzlx_div").dialog({
+		title:"选择实体",
+		width:setFitWidthInParent("body"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:300,
+		left:400,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openWZLXDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(1).css("width","983px");
+	$(".panel.window").eq(1).css("margin-top","20px");
+	$(".panel.window").eq(1).css("margin-left",initWindowMarginLeft());
+	$(".panel.window .panel-title").eq(1).css("color","#000");
+	$(".panel.window .panel-title").eq(1).css("font-size","15px");
+	$(".panel.window .panel-title").eq(1).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(1).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(1).css("width","1000px");
+	$(".window-shadow").eq(1).css("margin-top","20px");
+	$(".window-shadow").eq(1).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(1).css("border-color","#ddd");
+
+	$("#select_wzlx_div #cancel_but").css("left","30%");
+	$("#select_wzlx_div #cancel_but").css("position","absolute");
+	
+	$("#select_wzlx_div #save_but").css("left","45%");
+	$("#select_wzlx_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initWZLXTab();
+}
+
+function initWZLXTab(){
+	$("#search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var mc=$("#mc_inp").val();
+			wzlxTab.datagrid("load",{mc:mc});
+		}
+	});
+	
+	wzlxTab=$("#wzlx_tab").datagrid({
+		url:path+"main/queryWuZiLeiXingList",
+		toolbar:"#toolbar",
+		width:setFitWidthInParent("#select_wzlx_div"),
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"mc",title:"名称",width:200},
+            {field:"bz",title:"备注",width:200},
+			{field:"px",title:"排序",width:200}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			reSizeCol();
+		}
+	});
+}
+
+//重设列宽
+function reSizeCol(){
+	var width=$(".panel.datagrid").css("width");
+	width=width.substring(0,width.length-2);
+	var cols=$(".datagrid-htable tr td");
+	var colCount=cols.length;
+	width=width-colCount*2;
+	cols.css("width",width/colCount+"px");
+	cols=$(".datagrid-btable tr").eq(0).find("td");
+	colCount=cols.length;
+	cols.css("width",width/colCount+"px");
+}
+
+function openWZLXDialog(flag){
+	if(flag==1){
+		wzlxDialog.dialog("open");
+	}
+	else{
+		wzlxDialog.dialog("close");
+	}
+}
 
 function checkEdit(){
 	if(checkMC()){
@@ -96,6 +213,19 @@ function setFitWidthInParent(o){
 	var width=$(o).css("width");
 	return width.substring(0,width.length-2)-340;
 }
+
+function setFitHeightInParent(o){
+	var height=$(o).css("height");
+	return height.substring(0,height.length-2)-98;
+}
+
+function initWindowMarginLeft(){
+	var editDivWidth=$("#select_wzlx_div").css("width");
+	editDivWidth=editDivWidth.substring(0,editDivWidth.length-2);
+	var pwWidth=$(".panel.window").css("width");
+	pwWidth=pwWidth.substring(0,pwWidth.length-2);
+	return ((editDivWidth-pwWidth)/2)+"px";
+}
 </script>
 <title>修改</title>
 </head>
@@ -116,7 +246,7 @@ function setFitWidthInParent(o){
 				物资类型
 			</td>
 			<td style="width:30%;">
-				<span style="cursor: pointer;" onclick="alert(1)">${requestScope.wz.wzlxmc }</span>
+				<span style="cursor: pointer;" onclick="openWZLXDialog(1)">${requestScope.wz.wzlxmc }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -132,6 +262,15 @@ function setFitWidthInParent(o){
 			</td>
 		  </tr>
 		</table>
+	</div>
+	
+	<div id="select_wzlx_div">
+		<div id="toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">名称：</span>
+			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
+		</div>
+		<table id="wzlx_tab"></table>
 	</div>
 </div>
 </body>
