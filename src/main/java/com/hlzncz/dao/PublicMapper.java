@@ -19,5 +19,9 @@ public interface PublicMapper {
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
+	public int newWuZiLeiXing(WuZiLeiXing wzlx);
+
 	public int editWuZiLeiXing(WuZiLeiXing wzlx);
+
+	public int deleteWuZiLeiXing(List<String> idList);
 }

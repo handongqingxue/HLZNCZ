@@ -1,5 +1,6 @@
 package com.hlzncz.service.serviceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,24 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newWuZiLeiXing(WuZiLeiXing wzlx) {
+		// TODO Auto-generated method stub
+		return publicDao.newWuZiLeiXing(wzlx);
+	}
+
+	@Override
 	public int editWuZiLeiXing(WuZiLeiXing wzlx) {
 		// TODO Auto-generated method stub
 		return publicDao.editWuZiLeiXing(wzlx);
+	}
+
+	@Override
+	public int deleteWuZiLeiXing(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count=publicDao.deleteWuZiLeiXing(idList);
+		return count;
 	}
 
 }

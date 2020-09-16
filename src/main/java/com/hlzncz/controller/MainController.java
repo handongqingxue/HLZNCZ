@@ -55,6 +55,14 @@ public class MainController {
 		return "jcxx/wzgl/wzlx/list";
 	}
 
+	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
+	public String goWzlxNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/wzgl/wzlx/new";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/detail")
 	public String goWzlxDetail(HttpServletRequest request) {
 		
@@ -101,6 +109,24 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	@RequestMapping(value="/newWuZiLeiXing")
+	@ResponseBody
+	public Map<String, Object> newWuZiLeiXing(WuZiLeiXing wzlx) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newWuZiLeiXing(wzlx);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建物资类型成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建物资类型失败！");
+		}
+		return jsonMap;
+	}
+	
 	@RequestMapping(value="/editWuZiLeiXing")
 	@ResponseBody
 	public Map<String, Object> editWuZiLeiXing(WuZiLeiXing wzlx) {
@@ -117,6 +143,26 @@ public class MainController {
 			jsonMap.put("info", "编辑物资类型失败！");
 		}
 		return jsonMap;
+	}
+	
+	@RequestMapping(value="/deleteWuZiLeiXing",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteWuZiLeiXing(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteWuZiLeiXing(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除物资类型失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除物资类型成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")

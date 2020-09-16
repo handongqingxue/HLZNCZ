@@ -16,7 +16,7 @@ $(function(){
 		left:308,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkEdit();
+        	   	checkNew();
            }}
         ]
 	});
@@ -46,20 +46,19 @@ $(function(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 });
 
-function checkEdit(){
+function checkNew(){
 	if(checkMC()){
-		editWuZiLeiXing();
+		newWuZiLeiXing();
 	}
 }
 
-function editWuZiLeiXing(){
-	var id=$("#id").val();
+function newWuZiLeiXing(){
 	var mc=$("#mc").val();
 	var bz=$("#bz").val();
 	var px=$("#px").val();
 	
-	$.post(path+"main/editWuZiLeiXing",
-		{id:id,mc:mc,bz:bz,px:px},
+	$.post(path+"main/newWuZiLeiXing",
+		{mc:mc,bz:bz,px:px},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -97,26 +96,25 @@ function setFitWidthInParent(o){
 	return width.substring(0,width.length-2)-340;
 }
 </script>
-<title>修改</title>
+<title>创建</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="edit_div">
-		<input type="hidden" id="id" name="id" value="${requestScope.wzlx.id }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				名称
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="mc" value="${requestScope.wzlx.mc }" placeholder="请输入名称" style="width: 150px;height:30px;" onfocus="focusMC()" onblur="checkMC()"/>
+				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;" onfocus="focusMC()" onblur="checkMC()"/>
 			</td>
 			<td align="right" style="width:15%;">
 				备注
 			</td>
 			<td style="width:30%;">
-				<textarea id="bz" rows="3" cols="30" placeholder="请输入备注">${requestScope.wzlx.bz }</textarea>
+				<textarea id="bz" rows="3" cols="30" placeholder="请输入备注"></textarea>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -124,13 +122,11 @@ function setFitWidthInParent(o){
 				排序
 			</td>
 			<td>
-				<input type="number" id="px" value="${requestScope.wzlx.px }" style="width: 150px;height:30px;"/>
+				<input type="number" id="px" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
-				编辑时间
 			</td>
 			<td>
-				${requestScope.wzlx.bjsj }
 			</td>
 		  </tr>
 		</table>

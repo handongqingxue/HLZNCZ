@@ -19,8 +19,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			if(checkIfPaid())
-				location.href=path+"merchant/main/goAddModule?trade=spzs&moduleType="+moduleType;
+			location.href=path+"main/jcxx/wzgl/wzlx/new?fnid="+'${param.fnid}';
 		}
 	});
 	
@@ -35,7 +34,7 @@ $(function(){
 	$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
 		onClick:function(){
-			deleteHtmlGoodsSPZS();
+			deleteByIds();
 		}
 	});
 
@@ -92,6 +91,39 @@ function reSizeCol(){
 	cols=$(".datagrid-btable tr").eq(0).find("td");
 	colCount=cols.length;
 	cols.css("width",width/colCount+"px");
+}
+
+function deleteByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	
+	$.messager.confirm("提示","确定要删除吗？",function(r){
+		if(r){
+			var ids = "";
+			for (var i = 0; i < rows.length; i++) {
+				ids += "," + rows[i].id;
+			}
+			ids=ids.substring(1);
+			
+			$.ajaxSetup({async:false});
+			$.post(path + "main/deleteWuZiLeiXing",
+				{ids:ids},
+				function(result){
+					if(result.status==1){
+						alert(result.msg);
+						location.href = location.href;
+					}
+					else{
+						alert(result.msg);
+					}
+				}
+			,"json");
+			
+		}
+	});
 }
 
 function setFitWidthInParent(o){
