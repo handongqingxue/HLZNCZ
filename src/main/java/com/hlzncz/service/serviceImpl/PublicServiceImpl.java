@@ -86,6 +86,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newWuZi(WuZi wz) {
+		// TODO Auto-generated method stub
+		return publicDao.newWuZi(wz);
+	}
+
+	@Override
 	public int editWuZi(WuZi wz) {
 		// TODO Auto-generated method stub
 		return publicDao.editWuZi(wz);

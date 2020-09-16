@@ -32,5 +32,7 @@ public interface PublicMapper {
 
 	public WuZi selectWuZiById(String id);
 
+	public int newWuZi(WuZi wz);
+
 	public int editWuZi(WuZi wz);
 }

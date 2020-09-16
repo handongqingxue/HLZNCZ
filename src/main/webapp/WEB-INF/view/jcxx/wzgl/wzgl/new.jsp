@@ -21,7 +21,7 @@ function initEditDialog(){
 		left:308,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkEdit();
+        	   	checkNew();
            }}
         ]
 	});
@@ -176,21 +176,20 @@ function saveWZLX(){
 	openWZLXDialog(0);
 }
 
-function checkEdit(){
+function checkNew(){
 	if(checkMC()){
 		if(checkWZLXId()){
-			editWuZi();
+			newWuZi();
 		}
 	}
 }
 
-function editWuZi(){
-	var id=$("#edit_div #id").val();
+function newWuZi(){
 	var mc=$("#edit_div #mc").val();
 	var wzlxId=$("#edit_div #wzlx_hid").val();
 	
-	$.post(path+"main/editWuZi",
-		{id:id,mc:mc,wzlxId:wzlxId},
+	$.post(path+"main/newWuZi",
+		{mc:mc,wzlxId:wzlxId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -252,27 +251,26 @@ function initWindowMarginLeft(){
 	return ((editDivWidth-pwWidth)/2)+"px";
 }
 </script>
-<title>修改</title>
+<title>创建</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="edit_div">
-		<input type="hidden" id="id" name="id" value="${requestScope.wz.id }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				名称
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="mc" value="${requestScope.wz.mc }" placeholder="请输入名称" style="width: 150px;height:30px;" onfocus="focusMC()" onblur="checkMC()"/>
+				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;" onfocus="focusMC()" onblur="checkMC()"/>
 			</td>
 			<td align="right" style="width:15%;">
 				物资类型
 			</td>
 			<td style="width:30%;">
 				<input type="hidden" id="wzlx_hid"/>
-				<span id="wzlxmc_span" style="cursor: pointer;" onclick="openWZLXDialog(1)">${requestScope.wz.wzlxmc }</span>
+				<span id="wzlxmc_span" style="cursor: pointer;" onclick="openWZLXDialog(1)">请选择物资类型</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -280,7 +278,6 @@ function initWindowMarginLeft(){
 				编辑时间
 			</td>
 			<td>
-				${requestScope.wz.bjsj }
 			</td>
 			<td align="right">
 			</td>

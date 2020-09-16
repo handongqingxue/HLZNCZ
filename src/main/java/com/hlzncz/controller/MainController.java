@@ -94,6 +94,14 @@ public class MainController {
 		return "jcxx/wzgl/wzgl/list";
 	}
 
+	@RequestMapping(value="/jcxx/wzgl/wzgl/new")
+	public String goWzglNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/wzgl/wzgl/new";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzgl/detail")
 	public String goWzglDetail(HttpServletRequest request) {
 		
@@ -208,6 +216,24 @@ public class MainController {
 		jsonMap.put("total", count);
 		jsonMap.put("rows", wzList);
 		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newWuZi")
+	@ResponseBody
+	public Map<String, Object> newWuZi(WuZi wz) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newWuZi(wz);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建物资成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建物资失败！");
+		}
 		return jsonMap;
 	}
 

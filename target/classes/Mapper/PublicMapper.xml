@@ -54,6 +54,28 @@
 			</if>
 		</trim>
 	</insert>
+	<insert id="newWuZi" parameterType="com.hlzncz.entity.WuZi">
+		insert into wu_zi
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+				bjsj,
+			<if test="wzlxId!=null">
+				wzlxId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+				now(),
+			<if test="wzlxId!=null">
+				#{wzlxId},
+			</if>
+		</trim>
+	</insert>
 	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
 	</update>

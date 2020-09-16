@@ -30,5 +30,7 @@ public interface PublicService {
 
 	public WuZi selectWuZiById(String id);
 
+	public int newWuZi(WuZi wz);
+
 	public int editWuZi(WuZi wz);
 }
