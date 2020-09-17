@@ -356,18 +356,60 @@ public class MainController {
 	
 	@RequestMapping(value="/newCheLiang")
 	@ResponseBody
-	public Map<String, Object> newCheLiang(CheLiang cl) {
+	public Map<String, Object> newCheLiang(CheLiang cl,
+			@RequestParam(value="zp_file",required=false) MultipartFile zp_file,
+			@RequestParam(value="xsz_file",required=false) MultipartFile xsz_file,
+			@RequestParam(value="scqd_file",required=false) MultipartFile scqd_file,
+			@RequestParam(value="pfjdcxjt_file",required=false) MultipartFile pfjdcxjt_file,
+			HttpServletRequest request) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newCheLiang(cl);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建车辆信息成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建车辆信息失败！");
+		try {
+			MultipartFile[] fileArr=new MultipartFile[4];
+			fileArr[0]=zp_file;
+			fileArr[1]=xsz_file;
+			fileArr[2]=scqd_file;
+			fileArr[3]=pfjdcxjt_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								cl.setZp(dataJO.get("src").toString());
+								break;
+							case 1:
+								cl.setXsz(dataJO.get("src").toString());
+								break;
+							case 2:
+								cl.setScqd(dataJO.get("src").toString());
+								break;
+							case 3:
+								cl.setPfjdcxjt(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.newCheLiang(cl);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建车辆信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建车辆信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return jsonMap;
 	}

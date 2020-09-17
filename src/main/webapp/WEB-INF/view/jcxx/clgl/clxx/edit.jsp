@@ -149,35 +149,7 @@ function checkEdit(){
 }
 
 function editCheLiang(){
-	/*
-	var id=$("#edit_div #id").val();
-	var cph=$("#edit_div #cph").val();
-	var czxx=$("#edit_div #czxx").val();
-	var pz=$("#edit_div #pz").val();
-	var cllx=cllxCBB.combobox("getValue");
-	var fdjhm=$("#edit_div #fdjhm").val();
-	var clsbdh=$("#edit_div #clsbdh").val();
-	var pfjd=pfjdCBB.combobox("getValue");
-	var zcrq=zcrqDB.datebox("getValue");
-	var sfzy=sfzyCBB.combobox("getValue");
-	var clyslx=clyslxCBB.combobox("getValue");
-	
-	$.post(path+"main/editCheLiang",
-		{id:id,cph:cph,czxx:czxx,pz:pz,cllx:cllx,fdjhm:fdjhm,clsbdh:clsbdh,pfjd:pfjd,zcrq:zcrq,sfzy:sfzy,clyslx:clyslx},
-		function(data){
-			if(data.message=="ok"){
-				alert(data.info);
-				history.go(-1);
-			}
-			else{
-				alert(data.info);
-			}
-		}
-	,"json");
-	*/
-	
 	var formData = new FormData($("#form1")[0]);
-	 
 	$.ajax({
 		type:"post",
 		url:path+"main/editCheLiang",

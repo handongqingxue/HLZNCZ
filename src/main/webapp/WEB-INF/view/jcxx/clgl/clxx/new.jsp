@@ -55,15 +55,18 @@ function initEditDialog(){
 }
 
 function initCLLXCBB(){
-	cllxCBB=$("#cllx").combobox({
+	cllxCBB=$("#cllx_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}],
+		onSelect:function(){
+			$("#cllx").val($(this).combobox("getValue"));
+		}
 	});
 }
 
 function initPFJDCBB(){
-	pfjdCBB=$("#pfjd").combobox({
+	pfjdCBB=$("#pfjd_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[
@@ -73,29 +76,41 @@ function initPFJDCBB(){
 			{"value":"3","text":"国六燃油"},
 			{"value":"4","text":"国六燃气"},
 			{"value":"5","text":"电动"}
-		]
+		],
+		onSelect:function(){
+			$("#pfjd").val($(this).combobox("getValue"));
+		}
 	});
 }
 
 function initZCRQDB(){
-    zcrqDB=$('#zcrq').datebox({
-        required:false
+    zcrqDB=$('#zcrq_db').datebox({
+        required:false,
+        onSelect:function(){
+        	$("#zcrq").val(zcrqDB.datebox("getValue"));
+        }
     });
 }
 
 function initSFZYCBB(){
-	sfzyCBB=$("#sfzy").combobox({
+	sfzyCBB=$("#sfzy_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}],
+		onSelect:function(){
+			$("#sfzy").val($(this).combobox("getValue"));
+		}
 	});
 }
 
 function initCLYSLXCBB(){
-	clyslxCBB=$("#clyslx").combobox({
+	clyslxCBB=$("#clyslx_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}]
+		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}],
+		onSelect:function(){
+			$("#clyslx").val($(this).combobox("getValue"));
+		}
 	});
 }
 
@@ -121,20 +136,16 @@ function checkNew(){
 }
 
 function newCheLiang(){
-	var cph=$("#new_div #cph").val();
-	var czxx=$("#new_div #czxx").val();
-	var pz=$("#new_div #pz").val();
-	var cllx=cllxCBB.combobox("getValue");
-	var fdjhm=$("#new_div #fdjhm").val();
-	var clsbdh=$("#new_div #clsbdh").val();
-	var pfjd=pfjdCBB.combobox("getValue");
-	var zcrq=zcrqDB.datebox("getValue");
-	var sfzy=sfzyCBB.combobox("getValue");
-	var clyslx=clyslxCBB.combobox("getValue");
-	
-	$.post(path+"main/newCheLiang",
-		{cph:cph,czxx:czxx,pz:pz,cllx:cllx,fdjhm:fdjhm,clsbdh:clsbdh,pfjd:pfjd,zcrq:zcrq,sfzy:sfzy,clyslx:clyslx},
-		function(data){
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:path+"main/newCheLiang",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
 			if(data.message=="ok"){
 				alert(data.info);
 				history.go(-1);
@@ -143,7 +154,7 @@ function newCheLiang(){
 				alert(data.info);
 			}
 		}
-	,"json");
+	});
 }
 
 function focusCPH(){
@@ -188,19 +199,20 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="new_div">
+	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				车牌号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="cph" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
+				<input type="text" id="cph" name="cph" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
 			</td>
 			<td align="right" style="width:15%;">
 				车主信息
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="czxx" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
+				<input type="text" id="czxx" name="czxx" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -208,13 +220,14 @@ function setFitWidthInParent(o){
 				皮重
 			</td>
 			<td>
-				<input type="number" id="pz" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
+				<input type="number" id="pz" name="pz" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
 				车辆类型
 			</td>
 			<td>
-				<input id="cllx"/>
+				<input id="cllx_cbb"/>
+				<input type="hidden" id="cllx" name="cllx"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -222,6 +235,7 @@ function setFitWidthInParent(o){
 				照片
 			</td>
 			<td style="width:30%;">
+				<input type="file" name="zp_file"/>
 			</td>
 			<td align="right" style="width:15%;">
 				发动机号码
@@ -235,13 +249,14 @@ function setFitWidthInParent(o){
 				车辆识别代号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="clsbdh" placeholder="请输入车辆识别代号" style="width: 150px;height:30px;"/>
+				<input type="text" id="clsbdh" name="clsbdh" placeholder="请输入车辆识别代号" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right" style="width:15%;">
 				排放阶段
 			</td>
 			<td style="width:30%;">
-				<input id="pfjd"/>
+				<input id="pfjd_cbb"/>
+				<input type="hidden" id="pfjd" name="pfjd"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -249,13 +264,15 @@ function setFitWidthInParent(o){
 				注册日期
 			</td>
 			<td style="width:30%;">
-				<input id="zcrq"/>
+				<input id="zcrq_db"/>
+				<input type="hidden" id="zcrq" name="zcrq"/>
 			</td>
 			<td align="right" style="width:15%;">
 				是否在用
 			</td>
 			<td style="width:30%;">
-				<input id="sfzy"/>
+				<input id="sfzy_cbb"/>
+				<input type="hidden" id="sfzy" name="sfzy"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -263,12 +280,14 @@ function setFitWidthInParent(o){
 				车辆运输类型
 			</td>
 			<td style="width:30%;">
-				<input id="clyslx"/>
+				<input id="clyslx_cbb"/>
+				<input type="hidden" id="clyslx" name="clyslx"/>
 			</td>
 			<td align="right" style="width:15%;">
 				行驶证
 			</td>
 			<td style="width:30%;">
+				<input type="file" name="xsz_file"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -276,14 +295,17 @@ function setFitWidthInParent(o){
 				随车清单
 			</td>
 			<td style="width:30%;">
+				<input type="file" name="scqd_file"/>
 			</td>
 			<td align="right" style="width:15%;">
 				排放阶段查询截图
 			</td>
 			<td style="width:30%;">
+				<input type="file" name="pfjdcxjt_file"/>
 			</td>
 		  </tr>
 		</table>
+	</form>
 	</div>
 </div>
 </body>
