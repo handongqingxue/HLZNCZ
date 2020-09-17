@@ -140,6 +140,28 @@ public class MainController {
 		
 		return "jcxx/clgl/clxx/new";
 	}
+
+	@RequestMapping(value="/jcxx/clgl/clxx/detail")
+	public String goClxxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/clxx/detail";
+	}
+	
+	@RequestMapping(value="/jcxx/clgl/clxx/edit")
+	public String goClxxEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/clxx/edit";
+	}
 	
 	/**
 	 * 查询物资类型
@@ -291,6 +313,26 @@ public class MainController {
 		}
 		return json;
 	}
+
+	@RequestMapping(value="/deleteCheLiang",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteCheLiang(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteCheLiang(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除车辆信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除车辆信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
 	
 	@RequestMapping(value="/queryCheLiangList")
 	@ResponseBody
@@ -304,6 +346,42 @@ public class MainController {
 		jsonMap.put("total", count);
 		jsonMap.put("rows", clList);
 		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/newCheLiang")
+	@ResponseBody
+	public Map<String, Object> newCheLiang(CheLiang cl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newCheLiang(cl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建车辆信息成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建车辆信息失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editCheLiang")
+	@ResponseBody
+	public Map<String, Object> editCheLiang(CheLiang cl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editCheLiang(cl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑车辆信息成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑车辆信息失败！");
+		}
 		return jsonMap;
 	}
 	

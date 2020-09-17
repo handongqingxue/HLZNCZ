@@ -87,6 +87,12 @@ public class CheLiang implements Serializable {
 	public void setSfzy(Boolean sfzy) {
 		this.sfzy = sfzy;
 	}
+	public Integer getClyslx() {
+		return clyslx;
+	}
+	public void setClyslx(Integer clyslx) {
+		this.clyslx = clyslx;
+	}
 	public String getXsz() {
 		return xsz;
 	}
@@ -123,6 +129,7 @@ public class CheLiang implements Serializable {
 	private Integer pfjd;//排放阶段：1.国五燃油 2.国五燃气 3.国六燃油 4.国六燃气 5.电动
 	private String fzrq;//发证日期
 	private Boolean sfzy;//是否在用
+	private Integer clyslx;//车辆运输类型：1.普货运输 2.厂内运输 3.危化品运输
 	private String xsz;//行驶证
 	private String scqd;//随车清单
 	private String pfjdcxjt;//排放阶段查询截图

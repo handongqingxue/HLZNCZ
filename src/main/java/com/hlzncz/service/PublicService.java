@@ -40,4 +40,12 @@ public interface PublicService {
 	public int queryCheLiangForInt(String cph, Integer cllx);
 
 	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, int page, int rows, String sort, String order);
+
+	public CheLiang selectCheLiangById(String id);
+
+	public int newCheLiang(CheLiang cl);
+
+	public int editCheLiang(CheLiang cl);
+
+	public int deleteCheLiang(String ids);
 }

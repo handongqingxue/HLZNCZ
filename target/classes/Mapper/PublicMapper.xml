@@ -54,42 +54,30 @@
 			</if>
 		</trim>
 	</insert>
-	<insert id="newWuZi" parameterType="com.hlzncz.entity.WuZi">
-		insert into wu_zi
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				mc,
-			</if>
-				bjsj,
-			<if test="wzlxId!=null">
-				wzlxId,
-			</if>
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				#{mc},
-			</if>
-				now(),
-			<if test="wzlxId!=null">
-				#{wzlxId},
-			</if>
-		</trim>
-	</insert>
 	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
 	</update>
 	<update id="editWuZi" parameterType="com.hlzncz.entity.WuZi">
 		update wu_zi set mc=#{mc},bjsj=now(),wzlxId=#{wzlxId} where id=#{id}
 	</update>
-	<delete id="deleteWuZiLeiXing">
-		delete from wu_zi_lei_xing where 1=1
+	<delete id="deleteWuZi">
+		delete from wu_zi where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
 		#{id}
 		</foreach>
 	</delete>
-	<delete id="deleteWuZi">
-		delete from wu_zi where 1=1
+	<update id="editCheLiang" parameterType="com.hlzncz.entity.CheLiang">
+		update che_liang set cph=#{cph},czxx=#{czxx},pz=#{pz},cllx=#{cllx},ppxh=#{ppxh},zp=#{zp},fdjhm=#{fdjhm},clsbdh=#{clsbdh},zcrq=#{zcrq},
+		pfjd=#{pfjd},fzrq=#{fzrq},sfzy=#{sfzy},clyslx=#{clyslx},xsz=#{xsz},scqd=#{scqd},pfjdcxjt=#{pfjdcxjt},bz=#{bz} where id=#{id}
+	</update>
+	<delete id="deleteCheLiang">
+		delete from che_liang where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<delete id="deleteWuZiLeiXing">
+		delete from wu_zi_lei_xing where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
 		#{id}
 		</foreach>
@@ -116,6 +104,137 @@
 	<select id="selectWuZiById" resultType="com.hlzncz.entity.WuZi">
 		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi wz,wu_zi_lei_xing wzlx where wz.wzlxId=wzlx.id and wz.id=#{0}
 	</select>
+	<insert id="newWuZi" parameterType="com.hlzncz.entity.WuZi">
+		insert into wu_zi
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+				bjsj,
+			<if test="wzlxId!=null">
+				wzlxId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+				now(),
+			<if test="wzlxId!=null">
+				#{wzlxId},
+			</if>
+		</trim>
+	</insert>
+	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">
+		select * from che_liang where id=#{0}
+	</select>
+	<insert id="newCheLiang" parameterType="com.hlzncz.entity.CheLiang">
+		insert into che_liang
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cph!=null">
+				cph,
+			</if>
+			<if test="czxx!=null">
+				czxx,
+			</if>
+			<if test="pz!=null">
+				pz,
+			</if>
+			<if test="cllx!=null">
+				cllx,
+			</if>
+			<if test="ppxh!=null">
+				ppxh,
+			</if>
+			<if test="zp!=null">
+				zp,
+			</if>
+			<if test="fdjhm!=null">
+				fdjhm,
+			</if>
+			<if test="clsbdh!=null">
+				clsbdh,
+			</if>
+				zcrq,
+			<if test="pfjd!=null">
+				pfjd,
+			</if>
+			<if test="fzrq!=null">
+				fzrq,
+			</if>
+			<if test="sfzy!=null">
+				sfzy,
+			</if>
+			<if test="clyslx!=null">
+				clyslx,
+			</if>
+			<if test="xsz!=null">
+				xsz,
+			</if>
+			<if test="scqd!=null">
+				scqd,
+			</if>
+			<if test="pfjdcxjt!=null">
+				pfjdcxjt,
+			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cph!=null">
+				#{cph},
+			</if>
+			<if test="czxx!=null">
+				#{czxx},
+			</if>
+			<if test="pz!=null">
+				#{pz},
+			</if>
+			<if test="cllx!=null">
+				#{cllx},
+			</if>
+			<if test="ppxh!=null">
+				#{ppxh},
+			</if>
+			<if test="zp!=null">
+				#{zp},
+			</if>
+			<if test="fdjhm!=null">
+				#{fdjhm},
+			</if>
+			<if test="clsbdh!=null">
+				#{clsbdh},
+			</if>
+				now(),
+			<if test="pfjd!=null">
+				#{pfjd},
+			</if>
+			<if test="fzrq!=null">
+				#{fzrq},
+			</if>
+			<if test="sfzy!=null">
+				#{sfzy},
+			</if>
+			<if test="clyslx!=null">
+				#{clyslx},
+			</if>
+			<if test="xsz!=null">
+				#{xsz},
+			</if>
+			<if test="scqd!=null">
+				#{scqd},
+			</if>
+			<if test="pfjdcxjt!=null">
+				#{pfjdcxjt},
+			</if>
+			<if test="bz!=null">
+				#{bz},
+			</if>
+		</trim>
+	</insert>
 	<select id="queryCheLiangForInt" resultType="java.lang.Integer">
 		select count(*) from che_liang where 1=1
 		<if test="cph!=''&amp;cph!=null">

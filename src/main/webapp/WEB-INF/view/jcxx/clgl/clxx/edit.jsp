@@ -17,7 +17,7 @@ $(function(){
 });
 
 function initEditDialog(){
-	$("#new_div").dialog({
+	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:431,
@@ -25,17 +25,17 @@ function initEditDialog(){
 		left:308,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkNew();
+        	   	checkEdit();
            }}
         ]
 	});
 
-	$("#new_div table").css("width",(setFitWidthInParent("body")-15)+"px");
-	$("#new_div table").css("magin","-100px");
-	$("#new_div table td").css("padding-left","50px");
-	$("#new_div table td").css("padding-right","20px");
-	$("#new_div table td").css("font-size","15px");
-	$("#new_div table tr").css("height","45px");
+	$("#edit_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#edit_div table").css("magin","-100px");
+	$("#edit_div table td").css("padding-left","50px");
+	$("#edit_div table td").css("padding-right","20px");
+	$("#edit_div table td").css("font-size","15px");
+	$("#edit_div table tr").css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
 	$(".panel.window .panel-title").css("color","#000");
@@ -48,8 +48,8 @@ function initEditDialog(){
 	$(".window-shadow").css("margin-top","20px");
 	$(".window,.window .window-body").css("border-color","#ddd");
 
-	$("#new_div #ok_but").css("left","45%");
-	$("#new_div #ok_but").css("position","absolute");
+	$("#edit_div #ok_but").css("left","45%");
+	$("#edit_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
@@ -58,7 +58,10 @@ function initCLLXCBB(){
 	cllxCBB=$("#cllx").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.cl.cllx }');
+		}
 	});
 }
 
@@ -73,7 +76,10 @@ function initPFJDCBB(){
 			{"value":"3","text":"国六燃油"},
 			{"value":"4","text":"国六燃气"},
 			{"value":"5","text":"电动"}
-		]
+		],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.cl.pfjd }');
+		}
 	});
 }
 
@@ -81,13 +87,17 @@ function initZCRQDB(){
     zcrqDB=$('#zcrq').datebox({
         required:false
     });
+    zcrqDB.datebox("setValue",'${requestScope.cl.zcrq }');
 }
 
 function initSFZYCBB(){
 	sfzyCBB=$("#sfzy").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.cl.sfzy }'?1:0);
+		}
 	});
 }
 
@@ -95,7 +105,10 @@ function initCLYSLXCBB(){
 	clyslxCBB=$("#clyslx").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}]
+		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.cl.clyslx }');
+		}
 	});
 }
 
@@ -112,28 +125,29 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function checkNew(){
+function checkEdit(){
 	if(checkCPH()){
 		if(checkPFJD()){
-			newCheLiang();
+			editCheLiang();
 		}
 	}
 }
 
-function newCheLiang(){
-	var cph=$("#new_div #cph").val();
-	var czxx=$("#new_div #czxx").val();
-	var pz=$("#new_div #pz").val();
+function editCheLiang(){
+	var id=$("#edit_div #id").val();
+	var cph=$("#edit_div #cph").val();
+	var czxx=$("#edit_div #czxx").val();
+	var pz=$("#edit_div #pz").val();
 	var cllx=cllxCBB.combobox("getValue");
-	var fdjhm=$("#new_div #fdjhm").val();
-	var clsbdh=$("#new_div #clsbdh").val();
+	var fdjhm=$("#edit_div #fdjhm").val();
+	var clsbdh=$("#edit_div #clsbdh").val();
 	var pfjd=pfjdCBB.combobox("getValue");
 	var zcrq=zcrqDB.datebox("getValue");
 	var sfzy=sfzyCBB.combobox("getValue");
 	var clyslx=clyslxCBB.combobox("getValue");
 	
-	$.post(path+"main/newCheLiang",
-		{cph:cph,czxx:czxx,pz:pz,cllx:cllx,fdjhm:fdjhm,clsbdh:clsbdh,pfjd:pfjd,zcrq:zcrq,sfzy:sfzy,clyslx:clyslx},
+	$.post(path+"main/editCheLiang",
+		{id:id,cph:cph,czxx:czxx,pz:pz,cllx:cllx,fdjhm:fdjhm,clsbdh:clsbdh,pfjd:pfjd,zcrq:zcrq,sfzy:sfzy,clyslx:clyslx},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -182,25 +196,26 @@ function setFitWidthInParent(o){
 	return width.substring(0,width.length-2)-340;
 }
 </script>
-<title>创建</title>
+<title>修改</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
-	<div id="new_div">
+	<div id="edit_div">
+		<input type="hidden" id="id" name="id" value="${requestScope.cl.id }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				车牌号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="cph" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
+				<input type="text" id="cph" value="${requestScope.cl.cph }" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
 			</td>
 			<td align="right" style="width:15%;">
 				车主信息
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="czxx" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
+				<input type="text" id="czxx" value="${requestScope.cl.czxx }" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -208,7 +223,7 @@ function setFitWidthInParent(o){
 				皮重
 			</td>
 			<td>
-				<input type="number" id="pz" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
+				<input type="number" id="pz" value="${requestScope.cl.pz }" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
 				车辆类型
@@ -218,69 +233,69 @@ function setFitWidthInParent(o){
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				照片
 			</td>
-			<td style="width:30%;">
+			<td>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				发动机号码
 			</td>
-			<td style="width:30%;">
-				<input type="text" id="fdjhm" placeholder="请输入发动机号码" style="width: 150px;height:30px;"/>
+			<td>
+				<input type="text" id="fdjhm" value="${requestScope.cl.fdjhm }" placeholder="请输入发动机号码" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				车辆识别代号
 			</td>
-			<td style="width:30%;">
-				<input type="text" id="clsbdh" placeholder="请输入车辆识别代号" style="width: 150px;height:30px;"/>
+			<td>
+				<input type="text" id="clsbdh" value="${requestScope.cl.clsbdh }" placeholder="请输入车辆识别代号" style="width: 150px;height:30px;"/>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				排放阶段
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="pfjd"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				注册日期
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="zcrq"/>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				是否在用
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="sfzy"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				车辆运输类型
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="clyslx"/>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				行驶证
 			</td>
-			<td style="width:30%;">
+			<td>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				随车清单
 			</td>
-			<td style="width:30%;">
+			<td>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				排放阶段查询截图
 			</td>
-			<td style="width:30%;">
+			<td>
 			</td>
 		  </tr>
 		</table>

@@ -42,4 +42,12 @@ public interface PublicMapper {
 	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx);
 
 	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, int i, int rows, String sort, String order);
+
+	public CheLiang selectCheLiangById(String id);
+
+	public int newCheLiang(CheLiang cl);
+
+	public int editCheLiang(CheLiang cl);
+
+	public int deleteCheLiang(List<String> idList);
 }

@@ -119,4 +119,31 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.queryCheLiangList(cph, cllx, (page-1)*rows, rows, sort, order);
 	}
 
+	@Override
+	public CheLiang selectCheLiangById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectCheLiangById(id);
+	}
+
+	@Override
+	public int newCheLiang(CheLiang cl) {
+		// TODO Auto-generated method stub
+		return publicDao.newCheLiang(cl);
+	}
+
+	@Override
+	public int editCheLiang(CheLiang cl) {
+		// TODO Auto-generated method stub
+		return publicDao.editCheLiang(cl);
+	}
+
+	@Override
+	public int deleteCheLiang(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteCheLiang(idList);
+		return count;
+	}
+
 }

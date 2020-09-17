@@ -8,7 +8,7 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	$("#cllx").combobox({
+	cllxCBB=$("#cllx").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
@@ -17,9 +17,9 @@ $(function(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var mc=$("#mc_inp").val();
-			var wzlxmc=$("#wzlxmc_inp").val();
-			tab1.datagrid("load",{mc:mc,wzlxmc:wzlxmc});
+			var cph=$("#toolbar #cph").val();
+			var cllx=cllxCBB.combobox("getValue");
+			tab1.datagrid("load",{cph:cph,cllx:cllx});
 		}
 	});
 	
@@ -59,13 +59,35 @@ $(function(){
 			{field:"fdjhm",title:"发动机号码",width:200},
 			{field:"clsbdm",title:"车辆识别代号",width:200},
 			{field:"zcrq",title:"注册日期",width:200},
-			{field:"pfjd",title:"排放阶段",width:200},
+			{field:"pfjd",title:"排放阶段",width:200,formatter:function(value){
+				var str;
+				switch (value) {
+				case 1:
+					str="国五燃油";
+					break;
+				case 2:
+					str="国五燃气";
+					break;
+				case 3:
+					str="国六燃油";
+					break;
+				case 4:
+					str="国六燃气";
+					break;
+				case 5:
+					str="电动";
+					break;
+				}
+				return str;
+			}},
 			{field:"fzrq",title:"发证日期",width:200},
-			{field:"sfzy",title:"是否在用",width:200},
+			{field:"sfzy",title:"是否在用",width:200,formatter:function(value){
+				return value?"是":"否";
+			}},
 			{field:"bz",title:"备注",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -122,7 +144,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteWuZi",
+			$.post(path + "main/deleteCheLiang",
 				{ids:ids},
 				function(result){
 					if(result.status==1){
@@ -152,7 +174,7 @@ function setFitWidthInParent(o){
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
 			<span style="margin-left: 13px;">车牌号：</span>
-			<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+			<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">车辆类型：</span>
 			<input id="cllx"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
