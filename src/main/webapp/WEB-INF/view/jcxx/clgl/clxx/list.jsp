@@ -8,6 +8,12 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	$("#cllx").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+	});
+	
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
@@ -20,7 +26,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/wzgl/wzgl/new?fnid="+'${param.fnid}';
+			location.href=path+"main/jcxx/clgl/clxx/new?fnid="+'${param.fnid}';
 		}
 	});
 	
@@ -40,17 +46,23 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"物资管理-列表",
-		url:path+"main/queryWuZiList",
+		title:"车辆信息-列表",
+		url:path+"main/queryCheLiangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"mc",title:"名称",width:200},
-            {field:"wzlxmc",title:"物资类型",width:200},
-			{field:"bjsj",title:"编辑时间",width:200},
+			{field:"cph",title:"车牌号",width:200},
+            {field:"ppxh",title:"品牌型号",width:200},
+			{field:"fdjhm",title:"发动机号码",width:200},
+			{field:"clsbdm",title:"车辆识别代号",width:200},
+			{field:"zcrq",title:"注册日期",width:200},
+			{field:"pfjd",title:"排放阶段",width:200},
+			{field:"fzrq",title:"发证日期",width:200},
+			{field:"sfzy",title:"是否在用",width:200},
+			{field:"bz",title:"备注",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
@@ -59,8 +71,8 @@ $(function(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:4});
+				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:10});
 				data.total=0;
 			}
 			
@@ -139,10 +151,10 @@ function setFitWidthInParent(o){
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">名称：</span>
-			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">物资类型：</span>
-			<input type="text" id="wzlxmc_inp" placeholder="请输入物资类型" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">车牌号：</span>
+			<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">车辆类型：</span>
+			<input id="cllx"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>

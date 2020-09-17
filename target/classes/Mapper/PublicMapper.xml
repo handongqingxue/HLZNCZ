@@ -116,5 +116,23 @@
 	<select id="selectWuZiById" resultType="com.hlzncz.entity.WuZi">
 		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi wz,wu_zi_lei_xing wzlx where wz.wzlxId=wzlx.id and wz.id=#{0}
 	</select>
+	<select id="queryCheLiangForInt" resultType="java.lang.Integer">
+		select count(*) from che_liang where 1=1
+		<if test="cph!=''&amp;cph!=null">
+			and cph like CONCAT('%',#{cph},'%')
+		</if> 
+		<if test="cllx!=''&amp;cllx!=null">
+			and cllx=#{cllx}
+		</if> 
+	</select>
+	<select id="queryCheLiangList" resultType="com.hlzncz.entity.CheLiang">
+		select * from che_liang where 1=1
+		<if test="cph!=''&amp;cph!=null">
+			and cph like CONCAT('%',#{cph},'%')
+		</if> 
+		<if test="cllx!=''&amp;cllx!=null">
+			and cllx=#{cllx}
+		</if> 
+	</select>
 	
 </mapper>

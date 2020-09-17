@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hlzncz.dao.PublicMapper;
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.service.PublicService;
@@ -104,6 +105,18 @@ public class PublicServiceImpl implements PublicService {
 		List<String> idList = Arrays.asList(ids.split(","));
 		count=publicDao.deleteWuZi(idList);
 		return count;
+	}
+
+	@Override
+	public int queryCheLiangForInt(String cph, Integer cllx) {
+		// TODO Auto-generated method stub
+		return publicDao.queryCheLiangForInt(cph,cllx);
+	}
+
+	@Override
+	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryCheLiangList(cph, cllx, (page-1)*rows, rows, sort, order);
 	}
 
 }

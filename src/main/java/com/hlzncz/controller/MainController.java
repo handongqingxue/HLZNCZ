@@ -22,6 +22,7 @@ import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
 
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.entity.YongHu;
@@ -122,6 +123,22 @@ public class MainController {
 		request.setAttribute("wz", wz);
 		
 		return "jcxx/wzgl/wzgl/edit";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clxx/list")
+	public String goClxxList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/clgl/clxx/list";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clxx/new")
+	public String goClxxNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/clgl/clxx/new";
 	}
 	
 	/**
@@ -273,6 +290,21 @@ public class MainController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
+	}
+	
+	@RequestMapping(value="/queryCheLiangList")
+	@ResponseBody
+	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryCheLiangForInt(cph,cllx);
+		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", clList);
+		
+		return jsonMap;
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")

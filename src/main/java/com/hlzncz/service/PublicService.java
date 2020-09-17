@@ -3,6 +3,7 @@ package com.hlzncz.service;
 import java.util.List;
 
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 
@@ -35,4 +36,8 @@ public interface PublicService {
 	public int editWuZi(WuZi wz);
 
 	public int deleteWuZi(String ids);
+
+	public int queryCheLiangForInt(String cph, Integer cllx);
+
+	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, int page, int rows, String sort, String order);
 }
