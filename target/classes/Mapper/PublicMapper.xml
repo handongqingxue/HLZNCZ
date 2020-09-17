@@ -67,8 +67,61 @@
 		</foreach>
 	</delete>
 	<update id="editCheLiang" parameterType="com.hlzncz.entity.CheLiang">
-		update che_liang set cph=#{cph},czxx=#{czxx},pz=#{pz},cllx=#{cllx},ppxh=#{ppxh},zp=#{zp},fdjhm=#{fdjhm},clsbdh=#{clsbdh},zcrq=#{zcrq},
-		pfjd=#{pfjd},fzrq=#{fzrq},sfzy=#{sfzy},clyslx=#{clyslx},xsz=#{xsz},scqd=#{scqd},pfjdcxjt=#{pfjdcxjt},bz=#{bz} where id=#{id}
+		update che_liang set 
+		<trim suffixOverrides=",">
+			<if test="cph!=null">
+				cph=#{cph},
+			</if>
+			<if test="czxx!=null">
+				czxx=#{czxx},
+			</if>
+			<if test="pz!=null">
+				pz=#{pz},
+			</if>
+			<if test="cllx!=null">
+				cllx=#{cllx},
+			</if>
+			<if test="ppxh!=null">
+				ppxh=#{ppxh},
+			</if>
+			<if test="zp!=null">
+				zp=#{zp},
+			</if>
+			<if test="fdjhm!=null">
+				fdjhm=#{fdjhm},
+			</if>
+			<if test="clsbdh!=null">
+				clsbdh=#{clsbdh},
+			</if>
+			<if test="zcrq!=null">
+				zcrq=#{zcrq},
+			</if>
+			<if test="pfjd!=null">
+				pfjd=#{pfjd},
+			</if>
+			<if test="fzrq!=null">
+				fzrq=#{fzrq},
+			</if>
+			<if test="sfzy!=null">
+				sfzy=#{sfzy},
+			</if>
+			<if test="clyslx!=null">
+				clyslx=#{clyslx},
+			</if>
+			<if test="xsz!=null">
+				xsz=#{xsz},
+			</if>
+			<if test="scqd!=null">
+				scqd=#{scqd},
+			</if>
+			<if test="pfjdcxjt!=null">
+				pfjdcxjt=#{pfjdcxjt},
+			</if>
+			<if test="bz!=null">
+				bz=#{bz},
+			</if>
+		</trim>
+		 where id=#{id}
 	</update>
 	<delete id="deleteCheLiang">
 		delete from che_liang where 1=1

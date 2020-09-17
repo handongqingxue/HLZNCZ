@@ -55,18 +55,21 @@ function initEditDialog(){
 }
 
 function initCLLXCBB(){
-	cllxCBB=$("#cllx").combobox({
+	cllxCBB=$("#cllx_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}],
 		onLoadSuccess:function(){
 			$(this).combobox("setValue",'${requestScope.cl.cllx }');
+		},
+		onSelect:function(){
+			$("#cllx").val($(this).combobox("getValue"));
 		}
 	});
 }
 
 function initPFJDCBB(){
-	pfjdCBB=$("#pfjd").combobox({
+	pfjdCBB=$("#pfjd_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[
@@ -79,35 +82,47 @@ function initPFJDCBB(){
 		],
 		onLoadSuccess:function(){
 			$(this).combobox("setValue",'${requestScope.cl.pfjd }');
+		},
+		onSelect:function(){
+			$("#pfjd").val($(this).combobox("getValue"));
 		}
 	});
 }
 
 function initZCRQDB(){
-    zcrqDB=$('#zcrq').datebox({
-        required:false
+    zcrqDB=$('#zcrq_db').datebox({
+        required:false,
+        onSelect:function(){
+        	$("#zcrq").val(zcrqDB.datebox("getValue"));
+        }
     });
     zcrqDB.datebox("setValue",'${requestScope.cl.zcrq }');
 }
 
 function initSFZYCBB(){
-	sfzyCBB=$("#sfzy").combobox({
+	sfzyCBB=$("#sfzy_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}],
 		onLoadSuccess:function(){
 			$(this).combobox("setValue",'${requestScope.cl.sfzy }'?1:0);
+		},
+		onSelect:function(){
+			$("#sfzy").val($(this).combobox("getValue"));
 		}
 	});
 }
 
 function initCLYSLXCBB(){
-	clyslxCBB=$("#clyslx").combobox({
+	clyslxCBB=$("#clyslx_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}],
 		onLoadSuccess:function(){
 			$(this).combobox("setValue",'${requestScope.cl.clyslx }');
+		},
+		onSelect:function(){
+			$("#clyslx").val($(this).combobox("getValue"));
 		}
 	});
 }
@@ -134,6 +149,7 @@ function checkEdit(){
 }
 
 function editCheLiang(){
+	/*
 	var id=$("#edit_div #id").val();
 	var cph=$("#edit_div #cph").val();
 	var czxx=$("#edit_div #czxx").val();
@@ -158,6 +174,28 @@ function editCheLiang(){
 			}
 		}
 	,"json");
+	*/
+	
+	var formData = new FormData($("#form1")[0]);
+	 
+	$.ajax({
+		type:"post",
+		url:path+"main/editCheLiang",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
 }
 
 function focusCPH(){
@@ -202,6 +240,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="edit_div">
+	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
 		<input type="hidden" id="id" name="id" value="${requestScope.cl.id }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -209,13 +248,13 @@ function setFitWidthInParent(o){
 				车牌号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="cph" value="${requestScope.cl.cph }" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
+				<input type="text" id="cph" name="cph" value="${requestScope.cl.cph }" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
 			</td>
 			<td align="right" style="width:15%;">
 				车主信息
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="czxx" value="${requestScope.cl.czxx }" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
+				<input type="text" id="czxx" name="czxx" value="${requestScope.cl.czxx }" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -223,13 +262,14 @@ function setFitWidthInParent(o){
 				皮重
 			</td>
 			<td>
-				<input type="number" id="pz" value="${requestScope.cl.pz }" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
+				<input type="number" id="pz" name="pz" value="${requestScope.cl.pz }" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
 				车辆类型
 			</td>
 			<td>
-				<input id="cllx"/>
+				<input id="cllx_cbb"/>
+				<input type="hidden" id="cllx" name="cllx" value="${requestScope.cl.cllx }"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -237,6 +277,10 @@ function setFitWidthInParent(o){
 				照片
 			</td>
 			<td>
+				<input type="file" name="zp_file"/>
+				<div>
+					${requestScope.cl.zp }
+				</div>
 			</td>
 			<td align="right">
 				发动机号码
@@ -256,7 +300,8 @@ function setFitWidthInParent(o){
 				排放阶段
 			</td>
 			<td>
-				<input id="pfjd"/>
+				<input id="pfjd_cbb"/>
+				<input type="hidden" id="pfjd" name="pfjd" value="${requestScope.cl.pfjd }"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -264,13 +309,15 @@ function setFitWidthInParent(o){
 				注册日期
 			</td>
 			<td>
-				<input id="zcrq"/>
+				<input id="zcrq_db"/>
+				<input type="hidden" id="zcrq" name="zcrq" value="${requestScope.cl.zcrq }"/>
 			</td>
 			<td align="right">
 				是否在用
 			</td>
 			<td>
-				<input id="sfzy"/>
+				<input id="sfzy_cbb"/>
+				<input type="hidden" id="sfzy" name="sfzy" value="${requestScope.cl.sfzy }"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -278,12 +325,17 @@ function setFitWidthInParent(o){
 				车辆运输类型
 			</td>
 			<td>
-				<input id="clyslx"/>
+				<input id="clyslx_cbb"/>
+				<input type="hidden" id="clyslx" name="clyslx" value="${requestScope.cl.clyslx }"/>
 			</td>
 			<td align="right">
 				行驶证
 			</td>
 			<td>
+				<input type="file" name="xsz_file"/>
+				<div>
+					${requestScope.cl.xsz }
+				</div>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -291,14 +343,23 @@ function setFitWidthInParent(o){
 				随车清单
 			</td>
 			<td>
+				<input type="file" name="scqd_file"/>
+				<div>
+					${requestScope.cl.scqd }
+				</div>
 			</td>
 			<td align="right">
 				排放阶段查询截图
 			</td>
 			<td>
+				<input type="file" name="pfjdcxjt_file"/>
+				<div>
+					${requestScope.cl.pfjdcxjt }
+				</div>
 			</td>
 		  </tr>
 		</table>
+	</form>
 	</div>
 </div>
 </body>
