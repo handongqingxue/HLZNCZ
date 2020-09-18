@@ -13,17 +13,23 @@ public interface PublicService {
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
 
+	public int newWuZiLeiXing(WuZiLeiXing wzlx);
+
+	public int deleteWuZiLeiXing(String ids);
+
+	public int editWuZiLeiXing(WuZiLeiXing wzlx);
+
 	public int queryWuZiLeiXingForInt(String mc);
 
 	public List<WuZiLeiXing> queryWuZiLeiXingList(String mc, int page, int rows, String sort, String order);
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
-	public int newWuZiLeiXing(WuZiLeiXing wzlx);
+	public int newWuZi(WuZi wz);
 
-	public int editWuZiLeiXing(WuZiLeiXing wzlx);
+	public int deleteWuZi(String ids);
 
-	public int deleteWuZiLeiXing(String ids);
+	public int editWuZi(WuZi wz);
 
 	public int queryWuZiForInt(String mc, String wzlxmc);
 
@@ -31,21 +37,15 @@ public interface PublicService {
 
 	public WuZi selectWuZiById(String id);
 
-	public int newWuZi(WuZi wz);
+	public int newCheLiang(CheLiang cl);
 
-	public int editWuZi(WuZi wz);
+	public int deleteCheLiang(String ids);
 
-	public int deleteWuZi(String ids);
+	public int editCheLiang(CheLiang cl);
 
 	public int queryCheLiangForInt(String cph, Integer cllx);
 
 	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, int page, int rows, String sort, String order);
 
 	public CheLiang selectCheLiangById(String id);
-
-	public int newCheLiang(CheLiang cl);
-
-	public int editCheLiang(CheLiang cl);
-
-	public int deleteCheLiang(String ids);
 }

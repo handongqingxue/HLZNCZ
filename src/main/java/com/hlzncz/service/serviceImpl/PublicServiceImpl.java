@@ -30,6 +30,27 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newWuZiLeiXing(WuZiLeiXing wzlx) {
+		// TODO Auto-generated method stub
+		return publicDao.newWuZiLeiXing(wzlx);
+	}
+
+	@Override
+	public int deleteWuZiLeiXing(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count=publicDao.deleteWuZiLeiXing(idList);
+		return count;
+	}
+
+	@Override
+	public int editWuZiLeiXing(WuZiLeiXing wzlx) {
+		// TODO Auto-generated method stub
+		return publicDao.editWuZiLeiXing(wzlx);
+	}
+
+	@Override
 	public int queryWuZiLeiXingForInt(String mc) {
 		// TODO Auto-generated method stub
 		return publicDao.queryWuZiLeiXingForInt(mc);
@@ -48,24 +69,24 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newWuZiLeiXing(WuZiLeiXing wzlx) {
+	public int newWuZi(WuZi wz) {
 		// TODO Auto-generated method stub
-		return publicDao.newWuZiLeiXing(wzlx);
+		return publicDao.newWuZi(wz);
 	}
 
 	@Override
-	public int editWuZiLeiXing(WuZiLeiXing wzlx) {
-		// TODO Auto-generated method stub
-		return publicDao.editWuZiLeiXing(wzlx);
-	}
-
-	@Override
-	public int deleteWuZiLeiXing(String ids) {
+	public int deleteWuZi(String ids) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> idList = Arrays.asList(ids.split(","));
-		count=publicDao.deleteWuZiLeiXing(idList);
+		count=publicDao.deleteWuZi(idList);
 		return count;
+	}
+
+	@Override
+	public int editWuZi(WuZi wz) {
+		// TODO Auto-generated method stub
+		return publicDao.editWuZi(wz);
 	}
 
 	@Override
@@ -87,24 +108,24 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newWuZi(WuZi wz) {
+	public int newCheLiang(CheLiang cl) {
 		// TODO Auto-generated method stub
-		return publicDao.newWuZi(wz);
+		return publicDao.newCheLiang(cl);
 	}
 
 	@Override
-	public int editWuZi(WuZi wz) {
-		// TODO Auto-generated method stub
-		return publicDao.editWuZi(wz);
-	}
-
-	@Override
-	public int deleteWuZi(String ids) {
+	public int deleteCheLiang(String ids) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> idList = Arrays.asList(ids.split(","));
-		count=publicDao.deleteWuZi(idList);
+		count = publicDao.deleteCheLiang(idList);
 		return count;
+	}
+
+	@Override
+	public int editCheLiang(CheLiang cl) {
+		// TODO Auto-generated method stub
+		return publicDao.editCheLiang(cl);
 	}
 
 	@Override
@@ -123,27 +144,6 @@ public class PublicServiceImpl implements PublicService {
 	public CheLiang selectCheLiangById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectCheLiangById(id);
-	}
-
-	@Override
-	public int newCheLiang(CheLiang cl) {
-		// TODO Auto-generated method stub
-		return publicDao.newCheLiang(cl);
-	}
-
-	@Override
-	public int editCheLiang(CheLiang cl) {
-		// TODO Auto-generated method stub
-		return publicDao.editCheLiang(cl);
-	}
-
-	@Override
-	public int deleteCheLiang(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteCheLiang(idList);
-		return count;
 	}
 
 }

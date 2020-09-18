@@ -10,22 +10,6 @@
 	<select id="selectChildCaiDan" resultType="com.hlzncz.entity.CaiDan">
 		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0}
 	</select>
-	<select id="queryWuZiLeiXingForInt" resultType="java.lang.Integer">
-		select count(*) from wu_zi_lei_xing where 1=1
-		<if test="mc!=''&amp;mc!=null">
-			and mc like CONCAT('%',#{mc},'%')
-		</if> 
-	</select>
-	<select id="queryWuZiLeiXingList" resultType="com.hlzncz.entity.WuZiLeiXing">
-		select * from wu_zi_lei_xing where 1=1
-		<if test="mc!=''&amp;mc!=null">
-			and mc like CONCAT('%',#{mc},'%')
-		</if>
-		 limit ${param2},${param3}
-	</select>
-	<select id="selectWuZiLeiXingById" resultType="com.hlzncz.entity.WuZiLeiXing">
-		select * from wu_zi_lei_xing where id=#{0}
-	</select>
 	<insert id="newWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		insert into wu_zi_lei_xing
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -54,108 +38,30 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
-		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
-	</update>
-	<update id="editWuZi" parameterType="com.hlzncz.entity.WuZi">
-		update wu_zi set mc=#{mc},bjsj=now(),wzlxId=#{wzlxId} where id=#{id}
-	</update>
-	<delete id="deleteWuZi">
-		delete from wu_zi where 1=1
-		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
-		#{id}
-		</foreach>
-	</delete>
-	<update id="editCheLiang" parameterType="com.hlzncz.entity.CheLiang">
-		update che_liang set 
-		<trim suffixOverrides=",">
-			<if test="cph!=null">
-				cph=#{cph},
-			</if>
-			<if test="czxx!=null">
-				czxx=#{czxx},
-			</if>
-			<if test="pz!=null">
-				pz=#{pz},
-			</if>
-			<if test="cllx!=null">
-				cllx=#{cllx},
-			</if>
-			<if test="ppxh!=null">
-				ppxh=#{ppxh},
-			</if>
-			<if test="zp!=null">
-				zp=#{zp},
-			</if>
-			<if test="fdjhm!=null">
-				fdjhm=#{fdjhm},
-			</if>
-			<if test="clsbdh!=null">
-				clsbdh=#{clsbdh},
-			</if>
-			<if test="zcrq!=null">
-				zcrq=#{zcrq},
-			</if>
-			<if test="pfjd!=null">
-				pfjd=#{pfjd},
-			</if>
-			<if test="fzrq!=null">
-				fzrq=#{fzrq},
-			</if>
-			<if test="sfzy!=null">
-				sfzy=#{sfzy},
-			</if>
-			<if test="clyslx!=null">
-				clyslx=#{clyslx},
-			</if>
-			<if test="xsz!=null">
-				xsz=#{xsz},
-			</if>
-			<if test="scqd!=null">
-				scqd=#{scqd},
-			</if>
-			<if test="pfjdcxjt!=null">
-				pfjdcxjt=#{pfjdcxjt},
-			</if>
-			<if test="bz!=null">
-				bz=#{bz},
-			</if>
-		</trim>
-		 where id=#{id}
-	</update>
-	<delete id="deleteCheLiang">
-		delete from che_liang where 1=1
-		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
-		#{id}
-		</foreach>
-	</delete>
 	<delete id="deleteWuZiLeiXing">
 		delete from wu_zi_lei_xing where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
 		#{id}
 		</foreach>
 	</delete>
-	<select id="queryWuZiForInt" resultType="java.lang.Integer">
-		select count(*) from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
+	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
+		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
+	</update>
+	<select id="queryWuZiLeiXingForInt" resultType="java.lang.Integer">
+		select count(*) from wu_zi_lei_xing where 1=1
 		<if test="mc!=''&amp;mc!=null">
-			and wz.mc like CONCAT('%',#{mc},'%')
-		</if> 
-		<if test="wzlxmc!=''&amp;wzlxmc!=null">
-			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
+			and mc like CONCAT('%',#{mc},'%')
 		</if> 
 	</select>
-	<select id="queryWuZiList" resultType="com.hlzncz.entity.WuZi">
-		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
+	<select id="queryWuZiLeiXingList" resultType="com.hlzncz.entity.WuZiLeiXing">
+		select * from wu_zi_lei_xing where 1=1
 		<if test="mc!=''&amp;mc!=null">
-			and wz.mc like CONCAT('%',#{mc},'%')
-		</if> 
-		<if test="wzlxmc!=''&amp;wzlxmc!=null">
-			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
-		</if> 
-		limit ${param3},${param4}
+			and mc like CONCAT('%',#{mc},'%')
+		</if>
+		 limit ${param2},${param3}
 	</select>
-	<select id="selectWuZiById" resultType="com.hlzncz.entity.WuZi">
-		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi wz,wu_zi_lei_xing wzlx where wz.wzlxId=wzlx.id and wz.id=#{0}
+	<select id="selectWuZiLeiXingById" resultType="com.hlzncz.entity.WuZiLeiXing">
+		select * from wu_zi_lei_xing where id=#{0}
 	</select>
 	<insert id="newWuZi" parameterType="com.hlzncz.entity.WuZi">
 		insert into wu_zi
@@ -179,8 +85,36 @@
 			</if>
 		</trim>
 	</insert>
-	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">
-		select * from che_liang where id=#{0}
+	<delete id="deleteWuZi">
+		delete from wu_zi where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editWuZi" parameterType="com.hlzncz.entity.WuZi">
+		update wu_zi set mc=#{mc},bjsj=now(),wzlxId=#{wzlxId} where id=#{id}
+	</update>
+	<select id="queryWuZiForInt" resultType="java.lang.Integer">
+		select count(*) from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
+		<if test="mc!=''&amp;mc!=null">
+			and wz.mc like CONCAT('%',#{mc},'%')
+		</if> 
+		<if test="wzlxmc!=''&amp;wzlxmc!=null">
+			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
+		</if> 
+	</select>
+	<select id="queryWuZiList" resultType="com.hlzncz.entity.WuZi">
+		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
+		<if test="mc!=''&amp;mc!=null">
+			and wz.mc like CONCAT('%',#{mc},'%')
+		</if> 
+		<if test="wzlxmc!=''&amp;wzlxmc!=null">
+			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
+		</if> 
+		limit ${param3},${param4}
+	</select>
+	<select id="selectWuZiById" resultType="com.hlzncz.entity.WuZi">
+		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi wz,wu_zi_lei_xing wzlx where wz.wzlxId=wzlx.id and wz.id=#{0}
 	</select>
 	<insert id="newCheLiang" parameterType="com.hlzncz.entity.CheLiang">
 		insert into che_liang
@@ -288,6 +222,69 @@
 			</if>
 		</trim>
 	</insert>
+	<delete id="deleteCheLiang">
+		delete from che_liang where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editCheLiang" parameterType="com.hlzncz.entity.CheLiang">
+		update che_liang set 
+		<trim suffixOverrides=",">
+			<if test="cph!=null">
+				cph=#{cph},
+			</if>
+			<if test="czxx!=null">
+				czxx=#{czxx},
+			</if>
+			<if test="pz!=null">
+				pz=#{pz},
+			</if>
+			<if test="cllx!=null">
+				cllx=#{cllx},
+			</if>
+			<if test="ppxh!=null">
+				ppxh=#{ppxh},
+			</if>
+			<if test="zp!=null">
+				zp=#{zp},
+			</if>
+			<if test="fdjhm!=null">
+				fdjhm=#{fdjhm},
+			</if>
+			<if test="clsbdh!=null">
+				clsbdh=#{clsbdh},
+			</if>
+			<if test="zcrq!=null">
+				zcrq=#{zcrq},
+			</if>
+			<if test="pfjd!=null">
+				pfjd=#{pfjd},
+			</if>
+			<if test="fzrq!=null">
+				fzrq=#{fzrq},
+			</if>
+			<if test="sfzy!=null">
+				sfzy=#{sfzy},
+			</if>
+			<if test="clyslx!=null">
+				clyslx=#{clyslx},
+			</if>
+			<if test="xsz!=null">
+				xsz=#{xsz},
+			</if>
+			<if test="scqd!=null">
+				scqd=#{scqd},
+			</if>
+			<if test="pfjdcxjt!=null">
+				pfjdcxjt=#{pfjdcxjt},
+			</if>
+			<if test="bz!=null">
+				bz=#{bz},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryCheLiangForInt" resultType="java.lang.Integer">
 		select count(*) from che_liang where 1=1
 		<if test="cph!=''&amp;cph!=null">
@@ -305,6 +302,9 @@
 		<if test="cllx!=''&amp;cllx!=null">
 			and cllx=#{cllx}
 		</if> 
+	</select>
+	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">
+		select * from che_liang where id=#{0}
 	</select>
 	
 </mapper>

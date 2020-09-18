@@ -168,28 +168,25 @@ public class MainController {
 		return "jcxx/clgl/clxx/edit";
 	}
 	
-	/**
-	 * 查询物资类型
-	 * @param mc
-	 * @param page
-	 * @param rows
-	 * @param sort
-	 * @param order
-	 * @return
-	 */
-	@RequestMapping(value="/queryWuZiLeiXingList")
-	@ResponseBody
-	public Map<String, Object> queryWuZiLeiXingList(String mc,int page,int rows,String sort,String order) {
+	private void selectNav(HttpServletRequest request) {
 		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count = publicService.queryWuZiLeiXingForInt(mc);
-		List<WuZiLeiXing> wzlxList=publicService.queryWuZiLeiXingList(mc, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", wzlxList);
-		
-		return jsonMap;
+		List<CaiDan> leftNavList = publicService.selectParCaiDan();
+		request.setAttribute("leftNavList", leftNavList);
+
+		String fnid = request.getParameter("fnid");
+		Integer parId = null;
+		if(StringUtils.isEmpty(fnid)) {
+			parId = leftNavList.get(0).getId();
+		}
+		else {
+			parId=Integer.parseInt(fnid);
+		}
+		List<CaiDan> topNavList = publicService.selectChildCaiDan(parId);
+		for (CaiDan caiDan : topNavList) {
+			List<CaiDan> childList = publicService.selectChildCaiDan(caiDan.getId());
+			caiDan.setChildList(childList);
+		}
+		request.setAttribute("topNavList", topNavList);
 	}
 	
 	@RequestMapping(value="/newWuZiLeiXing")
@@ -206,24 +203,6 @@ public class MainController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "创建物资类型失败！");
-		}
-		return jsonMap;
-	}
-	
-	@RequestMapping(value="/editWuZiLeiXing")
-	@ResponseBody
-	public Map<String, Object> editWuZiLeiXing(WuZiLeiXing wzlx) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=publicService.editWuZiLeiXing(wzlx);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "编辑物资类型成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "编辑物资类型失败！");
 		}
 		return jsonMap;
 	}
@@ -248,17 +227,44 @@ public class MainController {
 		return json;
 	}
 	
-	@RequestMapping(value="/queryWuZiList")
+	@RequestMapping(value="/editWuZiLeiXing")
 	@ResponseBody
-	public Map<String, Object> queryWuZiList(String mc,String wzlxmc,int page,int rows,String sort,String order) {
+	public Map<String, Object> editWuZiLeiXing(WuZiLeiXing wzlx) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryWuZiForInt(mc,wzlxmc);
-		List<WuZi> wzList=publicService.queryWuZiList(mc, wzlxmc, page, rows, sort, order);
+		int count=publicService.editWuZiLeiXing(wzlx);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑物资类型成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑物资类型失败！");
+		}
+		return jsonMap;
+	}
+	
+	/**
+	 * 查询物资类型
+	 * @param mc
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryWuZiLeiXingList")
+	@ResponseBody
+	public Map<String, Object> queryWuZiLeiXingList(String mc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryWuZiLeiXingForInt(mc);
+		List<WuZiLeiXing> wzlxList=publicService.queryWuZiLeiXingList(mc, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
-		jsonMap.put("rows", wzList);
+		jsonMap.put("rows", wzlxList);
 		
 		return jsonMap;
 	}
@@ -277,24 +283,6 @@ public class MainController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "创建物资失败！");
-		}
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/editWuZi")
-	@ResponseBody
-	public Map<String, Object> editWuZi(WuZi wz) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=publicService.editWuZi(wz);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "编辑物资成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "编辑物资失败！");
 		}
 		return jsonMap;
 	}
@@ -319,37 +307,35 @@ public class MainController {
 		return json;
 	}
 
-	@RequestMapping(value="/deleteCheLiang",produces="plain/text; charset=UTF-8")
+	@RequestMapping(value="/editWuZi")
 	@ResponseBody
-	public String deleteCheLiang(String ids) {
-		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteCheLiang(ids);
-		PlanResult plan=new PlanResult();
-		String json;
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("删除车辆信息失败");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("删除车辆信息成功");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-	
-	@RequestMapping(value="/queryCheLiangList")
-	@ResponseBody
-	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,int page,int rows,String sort,String order) {
+	public Map<String, Object> editWuZi(WuZi wz) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryCheLiangForInt(cph,cllx);
-		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, page, rows, sort, order);
+		int count=publicService.editWuZi(wz);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑物资成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑物资失败！");
+		}
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/queryWuZiList")
+	@ResponseBody
+	public Map<String, Object> queryWuZiList(String mc,String wzlxmc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryWuZiForInt(mc,wzlxmc);
+		List<WuZi> wzList=publicService.queryWuZiList(mc, wzlxmc, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
-		jsonMap.put("rows", clList);
+		jsonMap.put("rows", wzList);
 		
 		return jsonMap;
 	}
@@ -414,6 +400,26 @@ public class MainController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/deleteCheLiang",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteCheLiang(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteCheLiang(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除车辆信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除车辆信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
 	@RequestMapping(value="/editCheLiang")
 	@ResponseBody
 	public Map<String, Object> editCheLiang(CheLiang cl,
@@ -473,6 +479,21 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	@RequestMapping(value="/queryCheLiangList")
+	@ResponseBody
+	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryCheLiangForInt(cph,cllx);
+		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", clList);
+		
+		return jsonMap;
+	}
+	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String login(Model model,String yhm,String ysmm,HttpServletRequest request) {
@@ -503,27 +524,6 @@ public class MainController {
 		plan.setMsg("验证通过");
 		plan.setUrl("main/goIndex");
 		return JsonUtil.getJsonFromObject(plan);
-	}
-	
-	private void selectNav(HttpServletRequest request) {
-		
-		List<CaiDan> leftNavList = publicService.selectParCaiDan();
-		request.setAttribute("leftNavList", leftNavList);
-
-		String fnid = request.getParameter("fnid");
-		Integer parId = null;
-		if(StringUtils.isEmpty(fnid)) {
-			parId = leftNavList.get(0).getId();
-		}
-		else {
-			parId=Integer.parseInt(fnid);
-		}
-		List<CaiDan> topNavList = publicService.selectChildCaiDan(parId);
-		for (CaiDan caiDan : topNavList) {
-			List<CaiDan> childList = publicService.selectChildCaiDan(caiDan.getId());
-			caiDan.setChildList(childList);
-		}
-		request.setAttribute("topNavList", topNavList);
 	}
 	
 	@RequestMapping(value="/exit")

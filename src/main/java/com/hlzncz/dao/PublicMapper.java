@@ -15,17 +15,23 @@ public interface PublicMapper {
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
 
+	public int newWuZiLeiXing(WuZiLeiXing wzlx);
+
+	public int deleteWuZiLeiXing(List<String> idList);
+
+	public int editWuZiLeiXing(WuZiLeiXing wzlx);
+
 	public int queryWuZiLeiXingForInt(@Param("mc") String mc);
 
 	public List<WuZiLeiXing> queryWuZiLeiXingList(@Param("mc") String mc, int i, int rows, String sort, String order);
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
-	public int newWuZiLeiXing(WuZiLeiXing wzlx);
+	public int newWuZi(WuZi wz);
 
-	public int editWuZiLeiXing(WuZiLeiXing wzlx);
+	public int deleteWuZi(List<String> idList);
 
-	public int deleteWuZiLeiXing(List<String> idList);
+	public int editWuZi(WuZi wz);
 
 	public int queryWuZiForInt(@Param("mc") String mc, @Param("wzlxmc") String wzlxmc);
 
@@ -33,21 +39,15 @@ public interface PublicMapper {
 
 	public WuZi selectWuZiById(String id);
 
-	public int newWuZi(WuZi wz);
+	public int newCheLiang(CheLiang cl);
 
-	public int editWuZi(WuZi wz);
+	public int deleteCheLiang(List<String> idList);
 
-	public int deleteWuZi(List<String> idList);
+	public int editCheLiang(CheLiang cl);
 
 	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx);
 
 	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, int i, int rows, String sort, String order);
 
 	public CheLiang selectCheLiangById(String id);
-
-	public int newCheLiang(CheLiang cl);
-
-	public int editCheLiang(CheLiang cl);
-
-	public int deleteCheLiang(List<String> idList);
 }
