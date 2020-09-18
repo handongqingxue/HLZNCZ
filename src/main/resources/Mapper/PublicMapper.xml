@@ -443,5 +443,33 @@
 	<select id="selectSiJiById" resultType="com.hlzncz.entity.SiJi">
 		select * from si_ji where id=#{0}
 	</select>
+	<insert id="newFaHuoDanWei">
+		insert into fa_huo_dan_wei
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				dwmc,
+			</if>
+				bjsj
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				#{dwmc},
+			</if>
+				now()
+		</trim>
+	</insert>
+	<select id="queryFaHuoDanWeiForInt" resultType="java.lang.Integer">
+		select count(*) from fa_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+	</select>
+	<select id="queryFaHuoDanWeiList" resultType="com.hlzncz.entity.FaHuoDanWei">
+		select * from fa_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+	</select>
 	
 </mapper>

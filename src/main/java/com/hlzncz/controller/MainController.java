@@ -28,6 +28,7 @@ import net.sf.json.JSONObject;
 import com.hlzncz.util.FileUploadUtils;
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
@@ -55,31 +56,12 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping(value="/jcxx/wzgl/wzlx/list")
-	public String goWzlxList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "jcxx/wzgl/wzlx/list";
-	}
-
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
 		selectNav(request);
 		
 		return "jcxx/wzgl/wzlx/new";
-	}
-
-	@RequestMapping(value="/jcxx/wzgl/wzlx/detail")
-	public String goWzlxDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		WuZiLeiXing wzlx=publicService.selectWuZiLeiXingById(id);
-		request.setAttribute("wzlx", wzlx);
-		
-		return "jcxx/wzgl/wzlx/detail";
 	}
 
 	@RequestMapping(value="/jcxx/wzgl/wzlx/edit")
@@ -93,12 +75,23 @@ public class MainController {
 		return "jcxx/wzgl/wzlx/edit";
 	}
 
-	@RequestMapping(value="/jcxx/wzgl/wzgl/list")
-	public String goWzglList(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/wzgl/wzlx/list")
+	public String goWzlxList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
-		return "jcxx/wzgl/wzgl/list";
+		return "jcxx/wzgl/wzlx/list";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzlx/detail")
+	public String goWzlxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		WuZiLeiXing wzlx=publicService.selectWuZiLeiXingById(id);
+		request.setAttribute("wzlx", wzlx);
+		
+		return "jcxx/wzgl/wzlx/detail";
 	}
 
 	@RequestMapping(value="/jcxx/wzgl/wzgl/new")
@@ -107,17 +100,6 @@ public class MainController {
 		selectNav(request);
 		
 		return "jcxx/wzgl/wzgl/new";
-	}
-
-	@RequestMapping(value="/jcxx/wzgl/wzgl/detail")
-	public String goWzglDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		WuZi wz=publicService.selectWuZiById(id);
-		request.setAttribute("wz", wz);
-		
-		return "jcxx/wzgl/wzgl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/wzgl/wzgl/edit")
@@ -131,12 +113,23 @@ public class MainController {
 		return "jcxx/wzgl/wzgl/edit";
 	}
 
-	@RequestMapping(value="/jcxx/clgl/clxx/list")
-	public String goClxxList(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/wzgl/wzgl/list")
+	public String goWzglList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
-		return "jcxx/clgl/clxx/list";
+		return "jcxx/wzgl/wzgl/list";
+	}
+
+	@RequestMapping(value="/jcxx/wzgl/wzgl/detail")
+	public String goWzglDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		WuZi wz=publicService.selectWuZiById(id);
+		request.setAttribute("wz", wz);
+		
+		return "jcxx/wzgl/wzgl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/clgl/clxx/new")
@@ -145,17 +138,6 @@ public class MainController {
 		selectNav(request);
 		
 		return "jcxx/clgl/clxx/new";
-	}
-
-	@RequestMapping(value="/jcxx/clgl/clxx/detail")
-	public String goClxxDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
-		request.setAttribute("cl", cl);
-		
-		return "jcxx/clgl/clxx/detail";
 	}
 	
 	@RequestMapping(value="/jcxx/clgl/clxx/edit")
@@ -169,23 +151,31 @@ public class MainController {
 		return "jcxx/clgl/clxx/edit";
 	}
 
+	@RequestMapping(value="/jcxx/clgl/clxx/list")
+	public String goClxxList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/clgl/clxx/list";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clxx/detail")
+	public String goClxxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/clxx/detail";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/sjxx/new")
 	public String goSjxxNew(HttpServletRequest request) {
 
 		selectNav(request);
 		
 		return "jcxx/sjgl/sjxx/new";
-	}
-
-	@RequestMapping(value="/jcxx/sjgl/sjxx/detail")
-	public String goSjxxDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
-		request.setAttribute("sj", sj);
-		
-		return "jcxx/sjgl/sjxx/detail";
 	}
 
 	@RequestMapping(value="/jcxx/sjgl/sjxx/edit")
@@ -205,6 +195,33 @@ public class MainController {
 		selectNav(request);
 		
 		return "jcxx/sjgl/sjxx/list";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/sjxx/detail")
+	public String goSjxxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/sjxx/detail";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/fhdw/new")
+	public String goFhdwNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/dwgl/fhdw/new";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/fhdw/list")
+	public String goFhdwList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/dwgl/fhdw/list";
 	}
 	
 	private void selectNav(HttpServletRequest request) {
@@ -532,21 +549,6 @@ public class MainController {
 		
 		return jsonMap;
 	}
-
-	@RequestMapping(value="/querySiJiList")
-	@ResponseBody
-	public Map<String, Object> querySiJiList(String xm,String sfz,Integer zyzt,int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count = publicService.querySiJiForInt(xm,sfz,zyzt);
-		List<SiJi> sjList=publicService.querySiJiList(xm,sfz,zyzt, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", sjList);
-		
-		return jsonMap;
-	}
 	
 	@RequestMapping(value="/newSiJi")
 	@ResponseBody
@@ -674,6 +676,54 @@ public class MainController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/querySiJiList")
+	@ResponseBody
+	public Map<String, Object> querySiJiList(String xm,String sfz,Integer zyzt,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.querySiJiForInt(xm,sfz,zyzt);
+		List<SiJi> sjList=publicService.querySiJiList(xm,sfz,zyzt, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", sjList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newFaHuoDanWei")
+	@ResponseBody
+	public Map<String, Object> newFaHuoDanWei(FaHuoDanWei fhdw) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newFaHuoDanWei(fhdw);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建发货单位成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建发货单位失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryFaHuoDanWeiList")
+	@ResponseBody
+	public Map<String, Object> queryFaHuoDanWeiList(String dwmc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryFaHuoDanWeiForInt(dwmc);
+		List<FaHuoDanWei> fhdwList=publicService.queryFaHuoDanWeiList(dwmc, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", fhdwList);
+		
 		return jsonMap;
 	}
 	

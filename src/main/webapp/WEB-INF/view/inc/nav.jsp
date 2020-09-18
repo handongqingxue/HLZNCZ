@@ -109,6 +109,10 @@ body{
 	padding-left:24px; 
 	background: #001529;
 }
+.left_nav_div .active{
+	color: #fff;
+	background-color: #1890ff;
+}
 .top_nav_div{
 	width: 83%;
 	height: 50px;
@@ -124,6 +128,10 @@ body{
 	line-height: 50px;
 	color: #1890ff;
 	text-align:center;
+}
+.top_nav_div .active{
+	color: #fff;
+	background-color: #1e90ff;
 }
 .top_nav_div .second_nav_div{
 	width: 90px;
@@ -185,12 +193,12 @@ body{
 <div class="zncz_txt_div">智能称重</div>
 <div class="left_nav_div">
 <c:forEach items="${requestScope.leftNavList }" var="item">
-	<a href="<%=basePath %>${item.lj }"><div class="item_div">${item.mc }</div></a>
+	<a href="<%=basePath %>${item.lj }"><div class="item_div ${item.id eq param.fnid?'active':'' }">${item.mc }</div></a>
 </c:forEach>
 </div>
 <div class="top_nav_div" id="top_nav_div">
 <c:forEach items="${requestScope.topNavList }" var="item">
-	<div class="first_item_div" id="first_item_div" onclick="showSecondNav(${item.id })">${item.mc }</div>
+	<div class="first_item_div ${item.id eq param.snid?'active':'' }" id="first_item_div" onclick="showSecondNav(${item.id })">${item.mc }</div>
 	<div class="second_nav_div" id="second_nav_div${item.id }">
 		<c:forEach items="${item.childList }" var="childItem">
 		<a href="<%=basePath %>${childItem.lj }"><div class="second_item_div">${childItem.mc }</div></a>
