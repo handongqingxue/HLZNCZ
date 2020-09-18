@@ -28,6 +28,7 @@ import net.sf.json.JSONObject;
 import com.hlzncz.util.FileUploadUtils;
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 import com.hlzncz.entity.YongHu;
@@ -166,6 +167,22 @@ public class MainController {
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/clxx/edit";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/sjxx/new")
+	public String goSjxxNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/sjgl/sjxx/new";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/sjxx/list")
+	public String goSjxxList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/sjgl/sjxx/list";
 	}
 	
 	private void selectNav(HttpServletRequest request) {
@@ -491,6 +508,76 @@ public class MainController {
 		jsonMap.put("total", count);
 		jsonMap.put("rows", clList);
 		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/querySiJiList")
+	@ResponseBody
+	public Map<String, Object> querySiJiList(String xm,String sfz,Integer zyzt,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.querySiJiForInt(xm,sfz,zyzt);
+		List<SiJi> sjList=publicService.querySiJiList(xm,sfz,zyzt, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", sjList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/newSiJi")
+	@ResponseBody
+	public Map<String, Object> newSiJi(SiJi sj,
+			@RequestParam(value="zp_file",required=false) MultipartFile zp_file,
+			@RequestParam(value="jz_file",required=false) MultipartFile jz_file,
+			@RequestParam(value="zgzs_file",required=false) MultipartFile zgzs_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			MultipartFile[] fileArr=new MultipartFile[3];
+			fileArr[0]=zp_file;
+			fileArr[1]=jz_file;
+			fileArr[2]=zgzs_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								sj.setZp(dataJO.get("src").toString());
+								break;
+							case 1:
+								sj.setJz(dataJO.get("src").toString());
+								break;
+							case 2:
+								sj.setZgzs(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.newSiJi(sj);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建司机信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建司机信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return jsonMap;
 	}
 	

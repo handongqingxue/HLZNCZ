@@ -222,6 +222,74 @@
 			</if>
 		</trim>
 	</insert>
+	<insert id="newSiJi" parameterType="com.hlzncz.entity.SiJi">
+		insert into si_ji
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="xm!=null">
+				xm,
+			</if>
+			<if test="sjh!=null">
+				sjh,
+			</if>
+			<if test="zp!=null">
+				zp,
+			</if>
+			<if test="sfz!=null">
+				sfz,
+			</if>
+			<if test="zgzs!=null">
+				zgzs,
+			</if>
+			<if test="zgzyxqz!=null">
+				zgzyxqz,
+			</if>
+			<if test="jz!=null">
+				jz,
+			</if>
+			<if test="jzyxqz!=null">
+				jzyxqz,
+			</if>
+			<if test="shzt!=null">
+				shzt,
+			</if>
+			<if test="zxzt!=null">
+				zxzt,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="xm!=null">
+				#{xm},
+			</if>
+			<if test="sjh!=null">
+				#{sjh},
+			</if>
+			<if test="zp!=null">
+				#{zp},
+			</if>
+			<if test="sfz!=null">
+				#{sfz},
+			</if>
+			<if test="zgzs!=null">
+				#{zgzs},
+			</if>
+			<if test="zgzyxqz!=null">
+				#{zgzyxqz},
+			</if>
+			<if test="jz!=null">
+				#{jz},
+			</if>
+			<if test="jzyxqz!=null">
+				#{jzyxqz},
+			</if>
+			<if test="shzt!=null">
+				#{shzt},
+			</if>
+			<if test="zxzt!=null">
+				#{zxzt},
+			</if>
+		</trim>
+	</insert>
 	<delete id="deleteCheLiang">
 		delete from che_liang where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
@@ -303,8 +371,32 @@
 			and cllx=#{cllx}
 		</if> 
 	</select>
+	<select id="querySiJiList" resultType="com.hlzncz.entity.SiJi">
+		select * from si_ji where 1=1
+		<if test="xm!=''&amp;xm!=null">
+			and xm like CONCAT('%',#{xm},'%')
+		</if> 
+		<if test="sfz!=''&amp;sfz!=null">
+			and sfz like CONCAT('%',#{sfz},'%')
+		</if> 
+		<if test="zyzt!=''&amp;zyzt!=null">
+			and zyzt=#{zyzt}
+		</if> 
+	</select>
 	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">
 		select * from che_liang where id=#{0}
+	</select>
+	<select id="querySiJiForInt" resultType="java.lang.Integer">
+		select count(*) from si_ji where 1=1
+		<if test="xm!=''&amp;xm!=null">
+			and xm like CONCAT('%',#{xm},'%')
+		</if> 
+		<if test="sfz!=''&amp;sfz!=null">
+			and sfz like CONCAT('%',#{sfz},'%')
+		</if> 
+		<if test="zyzt!=''&amp;zyzt!=null">
+			and zyzt=#{zyzt}
+		</if> 
 	</select>
 	
 </mapper>

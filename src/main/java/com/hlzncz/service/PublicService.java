@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 
@@ -48,4 +49,10 @@ public interface PublicService {
 	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, int page, int rows, String sort, String order);
 
 	public CheLiang selectCheLiangById(String id);
+
+	public int newSiJi(SiJi sj);
+
+	public int querySiJiForInt(String xm, String sfz, Integer zyzt);
+
+	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, int page, int rows, String sort, String order);
 }

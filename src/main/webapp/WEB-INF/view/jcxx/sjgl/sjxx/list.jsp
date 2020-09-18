@@ -8,25 +8,26 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	cllxCBB=$("#cllx").combobox({
+	zyztCBB=$("#zyzt").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+		data:[{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
 	});
 	
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var cph=$("#toolbar #cph").val();
-			var cllx=cllxCBB.combobox("getValue");
-			tab1.datagrid("load",{cph:cph,cllx:cllx});
+			var xm=$("#toolbar #xm").val();
+			var sfz=$("#toolbar #sfz").val();
+			var zyzt=zyztCBB.combobox("getValue");
+			tab1.datagrid("load",{xm:xm,sfz:sfz,zyzt:zyzt});
 		}
 	});
 	
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/clgl/clxx/new?fnid="+'${param.fnid}';
+			location.href=path+"main/jcxx/sjgl/sjxx/new?fnid="+'${param.fnid}';
 		}
 	});
 	
@@ -46,45 +47,17 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"车辆信息-列表",
-		url:path+"main/queryCheLiangList",
+		title:"司机信息-列表",
+		url:path+"main/querySiJiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"cph",title:"车牌号",width:200},
-            {field:"ppxh",title:"品牌型号",width:200},
-			{field:"fdjhm",title:"发动机号码",width:200},
-			{field:"clsbdm",title:"车辆识别代号",width:200},
-			{field:"zcrq",title:"注册日期",width:200},
-			{field:"pfjd",title:"排放阶段",width:200,formatter:function(value){
-				var str;
-				switch (value) {
-				case 1:
-					str="国五燃油";
-					break;
-				case 2:
-					str="国五燃气";
-					break;
-				case 3:
-					str="国六燃油";
-					break;
-				case 4:
-					str="国六燃气";
-					break;
-				case 5:
-					str="电动";
-					break;
-				}
-				return str;
-			}},
-			{field:"fzrq",title:"发证日期",width:200},
-			{field:"sfzy",title:"是否在用",width:200,formatter:function(value){
-				return value?"是":"否";
-			}},
-			{field:"bz",title:"备注",width:200},
+			{field:"xm",title:"姓名",width:200},
+            {field:"sjh",title:"手机号",width:200},
+			{field:"sfz",title:"身份证",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
@@ -93,8 +66,8 @@ $(function(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:10});
+				$(this).datagrid("appendRow",{xm:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"xm",colspan:4});
 				data.total=0;
 			}
 			
@@ -166,17 +139,19 @@ function setFitWidthInParent(o){
 	return width.substring(0,width.length-2)-340;
 }
 </script>
-<title>车辆信息</title>
+<title>司机信息</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">车牌号：</span>
-			<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">车辆类型：</span>
-			<input id="cllx"/>
+			<span style="margin-left: 13px;">姓名：</span>
+			<input type="text" id="xm" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">身份证：</span>
+			<input type="text" id="sfz" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">在用状态：</span>
+			<input id="zyzt"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>

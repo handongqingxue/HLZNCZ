@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
 
@@ -50,4 +51,10 @@ public interface PublicMapper {
 	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, int i, int rows, String sort, String order);
 
 	public CheLiang selectCheLiangById(String id);
+
+	public int newSiJi(SiJi sj);
+
+	public int querySiJiForInt(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt);
+
+	public List<SiJi> querySiJiList(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt, int i, int rows, String sort, String order);
 }
