@@ -252,8 +252,8 @@
 			<if test="shzt!=null">
 				shzt,
 			</if>
-			<if test="zxzt!=null">
-				zxzt,
+			<if test="zyzt!=null">
+				zyzt,
 			</if>
 		</trim>
 		values
@@ -285,8 +285,8 @@
 			<if test="shzt!=null">
 				#{shzt},
 			</if>
-			<if test="zxzt!=null">
-				#{zxzt},
+			<if test="zyzt!=null">
+				#{zyzt},
 			</if>
 		</trim>
 	</insert>
@@ -353,6 +353,42 @@
 		</trim>
 		 where id=#{id}
 	</update>
+	<update id="editSiJi" parameterType="com.hlzncz.entity.SiJi">
+		update si_ji set 
+		<trim suffixOverrides=",">
+			<if test="xm!=null">
+				xm=#{xm},
+			</if>
+			<if test="sjh!=null">
+				sjh=#{sjh},
+			</if>
+			<if test="zp!=null">
+				zp=#{zp},
+			</if>
+			<if test="sfz!=null">
+				sfz=#{sfz},
+			</if>
+			<if test="zgzs!=null">
+				zgzs=#{zgzs},
+			</if>
+			<if test="zgzyxqz!=null">
+				zgzyxqz=#{zgzyxqz},
+			</if>
+			<if test="jz!=null">
+				jz=#{jz},
+			</if>
+			<if test="jzyxqz!=null">
+				jzyxqz=#{jzyxqz},
+			</if>
+			<if test="shzt!=null">
+				shzt=#{shzt},
+			</if>
+			<if test="zyzt!=null">
+				zyzt=#{zyzt},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryCheLiangForInt" resultType="java.lang.Integer">
 		select count(*) from che_liang where 1=1
 		<if test="cph!=''&amp;cph!=null">
@@ -371,18 +407,6 @@
 			and cllx=#{cllx}
 		</if> 
 	</select>
-	<select id="querySiJiList" resultType="com.hlzncz.entity.SiJi">
-		select * from si_ji where 1=1
-		<if test="xm!=''&amp;xm!=null">
-			and xm like CONCAT('%',#{xm},'%')
-		</if> 
-		<if test="sfz!=''&amp;sfz!=null">
-			and sfz like CONCAT('%',#{sfz},'%')
-		</if> 
-		<if test="zyzt!=''&amp;zyzt!=null">
-			and zyzt=#{zyzt}
-		</if> 
-	</select>
 	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">
 		select * from che_liang where id=#{0}
 	</select>
@@ -397,6 +421,21 @@
 		<if test="zyzt!=''&amp;zyzt!=null">
 			and zyzt=#{zyzt}
 		</if> 
+	</select>
+	<select id="querySiJiList" resultType="com.hlzncz.entity.SiJi">
+		select * from si_ji where 1=1
+		<if test="xm!=''&amp;xm!=null">
+			and xm like CONCAT('%',#{xm},'%')
+		</if> 
+		<if test="sfz!=''&amp;sfz!=null">
+			and sfz like CONCAT('%',#{sfz},'%')
+		</if> 
+		<if test="zyzt!=''&amp;zyzt!=null">
+			and zyzt=#{zyzt}
+		</if> 
+	</select>
+	<select id="selectSiJiById" resultType="com.hlzncz.entity.SiJi">
+		select * from si_ji where id=#{0}
 	</select>
 	
 </mapper>

@@ -54,7 +54,11 @@ public interface PublicMapper {
 
 	public int newSiJi(SiJi sj);
 
+	public int editSiJi(SiJi sj);
+
 	public int querySiJiForInt(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt);
 
 	public List<SiJi> querySiJiList(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt, int i, int rows, String sort, String order);
+
+	public SiJi selectSiJiById(String id);
 }

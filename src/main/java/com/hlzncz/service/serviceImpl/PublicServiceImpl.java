@@ -154,6 +154,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int editSiJi(SiJi sj) {
+		// TODO Auto-generated method stub
+		return publicDao.editSiJi(sj);
+	}
+
+	@Override
 	public int querySiJiForInt(String xm, String sfz, Integer zyzt) {
 		// TODO Auto-generated method stub
 		return publicDao.querySiJiForInt(xm,sfz,zyzt);
@@ -164,6 +170,12 @@ public class PublicServiceImpl implements PublicService {
 			String order) {
 		// TODO Auto-generated method stub
 		return publicDao.querySiJiList(xm, sfz, zyzt, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public SiJi selectSiJiById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectSiJiById(id);
 	}
 
 }

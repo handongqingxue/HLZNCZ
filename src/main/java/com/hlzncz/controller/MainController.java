@@ -177,6 +177,17 @@ public class MainController {
 		return "jcxx/sjgl/sjxx/new";
 	}
 
+	@RequestMapping(value="/jcxx/sjgl/sjxx/edit")
+	public String goSjxxEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/sjxx/edit";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/sjxx/list")
 	public String goSjxxList(HttpServletRequest request) {
 		
@@ -573,6 +584,60 @@ public class MainController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "创建司机信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/editSiJi")
+	@ResponseBody
+	public Map<String, Object> editSiJi(SiJi sj,
+			@RequestParam(value="zp_file",required=false) MultipartFile zp_file,
+			@RequestParam(value="jz_file",required=false) MultipartFile jz_file,
+			@RequestParam(value="zgzs_file",required=false) MultipartFile zgzs_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[3];
+			fileArr[0]=zp_file;
+			fileArr[1]=jz_file;
+			fileArr[2]=zgzs_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								sj.setZp(dataJO.get("src").toString());
+								break;
+							case 1:
+								sj.setJz(dataJO.get("src").toString());
+								break;
+							case 2:
+								sj.setZgzs(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.editSiJi(sj);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑司机信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑司机信息失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

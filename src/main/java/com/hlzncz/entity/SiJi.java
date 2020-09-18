@@ -69,11 +69,11 @@ public class SiJi implements Serializable {
 	public void setShzt(Integer shzt) {
 		this.shzt = shzt;
 	}
-	public Boolean getZxzt() {
-		return zxzt;
+	public Boolean getZyzt() {
+		return zyzt;
 	}
-	public void setZxzt(Boolean zxzt) {
-		this.zxzt = zxzt;
+	public void setZyzt(Boolean zyzt) {
+		this.zyzt = zyzt;
 	}
 	private String xm;//姓名
 	private String sjh;//手机号
@@ -84,6 +84,6 @@ public class SiJi implements Serializable {
 	private String jz;//驾证
 	private String jzyxqz;//驾证有效期至
 	private Integer shzt;//审核状态 1.编辑中2.待审核3.审核通过
-	private Boolean zxzt;//在用状态
+	private Boolean zyzt;//在用状态
 
 }

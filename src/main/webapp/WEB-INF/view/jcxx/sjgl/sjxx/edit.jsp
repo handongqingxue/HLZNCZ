@@ -8,15 +8,15 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	initNewDialog();
+	initEditDialog();
 	initZGZYXQZDB();
 	initJZYXQZDB();
 	initSHZTCBB();
 	initZYZTCBB();
 });
 
-function initNewDialog(){
-	$("#new_div").dialog({
+function initEditDialog(){
+	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:431,
@@ -24,17 +24,17 @@ function initNewDialog(){
 		left:308,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkNew();
+        	   	checkEdit();
            }}
         ]
 	});
 
-	$("#new_div table").css("width",(setFitWidthInParent("body")-15)+"px");
-	$("#new_div table").css("magin","-100px");
-	$("#new_div table td").css("padding-left","50px");
-	$("#new_div table td").css("padding-right","20px");
-	$("#new_div table td").css("font-size","15px");
-	$("#new_div table tr").css("height","45px");
+	$("#edit_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#edit_div table").css("magin","-100px");
+	$("#edit_div table td").css("padding-left","50px");
+	$("#edit_div table td").css("padding-right","20px");
+	$("#edit_div table td").css("font-size","15px");
+	$("#edit_div table tr").css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
 	$(".panel.window .panel-title").css("color","#000");
@@ -47,8 +47,8 @@ function initNewDialog(){
 	$(".window-shadow").css("margin-top","20px");
 	$(".window,.window .window-body").css("border-color","#ddd");
 
-	$("#new_div #ok_but").css("left","45%");
-	$("#new_div #ok_but").css("position","absolute");
+	$("#edit_div #ok_but").css("left","45%");
+	$("#edit_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
@@ -62,6 +62,7 @@ function initZGZYXQZDB(){
         }
     });
 	zgzyxqzDB.datebox('textbox').attr('placeholder', '请选择资格证有效期至');
+	zgzyxqzDB.datebox("setValue",'${requestScope.sj.zgzyxqz }');
 }
 
 function initJZYXQZDB(){
@@ -73,6 +74,7 @@ function initJZYXQZDB(){
         }
     });
 	jzyxqzDB.datebox('textbox').attr('placeholder', '请选择驾证有效期至');
+	jzyxqzDB.datebox("setValue",'${requestScope.sj.jzyxqz }');
 }
 
 function initSHZTCBB(){
@@ -80,6 +82,9 @@ function initSHZTCBB(){
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"编辑中"},{"value":"2","text":"待审核"},{"value":"3","text":"审核通过"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.sj.shzt }');
+		},
 		onSelect:function(){
 			$("#shzt").val($(this).combobox("getValue"));
 		}
@@ -93,6 +98,9 @@ function initZYZTCBB(){
 		data:[
 			{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}
 		],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.sj.zyzt }'?1:0);
+		},
 		onSelect:function(){
 			$("#zyzt").val($(this).combobox("getValue"));
 		}
@@ -112,23 +120,23 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function checkNew(){
+function checkEdit(){
 	if(checkXM()){
 		if(checkSFZ()){
 			if(checkSHZT()){
 				if(checkZYZT()){
-					newSiJi();
+					editSiJi();
 				}
 			}
 		}
 	}
 }
 
-function newSiJi(){
+function editSiJi(){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/newSiJi",
+		url:path+"main/editSiJi",
 		dataType: "json",
 		data:formData,
 		cache: false,
@@ -213,26 +221,27 @@ function setFitWidthInParent(o){
 	return width.substring(0,width.length-2)-340;
 }
 </script>
-<title>创建</title>
+<title>修改</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
-	<div id="new_div">
-	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+	<div id="edit_div">
+	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${requestScope.sj.id }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				姓名
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="xm" name="xm" placeholder="请输入姓名" style="width: 150px;height:30px;" onfocus="focusXM()" onblur="checkXM()"/>
+				<input type="text" id="xm" name="xm" value="${requestScope.sj.xm }" placeholder="请输入姓名" style="width: 150px;height:30px;" onfocus="focusXM()" onblur="checkXM()"/>
 			</td>
 			<td align="right" style="width:15%;">
 				手机号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="sjh" name="sjh" placeholder="请输入手机号" style="width: 150px;height:30px;"/>
+				<input type="text" id="sjh" name="sjh" value="${requestScope.sj.sjh }" placeholder="请输入手机号" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -241,58 +250,67 @@ function setFitWidthInParent(o){
 			</td>
 			<td>
 				<input type="file" name="zp_file"/>
+				<div>
+					${requestScope.sj.zp }
+				</div>
 			</td>
 			<td align="right">
 				身份证
 			</td>
 			<td>
-				<input type="text" id="sfz" name="sfz" placeholder="请输入身份证" style="width: 150px;height:30px;" onfocus="focusSFZ()" onblur="checkSFZ()"/>
+				<input type="text" id="sfz" name="sfz" value="${requestScope.sj.sfz }" placeholder="请输入身份证" style="width: 150px;height:30px;" onfocus="focusSFZ()" onblur="checkSFZ()"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				资格证有效期至
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="zgzyxqz_db"/>
 				<input type="hidden" id="zgzyxqz" name="zgzyxqz"/>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				驾证
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input type="file" name="jz_file"/>
+				<div>
+					${requestScope.sj.jz }
+				</div>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				驾证有效期至
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="jzyxqz_db"/>
-				<input type="hidden" id="jzyxqz" name="jzyxqz"/>
+				<input type="hidden" id="jzyxqz" name="jzyxqz" value="${requestScope.sj.jzyxqz }"/>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				资格证书
 			</td>
-			<td style="width:30%;">
-				<input type="file" name="zgzs_file"/>
+			<td>
+				<input type="file" name="jz_file"/>
+				<div>
+					${requestScope.sj.zgzs }
+				</div>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				审核状态
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="shzt_cbb"/>
-				<input type="hidden" id="shzt" name="shzt"/>
+				<input type="hidden" id="shzt" name="shzt" value="${requestScope.sj.shzt }"/>
 			</td>
-			<td align="right" style="width:15%;">
+			<td align="right">
 				在用状态
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input id="zyzt_cbb"/>
-				<input type="hidden" id="zyzt" name="zyzt"/>
+				<input type="hidden" id="zyzt" name="zyzt" value="${requestScope.sj.zyzt }"/>
 			</td>
 		  </tr>
 		</table>
