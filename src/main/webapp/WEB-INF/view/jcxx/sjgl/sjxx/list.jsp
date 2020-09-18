@@ -59,7 +59,7 @@ $(function(){
             {field:"sjh",title:"手机号",width:200},
 			{field:"sfz",title:"身份证",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
@@ -117,7 +117,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteCheLiang",
+			$.post(path + "main/deleteSiJi",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

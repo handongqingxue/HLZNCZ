@@ -52,6 +52,8 @@ public interface PublicService {
 
 	public int newSiJi(SiJi sj);
 
+	public int deleteSiJi(String ids);
+
 	public int editSiJi(SiJi sj);
 
 	public int querySiJiForInt(String xm, String sfz, Integer zyzt);

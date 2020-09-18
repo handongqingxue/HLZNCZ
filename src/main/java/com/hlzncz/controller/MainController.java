@@ -177,6 +177,17 @@ public class MainController {
 		return "jcxx/sjgl/sjxx/new";
 	}
 
+	@RequestMapping(value="/jcxx/sjgl/sjxx/detail")
+	public String goSjxxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/sjxx/detail";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/sjxx/edit")
 	public String goSjxxEdit(HttpServletRequest request) {
 		
@@ -590,6 +601,26 @@ public class MainController {
 			e.printStackTrace();
 		}
 		return jsonMap;
+	}
+	
+	@RequestMapping(value="/deleteSiJi",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteSiJi(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteSiJi(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除司机信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除司机信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 	
 	@RequestMapping(value="/editSiJi")

@@ -154,6 +154,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteSiJi(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteSiJi(idList);
+		return count;
+	}
+
+	@Override
 	public int editSiJi(SiJi sj) {
 		// TODO Auto-generated method stub
 		return publicDao.editSiJi(sj);

@@ -54,6 +54,8 @@ public interface PublicMapper {
 
 	public int newSiJi(SiJi sj);
 
+	public int deleteSiJi(List<String> idList);
+
 	public int editSiJi(SiJi sj);
 
 	public int querySiJiForInt(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt);
