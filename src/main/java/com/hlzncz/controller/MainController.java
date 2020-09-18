@@ -216,6 +216,17 @@ public class MainController {
 		return "jcxx/dwgl/fhdw/new";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/fhdw/edit")
+	public String goFhdwEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(id);
+		request.setAttribute("fhdw", fhdw);
+		
+		return "jcxx/dwgl/fhdw/edit";
+	}
+
 	@RequestMapping(value="/jcxx/dwgl/fhdw/list")
 	public String goFhdwList(HttpServletRequest request) {
 		
@@ -708,6 +719,24 @@ public class MainController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "创建发货单位失败！");
+		}
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/editFaHuoDanWei")
+	@ResponseBody
+	public Map<String, Object> editFaHuoDanWei(FaHuoDanWei fhdw) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editFaHuoDanWei(fhdw);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑发货单位成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑发货单位失败！");
 		}
 		return jsonMap;
 	}

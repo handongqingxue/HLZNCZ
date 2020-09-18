@@ -67,7 +67,11 @@ public interface PublicMapper {
 
 	public int newFaHuoDanWei(FaHuoDanWei fhdw);
 
+	public int editFaHuoDanWei(FaHuoDanWei fhdw);
+
 	public int queryFaHuoDanWeiForInt(@Param("dwmc") String dwmc);
 
 	public List<FaHuoDanWei> queryFaHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
+
+	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 }

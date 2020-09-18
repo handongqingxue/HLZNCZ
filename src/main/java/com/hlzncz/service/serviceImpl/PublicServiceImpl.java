@@ -195,6 +195,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int editFaHuoDanWei(FaHuoDanWei fhdw) {
+		// TODO Auto-generated method stub
+		return publicDao.editFaHuoDanWei(fhdw);
+	}
+
+	@Override
 	public int queryFaHuoDanWeiForInt(String dwmc) {
 		// TODO Auto-generated method stub
 		return publicDao.queryFaHuoDanWeiForInt(dwmc);
@@ -204,6 +210,12 @@ public class PublicServiceImpl implements PublicService {
 	public List<FaHuoDanWei> queryFaHuoDanWeiList(String dwmc, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryFaHuoDanWeiList(dwmc, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public FaHuoDanWei selectFaHuoDanWeiById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectFaHuoDanWeiById(id);
 	}
 
 }

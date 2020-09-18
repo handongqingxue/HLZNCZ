@@ -57,7 +57,7 @@ $(function(){
             {field:"bjsj",title:"编辑时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/fhdw/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

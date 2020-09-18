@@ -65,7 +65,11 @@ public interface PublicService {
 
 	public int newFaHuoDanWei(FaHuoDanWei fhdw);
 
+	public int editFaHuoDanWei(FaHuoDanWei fhdw);
+
 	public int queryFaHuoDanWeiForInt(String dwmc);
 
 	public List<FaHuoDanWei> queryFaHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
+
+	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 }

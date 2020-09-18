@@ -459,6 +459,16 @@
 				now()
 		</trim>
 	</insert>
+	<update id="editFaHuoDanWei" parameterType="com.hlzncz.entity.FaHuoDanWei">
+		update fa_huo_dan_wei set 
+		<trim suffixOverrides=",">
+			<if test="dwmc!=null">
+				dwmc=#{dwmc},
+			</if>
+				bjsj=now()
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryFaHuoDanWeiForInt" resultType="java.lang.Integer">
 		select count(*) from fa_huo_dan_wei where 1=1
 		<if test="dwmc!=''&amp;dwmc!=null">
@@ -470,6 +480,9 @@
 		<if test="dwmc!=''&amp;dwmc!=null">
 			and dwmc like CONCAT('%',#{dwmc},'%')
 		</if> 
+	</select>
+	<select id="selectFaHuoDanWeiById" resultType="com.hlzncz.entity.FaHuoDanWei">
+		select * from fa_huo_dan_wei where id=#{0}
 	</select>
 	
 </mapper>
