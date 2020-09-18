@@ -67,6 +67,8 @@ public interface PublicMapper {
 
 	public int newFaHuoDanWei(FaHuoDanWei fhdw);
 
+	public int deleteFaHuoDanWei(List<String> idList);
+
 	public int editFaHuoDanWei(FaHuoDanWei fhdw);
 
 	public int queryFaHuoDanWeiForInt(@Param("dwmc") String dwmc);

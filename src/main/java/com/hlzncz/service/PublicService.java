@@ -65,6 +65,8 @@ public interface PublicService {
 
 	public int newFaHuoDanWei(FaHuoDanWei fhdw);
 
+	public int deleteFaHuoDanWei(String ids);
+
 	public int editFaHuoDanWei(FaHuoDanWei fhdw);
 
 	public int queryFaHuoDanWeiForInt(String dwmc);
