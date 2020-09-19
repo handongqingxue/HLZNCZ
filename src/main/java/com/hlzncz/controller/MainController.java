@@ -928,6 +928,24 @@ public class MainController {
 		
 		return jsonMap;
 	}
+	
+	@RequestMapping(value="/newDuiLie")
+	@ResponseBody
+	public Map<String, Object> newDuiLie(DuiLie dl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newDuiLie(dl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建队列成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建队列失败！");
+		}
+		return jsonMap;
+	}
 
 	@RequestMapping(value="/queryDuiLieList")
 	@ResponseBody

@@ -96,6 +96,8 @@ public interface PublicMapper {
 
 	public CangKu selectCangKuById(String id);
 
+	public int newDuiLie(DuiLie dl);
+
 	public int queryDuiLieForInt(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt);
 
 	public List<DuiLie> queryDuiLieList(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt, int i, int rows, String sort, String order);

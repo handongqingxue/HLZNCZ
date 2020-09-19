@@ -11,6 +11,7 @@ $(function(){
 	initEditDialog();
 	initSHDWDialog();
 	initSelectShdwDialog();
+	initEditShdwDialog();
 });
 
 function initEditDialog(){
@@ -22,7 +23,7 @@ function initEditDialog(){
 		left:308,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkNew();
+        	   checkNew();
            }}
         ]
 	});
@@ -55,7 +56,7 @@ function initEditDialog(){
 }
 
 function initSHDWDialog(){
-	wzlxDialog=$("#shdw_div").dialog({
+	shdwDialog=$("#shdw_div").dialog({
 		title:"收货单位",
 		width:setFitWidthInParent("body","shdw_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
@@ -84,7 +85,7 @@ function initSHDWDialog(){
 }
 
 function initSelectShdwDialog(){
-	wzlxDialog=$("#select_shdw_div").dialog({
+	selectSHDWDialog=$("#select_shdw_div").dialog({
 		title:"选择实体",
 		width:setFitWidthInParent("body"),
 		//height:setFitHeightInParent(".left_nav_div"),
@@ -129,6 +130,57 @@ function initSelectShdwDialog(){
 	openSelectSHDWDialog(0);
 }
 
+function initEditShdwDialog(){
+	editSHDWDialog=$("#edit_shdw_div").dialog({
+		title:"修改",
+		width:setFitWidthInParent("body","edit_shdw_div"),
+		height:231,
+		top:160,
+		left:308,
+		buttons:[
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editSHDW();
+           }}
+        ]
+	});
+
+	$("#edit_shdw_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#edit_shdw_div table").css("magin","-100px");
+	$("#edit_shdw_div table td").css("padding-left","50px");
+	$("#edit_shdw_div table td").css("padding-right","20px");
+	$("#edit_shdw_div table td").css("font-size","15px");
+	$("#edit_shdw_div table tr").css("height","45px");
+
+	$(".panel.window").eq(3).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(3).css("color","#000");
+	$(".panel.window .panel-title").eq(3).css("font-size","15px");
+	$(".panel.window .panel-title").eq(3).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(3).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(3).css("margin-top","20px");
+	$(".window,.window .window-body").eq(3).css("border-color","#ddd");
+
+	$("#edit_shdw_div #ok_but").css("left","45%");
+	$("#edit_shdw_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	initEditSHDWGXCBB();
+	openEditSHDWDialog(0);
+}
+
+function initEditSHDWGXCBB(){
+	editSHDWGXCBB=$("#edit_shdw_gx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"1","text":"收货单位"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",1);
+		}
+	});
+}
+
 function initSHDWTab(){
 	$("#choose_but").linkbutton({
 		iconCls:"icon-edit",
@@ -146,12 +198,20 @@ function initSHDWTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"gx",title:"关系",width:200},
+			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="收货单位";
+					break;
+				}
+				return str;
+			}},
             {field:"dwmc",title:"单位名称",width:200},
 			{field:"bjsj",title:"编辑时间",width:200},
 			{field:"id",title:"操作",width:200,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">编辑</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">删除</a>";
+            	var str="<a onclick=\"editSHDWTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteSHDWTabRow()\">删除</a>";
             	return str;
             }}
 	    ]],
@@ -178,6 +238,23 @@ function initSHDWTab(){
 		}
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadSHDWTabData([]);
+}
+
+function editSHDWTabRow(){
+	var row=shdwTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#edit_shdw_div #id").val(row.id);
+	$("#edit_shdw_div #bjsj").val(row.bjsj);
+	$("#edit_shdw_div #dwmc").val(row.dwmc);
+	openEditSHDWDialog(1);
+}
+
+function deleteSHDWTabRow(){
+	shdwTab.datagrid("deleteRow",0);
 	loadSHDWTabData([]);
 }
 
@@ -271,10 +348,19 @@ function reSizeCol(){
 
 function openSelectSHDWDialog(flag){
 	if(flag==1){
-		wzlxDialog.dialog("open");
+		selectSHDWDialog.dialog("open");
 	}
 	else{
-		wzlxDialog.dialog("close");
+		selectSHDWDialog.dialog("close");
+	}
+}
+
+function openEditSHDWDialog(flag){
+	if(flag==1){
+		editSHDWDialog.dialog("open");
+	}
+	else{
+		editSHDWDialog.dialog("close");
 	}
 }
 
@@ -284,7 +370,7 @@ function saveSelectSHDW(){
 		$.messager.alert("提示","请选择要删除的信息！","warning");
 		return false;
 	}
-	var rows=[{gx:"收货单位",dwmc:row.dwmc,bjsj:row.bjsj,id:row.id}];
+	var rows=[{gx:"1",dwmc:row.dwmc,bjsj:row.bjsj,id:row.id}];
 	loadSHDWTabData(rows);
 	openSelectSHDWDialog(0);
 }
@@ -294,20 +380,47 @@ function loadSHDWTabData(rows){
 	shdwTab.datagrid('loadData',obj);
 }
 
+function editSHDW(){
+	var id=$("#edit_shdw_div #id").val();
+	var gx=editSHDWGXCBB.combobox("getValue");
+	var dwmc=$("#edit_shdw_div #dwmc").val();
+	var bjsj=$("#edit_shdw_div #bjsj").val();
+	
+	var rows=[{gx:gx,dwmc:dwmc,bjsj:bjsj,id:id}];
+	loadSHDWTabData(rows);
+	openEditSHDWDialog(0);
+}
+
 function checkNew(){
 	if(checkMC()){
-		if(checkWZLXId()){
-			newWuZi();
+		if(checkDM()){
+			if(checkJHYZ()){
+				if(checkJHXS()){
+					if(checkZT()){
+						if(checkSHDWId()){
+							newDuiLie();
+						}
+					}
+				}
+			}
 		}
 	}
 }
 
-function newWuZi(){
+function newDuiLie(){
 	var mc=$("#new_div #mc").val();
-	var wzlxId=$("#new_div #wzlx_hid").val();
+	var dm=$("#new_div #dm").val();
+	var jhyz=$("#new_div #jhyz").val();
+	var jhxs=jhxsCBB.combobox("getValue");
+	var zt=ztCBB.combobox("getValue");
+	var shdwTabData=shdwTab.datagrid("getData");
+	var total=shdwTabData.total;
+	var shdwId=0;
+	if(total>0)
+		shdwId=shdwTabData.rows[0].id;
 	
-	$.post(path+"main/newWuZi",
-		{mc:mc,wzlxId:wzlxId},
+	$.post(path+"main/newDuiLie",
+		{mc:mc,dm:dm,jhyz:jhyz,jhxs:jhxs,zt:zt,shdwId:shdwId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -321,30 +434,88 @@ function newWuZi(){
 }
 
 function focusMC(){
-	var mc = $("#mc").val();
+	var mc = $("#new_div #mc").val();
 	if(mc=="名称不能为空"){
-		$("#mc").val("");
-		$("#mc").css("color", "#555555");
+		$("#new_div #mc").val("");
+		$("#new_div #mc").css("color", "#555555");
 	}
 }
 
 //验证名称
 function checkMC(){
-	var mc = $("#mc").val();
+	var mc = $("#new_div #mc").val();
 	if(mc==null||mc==""||mc=="名称不能为空"){
-		$("#mc").css("color","#E15748");
-    	$("#mc").val("名称不能为空");
+		$("#new_div #mc").css("color","#E15748");
+    	$("#new_div #mc").val("名称不能为空");
     	return false;
 	}
 	else
 		return true;
 }
 
-//验证物资类型
-function checkWZLXId(){
-	var wzlxId = $("#wzlx_hid").val();
-	if(wzlxId==null||wzlxId==""){
-	  	alert("请选择物资类型");
+function focusDM(){
+	var dm = $("#new_div #dm").val();
+	if(dm=="代码不能为空"){
+		$("#new_div #dm").val("");
+		$("#new_div #dm").css("color", "#555555");
+	}
+}
+
+//验证代码
+function checkDM(){
+	var dm = $("#new_div #dm").val();
+	if(mc==null||mc==""||mc=="代码不能为空"){
+		$("#new_div #dm").css("color","#E15748");
+    	$("#new_div #dm").val("代码不能为空");
+    	return false;
+	}
+	else
+		return true;
+}
+
+//验证叫号阈值
+function checkJHYZ(){
+	var jhyz = $("#new_div #jhyz").val();
+	if(jhyz==null||jhyz==""){
+	  	alert("请选择叫号阈值");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证叫号形式
+function checkJHXS(){
+	var jhxs=jhxsCBB.combobox("getValue");
+	if(jhxs==null||jhxs==""){
+	  	alert("请选择叫号形式");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证状态
+function checkZT(){
+	var zt=ztCBB.combobox("getValue");
+	if(zt==null||zt==""){
+	  	alert("请选择状态");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证收货单位
+function checkSHDWId(){
+	var shdwTabData=shdwTab.datagrid("getData");
+	var total=shdwTabData.total;
+	var shdwId=0;
+	if(total>0)
+		shdwId=shdwTabData.rows[0].id;
+	
+	if(shdwId==0){
+		alert("请选择收货单位");
 	  	return false;
 	}
 	else
@@ -357,6 +528,7 @@ function setFitWidthInParent(parent,self){
 	case "new_div":
 	case "shdw_div":
 	case "select_shdw_tab":
+	case "edit_shdw_div":
 		space=340;
 		break;
 	case "new_div_table":
@@ -408,7 +580,7 @@ function initWindowMarginLeft(){
 				叫号阈值
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="jhyz" placeholder="请输入叫号阈值" style="width: 150px;height:30px;" onfocus="focusYHYZ()" onblur="checkYHYZ()"/>
+				<input type="number" id="jhyz" placeholder="请输入叫号阈值" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right" style="width:15%;">
 				叫号形式
@@ -448,6 +620,27 @@ function initWindowMarginLeft(){
 			<a id="select_shdw_search_but" style="margin-left: 13px;">查询</a>
 		</div>
 		<table id="select_shdw_tab"></table>
+	</div>
+	
+	<div id="edit_shdw_div">
+		<input type="hidden" id="id"/>
+		<input type="hidden" id="bjsj"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				关系
+			</td>
+			<td style="width:30%;">
+				<input id="edit_shdw_gx_cbb"/>
+			</td>
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		</table>
 	</div>
 </div>
 </body>

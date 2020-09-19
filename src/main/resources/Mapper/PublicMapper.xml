@@ -443,7 +443,7 @@
 	<select id="selectSiJiById" resultType="com.hlzncz.entity.SiJi">
 		select * from si_ji where id=#{0}
 	</select>
-	<insert id="newFaHuoDanWei">
+	<insert id="newFaHuoDanWei" parameterType="com.hlzncz.entity.FaHuoDanWei">
 		insert into fa_huo_dan_wei
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="dwmc!=null">
@@ -459,7 +459,7 @@
 				now()
 		</trim>
 	</insert>
-	<insert id="newCangKu">
+	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
 		insert into cang_ku
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="mc!=null">
@@ -482,6 +482,50 @@
 			</if>
 			<if test="bz!=null">
 				#{bz},
+			</if>
+		</trim>
+	</insert>
+	<insert id="newDuiLie" parameterType="com.hlzncz.entity.DuiLie">
+		insert into dui_lie
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+			<if test="dm!=null">
+				dm,
+			</if>
+			<if test="jhxs!=null">
+				jhxs,
+			</if>
+			<if test="jhyz!=null">
+				jhyz,
+			</if>
+			<if test="zt!=null">
+				zt,
+			</if>
+			<if test="shdwId!=null">
+				shdwId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+			<if test="dm!=null">
+				#{dm},
+			</if>
+			<if test="jhxs!=null">
+				#{jhxs},
+			</if>
+			<if test="jhyz!=null">
+				#{jhyz},
+			</if>
+			<if test="zt!=null">
+				#{zt},
+			</if>
+			<if test="shdwId!=null">
+				#{shdwId},
 			</if>
 		</trim>
 	</insert>
