@@ -80,6 +80,8 @@ public interface PublicMapper {
 
 	public int newCangKu(CangKu ck);
 
+	public int deleteCangKu(List<String> idList);
+
 	public int editCangKu(CangKu ck);
 
 	public int queryCangKuForInt(@Param("mc") String mc);

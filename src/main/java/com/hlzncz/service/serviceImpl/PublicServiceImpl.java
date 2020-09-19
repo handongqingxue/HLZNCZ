@@ -235,6 +235,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteCangKu(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteCangKu(idList);
+		return count;
+	}
+
+	@Override
 	public int editCangKu(CangKu ck) {
 		// TODO Auto-generated method stub
 		return publicDao.editCangKu(ck);

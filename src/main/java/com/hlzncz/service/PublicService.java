@@ -78,6 +78,8 @@ public interface PublicService {
 
 	public int newCangKu(CangKu ck);
 
+	public int deleteCangKu(String ids);
+
 	public int editCangKu(CangKu ck);
 
 	public int queryCangKuForInt(String mc);

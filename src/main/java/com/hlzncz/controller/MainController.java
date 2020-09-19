@@ -266,6 +266,17 @@ public class MainController {
 		
 		return "jcxx/ckgl/ckgl/list";
 	}
+
+	@RequestMapping(value="/jcxx/ckgl/ckgl/detail")
+	public String goCkglDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CangKu ck=publicService.selectCangKuById(id);
+		request.setAttribute("ck", ck);
+		
+		return "jcxx/ckgl/ckgl/detail";
+	}
 	
 	private void selectNav(HttpServletRequest request) {
 		
@@ -824,6 +835,26 @@ public class MainController {
 			jsonMap.put("info", "创建仓库失败！");
 		}
 		return jsonMap;
+	}
+
+	@RequestMapping(value="/deleteCangKu",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteCangKu(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteCangKu(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除仓库失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除仓库成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 
 	@RequestMapping(value="/editCangKu")
