@@ -294,6 +294,14 @@ public class MainController {
 		return "jcxx/jhpz/dlgl/list";
 	}
 	
+	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
+	public String goDlglNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/jhpz/dlgl/new";
+	}
+	
 	private void selectNav(HttpServletRequest request) {
 		
 		List<CaiDan> leftNavList = publicService.selectParCaiDan();
