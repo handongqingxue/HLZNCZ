@@ -5,7 +5,9 @@ import java.util.List;
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
+import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
@@ -76,6 +78,10 @@ public interface PublicService {
 
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 
+	public int queryShouHuoDanWeiForInt(String dwmc);
+
+	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
+
 	public int newCangKu(CangKu ck);
 
 	public int deleteCangKu(String ids);
@@ -87,4 +93,9 @@ public interface PublicService {
 	public List<CangKu> queryCangKuList(String mc, int page, int rows, String sort, String order);
 
 	public CangKu selectCangKuById(String id);
+
+	public int queryDuiLieForInt(String mc, String dm, Integer zt);
+
+	public List<DuiLie> queryDuiLieList(String mc, String dm, Integer zt, int page, int rows, String sort,
+			String order);
 }

@@ -537,6 +537,18 @@
 	<select id="selectFaHuoDanWeiById" resultType="com.hlzncz.entity.FaHuoDanWei">
 		select * from fa_huo_dan_wei where id=#{0}
 	</select>
+	<select id="queryShouHuoDanWeiForInt" resultType="java.lang.Integer">
+		select count(*) from shou_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+	</select>
+	<select id="queryShouHuoDanWeiList" resultType="com.hlzncz.entity.ShouHuoDanWei">
+		select * from shou_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+	</select>
 	<select id="queryCangKuForInt" resultType="java.lang.Integer">
 		select count(*) from cang_ku where 1=1
 		<if test="mc!=''&amp;mc!=null">
@@ -552,6 +564,31 @@
 	</select>
 	<select id="selectCangKuById" resultType="com.hlzncz.entity.CangKu">
 		select * from cang_ku where id=#{0}
+	</select>
+	<select id="queryDuiLieForInt" resultType="java.lang.Integer">
+		select count(*) from dui_lie where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if> 
+		<if test="dm!=''&amp;dm!=null">
+			and dm like CONCAT('%',#{dm},'%')
+		</if> 
+		<if test="zt!=''&amp;zt!=null">
+			and zt=#{zt}
+		</if> 
+	</select>
+	<select id="queryDuiLieList" resultType="com.hlzncz.entity.CangKu">
+		select * from dui_lie where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if>
+		<if test="dm!=''&amp;dm!=null">
+			and dm like CONCAT('%',#{dm},'%')
+		</if>
+		<if test="zt!=''&amp;zt!=null">
+			and zt like CONCAT('%',#{zt},'%')
+		</if>
+		 limit ${param4},${param5}
 	</select>
 	
 </mapper>

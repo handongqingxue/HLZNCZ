@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
+import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
@@ -78,6 +80,10 @@ public interface PublicMapper {
 
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 
+	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc);
+
+	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
+
 	public int newCangKu(CangKu ck);
 
 	public int deleteCangKu(List<String> idList);
@@ -89,4 +95,8 @@ public interface PublicMapper {
 	public List<CangKu> queryCangKuList(@Param("mc") String mc, int i, int rows, String sort, String order);
 
 	public CangKu selectCangKuById(String id);
+
+	public int queryDuiLieForInt(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt);
+
+	public List<DuiLie> queryDuiLieList(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt, int i, int rows, String sort, String order);
 }

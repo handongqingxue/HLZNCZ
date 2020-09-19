@@ -240,6 +240,14 @@ public class MainController {
 		return "jcxx/dwgl/fhdw/detail";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/shdw/list")
+	public String goShdwList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/dwgl/shdw/list";
+	}
+
 	@RequestMapping(value="/jcxx/ckgl/ckgl/new")
 	public String goCkglNew(HttpServletRequest request) {
 
@@ -276,6 +284,14 @@ public class MainController {
 		request.setAttribute("ck", ck);
 		
 		return "jcxx/ckgl/ckgl/detail";
+	}
+	
+	@RequestMapping(value="/jcxx/jhpz/dlgl/list")
+	public String goDlglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/jhpz/dlgl/list";
 	}
 	
 	private void selectNav(HttpServletRequest request) {
@@ -818,6 +834,21 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/queryShouHuoDanWeiList")
+	@ResponseBody
+	public Map<String, Object> queryShouHuoDanWeiList(String dwmc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryShouHuoDanWeiForInt(dwmc);
+		List<ShouHuoDanWei> shdwList=publicService.queryShouHuoDanWeiList(dwmc, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", shdwList);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/newCangKu")
 	@ResponseBody
@@ -886,6 +917,21 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", ckList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryDuiLieList")
+	@ResponseBody
+	public Map<String, Object> queryDuiLieList(String mc,String dm,Integer zt,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryDuiLieForInt(mc, dm, zt);
+		List<DuiLie> dlList=publicService.queryDuiLieList(mc, dm, zt, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", dlList);
 		
 		return jsonMap;
 	}
