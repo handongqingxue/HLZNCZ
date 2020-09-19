@@ -26,13 +26,7 @@ import com.hlzncz.util.PlanResult;
 import net.sf.json.JSONObject;
 
 import com.hlzncz.util.FileUploadUtils;
-import com.hlzncz.entity.CaiDan;
-import com.hlzncz.entity.CheLiang;
-import com.hlzncz.entity.FaHuoDanWei;
-import com.hlzncz.entity.SiJi;
-import com.hlzncz.entity.WuZi;
-import com.hlzncz.entity.WuZiLeiXing;
-import com.hlzncz.entity.YongHu;
+import com.hlzncz.entity.*;
 import com.hlzncz.service.PublicService;
 
 @Controller
@@ -245,6 +239,33 @@ public class MainController {
 		
 		return "jcxx/dwgl/fhdw/detail";
 	}
+
+	@RequestMapping(value="/jcxx/ckgl/ckgl/new")
+	public String goCkglNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/ckgl/ckgl/new";
+	}
+
+	@RequestMapping(value="/jcxx/ckgl/ckgl/edit")
+	public String goCkglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CangKu ck=publicService.selectCangKuById(id);
+		request.setAttribute("ck", ck);
+		
+		return "jcxx/ckgl/ckgl/edit";
+	}
+	
+	@RequestMapping(value="/jcxx/ckgl/ckgl/list")
+	public String goCkglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/ckgl/ckgl/list";
+	}
 	
 	private void selectNav(HttpServletRequest request) {
 		
@@ -284,7 +305,7 @@ public class MainController {
 		}
 		return jsonMap;
 	}
-	
+
 	@RequestMapping(value="/deleteWuZiLeiXing",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteWuZiLeiXing(String ids) {
@@ -783,6 +804,57 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", fhdwList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/newCangKu")
+	@ResponseBody
+	public Map<String, Object> newCangKu(CangKu ck) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newCangKu(ck);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "´´½¨²Ö¿â³É¹¦£¡");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "´´½¨²Ö¿âÊ§°Ü£¡");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editCangKu")
+	@ResponseBody
+	public Map<String, Object> editCangKu(CangKu ck) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editCangKu(ck);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "±à¼­²Ö¿â³É¹¦£¡");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "±à¼­²Ö¿âÊ§°Ü£¡");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryCangKuList")
+	@ResponseBody
+	public Map<String, Object> queryCangKuList(String mc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryCangKuForInt(mc);
+		List<CangKu> ckList=publicService.queryCangKuList(mc, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", ckList);
 		
 		return jsonMap;
 	}

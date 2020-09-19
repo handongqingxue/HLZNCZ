@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.SiJi;
@@ -76,4 +77,14 @@ public interface PublicMapper {
 	public List<FaHuoDanWei> queryFaHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
 
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
+
+	public int newCangKu(CangKu ck);
+
+	public int editCangKu(CangKu ck);
+
+	public int queryCangKuForInt(@Param("mc") String mc);
+
+	public List<CangKu> queryCangKuList(@Param("mc") String mc, int i, int rows, String sort, String order);
+
+	public CangKu selectCangKuById(String id);
 }

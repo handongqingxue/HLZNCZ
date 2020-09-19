@@ -459,6 +459,32 @@
 				now()
 		</trim>
 	</insert>
+	<insert id="newCangKu">
+		insert into cang_ku
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+			<if test="wz!=null">
+				wz,
+			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+			<if test="wz!=null">
+				#{wz},
+			</if>
+			<if test="bz!=null">
+				#{bz},
+			</if>
+		</trim>
+	</insert>
 	<delete id="deleteFaHuoDanWei">
 		delete from fa_huo_dan_wei where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
@@ -472,6 +498,21 @@
 				dwmc=#{dwmc},
 			</if>
 				bjsj=now()
+		</trim>
+		 where id=#{id}
+	</update>
+	<update id="editCangKu" parameterType="com.hlzncz.entity.CangKu">
+		update cang_ku set 
+		<trim suffixOverrides=",">
+			<if test="mc!=null">
+				mc=#{mc},
+			</if>
+			<if test="wz!=null">
+				wz=#{wz},
+			</if>
+			<if test="bz!=null">
+				bz=#{bz},
+			</if>
 		</trim>
 		 where id=#{id}
 	</update>
@@ -489,6 +530,22 @@
 	</select>
 	<select id="selectFaHuoDanWeiById" resultType="com.hlzncz.entity.FaHuoDanWei">
 		select * from fa_huo_dan_wei where id=#{0}
+	</select>
+	<select id="queryCangKuForInt" resultType="java.lang.Integer">
+		select count(*) from cang_ku where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if> 
+	</select>
+	<select id="queryCangKuList" resultType="com.hlzncz.entity.CangKu">
+		select * from cang_ku where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if>
+		 limit ${param2},${param3}
+	</select>
+	<select id="selectCangKuById" resultType="com.hlzncz.entity.CangKu">
+		select * from cang_ku where id=#{0}
 	</select>
 	
 </mapper>

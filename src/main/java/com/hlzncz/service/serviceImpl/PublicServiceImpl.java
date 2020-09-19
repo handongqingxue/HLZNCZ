@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hlzncz.dao.PublicMapper;
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.SiJi;
@@ -225,6 +226,36 @@ public class PublicServiceImpl implements PublicService {
 	public FaHuoDanWei selectFaHuoDanWeiById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectFaHuoDanWeiById(id);
+	}
+
+	@Override
+	public int newCangKu(CangKu ck) {
+		// TODO Auto-generated method stub
+		return publicDao.newCangKu(ck);
+	}
+
+	@Override
+	public int editCangKu(CangKu ck) {
+		// TODO Auto-generated method stub
+		return publicDao.editCangKu(ck);
+	}
+
+	@Override
+	public int queryCangKuForInt(String mc) {
+		// TODO Auto-generated method stub
+		return publicDao.queryCangKuForInt(mc);
+	}
+
+	@Override
+	public List<CangKu> queryCangKuList(String mc, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryCangKuList(mc, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public CangKu selectCangKuById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectCangKuById(id);
 	}
 
 }

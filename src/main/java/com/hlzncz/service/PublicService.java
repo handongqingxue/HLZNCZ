@@ -3,6 +3,7 @@ package com.hlzncz.service;
 import java.util.List;
 
 import com.hlzncz.entity.CaiDan;
+import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.SiJi;
@@ -74,4 +75,14 @@ public interface PublicService {
 	public List<FaHuoDanWei> queryFaHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
 
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
+
+	public int newCangKu(CangKu ck);
+
+	public int editCangKu(CangKu ck);
+
+	public int queryCangKuForInt(String mc);
+
+	public List<CangKu> queryCangKuList(String mc, int page, int rows, String sort, String order);
+
+	public CangKu selectCangKuById(String id);
 }
