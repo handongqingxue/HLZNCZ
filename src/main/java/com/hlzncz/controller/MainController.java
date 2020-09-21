@@ -256,6 +256,22 @@ public class MainController {
 		return "jcxx/dwgl/shdw/list";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/yss/new")
+	public String goYssNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/dwgl/yss/new";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/yss/list")
+	public String goYssList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/dwgl/yss/list";
+	}
+
 	@RequestMapping(value="/jcxx/ckgl/ckgl/new")
 	public String goCkglNew(HttpServletRequest request) {
 
@@ -900,6 +916,39 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", shdwList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newYunShuShang")
+	@ResponseBody
+	public Map<String, Object> newYunShuShang(YunShuShang yss) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newYunShuShang(yss);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建运输商成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建运输商失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryYunShuShangList")
+	@ResponseBody
+	public Map<String, Object> queryYunShuShangList(String mc,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryYunShuShangForInt(mc);
+		List<YunShuShang> yssList=publicService.queryYunShuShangList(mc, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", yssList);
 		
 		return jsonMap;
 	}

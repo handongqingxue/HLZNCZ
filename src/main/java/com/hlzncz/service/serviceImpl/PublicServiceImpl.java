@@ -16,6 +16,7 @@ import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
+import com.hlzncz.entity.YunShuShang;
 import com.hlzncz.service.PublicService;
 
 @Service
@@ -255,6 +256,24 @@ public class PublicServiceImpl implements PublicService {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryShouHuoDanWeiList(dwmc, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public int newYunShuShang(YunShuShang yss) {
+		// TODO Auto-generated method stub
+		return publicDao.newYunShuShang(yss);
+	}
+
+	@Override
+	public int queryYunShuShangForInt(String mc) {
+		// TODO Auto-generated method stub
+		return publicDao.queryYunShuShangForInt(mc);
+	}
+
+	@Override
+	public List<YunShuShang> queryYunShuShangList(String mc, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryYunShuShangList(mc, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

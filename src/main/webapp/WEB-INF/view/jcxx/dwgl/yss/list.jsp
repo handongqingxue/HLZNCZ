@@ -8,18 +8,24 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	zyztCBB=$("#zyzt").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+	
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var dwmc=$("#toolbar #dwmc").val();
-			tab1.datagrid("load",{dwmc:dwmc});
+			var mc=$("#toolbar #mc").val();
+			tab1.datagrid("load",{mc:mc});
 		}
 	});
 	
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/dwgl/shdw/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=path+"main/jcxx/dwgl/yss/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -39,27 +45,25 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"收货单位-列表",
-		url:path+"main/queryShouHuoDanWeiList",
+		title:"运输商-列表",
+		url:path+"main/queryYunShuShangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"dwmc",title:"单位名称",width:200},
+			{field:"mc",title:"名称",width:200},
             {field:"bjsj",title:"编辑时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/fhdw/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/fhdw/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
-            	//return str;
-            	return "<a>未开放</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	return str;
             }}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{dwmc:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"dwmc",colspan:3});
+				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:3});
 				data.total=0;
 			}
 			
@@ -109,7 +113,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteShouHuoDanWei",
+			$.post(path + "main/deleteCangKu",
 				{ids:ids},
 				function(result){
 					if(result.status==1){
@@ -131,15 +135,15 @@ function setFitWidthInParent(o){
 	return width.substring(0,width.length-2)-340;
 }
 </script>
-<title>收货单位</title>
+<title>司机信息</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">单位名称：</span>
-			<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">名称：</span>
+			<input type="text" id="mc" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>

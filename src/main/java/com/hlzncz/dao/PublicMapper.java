@@ -13,6 +13,7 @@ import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
+import com.hlzncz.entity.YunShuShang;
 
 public interface PublicMapper {
 
@@ -87,6 +88,12 @@ public interface PublicMapper {
 	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
+
+	public int newYunShuShang(YunShuShang yss);
+
+	public int queryYunShuShangForInt(@Param("mc") String mc);
+
+	public List<YunShuShang> queryYunShuShangList(@Param("mc") String mc, int i, int rows, String sort, String order);
 
 	public int newCangKu(CangKu ck);
 

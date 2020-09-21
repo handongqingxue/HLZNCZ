@@ -11,6 +11,7 @@ import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
 import com.hlzncz.entity.WuZiLeiXing;
+import com.hlzncz.entity.YunShuShang;
 
 public interface PublicService {
 
@@ -85,6 +86,12 @@ public interface PublicService {
 	public int queryShouHuoDanWeiForInt(String dwmc);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
+
+	public int queryYunShuShangForInt(String mc);
+
+	public List<YunShuShang> queryYunShuShangList(String mc, int page, int rows, String sort, String order);
+
+	public int newYunShuShang(YunShuShang yss);
 
 	public int newCangKu(CangKu ck);
 

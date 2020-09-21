@@ -144,8 +144,8 @@ function setFitWidthInParent(o){
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">单位名称：</span>
-			<input type="text" id="mc" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">名称：</span>
+			<input type="text" id="mc" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>
