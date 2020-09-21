@@ -12,6 +12,7 @@ import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
+import com.hlzncz.entity.KaPianShenLing;
 import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
@@ -334,6 +335,24 @@ public class PublicServiceImpl implements PublicService {
 	public CangKu selectCangKuById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectCangKuById(id);
+	}
+
+	@Override
+	public int newKaPianShenLing(KaPianShenLing kpsl) {
+		// TODO Auto-generated method stub
+		return publicDao.newKaPianShenLing(kpsl);
+	}
+
+	@Override
+	public int queryKaPianShenLingForInt(String sfzh) {
+		// TODO Auto-generated method stub
+		return publicDao.queryKaPianShenLingForInt(sfzh);
+	}
+
+	@Override
+	public List<KaPianShenLing> queryKaPianShenLingList(String sfzh, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryKaPianShenLingList(sfzh, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

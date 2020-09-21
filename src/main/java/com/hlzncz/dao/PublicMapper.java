@@ -9,6 +9,7 @@ import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
+import com.hlzncz.entity.KaPianShenLing;
 import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
@@ -112,6 +113,12 @@ public interface PublicMapper {
 	public List<CangKu> queryCangKuList(@Param("mc") String mc, int i, int rows, String sort, String order);
 
 	public CangKu selectCangKuById(String id);
+
+	public int newKaPianShenLing(KaPianShenLing kpsl);
+
+	public int queryKaPianShenLingForInt(@Param("sfzh") String sfzh);
+
+	public List<KaPianShenLing> queryKaPianShenLingList(@Param("sfzh") String sfzh, int i, int rows, String sort, String order);
 
 	public int newDuiLie(DuiLie dl);
 

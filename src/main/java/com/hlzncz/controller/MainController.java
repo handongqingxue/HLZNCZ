@@ -331,6 +331,22 @@ public class MainController {
 		
 		return "jcxx/ckgl/ckgl/detail";
 	}
+
+	@RequestMapping(value="/jcxx/kpgl/kpsl/new")
+	public String goKpslNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/kpgl/kpsl/new";
+	}
+
+	@RequestMapping(value="/jcxx/kpgl/kpsl/list")
+	public String goKpslList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/kpgl/kpsl/list";
+	}
 	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
 	public String goDlglNew(HttpServletRequest request) {
@@ -993,6 +1009,24 @@ public class MainController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/newKaPianShenLing")
+	@ResponseBody
+	public Map<String, Object> newKaPianShenLing(KaPianShenLing kpsl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newKaPianShenLing(kpsl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建卡片申领成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建卡片申领失败！");
+		}
+		return jsonMap;
+	}
+
 	@RequestMapping(value="/deleteCangKu",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteCangKu(String ids) {
@@ -1080,6 +1114,21 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", ckList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryKaPianShenLingList")
+	@ResponseBody
+	public Map<String, Object> queryKaPianShenLingList(String sfzh,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryKaPianShenLingForInt(sfzh);
+		List<KaPianShenLing> kpslList=publicService.queryKaPianShenLingList(sfzh, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", kpslList);
 		
 		return jsonMap;
 	}

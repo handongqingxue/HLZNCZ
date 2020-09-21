@@ -577,6 +577,40 @@
 	<select id="selectYunShuShangById" resultType="com.hlzncz.entity.YunShuShang">
 		select * from yun_shu_shang where id=#{0}
 	</select>
+	<insert id="newKaPianShenLing" parameterType="com.hlzncz.entity.KaPianShenLing">
+		insert into ka_pian_shen_ling
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sfzh!=null">
+				sfzh,
+			</if>
+			<if test="slzt!=null">
+				slzt,
+			</if>
+				bjsj
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sfzh!=null">
+				#{sfzh},
+			</if>
+			<if test="slzt!=null">
+				#{slzt},
+			</if>
+				now()
+		</trim>
+	</insert>
+	<select id="queryKaPianShenLingForInt" resultType="java.lang.Integer">
+		select count(*) from ka_pian_shen_ling where 1=1
+		<if test="sfzh!=''&amp;sfzh!=null">
+			and sfzh like CONCAT('%',#{sfzh},'%')
+		</if> 
+	</select>
+	<select id="queryKaPianShenLingList" resultType="com.hlzncz.entity.KaPianShenLing">
+		select * from ka_pian_shen_ling where 1=1
+		<if test="sfzh!=''&amp;sfzh!=null">
+			and sfzh like CONCAT('%',#{sfzh},'%')
+		</if> 
+	</select>
 	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
 		insert into cang_ku
 		<trim prefix="(" suffix=")" suffixOverrides=",">
