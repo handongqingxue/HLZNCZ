@@ -344,6 +344,21 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteKaPianShenLing(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteKaPianShenLing(idList);
+		return count;
+	}
+
+	@Override
+	public int editKaPianShenLing(KaPianShenLing kpsl) {
+		// TODO Auto-generated method stub
+		return publicDao.editKaPianShenLing(kpsl);
+	}
+
+	@Override
 	public int queryKaPianShenLingForInt(String sfzh) {
 		// TODO Auto-generated method stub
 		return publicDao.queryKaPianShenLingForInt(sfzh);
@@ -353,6 +368,12 @@ public class PublicServiceImpl implements PublicService {
 	public List<KaPianShenLing> queryKaPianShenLingList(String sfzh, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryKaPianShenLingList(sfzh, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public KaPianShenLing selectKaPianShenLingById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectKaPianShenLingById(id);
 	}
 
 	@Override

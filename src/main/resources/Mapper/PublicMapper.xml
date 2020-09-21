@@ -599,6 +599,25 @@
 				now()
 		</trim>
 	</insert>
+	<delete id="deleteKaPianShenLing">
+		delete from ka_pian_shen_ling where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editKaPianShenLing" parameterType="com.hlzncz.entity.KaPianShenLing">
+		update ka_pian_shen_ling set 
+		<trim suffixOverrides=",">
+			<if test="sfzh!=null">
+				sfzh=#{sfzh},
+			</if>
+			<if test="slzt!=null">
+				slzt=#{slzt},
+			</if>
+				bjsj=now()
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryKaPianShenLingForInt" resultType="java.lang.Integer">
 		select count(*) from ka_pian_shen_ling where 1=1
 		<if test="sfzh!=''&amp;sfzh!=null">
@@ -610,6 +629,9 @@
 		<if test="sfzh!=''&amp;sfzh!=null">
 			and sfzh like CONCAT('%',#{sfzh},'%')
 		</if> 
+	</select>
+	<select id="selectKaPianShenLingById" resultType="com.hlzncz.entity.KaPianShenLing">
+		select * from ka_pian_shen_ling where id=#{0}
 	</select>
 	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
 		insert into cang_ku

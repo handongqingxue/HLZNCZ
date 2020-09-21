@@ -340,12 +340,34 @@ public class MainController {
 		return "jcxx/kpgl/kpsl/new";
 	}
 
+	@RequestMapping(value="/jcxx/kpgl/kpsl/edit")
+	public String goKpslEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		KaPianShenLing kpsl=publicService.selectKaPianShenLingById(id);
+		request.setAttribute("kpsl", kpsl);
+		
+		return "jcxx/kpgl/kpsl/edit";
+	}
+
 	@RequestMapping(value="/jcxx/kpgl/kpsl/list")
 	public String goKpslList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
 		return "jcxx/kpgl/kpsl/list";
+	}
+
+	@RequestMapping(value="/jcxx/kpgl/kpsl/detail")
+	public String goKpslDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		KaPianShenLing kpsl=publicService.selectKaPianShenLingById(id);
+		request.setAttribute("kpsl", kpsl);
+		
+		return "jcxx/kpgl/kpsl/detail";
 	}
 	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
@@ -1009,24 +1031,6 @@ public class MainController {
 		return jsonMap;
 	}
 
-	@RequestMapping(value="/newKaPianShenLing")
-	@ResponseBody
-	public Map<String, Object> newKaPianShenLing(KaPianShenLing kpsl) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=publicService.newKaPianShenLing(kpsl);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建卡片申领成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建卡片申领失败！");
-		}
-		return jsonMap;
-	}
-
 	@RequestMapping(value="/deleteCangKu",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteCangKu(String ids) {
@@ -1115,6 +1119,62 @@ public class MainController {
 		jsonMap.put("total", count);
 		jsonMap.put("rows", ckList);
 		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newKaPianShenLing")
+	@ResponseBody
+	public Map<String, Object> newKaPianShenLing(KaPianShenLing kpsl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newKaPianShenLing(kpsl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建卡片申领成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建卡片申领失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/deleteKaPianShenLing",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteKaPianShenLing(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteKaPianShenLing(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除卡片申领失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除卡片申领成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/editKaPianShenLing")
+	@ResponseBody
+	public Map<String, Object> editKaPianShenLing(KaPianShenLing kpsl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editKaPianShenLing(kpsl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑卡片申领信息成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑卡片申领信息失败！");
+		}
 		return jsonMap;
 	}
 
