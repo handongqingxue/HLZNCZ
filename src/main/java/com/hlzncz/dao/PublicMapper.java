@@ -80,6 +80,8 @@ public interface PublicMapper {
 
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 
+	public int newShouHuoDanWei(ShouHuoDanWei shdw);
+
 	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);

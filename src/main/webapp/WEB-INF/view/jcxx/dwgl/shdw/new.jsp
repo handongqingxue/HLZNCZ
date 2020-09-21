@@ -11,6 +11,7 @@ $(function(){
 	initNewDialog();
 	initSSDLDialog();
 	initSelectSSDLDialog();
+	initEditSSDLDialog();
 });
 
 function initNewDialog(){
@@ -77,7 +78,7 @@ function initSSDLDialog(){
 	
 	$(".window,.window .window-body").eq(1).css("border-color","#ddd");
 
-	initSHDWTab();
+	initSSDLTab();
 }
 
 function initSelectSSDLDialog(){
@@ -126,7 +127,58 @@ function initSelectSSDLDialog(){
 	openSelectSSDLDialog(0);
 }
 
-function initSHDWTab(){
+function initEditSSDLDialog(){
+	editSSDLDialog=$("#edit_ssdl_div").dialog({
+		title:"修改",
+		width:setFitWidthInParent("body","edit_ssdl_div"),
+		height:231,
+		top:160,
+		left:308,
+		buttons:[
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editSHDW();
+           }}
+        ]
+	});
+
+	$("#edit_ssdl_div table").css("width",(setFitWidthInParent("body","edit_ssdl_div"))+"px");
+	$("#edit_ssdl_div table").css("magin","-100px");
+	$("#edit_ssdl_div table td").css("padding-left","50px");
+	$("#edit_ssdl_div table td").css("padding-right","20px");
+	$("#edit_ssdl_div table td").css("font-size","15px");
+	$("#edit_ssdl_div table tr").css("height","45px");
+
+	$(".panel.window").eq(3).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(3).css("color","#000");
+	$(".panel.window .panel-title").eq(3).css("font-size","15px");
+	$(".panel.window .panel-title").eq(3).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(3).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(3).css("margin-top","20px");
+	$(".window,.window .window-body").eq(3).css("border-color","#ddd");
+
+	$("#edit_ssdl_div #ok_but").css("left","45%");
+	$("#edit_ssdl_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	initEditSSDLGXCBB();
+	openEditSSDLDialog(0);
+}
+
+function initEditSSDLGXCBB(){
+	editSSDLGXCBB=$("#edit_ssdl_gx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"1","text":"叫号队列"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",1);
+		}
+	});
+}
+
+function initSSDLTab(){
 	$("#choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
@@ -156,18 +208,19 @@ function initSHDWTab(){
 			{field:"jhxs",title:"叫号形式",width:200,formatter:function(value,row){
 				var str;
 				switch (value) {
-				case "1":
+				case 1:
 					str="自动叫号";
 					break;
-				case "2":
+				case 2:
 					str="手动叫号";
 					break;
 				}
 				return str;
 			}},
 			{field:"id",title:"操作",width:200,formatter:function(value,row){
-            	var str="<a onclick=\"editSHDWTabRow()\">编辑</a>"
-            	+"&nbsp;|&nbsp;<a onclick=\"deleteSHDWTabRow()\">删除</a>";
+            	//var str="<a onclick=\"editSSDLTabRow()\">编辑</a>"
+            	//+"&nbsp;|&nbsp;<a onclick=\"deleteSSDLTabRow()\">删除</a>";
+            	var str="<a onclick=\"deleteSSDLTabRow()\">删除</a>";
             	return str;
             }}
 	    ]],
@@ -194,6 +247,23 @@ function initSHDWTab(){
 		}
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadSSDLTabData([]);
+}
+
+function editSSDLTabRow(){
+	var row=ssdlTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#edit_ssdl_div #id").val(row.id);
+	$("#edit_ssdl_div #bjsj").val(row.bjsj);
+	$("#edit_ssdl_div #dwmc").val(row.dwmc);
+	openEditSSDLDialog(1);
+}
+
+function deleteSSDLTabRow(){
+	ssdlTab.datagrid("deleteRow",0);
 	loadSSDLTabData([]);
 }
 
@@ -304,6 +374,15 @@ function openSelectSSDLDialog(flag){
 	}
 }
 
+function openEditSSDLDialog(flag){
+	if(flag==1){
+		editSSDLDialog.dialog("open");
+	}
+	else{
+		editSSDLDialog.dialog("close");
+	}
+}
+
 function saveSelectSSDL(){
 	var row=selectSSDLTab.datagrid("getSelected");
 	if (row == null) {
@@ -322,21 +401,23 @@ function loadSSDLTabData(rows){
 
 function checkNew(){
 	if(checkDWMC()){
-		newFaHuoDanWei();
+		if(checkSSDLId()){
+			newShouHuoDanWei();
+		}
 	}
 }
 
-function newFaHuoDanWei(){
-	var formData = new FormData($("#form1")[0]);
-	$.ajax({
-		type:"post",
-		url:path+"main/newFaHuoDanWei",
-		dataType: "json",
-		data:formData,
-		cache: false,
-		processData: false,
-		contentType: false,
-		success: function (data){
+function newShouHuoDanWei(){
+	var dwmc=$("#new_div #dwmc").val();
+	var ssdlTabData=ssdlTab.datagrid("getData");
+	var total=ssdlTabData.total;
+	var dlId=0;
+	if(total>0)
+		dlId=ssdlTabData.rows[0].id;
+	
+	$.post(path+"main/newShouHuoDanWei",
+		{dwmc:dwmc,dlId:dlId},
+		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
 				history.go(-1);
@@ -345,24 +426,40 @@ function newFaHuoDanWei(){
 				alert(data.info);
 			}
 		}
-	});
+	,"json");
 }
 
 function focusDWMC(){
-	var dwmc = $("#dwmc").val();
+	var dwmc = $("#new_div #dwmc").val();
 	if(dwmc=="单位名称不能为空"){
-		$("#dwmc").val("");
-		$("#dwmc").css("color", "#555555");
+		$("#new_div #dwmc").val("");
+		$("#new_div #dwmc").css("color", "#555555");
 	}
 }
 
 //验证单位名称
 function checkDWMC(){
-	var dwmc = $("#dwmc").val();
+	var dwmc = $("#new_div #dwmc").val();
 	if(dwmc==null||dwmc==""||dwmc=="单位名称不能为空"){
-		$("#dwmc").css("color","#E15748");
-    	$("#dwmc").val("单位名称不能为空");
+		$("#new_div #dwmc").css("color","#E15748");
+    	$("#new_div #dwmc").val("单位名称不能为空");
     	return false;
+	}
+	else
+		return true;
+}
+
+//验证所属队列
+function checkSSDLId(){
+	var ssdlTabData=ssdlTab.datagrid("getData");
+	var total=ssdlTabData.total;
+	var ssdlId=0;
+	if(total>0)
+		ssdlId=ssdlTabData.rows[0].id;
+	
+	if(ssdlId==0){
+		alert("请选择所属队列");
+	  	return false;
 	}
 	else
 		return true;
@@ -401,7 +498,6 @@ function initWindowMarginLeft(){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="new_div">
-	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -416,7 +512,6 @@ function initWindowMarginLeft(){
 			</td>
 		  </tr>
 		</table>
-	</form>
 	</div>
 	
 	<div id="ssdl_div">
@@ -437,6 +532,26 @@ function initWindowMarginLeft(){
 			<a id="select_ssdl_search_but" style="margin-left: 13px;">查询</a>
 		</div>
 		<table id="select_ssdl_tab"></table>
+	</div>
+	
+	<div id="edit_ssdl_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				关系
+			</td>
+			<td style="width:30%;">
+				<input id="edit_ssdl_gx_cbb"/>
+			</td>
+			<td align="right" style="width:15%;">
+				名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		</table>
 	</div>
 </div>
 </body>

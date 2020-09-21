@@ -850,6 +850,24 @@ public class MainController {
 		
 		return jsonMap;
 	}
+	
+	@RequestMapping(value="/newShouHuoDanWei")
+	@ResponseBody
+	public Map<String, Object> newShouHuoDanWei(ShouHuoDanWei shdw) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newShouHuoDanWei(shdw);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建收货单位成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建收货单位失败！");
+		}
+		return jsonMap;
+	}
 
 	@RequestMapping(value="/queryShouHuoDanWeiList")
 	@ResponseBody

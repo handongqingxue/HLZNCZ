@@ -19,7 +19,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/dwgl/shdw/new?fnid="+'${param.fnid}';
+			location.href=path+"main/jcxx/dwgl/shdw/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	

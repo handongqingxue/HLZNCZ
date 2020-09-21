@@ -231,6 +231,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newShouHuoDanWei(ShouHuoDanWei shdw) {
+		// TODO Auto-generated method stub
+		return publicDao.newShouHuoDanWei(shdw);
+	}
+
+	@Override
 	public int queryShouHuoDanWeiForInt(String dwmc) {
 		// TODO Auto-generated method stub
 		return publicDao.queryShouHuoDanWeiForInt(dwmc);

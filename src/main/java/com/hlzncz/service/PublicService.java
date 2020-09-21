@@ -78,6 +78,8 @@ public interface PublicService {
 
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 
+	public int newShouHuoDanWei(ShouHuoDanWei shdw);
+
 	public int queryShouHuoDanWeiForInt(String dwmc);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
