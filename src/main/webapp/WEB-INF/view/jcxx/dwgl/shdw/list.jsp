@@ -8,12 +8,6 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	zyztCBB=$("#zyzt").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
-	});
-	
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
@@ -25,7 +19,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/dwgl/fhdw/new?fnid="+'${param.fnid}';
+			location.href=path+"main/jcxx/dwgl/shdw/new?fnid="+'${param.fnid}';
 		}
 	});
 	

@@ -621,7 +621,7 @@
 			and zt=#{zt}
 		</if> 
 	</select>
-	<select id="queryDuiLieList" resultType="com.hlzncz.entity.CangKu">
+	<select id="queryDuiLieList" resultType="com.hlzncz.entity.DuiLie">
 		select * from dui_lie where 1=1
 		<if test="mc!=''&amp;mc!=null">
 			and mc like CONCAT('%',#{mc},'%')

@@ -59,7 +59,21 @@ $(function(){
             {field:"dm",title:"代码",width:200},
 			{field:"jhxs",title:"叫号形式证",width:200},
 			{field:"jhyz",title:"叫号阈值",width:200},
-			{field:"zt",title:"状态",width:200},
+			{field:"zt",title:"状态",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case 1:
+					str="在用";
+					break;
+				case 2:
+					str="暂停";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				}
+				return str;
+			}},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";

@@ -87,7 +87,7 @@ function initSHDWDialog(){
 function initSelectShdwDialog(){
 	selectSHDWDialog=$("#select_shdw_div").dialog({
 		title:"选择实体",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("body","select_shdw_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
 		top:300,
@@ -144,7 +144,7 @@ function initEditShdwDialog(){
         ]
 	});
 
-	$("#edit_shdw_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#edit_shdw_div table").css("width",(setFitWidthInParent("body","edit_shdw_div"))+"px");
 	$("#edit_shdw_div table").css("magin","-100px");
 	$("#edit_shdw_div table td").css("padding-left","50px");
 	$("#edit_shdw_div table td").css("padding-right","20px");
@@ -534,6 +534,8 @@ function setFitWidthInParent(parent,self){
 	case "new_div_table":
 	case "panel_window":
 	case "shdw_tab":
+	case "select_shdw_div":
+	case "edit_shdw_div":
 		space=355;
 		break;
 	}

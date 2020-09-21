@@ -240,6 +240,14 @@ public class MainController {
 		return "jcxx/dwgl/fhdw/detail";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/shdw/new")
+	public String goShdwNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/dwgl/shdw/new";
+	}
+
 	@RequestMapping(value="/jcxx/dwgl/shdw/list")
 	public String goShdwList(HttpServletRequest request) {
 		
