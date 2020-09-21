@@ -869,6 +869,26 @@ public class MainController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/deleteShouHuoDanWei",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteShouHuoDanWei(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteShouHuoDanWei(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除收货单位失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除收货单位成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
 	@RequestMapping(value="/queryShouHuoDanWeiList")
 	@ResponseBody
 	public Map<String, Object> queryShouHuoDanWeiList(String dwmc,int page,int rows,String sort,String order) {

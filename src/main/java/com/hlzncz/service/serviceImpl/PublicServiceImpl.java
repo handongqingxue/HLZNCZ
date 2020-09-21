@@ -237,6 +237,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteShouHuoDanWei(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteShouHuoDanWei(idList);
+		return count;
+	}
+
+	@Override
 	public int queryShouHuoDanWeiForInt(String dwmc) {
 		// TODO Auto-generated method stub
 		return publicDao.queryShouHuoDanWeiForInt(dwmc);

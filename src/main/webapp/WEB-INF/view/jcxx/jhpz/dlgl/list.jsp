@@ -57,7 +57,18 @@ $(function(){
 		columns:[[
 			{field:"mc",title:"名称",width:200},
             {field:"dm",title:"代码",width:200},
-			{field:"jhxs",title:"叫号形式证",width:200},
+			{field:"jhxs",title:"叫号形式证",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case 1:
+					str="自动叫号";
+					break;
+				case 2:
+					str="手动叫号";
+					break;
+				}
+				return str;
+			}},
 			{field:"jhyz",title:"叫号阈值",width:200},
 			{field:"zt",title:"状态",width:200,formatter:function(value,row){
 				var str;

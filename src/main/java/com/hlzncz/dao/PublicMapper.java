@@ -82,6 +82,8 @@ public interface PublicMapper {
 
 	public int newShouHuoDanWei(ShouHuoDanWei shdw);
 
+	public int deleteShouHuoDanWei(List<String> idList);
+
 	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);

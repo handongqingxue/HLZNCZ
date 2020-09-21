@@ -459,28 +459,6 @@
 				now()
 		</trim>
 	</insert>
-	<insert id="newShouHuoDanWei" parameterType="com.hlzncz.entity.ShouHuoDanWei">
-		insert into shou_huo_dan_wei
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="dwmc!=null">
-				dwmc,
-			</if>
-				bjsj,
-			<if test="dlId!=null">
-				dlId,
-			</if>
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="dwmc!=null">
-				#{dwmc},
-			</if>
-				now(),
-			<if test="dlId!=null">
-				#{dlId},
-			</if>
-		</trim>
-	</insert>
 	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
 		insert into cang_ku
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -603,6 +581,34 @@
 	<select id="selectFaHuoDanWeiById" resultType="com.hlzncz.entity.FaHuoDanWei">
 		select * from fa_huo_dan_wei where id=#{0}
 	</select>
+	<insert id="newShouHuoDanWei" parameterType="com.hlzncz.entity.ShouHuoDanWei">
+		insert into shou_huo_dan_wei
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				dwmc,
+			</if>
+				bjsj,
+			<if test="dlId!=null">
+				dlId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				#{dwmc},
+			</if>
+				now(),
+			<if test="dlId!=null">
+				#{dlId},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteShouHuoDanWei">
+		delete from shou_huo_dan_wei where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 	<select id="queryShouHuoDanWeiForInt" resultType="java.lang.Integer">
 		select count(*) from shou_huo_dan_wei where 1=1
 		<if test="dwmc!=''&amp;dwmc!=null">

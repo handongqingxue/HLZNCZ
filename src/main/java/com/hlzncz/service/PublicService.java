@@ -79,6 +79,8 @@ public interface PublicService {
 	public FaHuoDanWei selectFaHuoDanWeiById(String id);
 
 	public int newShouHuoDanWei(ShouHuoDanWei shdw);
+	
+	public int deleteShouHuoDanWei(String ids);
 
 	public int queryShouHuoDanWeiForInt(String dwmc);
 
@@ -102,4 +104,5 @@ public interface PublicService {
 
 	public List<DuiLie> queryDuiLieList(String mc, String dm, Integer zt, int page, int rows, String sort,
 			String order);
+
 }
