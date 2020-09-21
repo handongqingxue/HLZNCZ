@@ -265,6 +265,21 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteYuShuShang(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteYuShuShang(idList);
+		return count;
+	}
+
+	@Override
+	public int editYunShuShang(YunShuShang yss) {
+		// TODO Auto-generated method stub
+		return publicDao.editYunShuShang(yss);
+	}
+
+	@Override
 	public int queryYunShuShangForInt(String mc) {
 		// TODO Auto-generated method stub
 		return publicDao.queryYunShuShangForInt(mc);
@@ -274,6 +289,12 @@ public class PublicServiceImpl implements PublicService {
 	public List<YunShuShang> queryYunShuShangList(String mc, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryYunShuShangList(mc, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public YunShuShang selectYunShuShangById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectYunShuShangById(id);
 	}
 
 	@Override

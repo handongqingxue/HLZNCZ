@@ -459,85 +459,9 @@
 				now()
 		</trim>
 	</insert>
-	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
-		insert into cang_ku
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				mc,
-			</if>
-			<if test="wz!=null">
-				wz,
-			</if>
-			<if test="bz!=null">
-				bz,
-			</if>
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				#{mc},
-			</if>
-			<if test="wz!=null">
-				#{wz},
-			</if>
-			<if test="bz!=null">
-				#{bz},
-			</if>
-		</trim>
-	</insert>
-	<insert id="newDuiLie" parameterType="com.hlzncz.entity.DuiLie">
-		insert into dui_lie
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				mc,
-			</if>
-			<if test="dm!=null">
-				dm,
-			</if>
-			<if test="jhxs!=null">
-				jhxs,
-			</if>
-			<if test="jhyz!=null">
-				jhyz,
-			</if>
-			<if test="zt!=null">
-				zt,
-			</if>
-			<if test="shdwId!=null">
-				shdwId,
-			</if>
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				#{mc},
-			</if>
-			<if test="dm!=null">
-				#{dm},
-			</if>
-			<if test="jhxs!=null">
-				#{jhxs},
-			</if>
-			<if test="jhyz!=null">
-				#{jhyz},
-			</if>
-			<if test="zt!=null">
-				#{zt},
-			</if>
-			<if test="shdwId!=null">
-				#{shdwId},
-			</if>
-		</trim>
-	</insert>
 	<delete id="deleteFaHuoDanWei">
 		delete from fa_huo_dan_wei where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
-		#{id}
-		</foreach>
-	</delete>
-	<delete id="deleteCangKu">
-		delete from cang_ku where 1=1
-		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
 		#{id}
 		</foreach>
 	</delete>
@@ -548,21 +472,6 @@
 				dwmc=#{dwmc},
 			</if>
 				bjsj=now()
-		</trim>
-		 where id=#{id}
-	</update>
-	<update id="editCangKu" parameterType="com.hlzncz.entity.CangKu">
-		update cang_ku set 
-		<trim suffixOverrides=",">
-			<if test="mc!=null">
-				mc=#{mc},
-			</if>
-			<if test="wz!=null">
-				wz=#{wz},
-			</if>
-			<if test="bz!=null">
-				bz=#{bz},
-			</if>
 		</trim>
 		 where id=#{id}
 	</update>
@@ -637,6 +546,22 @@
 				now()
 		</trim>
 	</insert>
+	<delete id="deleteYuShuShang">
+		delete from yun_shu_shang where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editYunShuShang" parameterType="com.hlzncz.entity.YunShuShang">
+		update yun_shu_shang set 
+		<trim suffixOverrides=",">
+			<if test="mc!=null">
+				mc=#{mc},
+			</if>
+				bjsj=now()
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryYunShuShangForInt" resultType="java.lang.Integer">
 		select count(*) from yun_shu_shang where 1=1
 		<if test="mc!=''&amp;mc!=null">
@@ -649,6 +574,56 @@
 			and mc like CONCAT('%',#{mc},'%')
 		</if> 
 	</select>
+	<select id="selectYunShuShangById" resultType="com.hlzncz.entity.YunShuShang">
+		select * from yun_shu_shang where id=#{0}
+	</select>
+	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
+		insert into cang_ku
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+			<if test="wz!=null">
+				wz,
+			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+			<if test="wz!=null">
+				#{wz},
+			</if>
+			<if test="bz!=null">
+				#{bz},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteCangKu">
+		delete from cang_ku where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editCangKu" parameterType="com.hlzncz.entity.CangKu">
+		update cang_ku set 
+		<trim suffixOverrides=",">
+			<if test="mc!=null">
+				mc=#{mc},
+			</if>
+			<if test="wz!=null">
+				wz=#{wz},
+			</if>
+			<if test="bz!=null">
+				bz=#{bz},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryCangKuForInt" resultType="java.lang.Integer">
 		select count(*) from cang_ku where 1=1
 		<if test="mc!=''&amp;mc!=null">
@@ -665,6 +640,50 @@
 	<select id="selectCangKuById" resultType="com.hlzncz.entity.CangKu">
 		select * from cang_ku where id=#{0}
 	</select>
+	<insert id="newDuiLie" parameterType="com.hlzncz.entity.DuiLie">
+		insert into dui_lie
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+			<if test="dm!=null">
+				dm,
+			</if>
+			<if test="jhxs!=null">
+				jhxs,
+			</if>
+			<if test="jhyz!=null">
+				jhyz,
+			</if>
+			<if test="zt!=null">
+				zt,
+			</if>
+			<if test="shdwId!=null">
+				shdwId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+			<if test="dm!=null">
+				#{dm},
+			</if>
+			<if test="jhxs!=null">
+				#{jhxs},
+			</if>
+			<if test="jhyz!=null">
+				#{jhyz},
+			</if>
+			<if test="zt!=null">
+				#{zt},
+			</if>
+			<if test="shdwId!=null">
+				#{shdwId},
+			</if>
+		</trim>
+	</insert>
 	<select id="queryDuiLieForInt" resultType="java.lang.Integer">
 		select count(*) from dui_lie where 1=1
 		<if test="mc!=''&amp;mc!=null">

@@ -87,11 +87,17 @@ public interface PublicService {
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
 
+	public int newYunShuShang(YunShuShang yss);
+
+	public int deleteYuShuShang(String ids);
+
+	public int editYunShuShang(YunShuShang yss);
+
 	public int queryYunShuShangForInt(String mc);
 
 	public List<YunShuShang> queryYunShuShangList(String mc, int page, int rows, String sort, String order);
 
-	public int newYunShuShang(YunShuShang yss);
+	public YunShuShang selectYunShuShangById(String id);
 
 	public int newCangKu(CangKu ck);
 

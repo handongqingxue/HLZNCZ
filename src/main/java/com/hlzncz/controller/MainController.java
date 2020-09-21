@@ -264,12 +264,34 @@ public class MainController {
 		return "jcxx/dwgl/yss/new";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/yss/edit")
+	public String goYssEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		YunShuShang yss=publicService.selectYunShuShangById(id);
+		request.setAttribute("yss", yss);
+		
+		return "jcxx/dwgl/yss/edit";
+	}
+
 	@RequestMapping(value="/jcxx/dwgl/yss/list")
 	public String goYssList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
 		return "jcxx/dwgl/yss/list";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/yss/detail")
+	public String goYssDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		YunShuShang yss=publicService.selectYunShuShangById(id);
+		request.setAttribute("yss", yss);
+		
+		return "jcxx/dwgl/yss/detail";
 	}
 
 	@RequestMapping(value="/jcxx/ckgl/ckgl/new")
@@ -310,20 +332,20 @@ public class MainController {
 		return "jcxx/ckgl/ckgl/detail";
 	}
 	
-	@RequestMapping(value="/jcxx/jhpz/dlgl/list")
-	public String goDlglList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "jcxx/jhpz/dlgl/list";
-	}
-	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
 	public String goDlglNew(HttpServletRequest request) {
 		
 		selectNav(request);
 		
 		return "jcxx/jhpz/dlgl/new";
+	}
+	
+	@RequestMapping(value="/jcxx/jhpz/dlgl/list")
+	public String goDlglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/jhpz/dlgl/list";
 	}
 	
 	private void selectNav(HttpServletRequest request) {
@@ -991,6 +1013,26 @@ public class MainController {
 		return json;
 	}
 
+	@RequestMapping(value="/deleteYuShuShang",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteYuShuShang(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteYuShuShang(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除运输商失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除运输商成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
 	@RequestMapping(value="/editCangKu")
 	@ResponseBody
 	public Map<String, Object> editCangKu(CangKu ck) {
@@ -1005,6 +1047,24 @@ public class MainController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "编辑仓库失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editYunShuShang")
+	@ResponseBody
+	public Map<String, Object> editYunShuShang(YunShuShang yss) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editYunShuShang(yss);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑运输商成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑运输商失败！");
 		}
 		return jsonMap;
 	}

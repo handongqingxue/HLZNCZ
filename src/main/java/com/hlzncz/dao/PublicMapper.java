@@ -91,9 +91,15 @@ public interface PublicMapper {
 
 	public int newYunShuShang(YunShuShang yss);
 
+	public int deleteYuShuShang(List<String> idList);
+
+	public int editYunShuShang(YunShuShang yss);
+
 	public int queryYunShuShangForInt(@Param("mc") String mc);
 
 	public List<YunShuShang> queryYunShuShangList(@Param("mc") String mc, int i, int rows, String sort, String order);
+
+	public YunShuShang selectYunShuShangById(String id);
 
 	public int newCangKu(CangKu ck);
 
