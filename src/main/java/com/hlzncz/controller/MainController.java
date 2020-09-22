@@ -50,6 +50,14 @@ public class MainController {
 		return "index";
 	}
 
+	@RequestMapping(value="/ddgl/wddd/wyxd/new")
+	public String goWyxdNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "ddgl/wddd/wyxd/new";
+	}
+
 	@RequestMapping(value="/ddgl/wddd/wyxd/list")
 	public String goWyxdList(HttpServletRequest request) {
 		
