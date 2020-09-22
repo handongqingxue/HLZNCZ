@@ -10,6 +10,25 @@
 	<select id="selectChildCaiDan" resultType="com.hlzncz.entity.CaiDan">
 		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0}
 	</select>
+	<select id="queryWoYaoXiaDanForInt" resultType="java.lang.Integer">
+		select count(*) from ding_dan where 1=1
+		<if test="ddh!=''&amp;ddh!=null">
+			and ddh like CONCAT('%',#{ddh},'%')
+		</if>
+		<if test="ddztId!=''&amp;ddztId!=null">
+			and ddztId like CONCAT('%',#{ddztId},'%')
+		</if>
+	</select>
+	<select id="queryWoYaoXiaDanList" resultType="com.hlzncz.entity.DingDan">
+		select * from ding_dan where 1=1
+		<if test="ddh!=''&amp;ddh!=null">
+			and ddh like CONCAT('%',#{ddh},'%')
+		</if>
+		<if test="ddztId!=''&amp;ddztId!=null">
+			and ddztId like CONCAT('%',#{ddztId},'%')
+		</if>
+		 limit ${param3},${param4}
+	</select>
 	<insert id="newWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		insert into wu_zi_lei_xing
 		<trim prefix="(" suffix=")" suffixOverrides=",">

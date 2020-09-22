@@ -50,6 +50,14 @@ public class MainController {
 		return "index";
 	}
 
+	@RequestMapping(value="/ddgl/wddd/wyxd/list")
+	public String goWyxdList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "ddgl/wddd/wyxd/list";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
@@ -443,6 +451,21 @@ public class MainController {
 			caiDan.setChildList(childList);
 		}
 		request.setAttribute("topNavList", topNavList);
+	}
+	
+	@RequestMapping(value="/queryWoYaoXiaDanList")
+	@ResponseBody
+	public Map<String, Object> queryWoYaoXiaDanList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryWoYaoXiaDanForInt(ddh,ddztId);
+		List<DingDan> wyxdList=publicService.queryWoYaoXiaDanList(ddh, ddztId, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", wyxdList);
+		
+		return jsonMap;
 	}
 	
 	@RequestMapping(value="/newWuZiLeiXing")

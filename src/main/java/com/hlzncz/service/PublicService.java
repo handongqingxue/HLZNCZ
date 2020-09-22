@@ -5,6 +5,7 @@ import java.util.List;
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.DingDan;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.KaPianShenLing;
@@ -20,6 +21,11 @@ public interface PublicService {
 	public List<CaiDan> selectParCaiDan();
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
+
+	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);
+
+	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
+			String order);
 
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);
 

@@ -10,6 +10,7 @@ import com.hlzncz.dao.PublicMapper;
 import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
+import com.hlzncz.entity.DingDan;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.KaPianShenLing;
@@ -35,6 +36,19 @@ public class PublicServiceImpl implements PublicService {
 	public List<CaiDan> selectChildCaiDan(Integer parId) {
 		// TODO Auto-generated method stub
 		return publicDao.selectChildCaiDan(parId);
+	}
+
+	@Override
+	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId) {
+		// TODO Auto-generated method stub
+		return publicDao.queryWoYaoXiaDanForInt(ddh,ddztId);
+	}
+
+	@Override
+	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
+			String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryWoYaoXiaDanList(ddh, ddztId, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override
