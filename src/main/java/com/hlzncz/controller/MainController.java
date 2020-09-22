@@ -370,6 +370,33 @@ public class MainController {
 		return "jcxx/kpgl/kpsl/detail";
 	}
 	
+	@RequestMapping(value="/jcxx/kpgl/kpwh/new")
+	public String goKpwhNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/kpgl/kpwh/new";
+	}
+
+	@RequestMapping(value="/jcxx/kpgl/kpwh/edit")
+	public String goKpwhEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		KaPianWeiHu kpwh=publicService.selectKaPianWeiHuById(id);
+		request.setAttribute("kpwh", kpwh);
+		
+		return "jcxx/kpgl/kpwh/edit";
+	}
+
+	@RequestMapping(value="/jcxx/kpgl/kpwh/list")
+	public String goKpwhList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/kpgl/kpwh/list";
+	}
+	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
 	public String goDlglNew(HttpServletRequest request) {
 		
@@ -1089,6 +1116,24 @@ public class MainController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/editKaPianWeiHu")
+	@ResponseBody
+	public Map<String, Object> editKaPianWeiHu(KaPianWeiHu kpwh) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editKaPianWeiHu(kpwh);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "±à¼­¿¨Æ¬Î¬»¤³É¹¦£¡");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "±à¼­¿¨Æ¬Î¬»¤Ê§°Ü£¡");
+		}
+		return jsonMap;
+	}
+
 	@RequestMapping(value="/editYunShuShang")
 	@ResponseBody
 	public Map<String, Object> editYunShuShang(YunShuShang yss) {
@@ -1189,6 +1234,39 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", kpslList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/newKaPianWeiHu")
+	@ResponseBody
+	public Map<String, Object> newKaPianWeiHu(KaPianWeiHu kpwh) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newKaPianWeiHu(kpwh);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "´´½¨¿¨Æ¬Î¬»¤³É¹¦£¡");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "´´½¨¿¨Æ¬Î¬»¤Ê§°Ü£¡");
+		}
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/queryKaPianWeiHuList")
+	@ResponseBody
+	public Map<String, Object> queryKaPianWeiHuList(String kh,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryKaPianWeiHuForInt(kh);
+		List<KaPianWeiHu> kpwhList=publicService.queryKaPianWeiHuList(kh, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", kpwhList);
 		
 		return jsonMap;
 	}

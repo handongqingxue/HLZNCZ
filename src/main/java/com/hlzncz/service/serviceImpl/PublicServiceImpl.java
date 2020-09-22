@@ -13,6 +13,7 @@ import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.KaPianShenLing;
+import com.hlzncz.entity.KaPianWeiHu;
 import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
@@ -374,6 +375,36 @@ public class PublicServiceImpl implements PublicService {
 	public KaPianShenLing selectKaPianShenLingById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectKaPianShenLingById(id);
+	}
+
+	@Override
+	public int newKaPianWeiHu(KaPianWeiHu kpwh) {
+		// TODO Auto-generated method stub
+		return publicDao.newKaPianWeiHu(kpwh);
+	}
+
+	@Override
+	public int editKaPianWeiHu(KaPianWeiHu kpwh) {
+		// TODO Auto-generated method stub
+		return publicDao.editKaPianWeiHu(kpwh);
+	}
+
+	@Override
+	public int queryKaPianWeiHuForInt(String kh) {
+		// TODO Auto-generated method stub
+		return publicDao.queryKaPianWeiHuForInt(kh);
+	}
+
+	@Override
+	public List<KaPianWeiHu> queryKaPianWeiHuList(String kh, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryKaPianWeiHuList(kh, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public KaPianWeiHu selectKaPianWeiHuById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectKaPianWeiHuById(id);
 	}
 
 	@Override

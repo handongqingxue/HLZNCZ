@@ -633,6 +633,47 @@
 	<select id="selectKaPianShenLingById" resultType="com.hlzncz.entity.KaPianShenLing">
 		select * from ka_pian_shen_ling where id=#{0}
 	</select>
+	<insert id="newKaPianWeiHu">
+		insert into ka_pian_wei_hu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="kh!=null">
+				kh,
+			</if>
+				bjsj
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="kh!=null">
+				#{kh},
+			</if>
+				now()
+		</trim>
+	</insert>
+	<update id="editKaPianWeiHu" parameterType="com.hlzncz.entity.KaPianWeiHu">
+		update ka_pian_wei_hu set 
+		<trim suffixOverrides=",">
+			<if test="kh!=null">
+				kh=#{kh},
+			</if>
+				bjsj=now()
+		</trim>
+		 where id=#{id}
+	</update>
+	<select id="queryKaPianWeiHuForInt" resultType="java.lang.Integer">
+		select count(*) from ka_pian_wei_hu where 1=1
+		<if test="kh!=''&amp;kh!=null">
+			and kh like CONCAT('%',#{kh},'%')
+		</if> 
+	</select>
+	<select id="queryKaPianWeiHuList" resultType="com.hlzncz.entity.KaPianWeiHu">
+		select * from ka_pian_wei_hu where 1=1
+		<if test="kh!=''&amp;kh!=null">
+			and kh like CONCAT('%',#{kh},'%')
+		</if> 
+	</select>
+	<select id="selectKaPianWeiHuById" resultType="com.hlzncz.entity.KaPianWeiHu">
+		select * from ka_pian_wei_hu where id=#{0}
+	</select>
 	<insert id="newCangKu" parameterType="com.hlzncz.entity.CangKu">
 		insert into cang_ku
 		<trim prefix="(" suffix=")" suffixOverrides=",">

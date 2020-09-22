@@ -10,6 +10,7 @@ import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.KaPianShenLing;
+import com.hlzncz.entity.KaPianWeiHu;
 import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
@@ -125,6 +126,16 @@ public interface PublicMapper {
 	public List<KaPianShenLing> queryKaPianShenLingList(@Param("sfzh") String sfzh, int i, int rows, String sort, String order);
 
 	public KaPianShenLing selectKaPianShenLingById(String id);
+
+	public int newKaPianWeiHu(KaPianWeiHu kpwh);
+
+	public int editKaPianWeiHu(KaPianWeiHu kpwh);
+
+	public int queryKaPianWeiHuForInt(@Param("kh") String kh);
+
+	public List<KaPianWeiHu> queryKaPianWeiHuList(@Param("kh") String kh, int i, int rows, String sort, String order);
+
+	public KaPianWeiHu selectKaPianWeiHuById(String id);
 
 	public int newDuiLie(DuiLie dl);
 

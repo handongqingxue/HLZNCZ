@@ -8,6 +8,7 @@ import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.KaPianShenLing;
+import com.hlzncz.entity.KaPianWeiHu;
 import com.hlzncz.entity.ShouHuoDanWei;
 import com.hlzncz.entity.SiJi;
 import com.hlzncz.entity.WuZi;
@@ -124,11 +125,20 @@ public interface PublicService {
 
 	public KaPianShenLing selectKaPianShenLingById(String id);
 
+	public int newKaPianWeiHu(KaPianWeiHu kpwh);
+
+	public int editKaPianWeiHu(KaPianWeiHu kpwh);
+
+	public int queryKaPianWeiHuForInt(String kh);
+
+	public List<KaPianWeiHu> queryKaPianWeiHuList(String kh, int page, int rows, String sort, String order);
+
+	public KaPianWeiHu selectKaPianWeiHuById(String id);
+
 	public int newDuiLie(DuiLie dl);
 
 	public int queryDuiLieForInt(String mc, String dm, Integer zt);
 
 	public List<DuiLie> queryDuiLieList(String mc, String dm, Integer zt, int page, int rows, String sort,
 			String order);
-
 }
