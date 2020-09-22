@@ -9,9 +9,10 @@
 var path='<%=basePath %>';
 $(function(){
 	initNewDialog();
+	
 	initYSSDialog();//运输商窗口
 	initSelectYSSDialog();//选择运输商窗口
-	initEditYSSDialog();
+	initEditYSSDialog();//修改运输商窗口
 });
 
 function initNewDialog(){
@@ -108,6 +109,64 @@ function initYSSDialog(){
 	initYSSTab();
 }
 
+function initYSSTab(){
+	$("#yss_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectYSSDialog(1);
+		}
+	});
+	
+	yssTab=$("#yss_tab").datagrid({
+		toolbar:"#yss_toolbar",
+		width:setFitWidthInParent("body","yss_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="关系运输商";
+					break;
+				}
+				return str;
+			}},
+            {field:"mc",title:"名称",width:200},
+			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            	var str="<a onclick=\"editYSSTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteYSSTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadYSSTabData([]);
+}
+
 function initSelectYSSDialog(){
 	selectYSSDialog=$("#select_yss_div").dialog({
 		title:"选择实体",
@@ -121,7 +180,7 @@ function initSelectYSSDialog(){
         	   openSelectYSSDialog(0);
            }},
            {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
-        	   	saveSelectSSDL();
+        	   	saveSelectYSS();
            }}
         ]
 	});
@@ -154,16 +213,64 @@ function initSelectYSSDialog(){
 	openSelectYSSDialog(0);
 }
 
+function initSelectYSSTab(){
+	$("#select_yss_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var mc=$("#select_yss_toolbar #mc_inp").val();
+			selectYSSTab.datagrid("load",{mc:mc});
+		}
+	});
+	
+	selectYSSTab=$("#select_yss_tab").datagrid({
+		url:path+"main/queryYunShuShangList",
+		toolbar:"#select_yss_toolbar",
+		width:setFitWidthInParent("body","select_yss_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"mc",title:"名称",width:200},
+			{field:"bjsj",title:"编辑时间",width:200}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:2});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+}
+
 function initEditYSSDialog(){
 	editYSSDialog=$("#edit_yss_div").dialog({
-		title:"修改",
+		title:"修改运输商实体",
 		width:setFitWidthInParent("body","edit_yss_div"),
 		height:231,
 		top:160,
 		left:308,
 		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditYSSDialog(0);
+           }},
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	    editSHDW();
+        	    editYSS();
            }}
         ]
 	});
@@ -186,95 +293,23 @@ function initEditYSSDialog(){
 	$(".window-shadow").eq(3).css("margin-top","20px");
 	$(".window,.window .window-body").eq(3).css("border-color","#ddd");
 
+	$("#edit_yss_div #cancel_but").css("left","30%");
+	$("#edit_yss_div #cancel_but").css("position","absolute");
+
 	$("#edit_yss_div #ok_but").css("left","45%");
 	$("#edit_yss_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	initEditSSDLGXCBB();
 	openEditYSSDialog(0);
 }
 
-function initEditSSDLGXCBB(){
-	editSSDLGXCBB=$("#edit_yss_gx_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"1","text":"叫号队列"}],
-		onLoadSuccess:function(){
-			$(this).combobox("setValue",1);
-		}
-	});
-}
-
-function initYSSTab(){
-	$("#choose_but").linkbutton({
-		iconCls:"icon-edit",
-		onClick:function(){
-			openSelectYSSDialog(1);
-		}
-	});
-	
-	yssTab=$("#yss_tab").datagrid({
-		toolbar:"#yss_toolbar",
-		width:setFitWidthInParent("body","yss_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
-				var str;
-				switch (value) {
-				case "1":
-					str="叫号队列";
-					break;
-				}
-				return str;
-			}},
-            {field:"mc",title:"名称",width:200},
-			{field:"dm",title:"代码",width:200},
-			{field:"jhyz",title:"叫号阈值",width:200},
-			{field:"jhxs",title:"叫号形式",width:200,formatter:function(value,row){
-				var str;
-				switch (value) {
-				case 1:
-					str="自动叫号";
-					break;
-				case 2:
-					str="手动叫号";
-					break;
-				}
-				return str;
-			}},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
-            	//var str="<a onclick=\"editYSSTabRow()\">编辑</a>"
-            	//+"&nbsp;|&nbsp;<a onclick=\"deleteYSSTabRow()\">删除</a>";
-            	var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
-            	return str;
-            }}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:6});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
-			reSizeCol();
-		}
-	});
-	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadYSSTabData([]);
+function editYSS(){
+	var id=$("#edit_yss_div #id").val();
+	var mc=$("#edit_yss_div #mc").val();
+	var bjsj=$("#edit_yss_div #bjsj").text();
+	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	loadYSSTabData(rows);
+	openEditYSSDialog(0);
 }
 
 function editYSSTabRow(){
@@ -284,99 +319,14 @@ function editYSSTabRow(){
 		return false;
 	}
 	$("#edit_yss_div #id").val(row.id);
-	$("#edit_yss_div #bjsj").val(row.bjsj);
-	$("#edit_yss_div #dwmc").val(row.dwmc);
+	$("#edit_yss_div #mc").val(row.mc);
+	$("#edit_yss_div #bjsj").text(row.bjsj);
 	openEditYSSDialog(1);
 }
 
 function deleteYSSTabRow(){
 	yssTab.datagrid("deleteRow",0);
 	loadYSSTabData([]);
-}
-
-function initSelectYSSTab(){
-	initZTCBB();
-	
-	$("#select_yss_search_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var mc=$("#select_yss_toolbar #mc_inp").val();
-			var dm=$("#select_yss_toolbar #dm_inp").val();
-			var zt=ztCBB.combobox("getValue");
-			selectYSSTab.datagrid("load",{mc:mc,dm:dm,zt:zt});
-		}
-	});
-	
-	selectYSSTab=$("#select_yss_tab").datagrid({
-		url:path+"main/queryDuiLieList",
-		toolbar:"#select_yss_toolbar",
-		width:setFitWidthInParent("body","select_yss_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
-		columns:[[
-			{field:"mc",title:"单位名称",width:200},
-			{field:"dm",title:"代码",width:200},
-			{field:"jhxs",title:"叫号形式",width:200,formatter:function(value,row){
-				var str;
-				switch (value) {
-				case 1:
-					str="自动叫号";
-					break;
-				case 2:
-					str="手动叫号";
-					break;
-				}
-				return str;
-			}},
-			{field:"jhyz",title:"叫号阈值",width:200},
-			{field:"zt",title:"状态",width:200,formatter:function(value,row){
-				var str;
-				switch (value) {
-				case 1:
-					str="在用";
-					break;
-				case 2:
-					str="暂停";
-					break;
-				case 3:
-					str="废弃";
-					break;
-				}
-				return str;
-			}}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:5});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
-			//reSizeCol();
-		}
-	});
-}
-
-function initZTCBB(){
-	ztCBB=$("#zt_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择状态"},{"value":"1","text":"在用"},{"value":"2","text":"暂停"},{"value":"3","text":"废弃"}]
-	});
 }
 
 //重设列宽
@@ -410,13 +360,13 @@ function openEditYSSDialog(flag){
 	}
 }
 
-function saveSelectSSDL(){
+function saveSelectYSS(){
 	var row=selectYSSTab.datagrid("getSelected");
 	if (row == null) {
 		$.messager.alert("提示","请选择要删除的信息！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",mc:row.mc,dm:row.dm,jhxs:row.jhxs,jhyz:row.jhyz,zt:row.zt,id:row.id}];
+	var rows=[{gx:"1",mc:row.mc,bjsj:row.bjsj,id:row.id}];
 	loadYSSTabData(rows);
 	openSelectYSSDialog(0);
 }
@@ -428,22 +378,22 @@ function loadYSSTabData(rows){
 
 function checkNew(){
 	if(checkYZXZL()){
-		if(checkSSDLId()){
-			newShouHuoDanWei();
+		if(checkYSSId()){
+			newWoYaoXiaDan();
 		}
 	}
 }
 
-function newShouHuoDanWei(){
+function newWoYaoXiaDan(){
 	var dwmc=$("#new_div #dwmc").val();
 	var yssTabData=yssTab.datagrid("getData");
 	var total=yssTabData.total;
-	var dlId=0;
+	var yssId=0;
 	if(total>0)
-		dlId=yssTabData.rows[0].id;
+		yssId=yssTabData.rows[0].id;
 	
-	$.post(path+"main/newShouHuoDanWei",
-		{dwmc:dwmc,dlId:dlId},
+	$.post(path+"main/newWoYaoXiaDan",
+		{dwmc:dwmc,yssId:yssId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -468,7 +418,7 @@ function checkYZXZL(){
 }
 
 //验证运输商
-function checkSSDLId(){
+function checkYSSId(){
 	var yssTabData=yssTab.datagrid("getData");
 	var total=yssTabData.total;
 	var ssdlId=0;
@@ -476,7 +426,7 @@ function checkSSDLId(){
 		ssdlId=yssTabData.rows[0].id;
 	
 	if(ssdlId==0){
-		alert("请选择所属队列");
+		alert("请选择运输商");
 	  	return false;
 	}
 	else
@@ -561,11 +511,7 @@ function initWindowMarginLeft(){
 		<div id="select_yss_toolbar" style="height:32px;line-height:32px;">
 			<span style="margin-left: 13px;">名称：</span>
 			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">代码：</span>
-			<input type="text" id="dm_inp" placeholder="请输入代码" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">状态：</span>
-			<input id="zt_cbb"/>
-			<a id="select_yss_search_but" style="margin-left: 13px;">查询</a>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
 		<table id="select_yss_tab"></table>
 	</div>
@@ -575,16 +521,16 @@ function initWindowMarginLeft(){
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				关系
-			</td>
-			<td style="width:30%;">
-				<input id="edit_yss_gx_cbb"/>
-			</td>
-			<td align="right" style="width:15%;">
 				名称
 			</td>
 			<td style="width:30%;">
 				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
 			</td>
 		  </tr>
 		</table>
