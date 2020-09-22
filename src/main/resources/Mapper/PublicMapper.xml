@@ -633,7 +633,7 @@
 	<select id="selectKaPianShenLingById" resultType="com.hlzncz.entity.KaPianShenLing">
 		select * from ka_pian_shen_ling where id=#{0}
 	</select>
-	<insert id="newKaPianWeiHu">
+	<insert id="newKaPianWeiHu" parameterType="com.hlzncz.entity.KaPianWeiHu">
 		insert into ka_pian_wei_hu
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="kh!=null">
@@ -649,6 +649,12 @@
 				now()
 		</trim>
 	</insert>
+	<delete id="deleteKaPianWeiHu">
+		delete from ka_pian_wei_hu where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 	<update id="editKaPianWeiHu" parameterType="com.hlzncz.entity.KaPianWeiHu">
 		update ka_pian_wei_hu set 
 		<trim suffixOverrides=",">

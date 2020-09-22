@@ -129,6 +129,8 @@ public interface PublicMapper {
 
 	public int newKaPianWeiHu(KaPianWeiHu kpwh);
 
+	public int deleteKaPianWeiHu(List<String> idList);
+
 	public int editKaPianWeiHu(KaPianWeiHu kpwh);
 
 	public int queryKaPianWeiHuForInt(@Param("kh") String kh);

@@ -127,6 +127,8 @@ public interface PublicService {
 
 	public int newKaPianWeiHu(KaPianWeiHu kpwh);
 
+	public int deleteKaPianWeiHu(String ids);
+
 	public int editKaPianWeiHu(KaPianWeiHu kpwh);
 
 	public int queryKaPianWeiHuForInt(String kh);

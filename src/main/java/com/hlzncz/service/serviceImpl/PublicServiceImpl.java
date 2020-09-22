@@ -384,6 +384,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteKaPianWeiHu(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteKaPianWeiHu(idList);
+		return count;
+	}
+
+	@Override
 	public int editKaPianWeiHu(KaPianWeiHu kpwh) {
 		// TODO Auto-generated method stub
 		return publicDao.editKaPianWeiHu(kpwh);

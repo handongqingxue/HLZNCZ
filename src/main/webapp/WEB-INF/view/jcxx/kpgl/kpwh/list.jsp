@@ -55,8 +55,8 @@ $(function(){
 			{field:"kh",title:"卡号",width:200},
             {field:"bjsj",title:"编辑时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/kpgl/kpwh/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/kpgl/kpwh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/kpgl/kpwh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -113,7 +113,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteCangKu",
+			$.post(path + "main/deleteKaPianWeiHu",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

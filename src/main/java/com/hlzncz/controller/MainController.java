@@ -396,6 +396,17 @@ public class MainController {
 		
 		return "jcxx/kpgl/kpwh/list";
 	}
+
+	@RequestMapping(value="/jcxx/kpgl/kpwh/detail")
+	public String goKpwhDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		KaPianWeiHu kpwh=publicService.selectKaPianWeiHuById(id);
+		request.setAttribute("kpwh", kpwh);
+		
+		return "jcxx/kpgl/kpwh/detail";
+	}
 	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
 	public String goDlglNew(HttpServletRequest request) {
@@ -1254,6 +1265,26 @@ public class MainController {
 			jsonMap.put("info", "创建卡片维护失败！");
 		}
 		return jsonMap;
+	}
+	
+	@RequestMapping(value="/deleteKaPianWeiHu",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteKaPianWeiHu(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteKaPianWeiHu(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除卡片维护失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除卡片维护成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 	
 	@RequestMapping(value="/queryKaPianWeiHuList")
