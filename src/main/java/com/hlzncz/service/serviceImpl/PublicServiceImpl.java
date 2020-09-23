@@ -2,6 +2,7 @@ package com.hlzncz.service.serviceImpl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,19 @@ public class PublicServiceImpl implements PublicService {
 	public List<CaiDan> selectChildCaiDan(Integer parId) {
 		// TODO Auto-generated method stub
 		return publicDao.selectChildCaiDan(parId);
+	}
+
+	@Override
+	public int newWoYaoXiaDan(DingDan dd) {
+		// TODO Auto-generated method stub
+		String wybm = "";
+        Random random = new Random();
+        for (int i = 0; i < 18; i++) {
+        	wybm += String.valueOf(random.nextInt(10));
+        }
+        dd.setWybm(wybm);
+        dd.setDdh("DD"+wybm);
+		return publicDao.newWoYaoXiaDan(dd);
 	}
 
 	@Override

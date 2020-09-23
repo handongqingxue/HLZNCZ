@@ -460,6 +460,24 @@ public class MainController {
 		}
 		request.setAttribute("topNavList", topNavList);
 	}
+
+	@RequestMapping(value="/newWoYaoXiaDan")
+	@ResponseBody
+	public Map<String, Object> newWoYaoXiaDan(DingDan dd) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newWoYaoXiaDan(dd);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建订单成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建订单失败！");
+		}
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/queryWoYaoXiaDanList")
 	@ResponseBody

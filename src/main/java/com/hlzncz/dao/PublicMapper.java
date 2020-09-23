@@ -24,6 +24,8 @@ public interface PublicMapper {
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
 
+	public int newWoYaoXiaDan(DingDan dd);
+
 	public int queryWoYaoXiaDanForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
 
 	public List<DingDan> queryWoYaoXiaDanList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);

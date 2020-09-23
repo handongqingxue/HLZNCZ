@@ -29,6 +29,9 @@ $(function(){
 	initCYCLDialog();//13.承运车辆窗口
 	initSelectCYCLDialog();//14.选择承运车辆窗口
 	initEditCYCLDialog();//15.修改承运车辆窗口
+
+	initCYSJDialog();//16.承运司机窗口
+	initSelectCYSJDialog();//17.选择承运司机窗口
 });
 
 function initNewDialog(){
@@ -242,6 +245,35 @@ function initCYCLDialog(){
 	$(".window,.window .window-body").eq(13).css("border-color","#ddd");
 
 	initCYCLTab();
+}
+
+function initCYSJDialog(){
+	cysjDialog=$("#cysj_div").dialog({
+		title:"承运司机",
+		width:setFitWidthInParent("body","cysj_div"),
+		height:300,
+		top:1700,
+		left:308
+	});
+	
+	$(".panel.window").eq(16).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(16).css("margin-top","20px");
+	$(".panel.window").eq(16).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(16).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(16).css("color","#000");
+	$(".panel.window .panel-title").eq(16).css("font-size","15px");
+	$(".panel.window .panel-title").eq(16).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(16).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(16).css("width","1000px");
+	$(".window-shadow").eq(16).css("margin-top","20px");
+	$(".window-shadow").eq(16).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(16).css("border-color","#ddd");
+
+	initCYSJTab();
 }
 
 function initYSSTab(){
@@ -534,6 +566,66 @@ function initCYCLTab(){
 	loadCYCLTabData([]);
 }
 
+function initCYSJTab(){
+	$("#cysj_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectCYSJDialog(1);
+		}
+	});
+	
+	cysjTab=$("#cysj_tab").datagrid({
+		toolbar:"#cysj_toolbar",
+		width:setFitWidthInParent("body","cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="货运司机";
+					break;
+				}
+				return str;
+			}},
+            {field:"xm",title:"姓名",width:200},
+            {field:"sjh",title:"手机号",width:200},
+            {field:"sfz",title:"身份证",width:200},
+			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            	//var str="<a onclick=\"editCYSJTabRow()\">编辑</a>"
+            	//+"&nbsp;|&nbsp;<a onclick=\"deleteCYSJTabRow()\">删除</a>";
+            	var str="<a onclick=\"deleteCYSJTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadCYSJTabData([]);
+}
+
 function initSelectYSSDialog(){
 	selectYSSDialog=$("#select_yss_div").dialog({
 		title:"选择实体",
@@ -767,6 +859,53 @@ function initSelectCYCLDialog(){
 	
 	initSelectCYCLTab();
 	openSelectCYCLDialog(0);
+}
+
+function initSelectCYSJDialog(){
+	selectCYSJDialog=$("#select_cysj_div").dialog({
+		title:"选择实体",
+		width:setFitWidthInParent("body"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:300,
+		left:400,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectCYSJDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectCYSJ();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(17).css("width","983px");
+	$(".panel.window").eq(17).css("margin-top","20px");
+	$(".panel.window").eq(17).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(17).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(17).css("color","#000");
+	$(".panel.window .panel-title").eq(17).css("font-size","15px");
+	$(".panel.window .panel-title").eq(17).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(17).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(17).css("width","1000px");
+	$(".window-shadow").eq(17).css("margin-top","20px");
+	$(".window-shadow").eq(17).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(17).css("border-color","#ddd");
+
+	$("#select_cysj_div #cancel_but").css("left","30%");
+	$("#select_cysj_div #cancel_but").css("position","absolute");
+	
+	$("#select_cysj_div #save_but").css("left","45%");
+	$("#select_cysj_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectCYSJTab();
+	openSelectCYSJDialog(0);
 }
 
 function initSelectYSSTab(){
@@ -1011,6 +1150,60 @@ function initSelectCYCLTab(){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
 				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:9});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+}
+
+function initSelectCYSJTab(){
+	zyztCBB=$("#zyzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+	
+	$("#select_cysj_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var xm=$("#select_cysj_toolbar #xm_inp").val();
+			var sfz=$("#select_cysj_toolbar #sfz_inp").val();
+			var zyzt=zyztCBB.combobox("getValue");
+			selectCYSJTab.datagrid("load",{xm:xm,sfz:sfz,zyzt:zyzt});
+		}
+	});
+	
+	selectCYSJTab=$("#select_cysj_tab").datagrid({
+		url:path+"main/querySiJiList",
+		toolbar:"#select_cysj_toolbar",
+		width:setFitWidthInParent("body","select_cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"xm",title:"姓名",width:200},
+            {field:"sjh",title:"手机号",width:200},
+			{field:"sfz",title:"身份证",width:200}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{xm:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"xm",colspan:3});
 				data.total=0;
 			}
 			
@@ -1377,6 +1570,11 @@ function deleteCYCLTabRow(){
 	loadCYCLTabData([]);
 }
 
+function deleteCYSJTabRow(){
+	cysjTab.datagrid("deleteRow",0);
+	loadCYSJTabData([]);
+}
+
 //重设列宽
 function reSizeCol(){
 	var width=$(".panel.datagrid").css("width");
@@ -1432,6 +1630,15 @@ function openSelectCYCLDialog(flag){
 	}
 	else{
 		selectCYCLDialog.dialog("close");
+	}
+}
+
+function openSelectCYSJDialog(flag){
+	if(flag==1){
+		selectCYSJDialog.dialog("open");
+	}
+	else{
+		selectCYSJDialog.dialog("close");
 	}
 }
 
@@ -1535,6 +1742,17 @@ function saveSelectCYCL(){
 	openSelectCYCLDialog(0);
 }
 
+function saveSelectCYSJ(){
+	var row=selectCYSJTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",xm:row.xm,sjh:row.sjh,sfz:row.sfz,id:row.id}];
+	loadCYSJTabData(rows);
+	openSelectCYSJDialog(0);
+}
+
 function loadYSSTabData(rows){
 	var obj = {"total":rows.length,"rows":rows};
 	yssTab.datagrid('loadData',obj);
@@ -1560,6 +1778,11 @@ function loadCYCLTabData(rows){
 	cyclTab.datagrid('loadData',obj);
 }
 
+function loadCYSJTabData(rows){
+	var obj = {"total":rows.length,"rows":rows};
+	cysjTab.datagrid('loadData',obj);
+}
+
 function checkNew(){
 	if(checkYZXZL()){
 		if(checkYSSId()){
@@ -1572,7 +1795,7 @@ function newWoYaoXiaDan(){
 	var dwmc=$("#new_div #dwmc").val();
 	var yssTabData=yssTab.datagrid("getData");
 	var total=yssTabData.total;
-	var yssId=0;
+	var yssId=null;
 	if(total>0)
 		yssId=yssTabData.rows[0].id;
 	
@@ -1592,8 +1815,8 @@ function newWoYaoXiaDan(){
 
 //验证预装卸重量
 function checkYZXZL(){
-	var dwmc = $("#new_div #dwmc").val();
-	if(zyzt==null||zyzt==""){
+	var yzxzl = $("#new_div #yzxzl").val();
+	if(yzxzl==null||yzxzl==""){
 	  	alert("请输入预装卸重量");
 	  	return false;
 	}
@@ -1877,6 +2100,26 @@ function initWindowMarginLeft(){
 			</td>
 		  </tr>
 		</table>
+	</div>
+	
+	<div id="cysj_div">
+		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="cysj_tab"></table>
+	</div>
+	
+	<div id="select_cysj_div">
+		<div id="select_cysj_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">姓名：</span>
+			<input type="text" id="xm_inp" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">身份证号：</span>
+			<input type="text" id="sfz_inp" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">在用状态：</span>
+			<input id="zyzt_cbb"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
+		</div>
+		<table id="select_cysj_tab"></table>
 	</div>
 </div>
 </body>
