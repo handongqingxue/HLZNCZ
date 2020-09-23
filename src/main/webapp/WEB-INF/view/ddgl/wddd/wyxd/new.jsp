@@ -223,7 +223,7 @@ function initCYCLDialog(){
 		width:setFitWidthInParent("body","cycl_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:300,
-		top:1350,
+		top:1700,
 		left:308
 	});
 	
@@ -252,7 +252,7 @@ function initCYSJDialog(){
 		title:"承运司机",
 		width:setFitWidthInParent("body","cysj_div"),
 		height:300,
-		top:1700,
+		top:2050,
 		left:308
 	});
 	
@@ -1784,23 +1784,40 @@ function loadCYSJTabData(rows){
 }
 
 function checkNew(){
-	if(checkYZXZL()){
-		if(checkYSSId()){
-			newWoYaoXiaDan();
+	if(checkJHYSRQ()){
+		if(checkYZXZL()){
+			if(checkLXLX()){
+				if(checkYSSId()){
+					if(checkWLXXId()){
+						if(checkFHDWId()){
+							if(checkSHDWId()){
+								if(checkCYCLId()){
+									if(checkCYSJId()){
+										newWoYaoXiaDan();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
 
 function newWoYaoXiaDan(){
-	var dwmc=$("#new_div #dwmc").val();
-	var yssTabData=yssTab.datagrid("getData");
-	var total=yssTabData.total;
-	var yssId=null;
-	if(total>0)
-		yssId=yssTabData.rows[0].id;
+	var jhysrq=jhysrqDB.datebox("getValue");
+	var yzxzl=$("#new_div #yzxzl").val();
+	var lxlx=lxlxCBB.combobox("getValue");
+	var yssId=yssTab.datagrid("getData").rows[0].id;
+	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
+	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
+	var shdwId=shdwTab.datagrid("getData").rows[0].id;
+	var cyclId=cyclTab.datagrid("getData").rows[0].id;
+	var cysjId=cysjTab.datagrid("getData").rows[0].id;
 	
 	$.post(path+"main/newWoYaoXiaDan",
-		{dwmc:dwmc,yssId:yssId},
+		{jhysrq:jhysrq,yzxzl:yzxzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -1811,6 +1828,17 @@ function newWoYaoXiaDan(){
 			}
 		}
 	,"json");
+}
+
+//验证计划运输日期
+function checkJHYSRQ(){
+	var jhysrq = jhysrqDB.datebox("getValue");
+	if(jhysrq==null||jhysrq==""){
+	  	alert("请选择计划运输日期");
+	  	return false;
+	}
+	else
+		return true;
 }
 
 //验证预装卸重量
@@ -1824,16 +1852,107 @@ function checkYZXZL(){
 		return true;
 }
 
+//验证流向类型
+function checkLXLX(){
+	var lxlx=lxlxCBB.combobox("getValue");
+	if(lxlx==null||lxlx==""){
+	  	alert("请选择流向类型");
+	  	return false;
+	}
+	else
+		return true;
+}
+
 //验证运输商
 function checkYSSId(){
 	var yssTabData=yssTab.datagrid("getData");
 	var total=yssTabData.total;
-	var ssdlId=0;
+	var yssId=null;
 	if(total>0)
-		ssdlId=yssTabData.rows[0].id;
+		yssId=yssTabData.rows[0].id;
 	
-	if(ssdlId==0){
+	if(yssId==null){
 		alert("请选择运输商");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证物料信息
+function checkWLXXId(){
+	var wlxxTabData=wlxxTab.datagrid("getData");
+	var total=wlxxTabData.total;
+	var wlxxId=null;
+	if(total>0)
+		wlxxId=wlxxTabData.rows[0].id;
+	
+	if(wlxxId==null){
+		alert("请选择物料信息");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证发货单位
+function checkFHDWId(){
+	var fhdwTabData=fhdwTab.datagrid("getData");
+	var total=fhdwTabData.total;
+	var fhdwId=null;
+	if(total>0)
+		fhdwId=fhdwTabData.rows[0].id;
+	
+	if(fhdwId==null){
+		alert("请选择发货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证收货单位
+function checkSHDWId(){
+	var shdwTabData=shdwTab.datagrid("getData");
+	var total=shdwTabData.total;
+	var shdwId=null;
+	if(total>0)
+		shdwId=shdwTabData.rows[0].id;
+	
+	if(shdwId==null){
+		alert("请选择收货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运车辆
+function checkCYCLId(){
+	var cyclTabData=cyclTab.datagrid("getData");
+	var total=cyclTabData.total;
+	var cyclId=null;
+	if(total>0)
+		cyclId=cyclTabData.rows[0].id;
+	
+	if(cyclId==null){
+		alert("请选择承运车辆");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运司机
+function checkCYSJId(){
+	var cysjTabData=cysjTab.datagrid("getData");
+	var total=cysjTabData.total;
+	var cysjId=null;
+	if(total>0)
+		cysjId=cysjTabData.rows[0].id;
+	
+	if(cysjId==null){
+		alert("请选择承运司机");
 	  	return false;
 	}
 	else
