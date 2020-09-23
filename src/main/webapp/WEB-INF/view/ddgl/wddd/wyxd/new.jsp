@@ -20,6 +20,7 @@ $(function(){
 
 	initFHDWDialog();//7.发货单位窗口
 	initSelectFHDWDialog();//8.选择发货单位窗口
+	initEditFHDWDialog();//9.修改发货单位窗口
 });
 
 function initNewDialog(){
@@ -107,7 +108,7 @@ function initYSSDialog(){
 	$(".panel-header, .panel-body").eq(1).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	//$(".window-shadow").eq(1).css("width","1000px");
+	$(".window-shadow").eq(1).css("width","1000px");
 	$(".window-shadow").eq(1).css("margin-top","20px");
 	$(".window-shadow").eq(1).css("margin-left",initWindowMarginLeft());
 	
@@ -136,7 +137,7 @@ function initWLXXDialog(){
 	$(".panel-header, .panel-body").eq(4).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	//$(".window-shadow").eq(4).css("width","1000px");
+	$(".window-shadow").eq(4).css("width","1000px");
 	$(".window-shadow").eq(4).css("margin-top","20px");
 	$(".window-shadow").eq(4).css("margin-left",initWindowMarginLeft());
 	
@@ -158,6 +159,7 @@ function initFHDWDialog(){
 	$(".panel.window").eq(7).css("width",(setFitWidthInParent("body","panel_window"))+"px");
 	$(".panel.window").eq(7).css("margin-top","20px");
 	$(".panel.window").eq(7).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(7).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(7).css("color","#000");
 	$(".panel.window .panel-title").eq(7).css("font-size","15px");
 	$(".panel.window .panel-title").eq(7).css("padding-left","10px");
@@ -165,7 +167,7 @@ function initFHDWDialog(){
 	$(".panel-header, .panel-body").eq(7).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	//$(".window-shadow").eq(7).css("width","1000px");
+	$(".window-shadow").eq(7).css("width","1000px");
 	$(".window-shadow").eq(7).css("margin-top","20px");
 	$(".window-shadow").eq(7).css("margin-left",initWindowMarginLeft());
 	
@@ -178,7 +180,7 @@ function initYSSTab(){
 	$("#yss_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
-			openSelectFHDWDialog(1);
+			openSelectYSSDialog(1);
 		}
 	});
 	
@@ -316,8 +318,8 @@ function initFHDWTab(){
 			}},
             {field:"dwmc",title:"单位名称",width:200},
 			{field:"id",title:"操作",width:200,formatter:function(value,row){
-            	var str="<a onclick=\"editWLXXTabRow()\">编辑</a>"
-            	+"&nbsp;|&nbsp;<a onclick=\"deleteWLXXTabRow()\">删除</a>";
+            	var str="<a onclick=\"editFHDWTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteFHDWTabRow()\">删除</a>";
             	//var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
             	return str;
             }}
@@ -369,6 +371,7 @@ function initSelectYSSDialog(){
 	$(".panel.window").eq(2).css("width","983px");
 	$(".panel.window").eq(2).css("margin-top","20px");
 	$(".panel.window").eq(2).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(2).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(2).css("color","#000");
 	$(".panel.window .panel-title").eq(2).css("font-size","15px");
 	$(".panel.window .panel-title").eq(2).css("padding-left","10px");
@@ -415,6 +418,7 @@ function initSelectWLXXDialog(){
 	$(".panel.window").eq(5).css("width","983px");
 	$(".panel.window").eq(5).css("margin-top","20px");
 	$(".panel.window").eq(5).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(5).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(5).css("color","#000");
 	$(".panel.window .panel-title").eq(5).css("font-size","15px");
 	$(".panel.window .panel-title").eq(5).css("padding-left","10px");
@@ -461,6 +465,7 @@ function initSelectFHDWDialog(){
 	$(".panel.window").eq(8).css("width","983px");
 	$(".panel.window").eq(8).css("margin-top","20px");
 	$(".panel.window").eq(8).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(8).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(8).css("color","#000");
 	$(".panel.window .panel-title").eq(8).css("font-size","15px");
 	$(".panel.window .panel-title").eq(8).css("padding-left","10px");
@@ -692,6 +697,7 @@ function initEditWLXXDialog(){
 	$("#edit_wlxx_div table tr").css("height","45px");
 
 	$(".panel.window").eq(6).css("margin-top","20px");
+	$(".panel.window").eq(6).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(6).css("color","#000");
 	$(".panel.window .panel-title").eq(6).css("font-size","15px");
 	$(".panel.window .panel-title").eq(6).css("padding-left","10px");
@@ -712,6 +718,52 @@ function initEditWLXXDialog(){
 	openEditWLXXDialog(0);
 }
 
+function initEditFHDWDialog(){
+	editFHDWDialog=$("#edit_fhdw_div").dialog({
+		title:"修改发货单位实体",
+		width:setFitWidthInParent("body","edit_fhdw_div"),
+		height:231,
+		top:200,
+		left:308,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditFHDWDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editFHDW();
+           }}
+        ]
+	});
+
+	$("#edit_fhdw_div table").css("width",(setFitWidthInParent("body","edit_fhdw_div"))+"px");
+	$("#edit_fhdw_div table").css("magin","-100px");
+	$("#edit_fhdw_div table td").css("padding-left","50px");
+	$("#edit_fhdw_div table td").css("padding-right","20px");
+	$("#edit_fhdw_div table td").css("font-size","15px");
+	$("#edit_fhdw_div table tr").css("height","45px");
+
+	$(".panel.window").eq(9).css("margin-top","20px");
+	$(".panel.window").eq(9).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(9).css("color","#000");
+	$(".panel.window .panel-title").eq(9).css("font-size","15px");
+	$(".panel.window .panel-title").eq(9).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(9).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(9).css("margin-top","20px");
+	$(".window,.window .window-body").eq(9).css("border-color","#ddd");
+
+	$("#edit_fhdw_div #cancel_but").css("left","30%");
+	$("#edit_fhdw_div #cancel_but").css("position","absolute");
+
+	$("#edit_fhdw_div #ok_but").css("left","45%");
+	$("#edit_fhdw_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openEditFHDWDialog(0);
+}
+
 function editYSS(){
 	var id=$("#edit_yss_div #id").val();
 	var mc=$("#edit_yss_div #mc").val();
@@ -728,6 +780,15 @@ function editWLXX(){
 	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
 	loadWLXXTabData(rows);
 	openEditWLXXDialog(0);
+}
+
+function editFHDW(){
+	var id=$("#edit_fhdw_div #id").val();
+	var dwmc=$("#edit_fhdw_div #dwmc").val();
+	var bjsj=$("#edit_fhdw_div #bjsj").text();
+	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	loadFHDWTabData(rows);
+	openEditFHDWDialog(0);
 }
 
 function editYSSTabRow(){
@@ -754,6 +815,18 @@ function editWLXXTabRow(){
 	openEditWLXXDialog(1);
 }
 
+function editFHDWTabRow(){
+	var row=fhdwTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#edit_fhdw_div #id").val(row.id);
+	$("#edit_fhdw_div #dwmc").val(row.dwmc);
+	$("#edit_fhdw_div #bjsj").text(row.bjsj);
+	openEditFHDWDialog(1);
+}
+
 function deleteYSSTabRow(){
 	yssTab.datagrid("deleteRow",0);
 	loadYSSTabData([]);
@@ -762,6 +835,11 @@ function deleteYSSTabRow(){
 function deleteWLXXTabRow(){
 	wlxxTab.datagrid("deleteRow",0);
 	loadWLXXTabData([]);
+}
+
+function deleteFHDWTabRow(){
+	fhdwTab.datagrid("deleteRow",0);
+	loadFHDWTabData([]);
 }
 
 //重设列宽
@@ -819,6 +897,15 @@ function openEditWLXXDialog(flag){
 	}
 	else{
 		editWLXXDialog.dialog("close");
+	}
+}
+
+function openEditFHDWDialog(flag){
+	if(flag==1){
+		editFHDWDialog.dialog("open");
+	}
+	else{
+		editFHDWDialog.dialog("close");
 	}
 }
 
@@ -936,6 +1023,7 @@ function setFitWidthInParent(parent,self){
 	case "select_wlxx_tab":
 	case "edit_yss_div":
 	case "edit_wlxx_div":
+	case "edit_fhdw_div":
 	case "wlxx_div":
 		space=340;
 		break;
@@ -1084,6 +1172,26 @@ function initWindowMarginLeft(){
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
 		<table id="select_fhdw_tab"></table>
+	</div>
+	
+	<div id="edit_fhdw_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
 	</div>
 </div>
 </body>
