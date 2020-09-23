@@ -21,6 +21,10 @@ $(function(){
 	initFHDWDialog();//7.发货单位窗口
 	initSelectFHDWDialog();//8.选择发货单位窗口
 	initEditFHDWDialog();//9.修改发货单位窗口
+
+	initSHDWDialog();//10.收货单位窗口
+	initSelectSHDWDialog();//11.选择收货单位窗口
+	initEditSHDWDialog();//12.修改发货单位窗口
 });
 
 function initNewDialog(){
@@ -174,6 +178,36 @@ function initFHDWDialog(){
 	$(".window,.window .window-body").eq(7).css("border-color","#ddd");
 
 	initFHDWTab();
+}
+
+function initSHDWDialog(){
+	shdwDialog=$("#shdw_div").dialog({
+		title:"收货单位",
+		width:setFitWidthInParent("body","shdw_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:300,
+		top:1350,
+		left:308
+	});
+	
+	$(".panel.window").eq(10).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(10).css("margin-top","20px");
+	$(".panel.window").eq(10).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(10).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(10).css("color","#000");
+	$(".panel.window .panel-title").eq(10).css("font-size","15px");
+	$(".panel.window .panel-title").eq(10).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(10).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(10).css("width","1000px");
+	$(".window-shadow").eq(10).css("margin-top","20px");
+	$(".window-shadow").eq(10).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(10).css("border-color","#ddd");
+
+	initSHDWTab();
 }
 
 function initYSSTab(){
@@ -350,6 +384,64 @@ function initFHDWTab(){
 	loadFHDWTabData([]);
 }
 
+function initSHDWTab(){
+	$("#shdw_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectSHDWDialog(1);
+		}
+	});
+	
+	shdwTab=$("#shdw_tab").datagrid({
+		toolbar:"#shdw_toolbar",
+		width:setFitWidthInParent("body","shdw_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="收货单位";
+					break;
+				}
+				return str;
+			}},
+            {field:"dwmc",title:"单位名称",width:200},
+			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            	var str="<a onclick=\"editSHDWTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteSHDWTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteSHDWTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadSHDWTabData([]);
+}
+
 function initSelectYSSDialog(){
 	selectYSSDialog=$("#select_yss_div").dialog({
 		title:"选择实体",
@@ -491,6 +583,53 @@ function initSelectFHDWDialog(){
 	openSelectFHDWDialog(0);
 }
 
+function initSelectSHDWDialog(){
+	selectSHDWDialog=$("#select_shdw_div").dialog({
+		title:"选择实体",
+		width:setFitWidthInParent("body"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:300,
+		left:400,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectSHDWDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectSHDW();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(11).css("width","983px");
+	$(".panel.window").eq(11).css("margin-top","20px");
+	$(".panel.window").eq(11).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(11).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(11).css("color","#000");
+	$(".panel.window .panel-title").eq(11).css("font-size","15px");
+	$(".panel.window .panel-title").eq(11).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(11).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(11).css("width","1000px");
+	$(".window-shadow").eq(11).css("margin-top","20px");
+	$(".window-shadow").eq(11).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(11).css("border-color","#ddd");
+
+	$("#select_shdw_div #cancel_but").css("left","30%");
+	$("#select_shdw_div #cancel_but").css("position","absolute");
+	
+	$("#select_shdw_div #save_but").css("left","45%");
+	$("#select_shdw_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectSHDWTab();
+	openSelectSHDWDialog(0);
+}
+
 function initSelectYSSTab(){
 	$("#select_yss_toolbar #search_but").linkbutton({
 		iconCls:"icon-search",
@@ -595,6 +734,51 @@ function initSelectFHDWTab(){
 		url:path+"main/queryFaHuoDanWeiList",
 		toolbar:"#select_fhdw_toolbar",
 		width:setFitWidthInParent("body","select_fhdw_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"dwmc",title:"单位名称",width:200},
+			{field:"bjsj",title:"编辑时间",width:200}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{dwmc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"dwmc",colspan:2});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+}
+
+function initSelectSHDWTab(){
+	$("#select_shdw_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var dwmc=$("#select_shdw_toolbar #dwmc_inp").val();
+			selectSHDWTab.datagrid("load",{dwmc:dwmc});
+		}
+	});
+	
+	selectSHDWTab=$("#select_shdw_tab").datagrid({
+		url:path+"main/queryShouHuoDanWeiList",
+		toolbar:"#select_shdw_toolbar",
+		width:setFitWidthInParent("body","select_shdw_tab"),
 		singleSelect:true,
 		pagination:true,
 		pageSize:10,
@@ -764,6 +948,52 @@ function initEditFHDWDialog(){
 	openEditFHDWDialog(0);
 }
 
+function initEditSHDWDialog(){
+	editSHDWDialog=$("#edit_shdw_div").dialog({
+		title:"修改收货单位实体",
+		width:setFitWidthInParent("body","edit_shdw_div"),
+		height:231,
+		top:200,
+		left:308,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditSHDWDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editSHDW();
+           }}
+        ]
+	});
+
+	$("#edit_shdw_div table").css("width",(setFitWidthInParent("body","edit_shdw_div"))+"px");
+	$("#edit_shdw_div table").css("magin","-100px");
+	$("#edit_shdw_div table td").css("padding-left","50px");
+	$("#edit_shdw_div table td").css("padding-right","20px");
+	$("#edit_shdw_div table td").css("font-size","15px");
+	$("#edit_shdw_div table tr").css("height","45px");
+
+	$(".panel.window").eq(12).css("margin-top","20px");
+	$(".panel.window").eq(12).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(12).css("color","#000");
+	$(".panel.window .panel-title").eq(12).css("font-size","15px");
+	$(".panel.window .panel-title").eq(12).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(12).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(12).css("margin-top","20px");
+	$(".window,.window .window-body").eq(12).css("border-color","#ddd");
+
+	$("#edit_shdw_div #cancel_but").css("left","30%");
+	$("#edit_shdw_div #cancel_but").css("position","absolute");
+
+	$("#edit_shdw_div #ok_but").css("left","45%");
+	$("#edit_shdw_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openEditSHDWDialog(0);
+}
+
 function editYSS(){
 	var id=$("#edit_yss_div #id").val();
 	var mc=$("#edit_yss_div #mc").val();
@@ -789,6 +1019,15 @@ function editFHDW(){
 	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
 	loadFHDWTabData(rows);
 	openEditFHDWDialog(0);
+}
+
+function editSHDW(){
+	var id=$("#edit_shdw_div #id").val();
+	var dwmc=$("#edit_shdw_div #dwmc").val();
+	var bjsj=$("#edit_shdw_div #bjsj").text();
+	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	loadSHDWTabData(rows);
+	openEditSHDWDialog(0);
 }
 
 function editYSSTabRow(){
@@ -827,6 +1066,18 @@ function editFHDWTabRow(){
 	openEditFHDWDialog(1);
 }
 
+function editSHDWTabRow(){
+	var row=shdwTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#edit_shdw_div #id").val(row.id);
+	$("#edit_shdw_div #dwmc").val(row.dwmc);
+	$("#edit_shdw_div #bjsj").text(row.bjsj);
+	openEditSHDWDialog(1);
+}
+
 function deleteYSSTabRow(){
 	yssTab.datagrid("deleteRow",0);
 	loadYSSTabData([]);
@@ -840,6 +1091,11 @@ function deleteWLXXTabRow(){
 function deleteFHDWTabRow(){
 	fhdwTab.datagrid("deleteRow",0);
 	loadFHDWTabData([]);
+}
+
+function deleteSHDWTabRow(){
+	shdwTab.datagrid("deleteRow",0);
+	loadSHDWTabData([]);
 }
 
 //重设列宽
@@ -882,6 +1138,15 @@ function openSelectFHDWDialog(flag){
 	}
 }
 
+function openSelectSHDWDialog(flag){
+	if(flag==1){
+		selectSHDWDialog.dialog("open");
+	}
+	else{
+		selectSHDWDialog.dialog("close");
+	}
+}
+
 function openEditYSSDialog(flag){
 	if(flag==1){
 		editYSSDialog.dialog("open");
@@ -906,6 +1171,15 @@ function openEditFHDWDialog(flag){
 	}
 	else{
 		editFHDWDialog.dialog("close");
+	}
+}
+
+function openEditSHDWDialog(flag){
+	if(flag==1){
+		editSHDWDialog.dialog("open");
+	}
+	else{
+		editSHDWDialog.dialog("close");
 	}
 }
 
@@ -942,6 +1216,17 @@ function saveSelectFHDW(){
 	openSelectFHDWDialog(0);
 }
 
+function saveSelectSHDW(){
+	var row=selectSHDWTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",dwmc:row.dwmc,bjsj:row.bjsj,id:row.id}];
+	loadSHDWTabData(rows);
+	openSelectSHDWDialog(0);
+}
+
 function loadYSSTabData(rows){
 	var obj = {"total":rows.length,"rows":rows};
 	yssTab.datagrid('loadData',obj);
@@ -955,6 +1240,11 @@ function loadWLXXTabData(rows){
 function loadFHDWTabData(rows){
 	var obj = {"total":rows.length,"rows":rows};
 	fhdwTab.datagrid('loadData',obj);
+}
+
+function loadSHDWTabData(rows){
+	var obj = {"total":rows.length,"rows":rows};
+	shdwTab.datagrid('loadData',obj);
 }
 
 function checkNew(){
@@ -1020,17 +1310,21 @@ function setFitWidthInParent(parent,self){
 	case "new_div":
 	case "yss_div":
 	case "select_yss_tab":
-	case "select_wlxx_tab":
 	case "edit_yss_div":
-	case "edit_wlxx_div":
-	case "edit_fhdw_div":
 	case "wlxx_div":
+	case "select_wlxx_tab":
+	case "edit_wlxx_div":
+	case "fhdw_div":
+	case "select_fhdw_tab":
+	case "edit_fhdw_div":
+	case "shdw_div":
 		space=340;
 		break;
 	case "new_div_table":
 	case "panel_window":
 	case "yss_tab":
 	case "wlxx_tab":
+	case "fhdw_tab":
 		space=355;
 		break;
 	}
@@ -1175,6 +1469,42 @@ function initWindowMarginLeft(){
 	</div>
 	
 	<div id="edit_fhdw_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
+	
+	<div id="shdw_div">
+		<div id="shdw_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="shdw_tab"></table>
+	</div>
+	
+	<div id="select_shdw_div">
+		<div id="select_shdw_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">单位名称：</span>
+			<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
+		</div>
+		<table id="select_shdw_tab"></table>
+	</div>
+	
+	<div id="edit_shdw_div">
 		<input type="hidden" id="id"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
