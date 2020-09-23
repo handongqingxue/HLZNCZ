@@ -112,6 +112,7 @@ function initYSSDialog(){
 	$(".panel.window").eq(1).css("width",(setFitWidthInParent("body","panel_window"))+"px");
 	$(".panel.window").eq(1).css("margin-top","20px");
 	$(".panel.window").eq(1).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(1).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(1).css("color","#000");
 	$(".panel.window .panel-title").eq(1).css("font-size","15px");
 	$(".panel.window .panel-title").eq(1).css("padding-left","10px");
@@ -141,6 +142,7 @@ function initWLXXDialog(){
 	$(".panel.window").eq(4).css("width",(setFitWidthInParent("body","panel_window"))+"px");
 	$(".panel.window").eq(4).css("margin-top","20px");
 	$(".panel.window").eq(4).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(4).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(4).css("color","#000");
 	$(".panel.window .panel-title").eq(4).css("font-size","15px");
 	$(".panel.window .panel-title").eq(4).css("padding-left","10px");
