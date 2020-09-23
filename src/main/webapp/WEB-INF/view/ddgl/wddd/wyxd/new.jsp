@@ -25,6 +25,10 @@ $(function(){
 	initSHDWDialog();//10.收货单位窗口
 	initSelectSHDWDialog();//11.选择收货单位窗口
 	initEditSHDWDialog();//12.修改发货单位窗口
+	
+	initCYCLDialog();//13.承运车辆窗口
+	initSelectCYCLDialog();//14.选择承运车辆窗口
+	initEditCYCLDialog();//15.修改承运车辆窗口
 });
 
 function initNewDialog(){
@@ -208,6 +212,36 @@ function initSHDWDialog(){
 	$(".window,.window .window-body").eq(10).css("border-color","#ddd");
 
 	initSHDWTab();
+}
+
+function initCYCLDialog(){
+	cyclDialog=$("#cycl_div").dialog({
+		title:"承运车辆",
+		width:setFitWidthInParent("body","cycl_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:300,
+		top:1350,
+		left:308
+	});
+	
+	$(".panel.window").eq(13).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(13).css("margin-top","20px");
+	$(".panel.window").eq(13).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(13).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(13).css("color","#000");
+	$(".panel.window .panel-title").eq(13).css("font-size","15px");
+	$(".panel.window .panel-title").eq(13).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(13).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(13).css("width","1000px");
+	$(".window-shadow").eq(13).css("margin-top","20px");
+	$(".window-shadow").eq(13).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(13).css("border-color","#ddd");
+
+	initCYCLTab();
 }
 
 function initYSSTab(){
@@ -442,6 +476,64 @@ function initSHDWTab(){
 	loadSHDWTabData([]);
 }
 
+function initCYCLTab(){
+	$("#cycl_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectCYCLDialog(1);
+		}
+	});
+	
+	cyclTab=$("#cycl_tab").datagrid({
+		toolbar:"#cycl_toolbar",
+		width:setFitWidthInParent("body","cycl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="货运车辆";
+					break;
+				}
+				return str;
+			}},
+            {field:"cph",title:"车牌号",width:200},
+			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            	//var str="<a onclick=\"editCYCLTabRow()\">编辑</a>"
+            	//+"&nbsp;|&nbsp;<a onclick=\"deleteCYCLTabRow()\">删除</a>";
+            	var str="<a onclick=\"deleteCYCLTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadCYCLTabData([]);
+}
+
 function initSelectYSSDialog(){
 	selectYSSDialog=$("#select_yss_div").dialog({
 		title:"选择实体",
@@ -630,6 +722,53 @@ function initSelectSHDWDialog(){
 	openSelectSHDWDialog(0);
 }
 
+function initSelectCYCLDialog(){
+	selectCYCLDialog=$("#select_cycl_div").dialog({
+		title:"选择实体",
+		width:setFitWidthInParent("body"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:300,
+		left:400,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectCYCLDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectCYCL();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(14).css("width","983px");
+	$(".panel.window").eq(14).css("margin-top","20px");
+	$(".panel.window").eq(14).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(14).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(14).css("color","#000");
+	$(".panel.window .panel-title").eq(14).css("font-size","15px");
+	$(".panel.window .panel-title").eq(14).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(14).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(14).css("width","1000px");
+	$(".window-shadow").eq(14).css("margin-top","20px");
+	$(".window-shadow").eq(14).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(14).css("border-color","#ddd");
+
+	$("#select_cycl_div #cancel_but").css("left","30%");
+	$("#select_cycl_div #cancel_but").css("position","absolute");
+	
+	$("#select_cycl_div #save_but").css("left","45%");
+	$("#select_cycl_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectCYCLTab();
+	openSelectCYCLDialog(0);
+}
+
 function initSelectYSSTab(){
 	$("#select_yss_toolbar #search_but").linkbutton({
 		iconCls:"icon-search",
@@ -791,6 +930,87 @@ function initSelectSHDWTab(){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{dwmc:"<div style=\"text-align:center;\">暂无数据<div>"});
 				$(this).datagrid("mergeCells",{index:0,field:"dwmc",colspan:2});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+}
+
+function initSelectCYCLTab(){
+	cllxCBB=$("#cllx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+	});
+	
+	$("#select_cycl_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var cph=$("#select_cycl_toolbar #cph_inp").val();
+			var cllx=cllxCBB.combobox("getValue");
+			selectCYCLTab.datagrid("load",{cph:cph,cllx:cllx});
+		}
+	});
+	
+	selectCYCLTab=$("#select_cycl_tab").datagrid({
+		url:path+"main/queryCheLiangList",
+		toolbar:"#select_cycl_toolbar",
+		width:setFitWidthInParent("body","select_cycl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"cph",title:"车牌号",width:200},
+            {field:"ppxh",title:"品牌型号",width:200},
+			{field:"fdjhm",title:"发动机号码",width:200},
+			{field:"clsbdm",title:"车辆识别代号",width:200},
+			{field:"zcrq",title:"注册日期",width:200},
+			{field:"pfjd",title:"排放阶段",width:200,formatter:function(value){
+				var str;
+				switch (value) {
+				case 1:
+					str="国五燃油";
+					break;
+				case 2:
+					str="国五燃气";
+					break;
+				case 3:
+					str="国六燃油";
+					break;
+				case 4:
+					str="国六燃气";
+					break;
+				case 5:
+					str="电动";
+					break;
+				}
+				return str;
+			}},
+			{field:"fzrq",title:"发证日期",width:200},
+			{field:"sfzy",title:"是否在用",width:200,formatter:function(value){
+				return value?"是":"否";
+			}},
+			{field:"bz",title:"备注",width:200}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:9});
 				data.total=0;
 			}
 			
@@ -994,6 +1214,52 @@ function initEditSHDWDialog(){
 	openEditSHDWDialog(0);
 }
 
+function initEditCYCLDialog(){
+	editCYCLDialog=$("#edit_cycl_div").dialog({
+		title:"修改承运车辆实体",
+		width:setFitWidthInParent("body","edit_cycl_div"),
+		height:231,
+		top:200,
+		left:308,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditCYCLDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editCYCL();
+           }}
+        ]
+	});
+
+	$("#edit_cycl_div table").css("width",(setFitWidthInParent("body","edit_shdw_div"))+"px");
+	$("#edit_cycl_div table").css("magin","-100px");
+	$("#edit_cycl_div table td").css("padding-left","50px");
+	$("#edit_cycl_div table td").css("padding-right","20px");
+	$("#edit_cycl_div table td").css("font-size","15px");
+	$("#edit_cycl_div table tr").css("height","45px");
+
+	$(".panel.window").eq(15).css("margin-top","20px");
+	$(".panel.window").eq(15).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(15).css("color","#000");
+	$(".panel.window .panel-title").eq(15).css("font-size","15px");
+	$(".panel.window .panel-title").eq(15).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(15).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(15).css("margin-top","20px");
+	$(".window,.window .window-body").eq(15).css("border-color","#ddd");
+
+	$("#edit_cycl_div #cancel_but").css("left","30%");
+	$("#edit_cycl_div #cancel_but").css("position","absolute");
+
+	$("#edit_cycl_div #ok_but").css("left","45%");
+	$("#edit_cycl_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openEditCYCLDialog(0);
+}
+
 function editYSS(){
 	var id=$("#edit_yss_div #id").val();
 	var mc=$("#edit_yss_div #mc").val();
@@ -1028,6 +1294,14 @@ function editSHDW(){
 	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
 	loadSHDWTabData(rows);
 	openEditSHDWDialog(0);
+}
+
+function editCYCL(){
+	var id=$("#edit_cycl_div #id").val();
+	var cph=$("#edit_cycl_div #cph").val();
+	var rows=[{gx:"1",cph:cph,id:id}];
+	loadCYCLTabData(rows);
+	openEditCYCLDialog(0);
 }
 
 function editYSSTabRow(){
@@ -1098,6 +1372,11 @@ function deleteSHDWTabRow(){
 	loadSHDWTabData([]);
 }
 
+function deleteCYCLTabRow(){
+	cyclTab.datagrid("deleteRow",0);
+	loadCYCLTabData([]);
+}
+
 //重设列宽
 function reSizeCol(){
 	var width=$(".panel.datagrid").css("width");
@@ -1147,6 +1426,15 @@ function openSelectSHDWDialog(flag){
 	}
 }
 
+function openSelectCYCLDialog(flag){
+	if(flag==1){
+		selectCYCLDialog.dialog("open");
+	}
+	else{
+		selectCYCLDialog.dialog("close");
+	}
+}
+
 function openEditYSSDialog(flag){
 	if(flag==1){
 		editYSSDialog.dialog("open");
@@ -1180,6 +1468,15 @@ function openEditSHDWDialog(flag){
 	}
 	else{
 		editSHDWDialog.dialog("close");
+	}
+}
+
+function openEditCYCLDialog(flag){
+	if(flag==1){
+		editCYCLDialog.dialog("open");
+	}
+	else{
+		editCYCLDialog.dialog("close");
 	}
 }
 
@@ -1227,6 +1524,17 @@ function saveSelectSHDW(){
 	openSelectSHDWDialog(0);
 }
 
+function saveSelectCYCL(){
+	var row=selectCYCLTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",cph:row.cph,id:row.id}];
+	loadCYCLTabData(rows);
+	openSelectCYCLDialog(0);
+}
+
 function loadYSSTabData(rows){
 	var obj = {"total":rows.length,"rows":rows};
 	yssTab.datagrid('loadData',obj);
@@ -1245,6 +1553,11 @@ function loadFHDWTabData(rows){
 function loadSHDWTabData(rows){
 	var obj = {"total":rows.length,"rows":rows};
 	shdwTab.datagrid('loadData',obj);
+}
+
+function loadCYCLTabData(rows){
+	var obj = {"total":rows.length,"rows":rows};
+	cyclTab.datagrid('loadData',obj);
 }
 
 function checkNew(){
@@ -1318,6 +1631,10 @@ function setFitWidthInParent(parent,self){
 	case "select_fhdw_tab":
 	case "edit_fhdw_div":
 	case "shdw_div":
+	case "select_shdw_tab":
+	case "edit_shdw_div":
+	case "cycl_div":
+	case "select_cycl_tab":
 		space=340;
 		break;
 	case "new_div_table":
@@ -1505,6 +1822,44 @@ function initWindowMarginLeft(){
 	</div>
 	
 	<div id="edit_shdw_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
+	
+	<div id="cycl_div">
+		<div id="cycl_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="cycl_tab"></table>
+	</div>
+	
+	<div id="select_cycl_div">
+		<div id="select_cycl_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">车牌号：</span>
+			<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">车辆类型：</span>
+			<input id="cllx_cbb"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
+		</div>
+		<table id="select_cycl_tab"></table>
+	</div>
+	
+	<div id="edit_cycl_div">
 		<input type="hidden" id="id"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
