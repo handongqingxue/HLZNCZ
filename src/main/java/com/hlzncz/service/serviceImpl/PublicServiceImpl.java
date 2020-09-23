@@ -66,6 +66,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public DingDan selectDingDanByWybm(String wybm) {
+		// TODO Auto-generated method stub
+		return publicDao.selectDingDanByWybm(wybm);
+	}
+
+	@Override
 	public int newWuZiLeiXing(WuZiLeiXing wzlx) {
 		// TODO Auto-generated method stub
 		return publicDao.newWuZiLeiXing(wzlx);

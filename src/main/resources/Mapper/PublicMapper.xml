@@ -103,6 +103,9 @@
 		</if>
 		 limit ${param3},${param4}
 	</select>
+	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
+		select * from ding_dan where wybm=#{wybm}
+	</select>
 	<insert id="newWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		insert into wu_zi_lei_xing
 		<trim prefix="(" suffix=")" suffixOverrides=",">

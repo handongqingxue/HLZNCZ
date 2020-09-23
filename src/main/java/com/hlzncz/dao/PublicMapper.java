@@ -30,6 +30,8 @@ public interface PublicMapper {
 
 	public List<DingDan> queryWoYaoXiaDanList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
 
+	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);
+
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);
 
 	public int deleteWuZiLeiXing(List<String> idList);

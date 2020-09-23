@@ -29,6 +29,8 @@ public interface PublicService {
 	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
 			String order);
 
+	public DingDan selectDingDanByWybm(String wybm);
+
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);
 
 	public int deleteWuZiLeiXing(String ids);

@@ -58,7 +58,7 @@ $(function(){
             {field:"ddzt",title:"订单状态",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

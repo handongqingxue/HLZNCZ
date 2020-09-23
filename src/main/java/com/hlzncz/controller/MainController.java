@@ -58,6 +58,17 @@ public class MainController {
 		return "ddgl/wddd/wyxd/new";
 	}
 
+	@RequestMapping(value="/ddgl/wddd/wyxd/edit")
+	public String goWyxdEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan wyxd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("wyxd", wyxd);
+		
+		return "ddgl/wddd/wyxd/edit";
+	}
+
 	@RequestMapping(value="/ddgl/wddd/wyxd/list")
 	public String goWyxdList(HttpServletRequest request) {
 		
