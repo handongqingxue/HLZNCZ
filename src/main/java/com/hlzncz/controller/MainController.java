@@ -96,6 +96,36 @@ public class MainController {
 		return "ddgl/wddd/wyxd/list";
 	}
 
+	@RequestMapping(value="/ddgl/wddd/wyxd/detail")
+	public String goWyxdDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		String wybm = request.getParameter("wybm");
+		DingDan wyxd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("wyxd", wyxd);
+		
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(wyxd.getYssId()));
+		request.setAttribute("yss", yss);
+		
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(wyxd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(wyxd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/wddd/wyxd/detail";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
