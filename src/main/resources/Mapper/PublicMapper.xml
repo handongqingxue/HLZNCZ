@@ -626,6 +626,9 @@
 			and dwmc like CONCAT('%',#{dwmc},'%')
 		</if> 
 	</select>
+	<select id="selectShouHuoDanWeiById" resultType="com.hlzncz.entity.ShouHuoDanWei">
+		select * from shou_huo_dan_wei where id=#{0}
+	</select>
 	<insert id="newYunShuShang" parameterType="com.hlzncz.entity.YunShuShang">
 		insert into yun_shu_shang
 		<trim prefix="(" suffix=")" suffixOverrides=",">

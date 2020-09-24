@@ -293,7 +293,7 @@ function initYSSTab(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
 				var str;
 				switch (value) {
 				case "1":
@@ -302,8 +302,8 @@ function initYSSTab(){
 				}
 				return str;
 			}},
-            {field:"mc",title:"名称",width:200},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            {field:"mc",title:"名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"editYSSTabRow()\">编辑</a>"
             	+"&nbsp;|&nbsp;<a onclick=\"deleteYSSTabRow()\">删除</a>";
             	//var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
@@ -322,18 +322,15 @@ function initYSSTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadYSSTabData([]);
+	var mc='${requestScope.yss.mc}';
+	var bjsj='${requestScope.yss.bjsj}';
+	var id='${requestScope.yss.id}';
+	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	loadYSSTabData(rows);
 }
 
 function initWLXXTab(){
@@ -351,7 +348,7 @@ function initWLXXTab(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
 				var str;
 				switch (value) {
 				case "1":
@@ -360,8 +357,8 @@ function initWLXXTab(){
 				}
 				return str;
 			}},
-            {field:"mc",title:"名称",width:200},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            {field:"mc",title:"名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"editWLXXTabRow()\">编辑</a>"
             	+"&nbsp;|&nbsp;<a onclick=\"deleteWLXXTabRow()\">删除</a>";
             	//var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
@@ -380,18 +377,15 @@ function initWLXXTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadWLXXTabData([]);
+	var mc='${requestScope.wlxx.mc}';
+	var bjsj='${requestScope.wlxx.bjsj}';
+	var id='${requestScope.wlxx.id}';
+	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	loadWLXXTabData(rows);
 }
 
 function initFHDWTab(){
@@ -409,7 +403,7 @@ function initFHDWTab(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
 				var str;
 				switch (value) {
 				case "1":
@@ -418,8 +412,8 @@ function initFHDWTab(){
 				}
 				return str;
 			}},
-            {field:"dwmc",title:"单位名称",width:200},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            {field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"editFHDWTabRow()\">编辑</a>"
             	+"&nbsp;|&nbsp;<a onclick=\"deleteFHDWTabRow()\">删除</a>";
             	//var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
@@ -438,18 +432,14 @@ function initFHDWTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
-	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadFHDWTabData([]);
+	var dwmc='${requestScope.fhdw.dwmc}';
+	var bjsj='${requestScope.fhdw.bjsj}';
+	var id='${requestScope.fhdw.id}';
+	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	loadFHDWTabData(rows);
 }
 
 function initSHDWTab(){
@@ -467,7 +457,7 @@ function initSHDWTab(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
 				var str;
 				switch (value) {
 				case "1":
@@ -476,8 +466,8 @@ function initSHDWTab(){
 				}
 				return str;
 			}},
-            {field:"dwmc",title:"单位名称",width:200},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            {field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"editSHDWTabRow()\">编辑</a>"
             	+"&nbsp;|&nbsp;<a onclick=\"deleteSHDWTabRow()\">删除</a>";
             	//var str="<a onclick=\"deleteSHDWTabRow()\">删除</a>";
@@ -496,18 +486,14 @@ function initSHDWTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
-	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadSHDWTabData([]);
+	var dwmc='${requestScope.shdw.dwmc}';
+	var bjsj='${requestScope.shdw.bjsj}';
+	var id='${requestScope.shdw.id}';
+	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	loadSHDWTabData(rows);
 }
 
 function initCYCLTab(){
@@ -525,7 +511,7 @@ function initCYCLTab(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
 				var str;
 				switch (value) {
 				case "1":
@@ -534,8 +520,8 @@ function initCYCLTab(){
 				}
 				return str;
 			}},
-            {field:"cph",title:"车牌号",width:200},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            {field:"cph",title:"车牌号",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
             	//var str="<a onclick=\"editCYCLTabRow()\">编辑</a>"
             	//+"&nbsp;|&nbsp;<a onclick=\"deleteCYCLTabRow()\">删除</a>";
             	var str="<a onclick=\"deleteCYCLTabRow()\">删除</a>";
@@ -554,18 +540,13 @@ function initCYCLTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
-	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadCYCLTabData([]);
+	var cph='${requestScope.cycl.cph}';
+	var id='${requestScope.cycl.id}';
+	var rows=[{gx:"1",cph:cph,id:id}];
+	loadCYCLTabData(rows);
 }
 
 function initCYSJTab(){
@@ -583,7 +564,7 @@ function initCYSJTab(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gx",title:"关系",width:200,formatter:function(value,row){
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
 				var str;
 				switch (value) {
 				case "1":
@@ -592,10 +573,10 @@ function initCYSJTab(){
 				}
 				return str;
 			}},
-            {field:"xm",title:"姓名",width:200},
-            {field:"sjh",title:"手机号",width:200},
-            {field:"sfz",title:"身份证",width:200},
-			{field:"id",title:"操作",width:200,formatter:function(value,row){
+            {field:"xm",title:"姓名",width:200,align:"center"},
+            {field:"sjh",title:"手机号",width:200,align:"center"},
+            {field:"sfz",title:"身份证",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
             	//var str="<a onclick=\"editCYSJTabRow()\">编辑</a>"
             	//+"&nbsp;|&nbsp;<a onclick=\"deleteCYSJTabRow()\">删除</a>";
             	var str="<a onclick=\"deleteCYSJTabRow()\">删除</a>";
@@ -614,18 +595,15 @@ function initCYSJTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
-	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadCYSJTabData([]);
+	var xm='${requestScope.cysj.xm}';
+	var sjh='${requestScope.cysj.sjh}';
+	var sfz='${requestScope.cysj.sfz}';
+	var id='${requestScope.cysj.id}';
+	var rows=[{gx:"1",xm:xm,sjh:sjh,sfz:sfz,id:id}];
+	loadCYSJTabData(rows);
 }
 
 function initSelectYSSDialog(){
@@ -928,8 +906,8 @@ function initSelectYSSTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"mc",title:"名称",width:200},
-			{field:"bjsj",title:"编辑时间",width:200}
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"bjsj",title:"编辑时间",width:200,align:"center"}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -943,13 +921,6 @@ function initSelectYSSTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
@@ -973,9 +944,9 @@ function initSelectWLXXTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"mc",title:"名称",width:200},
-			{field:"wzlx",title:"物资类型",width:200},
-			{field:"bjsj",title:"编辑时间",width:200}
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"wzlx",title:"物资类型",width:200,align:"center"},
+			{field:"bjsj",title:"编辑时间",width:200,align:"center"}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -989,13 +960,6 @@ function initSelectWLXXTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
@@ -1019,8 +983,8 @@ function initSelectFHDWTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"dwmc",title:"单位名称",width:200},
-			{field:"bjsj",title:"编辑时间",width:200}
+			{field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"bjsj",title:"编辑时间",width:200,align:"center"}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -1034,13 +998,6 @@ function initSelectFHDWTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
@@ -1064,8 +1021,8 @@ function initSelectSHDWTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"dwmc",title:"单位名称",width:200},
-			{field:"bjsj",title:"编辑时间",width:200}
+			{field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"bjsj",title:"编辑时间",width:200,align:"center"}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -1079,13 +1036,6 @@ function initSelectSHDWTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
@@ -1116,12 +1066,12 @@ function initSelectCYCLTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"cph",title:"车牌号",width:200},
-            {field:"ppxh",title:"品牌型号",width:200},
-			{field:"fdjhm",title:"发动机号码",width:200},
-			{field:"clsbdm",title:"车辆识别代号",width:200},
-			{field:"zcrq",title:"注册日期",width:200},
-			{field:"pfjd",title:"排放阶段",width:200,formatter:function(value){
+			{field:"cph",title:"车牌号",width:200,align:"center"},
+            {field:"ppxh",title:"品牌型号",width:200,align:"center"},
+			{field:"fdjhm",title:"发动机号码",width:200,align:"center"},
+			{field:"clsbdm",title:"车辆识别代号",width:200,align:"center"},
+			{field:"zcrq",title:"注册日期",width:200,align:"center"},
+			{field:"pfjd",title:"排放阶段",width:200,align:"center",formatter:function(value){
 				var str;
 				switch (value) {
 				case 1:
@@ -1142,11 +1092,11 @@ function initSelectCYCLTab(){
 				}
 				return str;
 			}},
-			{field:"fzrq",title:"发证日期",width:200},
-			{field:"sfzy",title:"是否在用",width:200,formatter:function(value){
+			{field:"fzrq",title:"发证日期",width:200,align:"center"},
+			{field:"sfzy",title:"是否在用",width:200,align:"center",formatter:function(value){
 				return value?"是":"否";
 			}},
-			{field:"bz",title:"备注",width:200}
+			{field:"bz",title:"备注",width:200,align:"center"}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -1160,13 +1110,6 @@ function initSelectCYCLTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});
@@ -1198,9 +1141,9 @@ function initSelectCYSJTab(){
 		pageSize:10,
 		//queryParams:{accountId:'${sessionScope.user.id}'},
 		columns:[[
-			{field:"xm",title:"姓名",width:200},
-            {field:"sjh",title:"手机号",width:200},
-			{field:"sfz",title:"身份证",width:200}
+			{field:"xm",title:"姓名",width:200,align:"center"},
+            {field:"sjh",title:"手机号",width:200,align:"center"},
+			{field:"sfz",title:"身份证",width:200,align:"center"}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -1214,13 +1157,6 @@ function initSelectCYSJTab(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
 			//reSizeCol();
 		}
 	});

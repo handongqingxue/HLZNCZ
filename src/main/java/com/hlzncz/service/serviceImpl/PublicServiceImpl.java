@@ -295,6 +295,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public ShouHuoDanWei selectShouHuoDanWeiById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectShouHuoDanWeiById(id);
+	}
+
+	@Override
 	public int newYunShuShang(YunShuShang yss) {
 		// TODO Auto-generated method stub
 		return publicDao.newYunShuShang(yss);

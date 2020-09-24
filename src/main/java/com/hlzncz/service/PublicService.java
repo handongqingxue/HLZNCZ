@@ -99,6 +99,8 @@ public interface PublicService {
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
 
+	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
+
 	public int newYunShuShang(YunShuShang yss);
 
 	public int deleteYuShuShang(String ids);

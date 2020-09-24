@@ -100,6 +100,8 @@ public interface PublicMapper {
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
 
+	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
+
 	public int newYunShuShang(YunShuShang yss);
 
 	public int deleteYuShuShang(List<String> idList);
