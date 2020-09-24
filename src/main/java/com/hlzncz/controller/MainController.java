@@ -509,6 +509,26 @@ public class MainController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/deleteWoYaoXiaDan",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteWoYaoXiaDan(String wybms) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteDingDan(wybms);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除我要下单失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除我要下单成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
 	@RequestMapping(value="/editWoYaoXiaDan")
 	@ResponseBody
 	public Map<String, Object> editWoYaoXiaDan(DingDan dd) {

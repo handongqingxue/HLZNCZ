@@ -40,7 +40,7 @@ $(function(){
 	$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
 		onClick:function(){
-			deleteByIds();
+			deleteByWybms();
 		}
 	});
 
@@ -53,7 +53,18 @@ $(function(){
 		pageSize:10,
 		columns:[[
 			{field:"ddh",title:"订单号",width:200},
-            {field:"lxlx",title:"流向类型",width:200},
+            {field:"lxlx",title:"流向类型",width:200,formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="送运";
+					break;
+				case 2:
+					str="取运";
+					break;
+				}
+            	return str;
+            }},
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"ddzt",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
@@ -99,7 +110,7 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function deleteByIds() {
+function deleteByWybms() {
 	var rows=tab1.datagrid("getSelections");
 	if (rows.length == 0) {
 		$.messager.alert("提示","请选择要删除的信息！","warning");
@@ -108,15 +119,15 @@ function deleteByIds() {
 	
 	$.messager.confirm("提示","确定要删除吗？",function(r){
 		if(r){
-			var ids = "";
+			var wybms = "";
 			for (var i = 0; i < rows.length; i++) {
-				ids += "," + rows[i].id;
+				wybms += "," + rows[i].wybm;
 			}
-			ids=ids.substring(1);
+			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteCangKu",
-				{ids:ids},
+			$.post(path + "main/deleteWoYaoXiaDan",
+				{wybms:wybms},
 				function(result){
 					if(result.status==1){
 						alert(result.msg);

@@ -84,6 +84,12 @@
 			</if>
 		</trim>
 	</insert>
+	<delete id="deleteDingDan">
+		delete from ding_dan where 1=1
+		<foreach collection="list" item="wybm" open=" and cast(wybm as char) in (" separator="," close=")">
+		#{wybm}
+		</foreach>
+	</delete>
 	<update id="editWoYaoXiaDan" parameterType="com.hlzncz.entity.DingDan">
 		update ding_dan set 
 		<trim suffixOverrides=",">

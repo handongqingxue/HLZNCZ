@@ -26,6 +26,8 @@ public interface PublicService {
 
 	public int newWoYaoXiaDan(DingDan dd);
 
+	public int deleteDingDan(String wybms);
+
 	public int editWoYaoXiaDan(DingDan dd);
 
 	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
