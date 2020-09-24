@@ -10,7 +10,7 @@
 	<select id="selectChildCaiDan" resultType="com.hlzncz.entity.CaiDan">
 		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0}
 	</select>
-	<insert id="newWoYaoXiaDan">
+	<insert id="newWoYaoXiaDan" parameterType="com.hlzncz.entity.DingDan">
 		insert into ding_dan
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="wybm!=null">
@@ -84,6 +84,39 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="editWoYaoXiaDan" parameterType="com.hlzncz.entity.DingDan">
+		update ding_dan set 
+		<trim suffixOverrides=",">
+			<if test="jhysrq!=null">
+				jhysrq=#{jhysrq},
+			</if>
+			<if test="yzxzl!=null">
+				yzxzl=#{yzxzl},
+			</if>
+			<if test="lxlx!=null">
+				lxlx=#{lxlx},
+			</if>
+			<if test="yssId!=null">
+				yssId=#{yssId},
+			</if>
+			<if test="wlxxId!=null">
+				wlxxId=#{wlxxId},
+			</if>
+			<if test="fhdwId!=null">
+				fhdwId=#{fhdwId},
+			</if>
+			<if test="shdwId!=null">
+				shdwId=#{shdwId},
+			</if>
+			<if test="cyclId!=null">
+				cyclId=#{cyclId},
+			</if>
+			<if test="cysjId!=null">
+				cysjId=#{cysjId},
+			</if>
+		</trim>
+		where wybm=#{wybm}
+	</update>
 	<select id="queryWoYaoXiaDanForInt" resultType="java.lang.Integer">
 		select count(*) from ding_dan where 1=1
 		<if test="ddh!=''&amp;ddh!=null">

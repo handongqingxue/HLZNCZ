@@ -508,6 +508,24 @@ public class MainController {
 		}
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/editWoYaoXiaDan")
+	@ResponseBody
+	public Map<String, Object> editWoYaoXiaDan(DingDan dd) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editWoYaoXiaDan(dd);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "±à¼­¶©µ¥³É¹¦£¡");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "±à¼­¶©µ¥Ê§°Ü£¡");
+		}
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/queryWoYaoXiaDanList")
 	@ResponseBody

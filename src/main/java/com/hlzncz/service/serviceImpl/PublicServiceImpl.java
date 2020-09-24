@@ -53,6 +53,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int editWoYaoXiaDan(DingDan dd) {
+		// TODO Auto-generated method stub
+		return publicDao.editWoYaoXiaDan(dd);
+	}
+
+	@Override
 	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId) {
 		// TODO Auto-generated method stub
 		return publicDao.queryWoYaoXiaDanForInt(ddh,ddztId);

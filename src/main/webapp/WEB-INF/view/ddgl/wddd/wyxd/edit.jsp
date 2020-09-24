@@ -84,6 +84,7 @@ function initJHYSRQDB(){
         }
     });
 	jhysrqDB.datebox('textbox').attr('placeholder', '请选择计划运输日期');
+	jhysrqDB.datebox("setValue",'${requestScope.wyxd.jhysrq }');
 }
 
 function initLXLXCBB(){
@@ -93,6 +94,9 @@ function initLXLXCBB(){
 		data:[
 			{"value":"","text":"请选择流向类型"},{"value":"1","text":"送运"},{"value":"2","text":"取运"}
 		],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.wyxd.lxlx }')
+		},
 		onSelect:function(){
 			$("#lxlx").val($(this).combobox("getValue"));
 		}
@@ -279,7 +283,7 @@ function initCYSJDialog(){
 }
 
 function initYSSTab(){
-	$("#yss_div #choose_but").linkbutton({
+	yssChooseLB=$("#yss_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
 			openSelectYSSDialog(1);
@@ -326,15 +330,21 @@ function initYSSTab(){
 		}
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	var mc='${requestScope.yss.mc}';
-	var bjsj='${requestScope.yss.bjsj}';
-	var id='${requestScope.yss.id}';
-	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	var rows;
+	if('${requestScope.yss}'==""){
+		rows=[];
+	}
+	else{
+		var mc='${requestScope.yss.mc}';
+		var bjsj='${requestScope.yss.bjsj}';
+		var id='${requestScope.yss.id}';
+		rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	}
 	loadYSSTabData(rows);
 }
 
 function initWLXXTab(){
-	$("#wlxx_div #choose_but").linkbutton({
+	wlxxChooseLB=$("#wlxx_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
 			openSelectWLXXDialog(1);
@@ -381,15 +391,21 @@ function initWLXXTab(){
 		}
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	var mc='${requestScope.wlxx.mc}';
-	var bjsj='${requestScope.wlxx.bjsj}';
-	var id='${requestScope.wlxx.id}';
-	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	var rows;
+	if('${requestScope.wlxx}'==""){
+		rows=[];
+	}
+	else{
+		var mc='${requestScope.wlxx.mc}';
+		var bjsj='${requestScope.wlxx.bjsj}';
+		var id='${requestScope.wlxx.id}';
+		rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	}
 	loadWLXXTabData(rows);
 }
 
 function initFHDWTab(){
-	$("#fhdw_div #choose_but").linkbutton({
+	fhdwChooseLB=$("#fhdw_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
 			openSelectFHDWDialog(1);
@@ -435,15 +451,21 @@ function initFHDWTab(){
 			//reSizeCol();
 		}
 	});
-	var dwmc='${requestScope.fhdw.dwmc}';
-	var bjsj='${requestScope.fhdw.bjsj}';
-	var id='${requestScope.fhdw.id}';
-	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	var rows;
+	if('${requestScope.fhdw}'==""){
+		rows=[];
+	}
+	else{
+		var dwmc='${requestScope.fhdw.dwmc}';
+		var bjsj='${requestScope.fhdw.bjsj}';
+		var id='${requestScope.fhdw.id}';
+		rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	}
 	loadFHDWTabData(rows);
 }
 
 function initSHDWTab(){
-	$("#shdw_div #choose_but").linkbutton({
+	shdwChooseLB=$("#shdw_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
 			openSelectSHDWDialog(1);
@@ -489,15 +511,21 @@ function initSHDWTab(){
 			//reSizeCol();
 		}
 	});
-	var dwmc='${requestScope.shdw.dwmc}';
-	var bjsj='${requestScope.shdw.bjsj}';
-	var id='${requestScope.shdw.id}';
-	var rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	var rows;
+	if('${requestScope.shdw}'==""){
+		rows=[];
+	}
+	else{
+		var dwmc='${requestScope.shdw.dwmc}';
+		var bjsj='${requestScope.shdw.bjsj}';
+		var id='${requestScope.shdw.id}';
+		rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	}
 	loadSHDWTabData(rows);
 }
 
 function initCYCLTab(){
-	$("#cycl_div #choose_but").linkbutton({
+	cyclChooseLB=$("#cycl_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
 			openSelectCYCLDialog(1);
@@ -543,14 +571,20 @@ function initCYCLTab(){
 			//reSizeCol();
 		}
 	});
-	var cph='${requestScope.cycl.cph}';
-	var id='${requestScope.cycl.id}';
-	var rows=[{gx:"1",cph:cph,id:id}];
+	var rows;
+	if('${requestScope.cycl}'==""){
+		rows=[];
+	}
+	else{
+		var cph='${requestScope.cycl.cph}';
+		var id='${requestScope.cycl.id}';
+		rows=[{gx:"1",cph:cph,id:id}];
+	}
 	loadCYCLTabData(rows);
 }
 
 function initCYSJTab(){
-	$("#cysj_div #choose_but").linkbutton({
+	cysjChooseLB=$("#cysj_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
 			openSelectCYSJDialog(1);
@@ -598,11 +632,17 @@ function initCYSJTab(){
 			//reSizeCol();
 		}
 	});
-	var xm='${requestScope.cysj.xm}';
-	var sjh='${requestScope.cysj.sjh}';
-	var sfz='${requestScope.cysj.sfz}';
-	var id='${requestScope.cysj.id}';
-	var rows=[{gx:"1",xm:xm,sjh:sjh,sfz:sfz,id:id}];
+	var rows;
+	if('${requestScope.cysj}'==""){
+		rows=[];
+	}
+	else{
+		var xm='${requestScope.cysj.xm}';
+		var sjh='${requestScope.cysj.sjh}';
+		var sfz='${requestScope.cysj.sfz}';
+		var id='${requestScope.cysj.id}';
+		rows=[{gx:"1",xm:xm,sjh:sjh,sfz:sfz,id:id}];
+	}
 	loadCYSJTabData(rows);
 }
 
@@ -1684,54 +1724,102 @@ function saveSelectCYSJ(){
 }
 
 function loadYSSTabData(rows){
-	var obj = {"total":rows.length,"rows":rows};
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		yssChooseLB.linkbutton("disable");
+	else
+		yssChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
 	yssTab.datagrid('loadData',obj);
 }
 
 function loadWLXXTabData(rows){
-	var obj = {"total":rows.length,"rows":rows};
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		wlxxChooseLB.linkbutton("disable");
+	else
+		wlxxChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
 	wlxxTab.datagrid('loadData',obj);
 }
 
 function loadFHDWTabData(rows){
-	var obj = {"total":rows.length,"rows":rows};
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		fhdwChooseLB.linkbutton("disable");
+	else
+		fhdwChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
 	fhdwTab.datagrid('loadData',obj);
 }
 
 function loadSHDWTabData(rows){
-	var obj = {"total":rows.length,"rows":rows};
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		shdwChooseLB.linkbutton("disable");
+	else
+		shdwChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
 	shdwTab.datagrid('loadData',obj);
 }
 
 function loadCYCLTabData(rows){
-	var obj = {"total":rows.length,"rows":rows};
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		cyclChooseLB.linkbutton("disable");
+	else
+		cyclChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
 	cyclTab.datagrid('loadData',obj);
 }
 
 function loadCYSJTabData(rows){
-	var obj = {"total":rows.length,"rows":rows};
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		cysjChooseLB.linkbutton("disable");
+	else
+		cysjChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
 	cysjTab.datagrid('loadData',obj);
 }
 
 function checkEdit(){
-	if(checkMC()){
-		if(checkWZ()){
-			editCangKu();
+	if(checkJHYSRQ()){
+		if(checkYZXZL()){
+			if(checkLXLX()){
+				if(checkYSSId()){
+					if(checkWLXXId()){
+						if(checkFHDWId()){
+							if(checkSHDWId()){
+								if(checkCYCLId()){
+									if(checkCYSJId()){
+										editWoYaoXiaDan();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
 
-function editCangKu(){
-	var formData = new FormData($("#form1")[0]);
-	$.ajax({
-		type:"post",
-		url:path+"main/editCangKu",
-		dataType: "json",
-		data:formData,
-		cache: false,
-		processData: false,
-		contentType: false,
-		success: function (data){
+function editWoYaoXiaDan(){
+	var wybm=$("#edit_div #wybm").val();
+	var jhysrq=jhysrqDB.datebox("getValue");
+	var yzxzl=$("#edit_div #yzxzl").val();
+	var lxlx=lxlxCBB.combobox("getValue");
+	var yssId=yssTab.datagrid("getData").rows[0].id;
+	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
+	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
+	var shdwId=shdwTab.datagrid("getData").rows[0].id;
+	var cyclId=cyclTab.datagrid("getData").rows[0].id;
+	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	
+	$.post(path+"main/editWoYaoXiaDan",
+		{wybm:wybm,jhysrq:jhysrq,yzxzl:yzxzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId},
+		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
 				history.go(-1);
@@ -1740,44 +1828,133 @@ function editCangKu(){
 				alert(data.info);
 			}
 		}
-	});
+	,"json");
 }
 
-function focusMC(){
-	var mc = $("#mc").val();
-	if(mc=="名称不能为空"){
-		$("#mc").val("");
-		$("#mc").css("color", "#555555");
-	}
-}
-
-//验证名称
-function checkMC(){
-	var mc = $("#mc").val();
-	if(mc==null||mc==""||mc=="名称不能为空"){
-		$("#mc").css("color","#E15748");
-    	$("#mc").val("名称不能为空");
-    	return false;
+//验证计划运输日期
+function checkJHYSRQ(){
+	var jhysrq = jhysrqDB.datebox("getValue");
+	if(jhysrq==null||jhysrq==""){
+	  	alert("请选择计划运输日期");
+	  	return false;
 	}
 	else
 		return true;
 }
 
-function focusWZ(){
-	var wz = $("#wz").val();
-	if(wz=="位置不能为空"){
-		$("#wz").val("");
-		$("#wz").css("color", "#555555");
+//验证预装卸重量
+function checkYZXZL(){
+	var yzxzl = $("#edit_div #yzxzl").val();
+	if(yzxzl==null||yzxzl==""){
+	  	alert("请输入预装卸重量");
+	  	return false;
 	}
+	else
+		return true;
 }
 
-//验证位置
-function checkWZ(){
-	var wz = $("#wz").val();
-	if(wz==null||wz==""||wz=="位置不能为空"){
-		$("#wz").css("color","#E15748");
-    	$("#wz").val("位置不能为空");
-    	return false;
+//验证流向类型
+function checkLXLX(){
+	var lxlx=lxlxCBB.combobox("getValue");
+	if(lxlx==null||lxlx==""){
+	  	alert("请选择流向类型");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证运输商
+function checkYSSId(){
+	var yssTabData=yssTab.datagrid("getData");
+	var total=yssTabData.total;
+	var yssId=null;
+	if(total>0)
+		yssId=yssTabData.rows[0].id;
+	
+	if(yssId==null){
+		alert("请选择运输商");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证物料信息
+function checkWLXXId(){
+	var wlxxTabData=wlxxTab.datagrid("getData");
+	var total=wlxxTabData.total;
+	var wlxxId=null;
+	if(total>0)
+		wlxxId=wlxxTabData.rows[0].id;
+	
+	if(wlxxId==null){
+		alert("请选择物料信息");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证发货单位
+function checkFHDWId(){
+	var fhdwTabData=fhdwTab.datagrid("getData");
+	var total=fhdwTabData.total;
+	var fhdwId=null;
+	if(total>0)
+		fhdwId=fhdwTabData.rows[0].id;
+	
+	if(fhdwId==null){
+		alert("请选择发货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证收货单位
+function checkSHDWId(){
+	var shdwTabData=shdwTab.datagrid("getData");
+	var total=shdwTabData.total;
+	var shdwId=null;
+	if(total>0)
+		shdwId=shdwTabData.rows[0].id;
+	
+	if(shdwId==null){
+		alert("请选择收货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运车辆
+function checkCYCLId(){
+	var cyclTabData=cyclTab.datagrid("getData");
+	var total=cyclTabData.total;
+	var cyclId=null;
+	if(total>0)
+		cyclId=cyclTabData.rows[0].id;
+	
+	if(cyclId==null){
+		alert("请选择承运车辆");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运司机
+function checkCYSJId(){
+	var cysjTabData=cysjTab.datagrid("getData");
+	var total=cysjTabData.total;
+	var cysjId=null;
+	if(total>0)
+		cysjId=cysjTabData.rows[0].id;
+	
+	if(cysjId==null){
+		alert("请选择承运司机");
+	  	return false;
 	}
 	else
 		return true;
@@ -1830,7 +2007,7 @@ function initWindowMarginLeft(){
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
-		<input type="hidden" id="id" name="id" value="${requestScope.ck.id }"/>
+		<input type="hidden" id="wybm" name="wybm" value="${requestScope.wyxd.wybm }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
