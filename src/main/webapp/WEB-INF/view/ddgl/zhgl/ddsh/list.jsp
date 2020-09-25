@@ -7,12 +7,14 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var defaultZxztId='${requestScope.zxztId}';
 $(function(){
 	initZXZTCBB();
 	initSearchLB();
 	initAddLB();
 	initOutputLB();
-	initRemoveLB();
+	initTongGuoLB();
+	initTuiHuiLB();
 	initTab1();
 });
 
@@ -29,7 +31,10 @@ function initZXZTCBB(){
 				valueField:"value",
 				textField:"text",
 				//multiple:true,
-				data:data
+				data:data,
+				onLoadSuccess:function(){
+					$(this).combobox("setValue",defaultZxztId);
+				}
 			});
 		}
 	,"json");
@@ -65,23 +70,33 @@ function initOutputLB(){
 	});
 }
 
-function initRemoveLB(){
-	$("#remove_but").linkbutton({
-		iconCls:"icon-remove",
+function initTongGuoLB(){
+	$("#tongGuo_but").linkbutton({
+		iconCls:"icon-ok",
 		onClick:function(){
-			deleteByWybms();
+			tongGuoByWybms();
+		}
+	});
+}
+
+function initTuiHuiLB(){
+	$("#tuiHui_but").linkbutton({
+		iconCls:"icon-back",
+		onClick:function(){
+			tuiHuiByWybms();
 		}
 	});
 }
 
 function initTab1(){
 	tab1=$("#tab1").datagrid({
-		title:"我要下单-列表",
-		url:path+"main/queryWoYaoXiaDanList",
+		title:"订单审核-列表",
+		url:path+"main/queryDingDanShenHeList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
+		queryParams:{ddztId:defaultZxztId},
 		columns:[[
 			{field:"ddh",title:"订单号",width:200},
             {field:"lxlx",title:"流向类型",width:200,formatter:function(value,row){
@@ -97,6 +112,7 @@ function initTab1(){
             	return str;
             }},
             {field:"yzxzl",title:"预装卸重量",width:200},
+            {field:"jhysrq",title:"计划运输日期",width:200},
             {field:"ddztmc",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
@@ -107,7 +123,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{ddh:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:5});
+				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:6});
 				data.total=0;
 			}
 			
@@ -141,14 +157,14 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function deleteByWybms() {
+function tongGuoByWybms() {
 	var rows=tab1.datagrid("getSelections");
 	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要删除的信息！","warning");
+		$.messager.alert("提示","请选择要通过的信息！","warning");
 		return false;
 	}
 	
-	$.messager.confirm("提示","确定要删除吗？",function(r){
+	$.messager.confirm("提示","确定要通过吗？",function(r){
 		if(r){
 			var wybms = "";
 			for (var i = 0; i < rows.length; i++) {
@@ -157,7 +173,40 @@ function deleteByWybms() {
 			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteWoYaoXiaDan",
+			$.post(path + "main/tongGuoDingDanShenHe",
+				{wybms:wybms},
+				function(result){
+					if(result.status==1){
+						alert(result.msg);
+						location.href = location.href;
+					}
+					else{
+						alert(result.msg);
+					}
+				}
+			,"json");
+			
+		}
+	});
+}
+
+function tuiHuiByWybms() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要退回的信息！","warning");
+		return false;
+	}
+	
+	$.messager.confirm("提示","确定要退回吗？",function(r){
+		if(r){
+			var wybms = "";
+			for (var i = 0; i < rows.length; i++) {
+				wybms += "," + rows[i].wybm;
+			}
+			wybms=wybms.substring(1);
+			
+			$.ajaxSetup({async:false});
+			$.post(path + "main/tuiHuiDingDanShenHe",
 				{wybms:wybms},
 				function(result){
 					if(result.status==1){
@@ -193,7 +242,8 @@ function setFitWidthInParent(o){
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>
-			<a id="remove_but">删除</a>
+			<a id="tongGuo_but">通过</a>
+			<a id="tuiHui_but">退回</a>
 		</div>
 		<table id="tab1">
 		</table>

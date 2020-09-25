@@ -50,6 +50,7 @@ public class PublicServiceImpl implements PublicService {
         }
         dd.setWybm(wybm);
         dd.setDdh("DD"+wybm);
+        dd.setDdztId(DingDan.DAI_SHEN_HE);
 		return publicDao.newWoYaoXiaDan(dd);
 	}
 
@@ -79,6 +80,37 @@ public class PublicServiceImpl implements PublicService {
 			String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryWoYaoXiaDanList(ddh, ddztId, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public int tongGuoDingDanShenHe(String wybms) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> wybmList = Arrays.asList(wybms.split(","));
+		count=publicDao.tongGuoDingDanShenHe(DingDan.YI_XIA_DAN,wybmList);
+		return count;
+	}
+
+	@Override
+	public int tuiHuiDingDanShenHe(String wybms) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> wybmList = Arrays.asList(wybms.split(","));
+		count=publicDao.tuiHuiDingDanShenHe(DingDan.BIAN_JI_ZHONG,wybmList);
+		return count;
+	}
+
+	@Override
+	public int queryDingDanShenHeForInt(String ddh, Integer ddztId) {
+		// TODO Auto-generated method stub
+		return publicDao.queryDingDanShenHeForInt(ddh,ddztId);
+	}
+
+	@Override
+	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,
+			String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryDingDanShenHeList(ddh, ddztId, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

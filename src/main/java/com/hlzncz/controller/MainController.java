@@ -126,6 +126,16 @@ public class MainController {
 		return "ddgl/wddd/wyxd/detail";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/ddsh/list")
+	public String goDdshList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("zxztId", DingDan.DAI_SHEN_HE);
+		
+		return "ddgl/zhgl/ddsh/list";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
@@ -588,6 +598,61 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", wyxdList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/tongGuoDingDanShenHe",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String tongGuoDingDanShenHe(String wybms) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.tongGuoDingDanShenHe(wybms);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("通过订单审核失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("通过订单审核成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/tuiHuiDingDanShenHe",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String tuiHuiDingDanShenHe(String wybms) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.tuiHuiDingDanShenHe(wybms);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("退回订单审核失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("退回订单审核成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/queryDingDanShenHeList")
+	@ResponseBody
+	public Map<String, Object> queryDingDanShenHeList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryDingDanShenHeForInt(ddh,ddztId);
+		List<DingDan> ddshList=publicService.queryDingDanShenHeList(ddh, ddztId, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", ddshList);
 		
 		return jsonMap;
 	}

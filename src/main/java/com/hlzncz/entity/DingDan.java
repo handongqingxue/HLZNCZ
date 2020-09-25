@@ -9,6 +9,18 @@ public class DingDan implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * ±à¼­ÖÐ×´Ì¬
+	 */
+	public static final Integer BIAN_JI_ZHONG=1;
+	/**
+	 * ÒÑÏÂµ¥×´Ì¬
+	 */
+	public static final Integer YI_XIA_DAN=2;
+	/**
+	 * ´ýÉóºË×´Ì¬
+	 */
+	public static final Integer DAI_SHEN_HE=4;
 	private String wybm;//Î¨Ò»±àÂë
 	public String getWybm() {
 		return wybm;

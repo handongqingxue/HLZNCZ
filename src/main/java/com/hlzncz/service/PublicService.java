@@ -23,15 +23,24 @@ public interface PublicService {
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
 
-	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);
-
 	public int newWoYaoXiaDan(DingDan dd);
 
 	public int deleteDingDan(String wybms);
 
 	public int editWoYaoXiaDan(DingDan dd);
 
+	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);
+
 	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
+			String order);
+
+	public int tongGuoDingDanShenHe(String wybms);
+
+	public int tuiHuiDingDanShenHe(String wybms);
+
+	public int queryDingDanShenHeForInt(String ddh, Integer ddztId);
+
+	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,
 			String order);
 
 	public DingDan selectDingDanByWybm(String wybm);
