@@ -7,6 +7,24 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var edNum=0;
+var yssdNum=1;
+var syssdNum=2;
+var eyssdNum=3;
+var wlxxdNum=4;
+var swlxxdNum=5;
+var ewlxxdNum=6;
+var fhdwdNum=7;
+var sfhdwdNum=8;
+var efhdwdNum=9;
+var shdwdNum=10;
+var sshdwdNum=11;
+var eshdwdNum=12;
+var cycldNum=13;
+var scycldNum=14;
+var ecycldNum=15;
+var cysjdNum=16;
+var scysjdNum=17;
 $(function(){
 	initEditDialog();//0
 
@@ -56,15 +74,15 @@ function initEditDialog(){
 	$("#edit_div table tr").css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").eq(0).css("color","#000");
-	$(".panel.window .panel-title").eq(0).css("font-size","15px");
-	$(".panel.window .panel-title").eq(0).css("padding-left","10px");
+	$(".panel.window .panel-title").eq(edNum).css("color","#000");
+	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(0).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(edNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
 	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").eq(0).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
 	$("#edit_div #ok_but").css("left","45%");
 	$("#edit_div #ok_but").css("position","absolute");
@@ -113,22 +131,22 @@ function initYSSDialog(){
 		left:308
 	});
 	
-	$(".panel.window").eq(1).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(1).css("margin-top","20px");
-	$(".panel.window").eq(1).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(1).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(1).css("color","#000");
-	$(".panel.window .panel-title").eq(1).css("font-size","15px");
-	$(".panel.window .panel-title").eq(1).css("padding-left","10px");
+	$(".panel.window").eq(yssdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(yssdNum).css("margin-top","20px");
+	$(".panel.window").eq(yssdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(yssdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(yssdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(yssdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(yssdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(1).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(yssdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(1).css("width","1000px");
-	$(".window-shadow").eq(1).css("margin-top","20px");
-	$(".window-shadow").eq(1).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(yssdNum).css("width","1000px");
+	$(".window-shadow").eq(yssdNum).css("margin-top","20px");
+	$(".window-shadow").eq(yssdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(1).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(yssdNum).css("border-color","#ddd");
 
 	initYSSTab();
 }
@@ -143,22 +161,22 @@ function initWLXXDialog(){
 		left:308
 	});
 	
-	$(".panel.window").eq(4).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(4).css("margin-top","20px");
-	$(".panel.window").eq(4).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(4).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(4).css("color","#000");
-	$(".panel.window .panel-title").eq(4).css("font-size","15px");
-	$(".panel.window .panel-title").eq(4).css("padding-left","10px");
+	$(".panel.window").eq(wlxxdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(wlxxdNum).css("margin-top","20px");
+	$(".panel.window").eq(wlxxdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(wlxxdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(wlxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(wlxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(wlxxdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(4).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(wlxxdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(4).css("width","1000px");
-	$(".window-shadow").eq(4).css("margin-top","20px");
-	$(".window-shadow").eq(4).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(wlxxdNum).css("width","1000px");
+	$(".window-shadow").eq(wlxxdNum).css("margin-top","20px");
+	$(".window-shadow").eq(wlxxdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(4).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(wlxxdNum).css("border-color","#ddd");
 
 	initWLXXTab();
 }
@@ -173,22 +191,22 @@ function initFHDWDialog(){
 		left:308
 	});
 	
-	$(".panel.window").eq(7).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(7).css("margin-top","20px");
-	$(".panel.window").eq(7).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(7).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(7).css("color","#000");
-	$(".panel.window .panel-title").eq(7).css("font-size","15px");
-	$(".panel.window .panel-title").eq(7).css("padding-left","10px");
+	$(".panel.window").eq(fhdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(fhdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(fhdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(fhdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(fhdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(fhdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(fhdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(7).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(fhdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(7).css("width","1000px");
-	$(".window-shadow").eq(7).css("margin-top","20px");
-	$(".window-shadow").eq(7).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(fhdwdNum).css("width","1000px");
+	$(".window-shadow").eq(fhdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(fhdwdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(7).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(fhdwdNum).css("border-color","#ddd");
 
 	initFHDWTab();
 }
@@ -203,22 +221,22 @@ function initSHDWDialog(){
 		left:308
 	});
 	
-	$(".panel.window").eq(10).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(10).css("margin-top","20px");
-	$(".panel.window").eq(10).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(10).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(10).css("color","#000");
-	$(".panel.window .panel-title").eq(10).css("font-size","15px");
-	$(".panel.window .panel-title").eq(10).css("padding-left","10px");
+	$(".panel.window").eq(shdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(shdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(shdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(shdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(shdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(shdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(shdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(10).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(shdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(10).css("width","1000px");
-	$(".window-shadow").eq(10).css("margin-top","20px");
-	$(".window-shadow").eq(10).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(shdwdNum).css("width","1000px");
+	$(".window-shadow").eq(shdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(shdwdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(10).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(shdwdNum).css("border-color","#ddd");
 
 	initSHDWTab();
 }
@@ -233,22 +251,22 @@ function initCYCLDialog(){
 		left:308
 	});
 	
-	$(".panel.window").eq(13).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(13).css("margin-top","20px");
-	$(".panel.window").eq(13).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(13).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(13).css("color","#000");
-	$(".panel.window .panel-title").eq(13).css("font-size","15px");
-	$(".panel.window .panel-title").eq(13).css("padding-left","10px");
+	$(".panel.window").eq(cycldNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(cycldNum).css("margin-top","20px");
+	$(".panel.window").eq(cycldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(cycldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(cycldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(cycldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(cycldNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(13).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(cycldNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(13).css("width","1000px");
-	$(".window-shadow").eq(13).css("margin-top","20px");
-	$(".window-shadow").eq(13).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(cycldNum).css("width","1000px");
+	$(".window-shadow").eq(cycldNum).css("margin-top","20px");
+	$(".window-shadow").eq(cycldNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(13).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(cycldNum).css("border-color","#ddd");
 
 	initCYCLTab();
 }
@@ -262,22 +280,22 @@ function initCYSJDialog(){
 		left:308
 	});
 	
-	$(".panel.window").eq(16).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(16).css("margin-top","20px");
-	$(".panel.window").eq(16).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(16).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(16).css("color","#000");
-	$(".panel.window .panel-title").eq(16).css("font-size","15px");
-	$(".panel.window .panel-title").eq(16).css("padding-left","10px");
+	$(".panel.window").eq(cysjdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(cysjdNum).css("margin-top","20px");
+	$(".panel.window").eq(cysjdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(cysjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(cysjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(cysjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(cysjdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(16).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(cysjdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(16).css("width","1000px");
-	$(".window-shadow").eq(16).css("margin-top","20px");
-	$(".window-shadow").eq(16).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(cysjdNum).css("width","1000px");
+	$(".window-shadow").eq(cysjdNum).css("margin-top","20px");
+	$(".window-shadow").eq(cysjdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(16).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(cysjdNum).css("border-color","#ddd");
 
 	initCYSJTab();
 }
@@ -664,22 +682,22 @@ function initSelectYSSDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(2).css("width","983px");
-	$(".panel.window").eq(2).css("margin-top","20px");
-	$(".panel.window").eq(2).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(2).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(2).css("color","#000");
-	$(".panel.window .panel-title").eq(2).css("font-size","15px");
-	$(".panel.window .panel-title").eq(2).css("padding-left","10px");
+	$(".panel.window").eq(syssdNum).css("width","983px");
+	$(".panel.window").eq(syssdNum).css("margin-top","20px");
+	$(".panel.window").eq(syssdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(syssdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(syssdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(syssdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(syssdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(2).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(syssdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(2).css("width","1000px");
-	$(".window-shadow").eq(2).css("margin-top","20px");
-	$(".window-shadow").eq(2).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(syssdNum).css("width","1000px");
+	$(".window-shadow").eq(syssdNum).css("margin-top","20px");
+	$(".window-shadow").eq(syssdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(2).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(syssdNum).css("border-color","#ddd");
 
 	$("#select_yss_div #cancel_but").css("left","30%");
 	$("#select_yss_div #cancel_but").css("position","absolute");
@@ -711,22 +729,22 @@ function initSelectWLXXDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(5).css("width","983px");
-	$(".panel.window").eq(5).css("margin-top","20px");
-	$(".panel.window").eq(5).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(5).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(5).css("color","#000");
-	$(".panel.window .panel-title").eq(5).css("font-size","15px");
-	$(".panel.window .panel-title").eq(5).css("padding-left","10px");
+	$(".panel.window").eq(swlxxdNum).css("width","983px");
+	$(".panel.window").eq(swlxxdNum).css("margin-top","20px");
+	$(".panel.window").eq(swlxxdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(swlxxdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(swlxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(swlxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(swlxxdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(5).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(swlxxdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(5).css("width","1000px");
-	$(".window-shadow").eq(5).css("margin-top","20px");
-	$(".window-shadow").eq(5).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(swlxxdNum).css("width","1000px");
+	$(".window-shadow").eq(swlxxdNum).css("margin-top","20px");
+	$(".window-shadow").eq(swlxxdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(5).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(swlxxdNum).css("border-color","#ddd");
 
 	$("#select_wlxx_div #cancel_but").css("left","30%");
 	$("#select_wlxx_div #cancel_but").css("position","absolute");
@@ -758,22 +776,22 @@ function initSelectFHDWDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(8).css("width","983px");
-	$(".panel.window").eq(8).css("margin-top","20px");
-	$(".panel.window").eq(8).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(8).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(8).css("color","#000");
-	$(".panel.window .panel-title").eq(8).css("font-size","15px");
-	$(".panel.window .panel-title").eq(8).css("padding-left","10px");
+	$(".panel.window").eq(sfhdwdNum).css("width","983px");
+	$(".panel.window").eq(sfhdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(sfhdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(sfhdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sfhdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sfhdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sfhdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(8).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(sfhdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(8).css("width","1000px");
-	$(".window-shadow").eq(8).css("margin-top","20px");
-	$(".window-shadow").eq(8).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(sfhdwdNum).css("width","1000px");
+	$(".window-shadow").eq(sfhdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(sfhdwdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(8).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(sfhdwdNum).css("border-color","#ddd");
 
 	$("#select_fhdw_div #cancel_but").css("left","30%");
 	$("#select_fhdw_div #cancel_but").css("position","absolute");
@@ -805,22 +823,22 @@ function initSelectSHDWDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(11).css("width","983px");
-	$(".panel.window").eq(11).css("margin-top","20px");
-	$(".panel.window").eq(11).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(11).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(11).css("color","#000");
-	$(".panel.window .panel-title").eq(11).css("font-size","15px");
-	$(".panel.window .panel-title").eq(11).css("padding-left","10px");
+	$(".panel.window").eq(sshdwdNum).css("width","983px");
+	$(".panel.window").eq(sshdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(sshdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(sshdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sshdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sshdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sshdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(11).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(sshdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(11).css("width","1000px");
-	$(".window-shadow").eq(11).css("margin-top","20px");
-	$(".window-shadow").eq(11).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(sshdwdNum).css("width","1000px");
+	$(".window-shadow").eq(sshdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(sshdwdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(11).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(sshdwdNum).css("border-color","#ddd");
 
 	$("#select_shdw_div #cancel_but").css("left","30%");
 	$("#select_shdw_div #cancel_but").css("position","absolute");
@@ -852,22 +870,22 @@ function initSelectCYCLDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(14).css("width","983px");
-	$(".panel.window").eq(14).css("margin-top","20px");
-	$(".panel.window").eq(14).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(14).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(14).css("color","#000");
-	$(".panel.window .panel-title").eq(14).css("font-size","15px");
-	$(".panel.window .panel-title").eq(14).css("padding-left","10px");
+	$(".panel.window").eq(scycldNum).css("width","983px");
+	$(".panel.window").eq(scycldNum).css("margin-top","20px");
+	$(".panel.window").eq(scycldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(scycldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(scycldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(scycldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(scycldNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(14).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(scycldNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(14).css("width","1000px");
-	$(".window-shadow").eq(14).css("margin-top","20px");
-	$(".window-shadow").eq(14).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(scycldNum).css("width","1000px");
+	$(".window-shadow").eq(scycldNum).css("margin-top","20px");
+	$(".window-shadow").eq(scycldNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(14).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(scycldNum).css("border-color","#ddd");
 
 	$("#select_cycl_div #cancel_but").css("left","30%");
 	$("#select_cycl_div #cancel_but").css("position","absolute");
@@ -899,22 +917,22 @@ function initSelectCYSJDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(17).css("width","983px");
-	$(".panel.window").eq(17).css("margin-top","20px");
-	$(".panel.window").eq(17).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(17).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(17).css("color","#000");
-	$(".panel.window .panel-title").eq(17).css("font-size","15px");
-	$(".panel.window .panel-title").eq(17).css("padding-left","10px");
+	$(".panel.window").eq(scysjdNum).css("width","983px");
+	$(".panel.window").eq(scysjdNum).css("margin-top","20px");
+	$(".panel.window").eq(scysjdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(scysjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(scysjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(scysjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(scysjdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(17).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(scysjdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(17).css("width","1000px");
-	$(".window-shadow").eq(17).css("margin-top","20px");
-	$(".window-shadow").eq(17).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(scysjdNum).css("width","1000px");
+	$(".window-shadow").eq(scysjdNum).css("margin-top","20px");
+	$(".window-shadow").eq(scysjdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(17).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(scysjdNum).css("border-color","#ddd");
 
 	$("#select_cysj_div #cancel_but").css("left","30%");
 	$("#select_cysj_div #cancel_but").css("position","absolute");
@@ -1226,16 +1244,16 @@ function initEditYSSDialog(){
 	$("#edit_yss_div table td").css("font-size","15px");
 	$("#edit_yss_div table tr").css("height","45px");
 
-	$(".panel.window").eq(3).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(3).css("color","#000");
-	$(".panel.window .panel-title").eq(3).css("font-size","15px");
-	$(".panel.window .panel-title").eq(3).css("padding-left","10px");
+	$(".panel.window").eq(eyssdNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(eyssdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(eyssdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(eyssdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(3).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(eyssdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(3).css("margin-top","20px");
-	$(".window,.window .window-body").eq(3).css("border-color","#ddd");
+	$(".window-shadow").eq(eyssdNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(eyssdNum).css("border-color","#ddd");
 
 	$("#edit_yss_div #cancel_but").css("left","30%");
 	$("#edit_yss_div #cancel_but").css("position","absolute");
@@ -1317,17 +1335,17 @@ function initEditFHDWDialog(){
 	$("#edit_fhdw_div table td").css("font-size","15px");
 	$("#edit_fhdw_div table tr").css("height","45px");
 
-	$(".panel.window").eq(9).css("margin-top","20px");
-	$(".panel.window").eq(9).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(9).css("color","#000");
-	$(".panel.window .panel-title").eq(9).css("font-size","15px");
-	$(".panel.window .panel-title").eq(9).css("padding-left","10px");
+	$(".panel.window").eq(efhdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(efhdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(efhdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(efhdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(efhdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(9).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(efhdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(9).css("margin-top","20px");
-	$(".window,.window .window-body").eq(9).css("border-color","#ddd");
+	$(".window-shadow").eq(efhdwdNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(efhdwdNum).css("border-color","#ddd");
 
 	$("#edit_fhdw_div #cancel_but").css("left","30%");
 	$("#edit_fhdw_div #cancel_but").css("position","absolute");
@@ -1363,17 +1381,17 @@ function initEditSHDWDialog(){
 	$("#edit_shdw_div table td").css("font-size","15px");
 	$("#edit_shdw_div table tr").css("height","45px");
 
-	$(".panel.window").eq(12).css("margin-top","20px");
-	$(".panel.window").eq(12).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(12).css("color","#000");
-	$(".panel.window .panel-title").eq(12).css("font-size","15px");
-	$(".panel.window .panel-title").eq(12).css("padding-left","10px");
+	$(".panel.window").eq(eshdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(eshdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(eshdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(eshdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(eshdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(12).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(eshdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(12).css("margin-top","20px");
-	$(".window,.window .window-body").eq(12).css("border-color","#ddd");
+	$(".window-shadow").eq(eshdwdNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(eshdwdNum).css("border-color","#ddd");
 
 	$("#edit_shdw_div #cancel_but").css("left","30%");
 	$("#edit_shdw_div #cancel_but").css("position","absolute");
@@ -1409,17 +1427,17 @@ function initEditCYCLDialog(){
 	$("#edit_cycl_div table td").css("font-size","15px");
 	$("#edit_cycl_div table tr").css("height","45px");
 
-	$(".panel.window").eq(15).css("margin-top","20px");
-	$(".panel.window").eq(15).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(15).css("color","#000");
-	$(".panel.window .panel-title").eq(15).css("font-size","15px");
-	$(".panel.window .panel-title").eq(15).css("padding-left","10px");
+	$(".panel.window").eq(ecycldNum).css("margin-top","20px");
+	$(".panel.window").eq(ecycldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(ecycldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ecycldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ecycldNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(15).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(ecycldNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(15).css("margin-top","20px");
-	$(".window,.window .window-body").eq(15).css("border-color","#ddd");
+	$(".window-shadow").eq(ecycldNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ecycldNum).css("border-color","#ddd");
 
 	$("#edit_cycl_div #cancel_but").css("left","30%");
 	$("#edit_cycl_div #cancel_but").css("position","absolute");
