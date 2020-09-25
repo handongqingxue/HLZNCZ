@@ -6,6 +6,7 @@ import com.hlzncz.entity.CaiDan;
 import com.hlzncz.entity.CangKu;
 import com.hlzncz.entity.CheLiang;
 import com.hlzncz.entity.DingDan;
+import com.hlzncz.entity.DingDanZhuangTai;
 import com.hlzncz.entity.DuiLie;
 import com.hlzncz.entity.FaHuoDanWei;
 import com.hlzncz.entity.KaPianShenLing;
@@ -34,6 +35,8 @@ public interface PublicService {
 			String order);
 
 	public DingDan selectDingDanByWybm(String wybm);
+
+	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
 
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);
 

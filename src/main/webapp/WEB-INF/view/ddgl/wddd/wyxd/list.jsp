@@ -8,27 +8,53 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	zyztCBB=$("#zyzt").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
-	});
-	
+	initZXZTCBB();
+	initSearchLB();
+	initAddLB();
+	initOutputLB();
+	initRemoveLB();
+	initTab1();
+});
+
+function initZXZTCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择执行状态"});
+	$.post(path+"main/queryDingDanZhuangTaiCBBList",
+		function(result){
+			var rows=result.rows;
+			for(var i=0;i<rows.length;i++){
+				data.push({"value":rows[i].id,"text":rows[i].mc});
+			}
+			zxztCBB=$("#zxzt").combobox({
+				valueField:"value",
+				textField:"text",
+				data:data
+			});
+		}
+	,"json");
+}
+
+function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var mc=$("#toolbar #mc").val();
-			tab1.datagrid("load",{mc:mc});
+			var ddh=$("#toolbar #ddh").val();
+			var zxzt=zxztCBB.combobox("getValue");
+			tab1.datagrid("load",{ddh:ddh,ddztId:zxzt});
 		}
 	});
-	
+}
+
+function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
 			location.href=path+"main/ddgl/wddd/wyxd/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
-	
+}
+
+function initOutputLB(){
 	$("#output_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
@@ -36,14 +62,18 @@ $(function(){
 				location.href=path+"merchant/main/goBatchAddModule?trade=spzs&moduleType="+moduleType;
 		}
 	});
-	
+}
+
+function initRemoveLB(){
 	$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
 		onClick:function(){
 			deleteByWybms();
 		}
 	});
+}
 
+function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"我要下单-列表",
 		url:path+"main/queryWoYaoXiaDanList",
@@ -66,7 +96,7 @@ $(function(){
             	return str;
             }},
             {field:"yzxzl",title:"预装卸重量",width:200},
-            {field:"ddzt",title:"订单状态",width:200},
+            {field:"ddztmc",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
@@ -95,7 +125,7 @@ $(function(){
 			reSizeCol();
 		}
 	});
-});
+}
 
 //重设列宽
 function reSizeCol(){
@@ -155,8 +185,10 @@ function setFitWidthInParent(o){
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">名称：</span>
-			<input type="text" id="mc" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">订单号：</span>
+			<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">执行状态：</span>
+			<input id="zxzt"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>

@@ -124,26 +124,29 @@
 		where wybm=#{wybm}
 	</update>
 	<select id="queryWoYaoXiaDanForInt" resultType="java.lang.Integer">
-		select count(*) from ding_dan where 1=1
+		select count(*) from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id where 1=1
 		<if test="ddh!=''&amp;ddh!=null">
-			and ddh like CONCAT('%',#{ddh},'%')
+			and dd.ddh like CONCAT('%',#{ddh},'%')
 		</if>
 		<if test="ddztId!=''&amp;ddztId!=null">
-			and ddztId like CONCAT('%',#{ddztId},'%')
+			and dd.ddztId like CONCAT('%',#{ddztId},'%')
 		</if>
 	</select>
 	<select id="queryWoYaoXiaDanList" resultType="com.hlzncz.entity.DingDan">
-		select * from ding_dan where 1=1
+		select dd.wybm,dd.ddh,dd.lxlx,dd.yzxzl,ddzt.mc ddztmc from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id where 1=1
 		<if test="ddh!=''&amp;ddh!=null">
-			and ddh like CONCAT('%',#{ddh},'%')
+			and dd.ddh like CONCAT('%',#{ddh},'%')
 		</if>
 		<if test="ddztId!=''&amp;ddztId!=null">
-			and ddztId like CONCAT('%',#{ddztId},'%')
+			and dd.ddztId like CONCAT('%',#{ddztId},'%')
 		</if>
 		 limit ${param3},${param4}
 	</select>
 	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
 		select * from ding_dan where wybm=#{wybm}
+	</select>
+	<select id="queryDingDanZhuangTaiCBBList" resultType="com.hlzncz.entity.DingDanZhuangTai">
+		select * from ding_dan_zhuang_tai
 	</select>
 	<insert id="newWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		insert into wu_zi_lei_xing

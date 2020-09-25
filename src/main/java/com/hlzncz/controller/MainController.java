@@ -591,6 +591,19 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/queryDingDanZhuangTaiCBBList")
+	@ResponseBody
+	public Map<String, Object> queryDingDanZhuangTaiCBBList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<DingDanZhuangTai> ddztList=publicService.queryDingDanZhuangTaiCBBList();
+		
+		jsonMap.put("rows", ddztList);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/newWuZiLeiXing")
 	@ResponseBody

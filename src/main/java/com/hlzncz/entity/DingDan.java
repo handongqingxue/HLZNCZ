@@ -65,6 +65,14 @@ public class DingDan implements Serializable {
 	public void setDdztId(Integer ddztId) {
 		this.ddztId = ddztId;
 	}
+	
+	public String getDdztmc() {
+		return ddztmc;
+	}
+
+	public void setDdztmc(String ddztmc) {
+		this.ddztmc = ddztmc;
+	}
 
 	public String getJhysrq() {
 		return jhysrq;
@@ -143,7 +151,8 @@ public class DingDan implements Serializable {
 	private Float yzxzl;//预装卸重量
 	private Float sjzl;//实际重量
 	private Float zlceb;//重量差额比
-	private Integer ddztId;//订单状态
+	private Integer ddztId;//订单状态id
+	private String ddztmc;//订单状态名称
 	private String jhysrq;//计划运输日期
 	private String cksj;//出库时间
 	private String ewm;//二维码
