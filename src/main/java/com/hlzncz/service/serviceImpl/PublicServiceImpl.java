@@ -547,4 +547,10 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.queryHaoMaZhuangTaiCBBList();
 	}
 
+	@Override
+	public List<JueSe> queryJueSeByIds(String ids) {
+		// TODO Auto-generated method stub
+		return publicDao.queryJueSeByIds(ids);
+	}
+
 }

@@ -167,4 +167,6 @@ public interface PublicMapper {
 	public List<HaoMa> queryHaoMaList(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId, int i, int rows, String sort, String order);
 
 	public List<HaoMaZhuangTai> queryHaoMaZhuangTaiCBBList();
+
+	public List<JueSe> queryJueSeByIds(@Param("ids") String ids);
 }

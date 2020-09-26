@@ -1618,6 +1618,19 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/queryJueSeByIds")
+	@ResponseBody
+	public Map<String, Object> queryJueSeByIds(String ids) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<JueSe> jsList=publicService.queryJueSeByIds(ids);
+		
+		jsonMap.put("rows", jsList);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody

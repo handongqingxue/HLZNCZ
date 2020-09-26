@@ -76,6 +76,8 @@ var ndNum=0;
 var sssjdNum=1;
 var ssssjdNum=2;
 var esssjdNum=3;
+var ezjjsdNum=4;
+
 var wlxxdNum=4;
 var swlxxdNum=5;
 var ewlxxdNum=6;
@@ -96,7 +98,7 @@ $(function(){
 	initSSSJDialog();//1.所属司机窗口
 	initSelectSSSJDialog();//2.选择所属司机窗口
 	initEditSSSJDialog();//3.修改所属司机窗口
-	//initEditZJJSDialog();//4.修改直接角色窗口
+	initEditZJJSDialog();//4.修改直接角色窗口
 	
 	//initWLXXDialog();//4.物料信息窗口
 	//initSelectWLXXDialog();//5.选择物料信息窗口
@@ -1310,6 +1312,62 @@ function initSelectCYSJTab(){
 	});
 }
 
+function initEditZJJSTab(){
+	editZJJSTab=$("#edit_zjjs_tab").datagrid({
+		url:path+"main/queryJueSeByIds",
+		width:setFitWidthInParent("body","edit_zjjs_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="拥有角色";
+					break;
+				}
+            	return str;
+			}},
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="新增";
+					break;
+				case 2:
+					str="正常使用";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				case 4:
+					str="有误";
+					break;
+				}
+            	return str;
+            }},
+			{field:"ms",title:"描述",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
 function initEditSSSJDialog(){
 	editSSSJDialog=$("#edit_sssj_dialog_div").dialog({
 		title:"基本信息",
@@ -1353,6 +1411,36 @@ function initEditSSSJDialog(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openEditSSSJDialog(0);
 	//$(".panel.window").eq(esssjdNum).css("z-index","9010");
+}
+
+function initEditZJJSDialog(){
+	editZJJSDialog=$("#edit_zjjs_dialog_div").dialog({
+		title:"直接角色",
+		width:setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:260
+	});
+	
+	$(".panel.window").eq(ezjjsdNum).css("width","983px");
+	$(".panel.window").eq(ezjjsdNum).css("margin-top","20px");
+	//$(".panel.window").eq(ezjjsdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(ezjjsdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(ezjjsdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ezjjsdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ezjjsdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(ezjjsdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(ezjjsdNum).css("width","1000px");
+	$(".window-shadow").eq(ezjjsdNum).css("margin-top","20px");
+	$(".window-shadow").eq(ezjjsdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(ezjjsdNum).css("border-color","#ddd");
+
+	initEditZJJSTab();
+	//openEditZJJSDialog(0);
 }
 
 function initEditWLXXDialog(){
@@ -1780,6 +1868,15 @@ function openEditCYCLDialog(flag){
 	}
 }
 
+function openEditZJJSDialog(flag){
+	if(flag==1){
+		editZJJSDialog.dialog("open");
+	}
+	else{
+		editZJJSDialog.dialog("close");
+	}
+}
+
 function saveSelectSSSJ(){
 	var row=selectSSSJTab.datagrid("getSelected");
 	if (row == null) {
@@ -2110,6 +2207,7 @@ function setFitWidthInParent(parent,self){
 		break;
 	case "edit_sssj_dialog_div":
 	case "select_sssj_dialog_div":
+	case "edit_zjjs_dialog_div":
 		space=50;
 		break;
 	}
@@ -2222,7 +2320,7 @@ function initWindowMarginLeft(){
 		
 		<div id="edit_zjjs_dialog_div">
 			<input type="hidden" id="id"/>
-			<table id="zjjs_tab"></table>
+			<table id="edit_zjjs_tab"></table>
 		</div>
 	</div>
 </div>

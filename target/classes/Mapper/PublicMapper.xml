@@ -1037,5 +1037,11 @@
 	<select id="queryHaoMaZhuangTaiCBBList" resultType="com.hlzncz.entity.HaoMaZhuangTai">
 		select * from hao_ma_zhuang_tai
 	</select>
+	<select id="queryJueSeByIds" resultType="com.hlzncz.entity.JueSe">
+		select * from jue_se where 1=1
+		<if test="ids!=''&amp;ids!=null">
+			and id in(#{ids})
+		</if>
+	</select>
 	
 </mapper>

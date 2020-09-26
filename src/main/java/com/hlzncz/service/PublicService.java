@@ -169,4 +169,6 @@ public interface PublicService {
 			String order);
 
 	public List<HaoMaZhuangTai> queryHaoMaZhuangTaiCBBList();
+
+	public List<JueSe> queryJueSeByIds(String ids);
 }
