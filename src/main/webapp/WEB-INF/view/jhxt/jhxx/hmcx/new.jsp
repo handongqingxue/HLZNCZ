@@ -7,6 +7,8 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
 var ndNum=0;
 var yssdNum=1;
 var syssdNum=2;
@@ -50,6 +52,15 @@ $(function(){
 
 	initCYSJDialog();//16.承运司机窗口
 	initSelectCYSJDialog();//17.选择承运司机窗口
+	
+	$("#center_con_div").append($("body").find(".panel.window").eq(0))
+	$("#center_con_div").append($("body").find(".panel.window").eq(1))
+	$("#center_con_div").append($("body").find(".panel.window").eq(2))
+	$("#center_con_div").append($("body").find(".window-shadow").eq(0))
+	$("#center_con_div").append($("body").find(".window-shadow").eq(1))
+	$("#center_con_div").append($("body").find(".window-shadow").eq(2))
+	//alert($("body").find(".panel.window").length);
+	//alert($("body").find(".window-shadow").length);
 });
 
 function initNewDialog(){
@@ -57,8 +68,8 @@ function initNewDialog(){
 		title:"新字段组",
 		width:setFitWidthInParent("body","new_div"),
 		height:300,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkNew();
@@ -153,13 +164,14 @@ function iniKSJHSJDB(){
 }
 
 function initSSSJDialog(){
+	dialogTop+=320;//330
 	yssDialog=$("#sssj_div").dialog({
 		title:"所属司机",
 		width:setFitWidthInParent("body","sssj_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:300,
-		top:400,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(yssdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -183,13 +195,14 @@ function initSSSJDialog(){
 }
 
 function initWLXXDialog(){
+	dialogTop+=320;//650
 	wlxxDialog=$("#wlxx_div").dialog({
 		title:"物料信息",
 		width:setFitWidthInParent("body","wlxx_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:300,
-		top:650,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(wlxxdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -213,13 +226,14 @@ function initWLXXDialog(){
 }
 
 function initFHDWDialog(){
+	dialogTop+=330;//980
 	fhdwDialog=$("#fhdw_div").dialog({
 		title:"发货单位",
 		width:setFitWidthInParent("body","fhdw_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:300,
-		top:1000,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(fhdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -1229,12 +1243,11 @@ function initSelectCYSJTab(){
 }
 
 function initEditSSSJDialog(){
-	editSSSJDialog=$("#edit_sssj_div").dialog({
+	editSSSJDialog=$("#edit_sssj_dialog_div").dialog({
 		title:"基本信息",
-		width:setFitWidthInParent("body","edit_sssj_div"),
-		height:231,
+		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_dialog_div"),
+		height:331,
 		top:160,
-		left:308,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openEditSSSJDialog(0);
@@ -1245,14 +1258,14 @@ function initEditSSSJDialog(){
         ]
 	});
 
-	$("#edit_sssj_div table").css("width",(setFitWidthInParent("body","edit_sssj_div"))+"px");
-	$("#edit_sssj_div table").css("magin","-100px");
-	$("#edit_sssj_div table td").css("padding-left","50px");
-	$("#edit_sssj_div table td").css("padding-right","20px");
-	$("#edit_sssj_div table td").css("font-size","15px");
-	$("#edit_sssj_div table tr").css("height","45px");
+	$("#edit_sssj_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_dialog_div"))+"px");
+	$("#edit_sssj_dialog_div table").css("magin","-100px");
+	$("#edit_sssj_dialog_div table td").css("padding-left","50px");
+	$("#edit_sssj_dialog_div table td").css("padding-right","20px");
+	$("#edit_sssj_dialog_div table td").css("font-size","15px");
+	$("#edit_sssj_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(eyssdNum).css("margin-top","20px");
+	$(".panel.window").eq(eyssdNum).css("margin-top","40px");
 	$(".panel.window .panel-title").eq(eyssdNum).css("color","#000");
 	$(".panel.window .panel-title").eq(eyssdNum).css("font-size","15px");
 	$(".panel.window .panel-title").eq(eyssdNum).css("padding-left","10px");
@@ -1260,17 +1273,18 @@ function initEditSSSJDialog(){
 	$(".panel-header, .panel-body").eq(eyssdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(eyssdNum).css("margin-top","20px");
+	$(".window-shadow").eq(eyssdNum).css("margin-top","40px");
 	$(".window,.window .window-body").eq(eyssdNum).css("border-color","#ddd");
 
-	$("#edit_sssj_div #cancel_but").css("left","30%");
-	$("#edit_sssj_div #cancel_but").css("position","absolute");
+	$("#edit_sssj_dialog_div #cancel_but").css("left","30%");
+	$("#edit_sssj_dialog_div #cancel_but").css("position","absolute");
 
-	$("#edit_sssj_div #ok_but").css("left","45%");
-	$("#edit_sssj_div #ok_but").css("position","absolute");
+	$("#edit_sssj_dialog_div #ok_but").css("left","45%");
+	$("#edit_sssj_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openEditSSSJDialog(0);
+	//$(".panel.window").eq(eyssdNum).css("z-index","9010");
 }
 
 function initEditWLXXDialog(){
@@ -1458,9 +1472,9 @@ function initEditCYCLDialog(){
 }
 
 function editSSSJ(){
-	var id=$("#edit_sssj_div #id").val();
-	var mc=$("#edit_sssj_div #mc").val();
-	var bjsj=$("#edit_sssj_div #bjsj").text();
+	var id=$("#edit_sssj_dialog_div #id").val();
+	var mc=$("#edit_sssj_dialog_div #mc").val();
+	var bjsj=$("#edit_sssj_dialog_div #bjsj").text();
 	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
 	loadSSSJTabData(rows);
 	openEditSSSJDialog(0);
@@ -1507,9 +1521,9 @@ function editSSSJTabRow(){
 		$.messager.alert("提示","请选择要编辑的信息！","warning");
 		return false;
 	}
-	$("#edit_sssj_div #id").val(row.id);
-	$("#edit_sssj_div #mc").val(row.mc);
-	$("#edit_sssj_div #bjsj").text(row.bjsj);
+	$("#edit_sssj_dialog_div #id").val(row.id);
+	$("#edit_sssj_dialog_div #mc").val(row.mc);
+	$("#edit_sssj_dialog_div #bjsj").text(row.bjsj);
 	openEditSSSJDialog(1);
 }
 
@@ -1648,9 +1662,11 @@ function openSelectCYSJDialog(flag){
 
 function openEditSSSJDialog(flag){
 	if(flag==1){
+		$("#edit_sssj_bg_div").css("display","block");
 		editSSSJDialog.dialog("open");
 	}
 	else{
+		$("#edit_sssj_bg_div").css("display","none");
 		editSSSJDialog.dialog("close");
 	}
 }
@@ -1999,7 +2015,6 @@ function setFitWidthInParent(parent,self){
 	case "new_div":
 	case "sssj_div":
 	case "select_sssj_tab":
-	case "edit_sssj_div":
 	case "wlxx_div":
 	case "select_wlxx_tab":
 	case "edit_wlxx_div":
@@ -2020,6 +2035,9 @@ function setFitWidthInParent(parent,self){
 	case "fhdw_tab":
 		space=355;
 		break;
+	case "edit_sssj_dialog_div":
+		space=50;
+		break;
 	}
 	var width=$(parent).css("width");
 	return width.substring(0,width.length-2)-space;
@@ -2036,8 +2054,80 @@ function initWindowMarginLeft(){
 <title>创建</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<!-- 编辑所属司机 start -->
+<div class="edit_sssj_bg_div" id="edit_sssj_bg_div" style="width: 100%;height: 100%;background-color: rgba(0,0,0,.45);display:none;position: absolute;z-index: 9010;">
+	<div id="edit_sssj_div" style="background-color: #fff;width: 1000px;height: 500px;margin: 100px auto 0;border-radius:5px;">
+		<div style="width: 100%;height: 50px;line-height: 50px;border-bottom: #eee solid 1px;">
+			<span style="margin-left: 30px;">修改实体</span>
+			<span style="float: right;margin-right: 30px;cursor: pointer;">X</span>
+		</div>
+		<div style="width: 100%;height: 50px;line-height: 50px;"><span style="margin-left: 30px;">号码查询-所属司机-修改</span></div>
+		<div id="edit_sssj_dialog_div">
+			<input type="hidden" id="id"/>
+			<table>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right" style="width:15%;">
+					用户名
+				</td>
+				<td style="width:30%;">
+					<input type="text" id="mc" placeholder="请输入用户名" style="width: 150px;height:30px;"/>
+				</td>
+				<td align="right" style="width:15%;">
+					昵称
+				</td>
+				<td style="width:30%;">
+					<input type="text" id="mc" placeholder="请输入昵称" style="width: 150px;height:30px;"/>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					头像
+				</td>
+				<td>
+					
+				</td>
+				<td align="right">
+					实名
+				</td>
+				<td>
+					<input type="text" id="mc" placeholder="请输入实名" style="width: 150px;height:30px;"/>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					状态
+				</td>
+				<td>
+					
+				</td>
+				<td align="right">
+					原始密码
+				</td>
+				<td>
+					<input type="text" id="mc" placeholder="请输入原始密码" style="width: 150px;height:30px;"/>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					简述
+				</td>
+				<td>
+					<input type="text" id="mc" placeholder="请输入简述" style="width: 150px;height:30px;"/>
+				</td>
+				<td align="right">
+				</td>
+				<td>
+				</td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- 编辑所属司机 end -->
+
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
+	<!-- 新字段组 start -->
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<table>
@@ -2102,14 +2192,18 @@ function initWindowMarginLeft(){
 		</table>
 	</form>
 	</div>
+	<!-- 新字段组 end -->
 	
+	<!-- 所属司机 start -->
 	<div id="sssj_div">
 		<div id="sssj_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="sssj_tab"></table>
 	</div>
+	<!-- 所属司机 end -->
 	
+	<!-- 选择所属司机 start -->
 	<div id="select_sssj_div">
 		<div id="select_sssj_toolbar" style="height:32px;line-height:32px;">
 			<span style="margin-left: 13px;">用户名：</span>
@@ -2120,28 +2214,7 @@ function initWindowMarginLeft(){
 		</div>
 		<table id="select_sssj_tab"></table>
 	</div>
-	
-	<div>
-		<div id="edit_sssj_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					名称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					编辑时间
-				</td>
-				<td style="width:30%;">
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			</table>
-		</div>
-	</div>
+	<!-- 选择所属司机 end -->
 	
 	<div id="wlxx_div">
 		<div id="wlxx_toolbar" style="height:32px;line-height:32px;">
