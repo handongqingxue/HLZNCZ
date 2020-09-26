@@ -517,6 +517,18 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int queryYongHuForInt(String yhm, Integer zt) {
+		// TODO Auto-generated method stub
+		return publicDao.queryYongHuForInt(yhm,zt);
+	}
+
+	@Override
+	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryYongHuList(yhm, zt, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
 	public int queryHaoMaForInt(String hm, String pdh, Integer ztId) {
 		// TODO Auto-generated method stub
 		return publicDao.queryHaoMaForInt(hm,pdh,ztId);

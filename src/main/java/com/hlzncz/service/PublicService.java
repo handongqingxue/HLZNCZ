@@ -159,6 +159,10 @@ public interface PublicService {
 	public List<DuiLie> queryDuiLieList(String mc, String dm, Integer zt, int page, int rows, String sort,
 			String order);
 
+	public int queryYongHuForInt(String yhm, Integer zt);
+
+	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order);
+
 	public int queryHaoMaForInt(String hm, String pdh, Integer ztId);
 
 	public List<HaoMa> queryHaoMaList(String hm, String pdh, Integer ztId, int page, int rows, String sort,

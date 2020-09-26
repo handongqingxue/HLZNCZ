@@ -510,6 +510,14 @@ public class MainController {
 		return "jcxx/jhpz/dlgl/list";
 	}
 
+	@RequestMapping(value="/jhxt/jhxx/hmcx/new")
+	public String goHmcxNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jhxt/jhxx/hmcx/new";
+	}
+
 	@RequestMapping(value="/jhxt/jhxx/hmcx/list")
 	public String goHmcxList(HttpServletRequest request) {
 		
@@ -1564,6 +1572,21 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", dlList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryYongHuList")
+	@ResponseBody
+	public Map<String, Object> queryYongHuList(String yhm,Integer zt,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryYongHuForInt(yhm, zt);
+		List<YongHu> yhList=publicService.queryYongHuList(yhm, zt, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", yhList);
 		
 		return jsonMap;
 	}

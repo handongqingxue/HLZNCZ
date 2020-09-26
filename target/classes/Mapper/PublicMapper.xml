@@ -990,6 +990,25 @@
 		</if>
 		 limit ${param4},${param5}
 	</select>
+	<select id="queryYongHuForInt" resultType="java.lang.Integer">
+		select count(*) from yong_hu where 1=1
+		<if test="yhm!=''&amp;yhm!=null">
+			and yhm like CONCAT('%',#{yhm},'%')
+		</if> 
+		<if test="zt!=''&amp;zt!=null">
+			and zt=#{zt}
+		</if> 
+	</select>
+	<select id="queryYongHuList" resultType="com.hlzncz.entity.YongHu">
+		select * from yong_hu where 1=1
+		<if test="yhm!=''&amp;yhm!=null">
+			and yhm like CONCAT('%',#{yhm},'%')
+		</if> 
+		<if test="zt!=''&amp;zt!=null">
+			and zt=#{zt}
+		</if> 
+		 limit ${param3},${param4}
+	</select>
 	<select id="queryHaoMaForInt" resultType="java.lang.Integer">
 		select count(*) from hao_ma where 1=1
 		<if test="hm!=''&amp;hm!=null">

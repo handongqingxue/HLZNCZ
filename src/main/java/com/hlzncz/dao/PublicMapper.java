@@ -158,6 +158,10 @@ public interface PublicMapper {
 
 	public List<DuiLie> queryDuiLieList(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt, int i, int rows, String sort, String order);
 
+	public int queryYongHuForInt(@Param("yhm") String yhm, @Param("zt") Integer zt);
+
+	public List<YongHu> queryYongHuList(@Param("yhm") String yhm, @Param("zt") Integer zt, int i, int rows, String sort, String order);
+
 	public int queryHaoMaForInt(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId);
 
 	public List<HaoMa> queryHaoMaList(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId, int i, int rows, String sort, String order);
