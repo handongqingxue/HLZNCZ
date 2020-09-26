@@ -509,6 +509,14 @@ public class MainController {
 		
 		return "jcxx/jhpz/dlgl/list";
 	}
+
+	@RequestMapping(value="/jhxt/jhxx/hmcx/list")
+	public String goHmcxList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jhxt/jhxx/hmcx/list";
+	}
 	
 	private void selectNav(HttpServletRequest request) {
 		
@@ -1556,6 +1564,34 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", dlList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryHaoMaList")
+	@ResponseBody
+	public Map<String, Object> queryHaoMaList(String hm,String pdh,Integer ztId,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryHaoMaForInt(hm, pdh, ztId);
+		List<HaoMa> hmList=publicService.queryHaoMaList(hm, pdh, ztId, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", hmList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/queryHaoMaZhuangTaiCBBList")
+	@ResponseBody
+	public Map<String, Object> queryHaoMaZhuangTaiCBBList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<HaoMaZhuangTai> hmztList=publicService.queryHaoMaZhuangTaiCBBList();
+		
+		jsonMap.put("rows", hmztList);
 		
 		return jsonMap;
 	}

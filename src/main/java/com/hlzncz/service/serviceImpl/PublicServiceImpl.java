@@ -8,20 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hlzncz.dao.PublicMapper;
-import com.hlzncz.entity.CaiDan;
-import com.hlzncz.entity.CangKu;
-import com.hlzncz.entity.CheLiang;
-import com.hlzncz.entity.DingDan;
-import com.hlzncz.entity.DingDanZhuangTai;
-import com.hlzncz.entity.DuiLie;
-import com.hlzncz.entity.FaHuoDanWei;
-import com.hlzncz.entity.KaPianShenLing;
-import com.hlzncz.entity.KaPianWeiHu;
-import com.hlzncz.entity.ShouHuoDanWei;
-import com.hlzncz.entity.SiJi;
-import com.hlzncz.entity.WuZi;
-import com.hlzncz.entity.WuZiLeiXing;
-import com.hlzncz.entity.YunShuShang;
+import com.hlzncz.entity.*;
 import com.hlzncz.service.PublicService;
 
 @Service
@@ -527,6 +514,25 @@ public class PublicServiceImpl implements PublicService {
 			String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryDuiLieList(mc, dm, zt, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public int queryHaoMaForInt(String hm, String pdh, Integer ztId) {
+		// TODO Auto-generated method stub
+		return publicDao.queryHaoMaForInt(hm,pdh,ztId);
+	}
+
+	@Override
+	public List<HaoMa> queryHaoMaList(String hm, String pdh, Integer ztId, int page, int rows, String sort,
+			String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryHaoMaList(hm, pdh, ztId, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public List<HaoMaZhuangTai> queryHaoMaZhuangTaiCBBList() {
+		// TODO Auto-generated method stub
+		return publicDao.queryHaoMaZhuangTaiCBBList();
 	}
 
 }

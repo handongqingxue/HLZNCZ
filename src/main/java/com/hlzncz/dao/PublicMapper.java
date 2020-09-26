@@ -4,20 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.hlzncz.entity.CaiDan;
-import com.hlzncz.entity.CangKu;
-import com.hlzncz.entity.CheLiang;
-import com.hlzncz.entity.DingDan;
-import com.hlzncz.entity.DingDanZhuangTai;
-import com.hlzncz.entity.DuiLie;
-import com.hlzncz.entity.FaHuoDanWei;
-import com.hlzncz.entity.KaPianShenLing;
-import com.hlzncz.entity.KaPianWeiHu;
-import com.hlzncz.entity.ShouHuoDanWei;
-import com.hlzncz.entity.SiJi;
-import com.hlzncz.entity.WuZi;
-import com.hlzncz.entity.WuZiLeiXing;
-import com.hlzncz.entity.YunShuShang;
+import com.hlzncz.entity.*;
 
 public interface PublicMapper {
 
@@ -170,4 +157,10 @@ public interface PublicMapper {
 	public int queryDuiLieForInt(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt);
 
 	public List<DuiLie> queryDuiLieList(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt, int i, int rows, String sort, String order);
+
+	public int queryHaoMaForInt(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId);
+
+	public List<HaoMa> queryHaoMaList(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId, int i, int rows, String sort, String order);
+
+	public List<HaoMaZhuangTai> queryHaoMaZhuangTaiCBBList();
 }

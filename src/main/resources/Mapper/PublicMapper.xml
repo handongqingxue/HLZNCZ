@@ -990,5 +990,33 @@
 		</if>
 		 limit ${param4},${param5}
 	</select>
+	<select id="queryHaoMaForInt" resultType="java.lang.Integer">
+		select count(*) from hao_ma where 1=1
+		<if test="hm!=''&amp;hm!=null">
+			and hm like CONCAT('%',#{hm},'%')
+		</if> 
+		<if test="pdh!=''&amp;pdh!=null">
+			and pdh like CONCAT('%',#{pdh},'%')
+		</if> 
+		<if test="ztId!=''&amp;ztId!=null">
+			and ztId=#{ztId}
+		</if> 
+	</select>
+	<select id="queryHaoMaList" resultType="com.hlzncz.entity.HaoMa">
+		select * from hao_ma where 1=1
+		<if test="hm!=''&amp;hm!=null">
+			and hm like CONCAT('%',#{hm},'%')
+		</if> 
+		<if test="pdh!=''&amp;pdh!=null">
+			and pdh like CONCAT('%',#{pdh},'%')
+		</if> 
+		<if test="ztId!=''&amp;ztId!=null">
+			and ztId=#{ztId}
+		</if>
+		 limit ${param4},${param5}
+	</select>
+	<select id="queryHaoMaZhuangTaiCBBList" resultType="com.hlzncz.entity.HaoMaZhuangTai">
+		select * from hao_ma_zhuang_tai
+	</select>
 	
 </mapper>
