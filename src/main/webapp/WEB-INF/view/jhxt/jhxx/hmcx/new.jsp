@@ -5,14 +5,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.select_sssj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: absolute;
+	z-index: 9005;
+	display:none;
+}
+.select_sssj_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_sssj_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_sssj_div .xzst_span{
+	margin-left: 30px;
+}
+.select_sssj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+
+.edit_sssj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: absolute;
+	z-index: 9010;
+	display:none;
+}
+.edit_sssj_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.edit_sssj_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_sssj_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_sssj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_sssj_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_sssj_div .title_span{
+	margin-left: 30px;
+}
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
-var yssdNum=1;
-var syssdNum=2;
-var eyssdNum=3;
+var sssjdNum=1;
+var ssssjdNum=2;
+var esssjdNum=3;
 var wlxxdNum=4;
 var swlxxdNum=5;
 var ewlxxdNum=6;
@@ -33,35 +96,41 @@ $(function(){
 	initSSSJDialog();//1.所属司机窗口
 	initSelectSSSJDialog();//2.选择所属司机窗口
 	initEditSSSJDialog();//3.修改所属司机窗口
+	//initEditZJJSDialog();//4.修改直接角色窗口
 	
-	initWLXXDialog();//4.物料信息窗口
-	initSelectWLXXDialog();//5.选择物料信息窗口
-	initEditWLXXDialog();//6.修改物料信息窗口
+	//initWLXXDialog();//4.物料信息窗口
+	//initSelectWLXXDialog();//5.选择物料信息窗口
+	//initEditWLXXDialog();//6.修改物料信息窗口
 
-	initFHDWDialog();//7.发货单位窗口
-	initSelectFHDWDialog();//8.选择发货单位窗口
-	initEditFHDWDialog();//9.修改发货单位窗口
+	//initFHDWDialog();//7.发货单位窗口
+	//initSelectFHDWDialog();//8.选择发货单位窗口
+	//initEditFHDWDialog();//9.修改发货单位窗口
 
-	initSHDWDialog();//10.收货单位窗口
-	initSelectSHDWDialog();//11.选择收货单位窗口
-	initEditSHDWDialog();//12.修改发货单位窗口
+	//initSHDWDialog();//10.收货单位窗口
+	//initSelectSHDWDialog();//11.选择收货单位窗口
+	//initEditSHDWDialog();//12.修改发货单位窗口
 	
-	initCYCLDialog();//13.承运车辆窗口
-	initSelectCYCLDialog();//14.选择承运车辆窗口
-	initEditCYCLDialog();//15.修改承运车辆窗口
+	//initCYCLDialog();//13.承运车辆窗口
+	//initSelectCYCLDialog();//14.选择承运车辆窗口
+	//initEditCYCLDialog();//15.修改承运车辆窗口
 
-	initCYSJDialog();//16.承运司机窗口
-	initSelectCYSJDialog();//17.选择承运司机窗口
+	//initCYSJDialog();//16.承运司机窗口
+	//initSelectCYSJDialog();//17.选择承运司机窗口
 	
-	$("#center_con_div").append($("body").find(".panel.window").eq(0))
-	$("#center_con_div").append($("body").find(".panel.window").eq(1))
-	$("#center_con_div").append($("body").find(".panel.window").eq(2))
-	$("#center_con_div").append($("body").find(".window-shadow").eq(0))
-	$("#center_con_div").append($("body").find(".window-shadow").eq(1))
-	$("#center_con_div").append($("body").find(".window-shadow").eq(2))
+	initCenterConDiv();//将不同窗体移动到主要内容区域
+});
+
+function initCenterConDiv(){
+	var ccDiv=$("#center_con_div");
+	ccDiv.append($("body").find(".panel.window").eq(ndNum))
+	ccDiv.append($("body").find(".panel.window").eq(sssjdNum))
+	//ccDiv.append($("body").find(".panel.window").eq(ssssjdNum))
+	ccDiv.append($("body").find(".window-shadow").eq(ndNum))
+	ccDiv.append($("body").find(".window-shadow").eq(sssjdNum))
+	//ccDiv.append($("body").find(".window-shadow").eq(ssssjdNum))
 	//alert($("body").find(".panel.window").length);
 	//alert($("body").find(".window-shadow").length);
-});
+}
 
 function initNewDialog(){
 	$("#new_div").dialog({
@@ -174,22 +243,22 @@ function initSSSJDialog(){
 		left:dialogLeft
 	});
 	
-	$(".panel.window").eq(yssdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(yssdNum).css("margin-top","20px");
-	$(".panel.window").eq(yssdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(yssdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(yssdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(yssdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(yssdNum).css("padding-left","10px");
+	$(".panel.window").eq(sssjdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(sssjdNum).css("margin-top","20px");
+	$(".panel.window").eq(sssjdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(sssjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sssjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sssjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sssjdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(yssdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(sssjdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(yssdNum).css("width","1000px");
-	$(".window-shadow").eq(yssdNum).css("margin-top","20px");
-	$(".window-shadow").eq(yssdNum).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(sssjdNum).css("width","1000px");
+	$(".window-shadow").eq(sssjdNum).css("margin-top","20px");
+	$(".window-shadow").eq(sssjdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(yssdNum).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(sssjdNum).css("border-color","#ddd");
 
 	initSSSJTab();
 }
@@ -655,13 +724,12 @@ function initCYSJTab(){
 }
 
 function initSelectSSSJDialog(){
-	selectSSSJDialog=$("#select_sssj_div").dialog({
-		title:"选择实体",
-		width:setFitWidthInParent("body"),
+	selectSSSJDialog=$("#select_sssj_dialog_div").dialog({
+		title:"所属司机列表",
+		width:setFitWidthInParent("#select_sssj_div","select_sssj_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectSSSJDialog(0);
@@ -672,28 +740,28 @@ function initSelectSSSJDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(syssdNum).css("width","983px");
-	$(".panel.window").eq(syssdNum).css("margin-top","20px");
-	$(".panel.window").eq(syssdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(syssdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(syssdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(syssdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(syssdNum).css("padding-left","10px");
+	$(".panel.window").eq(ssssjdNum).css("width","983px");
+	$(".panel.window").eq(ssssjdNum).css("margin-top","20px");
+	//$(".panel.window").eq(ssssjdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(ssssjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(ssssjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ssssjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ssssjdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(syssdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(ssssjdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(syssdNum).css("width","1000px");
-	$(".window-shadow").eq(syssdNum).css("margin-top","20px");
-	$(".window-shadow").eq(syssdNum).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(ssssjdNum).css("width","1000px");
+	$(".window-shadow").eq(ssssjdNum).css("margin-top","20px");
+	$(".window-shadow").eq(ssssjdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(syssdNum).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(ssssjdNum).css("border-color","#ddd");
 
-	$("#select_sssj_div #cancel_but").css("left","30%");
-	$("#select_sssj_div #cancel_but").css("position","absolute");
+	$("#select_sssj_dialog_div #cancel_but").css("left","30%");
+	$("#select_sssj_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_sssj_div #save_but").css("left","45%");
-	$("#select_sssj_div #save_but").css("position","absolute");
+	$("#select_sssj_dialog_div #save_but").css("left","45%");
+	$("#select_sssj_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -1265,16 +1333,16 @@ function initEditSSSJDialog(){
 	$("#edit_sssj_dialog_div table td").css("font-size","15px");
 	$("#edit_sssj_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(eyssdNum).css("margin-top","40px");
-	$(".panel.window .panel-title").eq(eyssdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(eyssdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(eyssdNum).css("padding-left","10px");
+	$(".panel.window").eq(esssjdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(esssjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(esssjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(esssjdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(eyssdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(esssjdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(eyssdNum).css("margin-top","40px");
-	$(".window,.window .window-body").eq(eyssdNum).css("border-color","#ddd");
+	$(".window-shadow").eq(esssjdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(esssjdNum).css("border-color","#ddd");
 
 	$("#edit_sssj_dialog_div #cancel_but").css("left","30%");
 	$("#edit_sssj_dialog_div #cancel_but").css("position","absolute");
@@ -1284,7 +1352,7 @@ function initEditSSSJDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openEditSSSJDialog(0);
-	//$(".panel.window").eq(eyssdNum).css("z-index","9010");
+	//$(".panel.window").eq(esssjdNum).css("z-index","9010");
 }
 
 function initEditWLXXDialog(){
@@ -1473,9 +1541,9 @@ function initEditCYCLDialog(){
 
 function editSSSJ(){
 	var id=$("#edit_sssj_dialog_div #id").val();
-	var mc=$("#edit_sssj_dialog_div #mc").val();
+	var yhm=$("#edit_sssj_dialog_div #yhm").val();
 	var bjsj=$("#edit_sssj_dialog_div #bjsj").text();
-	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	var rows=[{gx:"1",yhm:yhm,bjsj:bjsj,id:id}];
 	loadSSSJTabData(rows);
 	openEditSSSJDialog(0);
 }
@@ -1522,8 +1590,11 @@ function editSSSJTabRow(){
 		return false;
 	}
 	$("#edit_sssj_dialog_div #id").val(row.id);
-	$("#edit_sssj_dialog_div #mc").val(row.mc);
-	$("#edit_sssj_dialog_div #bjsj").text(row.bjsj);
+	$("#edit_sssj_dialog_div #yhm").val(row.yhm);
+	$("#edit_sssj_dialog_div #nc").val(row.nc);
+	$("#edit_sssj_dialog_div #sm").val(row.sm);
+	$("#edit_sssj_dialog_div #ysmm").val(row.ysmm);
+	$("#edit_sssj_dialog_div #js").val(row.js);
 	openEditSSSJDialog(1);
 }
 
@@ -1608,9 +1679,11 @@ function reSizeCol(){
 
 function openSelectSSSJDialog(flag){
 	if(flag==1){
+		$("#select_sssj_bg_div").css("display","block");
 		selectSSSJDialog.dialog("open");
 	}
 	else{
+		$("#select_sssj_bg_div").css("display","none");
 		selectSSSJDialog.dialog("close");
 	}
 }
@@ -1713,7 +1786,7 @@ function saveSelectSSSJ(){
 		$.messager.alert("提示","请选择所属司机！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",yhm:row.yhm,nc:row.nc,sm:row.sm,id:row.id}];
+	var rows=[{gx:"1",yhm:row.yhm,nc:row.nc,sm:row.sm,ysmm:row.ysmm,js:row.js,id:row.id}];
 	loadSSSJTabData(rows);
 	openSelectSSSJDialog(0);
 }
@@ -2036,6 +2109,7 @@ function setFitWidthInParent(parent,self){
 		space=355;
 		break;
 	case "edit_sssj_dialog_div":
+	case "select_sssj_dialog_div":
 		space=50;
 		break;
 	}
@@ -2054,14 +2128,38 @@ function initWindowMarginLeft(){
 <title>创建</title>
 </head>
 <body>
-<!-- 编辑所属司机 start -->
-<div class="edit_sssj_bg_div" id="edit_sssj_bg_div" style="width: 100%;height: 100%;background-color: rgba(0,0,0,.45);display:none;position: absolute;z-index: 9010;">
-	<div id="edit_sssj_div" style="background-color: #fff;width: 1000px;height: 500px;margin: 100px auto 0;border-radius:5px;">
-		<div style="width: 100%;height: 50px;line-height: 50px;border-bottom: #eee solid 1px;">
-			<span style="margin-left: 30px;">修改实体</span>
-			<span style="float: right;margin-right: 30px;cursor: pointer;">X</span>
+
+<!-- 选择所属司机 start -->
+<div class="select_sssj_bg_div" id="select_sssj_bg_div">
+	<div class="select_sssj_div" id="select_sssj_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectSSSJDialog(0)">X</span>
 		</div>
-		<div style="width: 100%;height: 50px;line-height: 50px;"><span style="margin-left: 30px;">号码查询-所属司机-修改</span></div>
+		<div id="select_sssj_dialog_div">
+			<div id="select_sssj_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">用户名：</span>
+				<input type="text" id="yhm_inp" placeholder="请输入用户名" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">状态：</span>
+				<input id="zt_cbb"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_sssj_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择所属司机 end -->
+
+<!-- 编辑所属司机 start -->
+<div class="edit_sssj_bg_div" id="edit_sssj_bg_div">
+	<div class="edit_sssj_div" id="edit_sssj_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditSSSJDialog(0)">X</span>
+		</div>
+		<div class="title_div">
+			<span class="title_span">号码查询-所属司机-修改</span>
+		</div>
 		<div id="edit_sssj_dialog_div">
 			<input type="hidden" id="id"/>
 			<table>
@@ -2070,13 +2168,13 @@ function initWindowMarginLeft(){
 					用户名
 				</td>
 				<td style="width:30%;">
-					<input type="text" id="mc" placeholder="请输入用户名" style="width: 150px;height:30px;"/>
+					<input type="text" id="yhm" placeholder="请输入用户名" style="width: 150px;height:30px;"/>
 				</td>
 				<td align="right" style="width:15%;">
 					昵称
 				</td>
 				<td style="width:30%;">
-					<input type="text" id="mc" placeholder="请输入昵称" style="width: 150px;height:30px;"/>
+					<input type="text" id="nc" placeholder="请输入昵称" style="width: 150px;height:30px;"/>
 				</td>
 			  </tr>
 			  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2090,7 +2188,7 @@ function initWindowMarginLeft(){
 					实名
 				</td>
 				<td>
-					<input type="text" id="mc" placeholder="请输入实名" style="width: 150px;height:30px;"/>
+					<input type="text" id="sm" placeholder="请输入实名" style="width: 150px;height:30px;"/>
 				</td>
 			  </tr>
 			  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2104,7 +2202,7 @@ function initWindowMarginLeft(){
 					原始密码
 				</td>
 				<td>
-					<input type="text" id="mc" placeholder="请输入原始密码" style="width: 150px;height:30px;"/>
+					<input type="text" id="ysmm" placeholder="请输入原始密码" style="width: 150px;height:30px;"/>
 				</td>
 			  </tr>
 			  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2112,7 +2210,7 @@ function initWindowMarginLeft(){
 					简述
 				</td>
 				<td>
-					<input type="text" id="mc" placeholder="请输入简述" style="width: 150px;height:30px;"/>
+					<input type="text" id="js" placeholder="请输入简述" style="width: 150px;height:30px;"/>
 				</td>
 				<td align="right">
 				</td>
@@ -2120,6 +2218,11 @@ function initWindowMarginLeft(){
 				</td>
 			  </tr>
 			</table>
+		</div>
+		
+		<div id="edit_zjjs_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="zjjs_tab"></table>
 		</div>
 	</div>
 </div>
@@ -2203,19 +2306,9 @@ function initWindowMarginLeft(){
 	</div>
 	<!-- 所属司机 end -->
 	
-	<!-- 选择所属司机 start -->
-	<div id="select_sssj_div">
-		<div id="select_sssj_toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">用户名：</span>
-			<input type="text" id="yhm_inp" placeholder="请输入用户名" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">状态：</span>
-			<input id="zt_cbb"/>
-			<a id="search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="select_sssj_tab"></table>
-	</div>
-	<!-- 选择所属司机 end -->
 	
+	
+	<!-- 
 	<div id="wlxx_div">
 		<div id="wlxx_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -2251,7 +2344,9 @@ function initWindowMarginLeft(){
 		  </tr>
 		</table>
 	</div>
-	
+	 -->
+
+	<!-- 	
 	<div id="fhdw_div">
 		<div id="fhdw_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -2287,7 +2382,9 @@ function initWindowMarginLeft(){
 		  </tr>
 		</table>
 	</div>
+	 -->
 	
+	<!-- 
 	<div id="shdw_div">
 		<div id="shdw_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -2323,7 +2420,9 @@ function initWindowMarginLeft(){
 		  </tr>
 		</table>
 	</div>
+	 -->
 	
+	<!-- 
 	<div id="cycl_div">
 		<div id="cycl_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -2361,7 +2460,9 @@ function initWindowMarginLeft(){
 		  </tr>
 		</table>
 	</div>
+	 -->
 	
+	<!-- 
 	<div id="cysj_div">
 		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -2381,6 +2482,7 @@ function initWindowMarginLeft(){
 		</div>
 		<table id="select_cysj_tab"></table>
 	</div>
+	 -->
 </div>
 </body>
 </html>
