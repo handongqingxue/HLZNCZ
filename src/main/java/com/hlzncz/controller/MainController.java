@@ -1626,7 +1626,8 @@ public class MainController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		List<JueSe> jsList=publicService.queryJueSeByIds(ids);
-		
+
+		jsonMap.put("total", jsList.size());
 		jsonMap.put("rows", jsList);
 		
 		return jsonMap;

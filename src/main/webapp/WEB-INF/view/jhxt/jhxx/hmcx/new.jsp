@@ -10,7 +10,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,.45);
-	position: absolute;
+	position: fixed;
 	z-index: 9005;
 	display:none;
 }
@@ -38,7 +38,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,.45);
-	position: absolute;
+	position: fixed;
 	z-index: 9010;
 	display:none;
 }
@@ -48,6 +48,10 @@
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
+	overflow-y: scroll;
+	position: absolute;
+	left: 0;
+	right: 0;
 }
 .edit_sssj_div .xgst_div{
 	width: 100%;
@@ -97,7 +101,7 @@ $(function(){
 	
 	initSSSJDialog();//1.所属司机窗口
 	initSelectSSSJDialog();//2.选择所属司机窗口
-	initEditSSSJDialog();//3.修改所属司机窗口
+	initEditSSSJJBXXDialog();//3.修改所属司机基本信息窗口
 	initEditZJJSDialog();//4.修改直接角色窗口
 	
 	//initWLXXDialog();//4.物料信息窗口
@@ -119,19 +123,45 @@ $(function(){
 	//initCYSJDialog();//16.承运司机窗口
 	//initSelectCYSJDialog();//17.选择承运司机窗口
 	
-	initCenterConDiv();//将不同窗体移动到主要内容区域
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
-function initCenterConDiv(){
+function initDialogPosition(){
+	//新字段组
+	var ndpw=$("body").find(".panel.window").eq(ndNum);
+	var ndws=$("body").find(".window-shadow").eq(ndNum);
+	
+	//所属司机
+	var sssjdpw=$("body").find(".panel.window").eq(sssjdNum);
+	var sssjdws=$("body").find(".window-shadow").eq(sssjdNum);
+	
+	//选择所属司机
+	var ssssjdpw=$("body").find(".panel.window").eq(ssssjdNum);
+	var ssssjdws=$("body").find(".window-shadow").eq(ssssjdNum);
+	
+	//编辑所属司机
+	var esssjdpw=$("body").find(".panel.window").eq(esssjdNum);
+	var esssjdws=$("body").find(".window-shadow").eq(esssjdNum);
+	var ezjjsdpw=$("body").find(".panel.window").eq(ezjjsdNum);
+	var ezjjsdws=$("body").find(".window-shadow").eq(ezjjsdNum);
+
 	var ccDiv=$("#center_con_div");
-	ccDiv.append($("body").find(".panel.window").eq(ndNum))
-	ccDiv.append($("body").find(".panel.window").eq(sssjdNum))
-	//ccDiv.append($("body").find(".panel.window").eq(ssssjdNum))
-	ccDiv.append($("body").find(".window-shadow").eq(ndNum))
-	ccDiv.append($("body").find(".window-shadow").eq(sssjdNum))
-	//ccDiv.append($("body").find(".window-shadow").eq(ssssjdNum))
-	//alert($("body").find(".panel.window").length);
-	//alert($("body").find(".window-shadow").length);
+	ccDiv.append(ndpw);
+	ccDiv.append(ndws);
+	
+	ccDiv.append(sssjdpw)
+	ccDiv.append(sssjdws)
+	
+	var ssDiv=$("#select_sssj_div");
+	ssDiv.append(ssssjdpw)
+	ssDiv.append(ssssjdws)
+	
+	
+	var ecDiv=$("#edit_sssj_div");
+	ecDiv.append(esssjdpw)
+	ecDiv.append(esssjdws)
+	ecDiv.append(ezjjsdpw)
+	ecDiv.append(ezjjsdws)
 }
 
 function initNewDialog(){
@@ -1315,7 +1345,7 @@ function initSelectCYSJTab(){
 function initEditZJJSTab(){
 	editZJJSTab=$("#edit_zjjs_tab").datagrid({
 		url:path+"main/queryJueSeByIds",
-		width:setFitWidthInParent("body","edit_zjjs_tab"),
+		width:setFitWidthInParent("#edit_sssj_div","edit_zjjs_tab"),
 		singleSelect:true,
 		pagination:true,
 		pageSize:10,
@@ -1368,12 +1398,13 @@ function initEditZJJSTab(){
 	});
 }
 
-function initEditSSSJDialog(){
-	editSSSJDialog=$("#edit_sssj_dialog_div").dialog({
+function initEditSSSJJBXXDialog(){
+	editSSSJDialog=$("#edit_sssjjbxx_dialog_div").dialog({
 		title:"基本信息",
-		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_dialog_div"),
+		width:setFitWidthInParent("#edit_sssj_div","edit_sssjjbxx_dialog_div"),
 		height:331,
-		top:160,
+		top:60,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openEditSSSJDialog(0);
@@ -1384,12 +1415,12 @@ function initEditSSSJDialog(){
         ]
 	});
 
-	$("#edit_sssj_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_dialog_div"))+"px");
-	$("#edit_sssj_dialog_div table").css("magin","-100px");
-	$("#edit_sssj_dialog_div table td").css("padding-left","50px");
-	$("#edit_sssj_dialog_div table td").css("padding-right","20px");
-	$("#edit_sssj_dialog_div table td").css("font-size","15px");
-	$("#edit_sssj_dialog_div table tr").css("height","45px");
+	$("#edit_sssjjbxx_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssjjbxx_dialog_div"))+"px");
+	$("#edit_sssjjbxx_dialog_div table").css("magin","-100px");
+	$("#edit_sssjjbxx_dialog_div table td").css("padding-left","50px");
+	$("#edit_sssjjbxx_dialog_div table td").css("padding-right","20px");
+	$("#edit_sssjjbxx_dialog_div table td").css("font-size","15px");
+	$("#edit_sssjjbxx_dialog_div table tr").css("height","45px");
 
 	$(".panel.window").eq(esssjdNum).css("margin-top","40px");
 	$(".panel.window .panel-title").eq(esssjdNum).css("color","#000");
@@ -1402,14 +1433,14 @@ function initEditSSSJDialog(){
 	$(".window-shadow").eq(esssjdNum).css("margin-top","40px");
 	$(".window,.window .window-body").eq(esssjdNum).css("border-color","#ddd");
 
-	$("#edit_sssj_dialog_div #cancel_but").css("left","30%");
-	$("#edit_sssj_dialog_div #cancel_but").css("position","absolute");
+	$("#edit_sssjjbxx_dialog_div #cancel_but").css("left","30%");
+	$("#edit_sssjjbxx_dialog_div #cancel_but").css("position","absolute");
 
-	$("#edit_sssj_dialog_div #ok_but").css("left","45%");
-	$("#edit_sssj_dialog_div #ok_but").css("position","absolute");
+	$("#edit_sssjjbxx_dialog_div #ok_but").css("left","45%");
+	$("#edit_sssjjbxx_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openEditSSSJDialog(0);
+	openEditSSSJJBXXDialog(0);
 	//$(".panel.window").eq(esssjdNum).css("z-index","9010");
 }
 
@@ -1419,10 +1450,11 @@ function initEditZJJSDialog(){
 		width:setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:260
+		top:435,
+		left:20,
 	});
-	
-	$(".panel.window").eq(ezjjsdNum).css("width","983px");
+
+	$(".panel.window").eq(ezjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"))+"px");
 	$(".panel.window").eq(ezjjsdNum).css("margin-top","20px");
 	//$(".panel.window").eq(ezjjsdNum).css("margin-left",initWindowMarginLeft());
 	$(".panel.window").eq(ezjjsdNum).css("border-color","#ddd");
@@ -1431,8 +1463,9 @@ function initEditZJJSDialog(){
 	$(".panel.window .panel-title").eq(ezjjsdNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").eq(ezjjsdNum).css("border-color","#ddd");
-	
+
 	//以下的是表格下面的面板
+	$(".window-shadow").eq(ezjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"))+"px");
 	$(".window-shadow").eq(ezjjsdNum).css("width","1000px");
 	$(".window-shadow").eq(ezjjsdNum).css("margin-top","20px");
 	$(".window-shadow").eq(ezjjsdNum).css("margin-left",initWindowMarginLeft());
@@ -1440,7 +1473,7 @@ function initEditZJJSDialog(){
 	$(".window,.window .window-body").eq(ezjjsdNum).css("border-color","#ddd");
 
 	initEditZJJSTab();
-	//openEditZJJSDialog(0);
+	openEditZJJSDialog(0);
 }
 
 function initEditWLXXDialog(){
@@ -1628,12 +1661,12 @@ function initEditCYCLDialog(){
 }
 
 function editSSSJ(){
-	var id=$("#edit_sssj_dialog_div #id").val();
-	var yhm=$("#edit_sssj_dialog_div #yhm").val();
-	var bjsj=$("#edit_sssj_dialog_div #bjsj").text();
+	var id=$("#edit_sssjjbxx_dialog_div #id").val();
+	var yhm=$("#edit_sssjjbxx_dialog_div #yhm").val();
+	var bjsj=$("#edit_sssjjbxx_dialog_div #bjsj").text();
 	var rows=[{gx:"1",yhm:yhm,bjsj:bjsj,id:id}];
 	loadSSSJTabData(rows);
-	openEditSSSJDialog(0);
+	openEditSSSJJBXXDialog(0);
 }
 
 function editWLXX(){
@@ -1677,12 +1710,12 @@ function editSSSJTabRow(){
 		$.messager.alert("提示","请选择要编辑的信息！","warning");
 		return false;
 	}
-	$("#edit_sssj_dialog_div #id").val(row.id);
-	$("#edit_sssj_dialog_div #yhm").val(row.yhm);
-	$("#edit_sssj_dialog_div #nc").val(row.nc);
-	$("#edit_sssj_dialog_div #sm").val(row.sm);
-	$("#edit_sssj_dialog_div #ysmm").val(row.ysmm);
-	$("#edit_sssj_dialog_div #js").val(row.js);
+	$("#edit_sssjjbxx_dialog_div #id").val(row.id);
+	$("#edit_sssjjbxx_dialog_div #yhm").val(row.yhm);
+	$("#edit_sssjjbxx_dialog_div #nc").val(row.nc);
+	$("#edit_sssjjbxx_dialog_div #sm").val(row.sm);
+	$("#edit_sssjjbxx_dialog_div #ysmm").val(row.ysmm);
+	$("#edit_sssjjbxx_dialog_div #js").val(row.js);
 	openEditSSSJDialog(1);
 }
 
@@ -1824,10 +1857,19 @@ function openSelectCYSJDialog(flag){
 function openEditSSSJDialog(flag){
 	if(flag==1){
 		$("#edit_sssj_bg_div").css("display","block");
-		editSSSJDialog.dialog("open");
 	}
 	else{
 		$("#edit_sssj_bg_div").css("display","none");
+	}
+	openEditSSSJJBXXDialog(flag);
+	openEditZJJSDialog(flag)
+}
+
+function openEditSSSJJBXXDialog(flag){
+	if(flag==1){
+		editSSSJDialog.dialog("open");
+	}
+	else{
 		editSSSJDialog.dialog("close");
 	}
 }
@@ -2205,10 +2247,12 @@ function setFitWidthInParent(parent,self){
 	case "fhdw_tab":
 		space=355;
 		break;
-	case "edit_sssj_dialog_div":
+	case "edit_sssjjbxx_dialog_div":
 	case "select_sssj_dialog_div":
-	case "edit_zjjs_dialog_div":
 		space=50;
+		break;
+	case "edit_zjjs_dialog_div":
+		space=60;
 		break;
 	}
 	var width=$(parent).css("width");
@@ -2258,7 +2302,7 @@ function initWindowMarginLeft(){
 		<div class="title_div">
 			<span class="title_span">号码查询-所属司机-修改</span>
 		</div>
-		<div id="edit_sssj_dialog_div">
+		<div id="edit_sssjjbxx_dialog_div">
 			<input type="hidden" id="id"/>
 			<table>
 			  <tr style="border-bottom: #CAD9EA solid 1px;">
