@@ -354,6 +354,490 @@ function initSSSJDialog(){
 	initSSSJTab();
 }
 
+function initSSSJTab(){
+	sssjChooseLB=$("#sssj_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectSSSJDialog(1);
+		}
+	});
+	
+	sssjTab=$("#sssj_tab").datagrid({
+		toolbar:"#sssj_toolbar",
+		width:setFitWidthInParent("body","sssj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="所属司机";
+					break;
+				}
+				return str;
+			}},
+            {field:"yhm",title:"用户名",width:200,align:"center"},
+            {field:"nc",title:"昵称",width:200,align:"center"},
+            {field:"sm",title:"实名",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"deleteSSSJTabRow()\">删除</a>"
+            		+"&nbsp;|&nbsp;<a onclick=\"editSSSJTabRow()\">编辑</a>"
+            		+"&nbsp;|&nbsp;<a onclick=\"detailSSSJTabRow()\">查看</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadSSSJTabData([]);
+}
+
+function initSelectSSSJDialog(){
+	selectSSSJDialog=$("#select_sssj_dialog_div").dialog({
+		title:"所属司机列表",
+		width:setFitWidthInParent("#select_sssj_div","select_sssj_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:160,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectSSSJDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectSSSJ();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(ssssjdNum).css("width","983px");
+	$(".panel.window").eq(ssssjdNum).css("margin-top","20px");
+	//$(".panel.window").eq(ssssjdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(ssssjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(ssssjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ssssjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ssssjdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(ssssjdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(ssssjdNum).css("width","1000px");
+	$(".window-shadow").eq(ssssjdNum).css("margin-top","20px");
+	$(".window-shadow").eq(ssssjdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(ssssjdNum).css("border-color","#ddd");
+
+	$("#select_sssj_dialog_div #cancel_but").css("left","30%");
+	$("#select_sssj_dialog_div #cancel_but").css("position","absolute");
+	
+	$("#select_sssj_dialog_div #save_but").css("left","45%");
+	$("#select_sssj_dialog_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectSSSJTab();
+	openSelectSSSJDialog(0);
+}
+
+function initSelectSSSJTab(){
+	sssjZTCBB=$("#select_sssj_toolbar #zt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[
+			{"value":"","text":"请选择状态"},
+			{"value":"1","text":"新增"},
+			{"value":"2","text":"正常使用"},
+			{"value":"3","text":"废弃"},
+			{"value":"4","text":"有误"}
+		]
+	});
+	
+	$("#select_sssj_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var yhm=$("#select_sssj_toolbar #yhm_inp").val();
+			var zt=sssjZTCBB.combobox("getValue");
+			selectSSSJTab.datagrid("load",{yhm:yhm,zt:zt});
+		}
+	});
+	
+	selectSSSJTab=$("#select_sssj_tab").datagrid({
+		url:path+"main/queryYongHuList",
+		toolbar:"#select_sssj_toolbar",
+		width:setFitWidthInParent("body","select_sssj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"yhm",title:"用户名",width:200,align:"center"},
+			{field:"nc",title:"昵称",width:200,align:"center"},
+			{field:"sm",title:"实名",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="新增";
+					break;
+				case 2:
+					str="正常使用";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				case 4:
+					str="有误";
+					break;
+				}
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{yhm:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"yhm",colspan:4});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function openSelectSSSJDialog(flag){
+	if(flag==1){
+		$("#select_sssj_bg_div").css("display","block");
+		selectSSSJDialog.dialog("open");
+	}
+	else{
+		$("#select_sssj_bg_div").css("display","none");
+		selectSSSJDialog.dialog("close");
+	}
+}
+
+function initEditSSSJJBXXDialog(){
+	editSSSJDialog=$("#edit_sssj_jbxx_dialog_div").dialog({
+		title:"基本信息",
+		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"),
+		height:331,
+		top:60,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditSSSJDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editSSSJ();
+           }}
+        ]
+	});
+
+	$("#edit_sssj_jbxx_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"))+"px");
+	$("#edit_sssj_jbxx_dialog_div table").css("magin","-100px");
+	$("#edit_sssj_jbxx_dialog_div table td").css("padding-left","50px");
+	$("#edit_sssj_jbxx_dialog_div table td").css("padding-right","20px");
+	$("#edit_sssj_jbxx_dialog_div table td").css("font-size","15px");
+	$("#edit_sssj_jbxx_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(esssjjbxxdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(esssjjbxxdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(esssjjbxxdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(esssjjbxxdNum).css("border-color","#ddd");
+
+	$("#edit_sssj_jbxx_dialog_div #cancel_but").css("left","30%");
+	$("#edit_sssj_jbxx_dialog_div #cancel_but").css("position","absolute");
+
+	$("#edit_sssj_jbxx_dialog_div #ok_but").css("left","45%");
+	$("#edit_sssj_jbxx_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openEditSSSJJBXXDialog(0);
+	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
+}
+
+function openEditSSSJJBXXDialog(flag){
+	if(flag==1){
+		editSSSJDialog.dialog("open");
+	}
+	else{
+		editSSSJDialog.dialog("close");
+	}
+}
+
+function initEditSSSJZJJSDialog(){
+	editSSSJZJJSDialog=$("#edit_sssj_zjjs_dialog_div").dialog({
+		title:"直接角色",
+		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:435,
+		left:20,
+	});
+
+	$(".panel.window").eq(esssjzjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"))+"px");
+	$(".panel.window").eq(esssjzjjsdNum).css("margin-top","20px");
+	//$(".panel.window").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(esssjzjjsdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(esssjzjjsdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(esssjzjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"))+"px");
+	$(".window-shadow").eq(esssjzjjsdNum).css("width","1000px");
+	$(".window-shadow").eq(esssjzjjsdNum).css("margin-top","20px");
+	$(".window-shadow").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(esssjzjjsdNum).css("border-color","#ddd");
+
+	initEditZJJSTab();
+	openEditSSSJZJJSDialog(0);
+}
+
+function initEditZJJSTab(){
+	editZJJSTab=$("#edit_zjjs_tab").datagrid({
+		url:path+"main/queryJueSeByIds",
+		width:setFitWidthInParent("#edit_sssj_div","edit_zjjs_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="拥有角色";
+					break;
+				}
+            	return str;
+			}},
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="新增";
+					break;
+				case 2:
+					str="正常使用";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				case 4:
+					str="有误";
+					break;
+				}
+            	return str;
+            }},
+			{field:"ms",title:"描述",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function openEditSSSJZJJSDialog(flag){
+	if(flag==1){
+		editSSSJZJJSDialog.dialog("open");
+	}
+	else{
+		editSSSJZJJSDialog.dialog("close");
+	}
+}
+
+function initDetailSSSJJBXXDialog(){
+	detailSSSJDialog=$("#detail_sssj_jbxx_dialog_div").dialog({
+		title:"基本信息",
+		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"),
+		height:331,
+		top:60,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailSSSJDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	   openDetailSSSJDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_sssj_jbxx_dialog_div table").css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"))+"px");
+	$("#detail_sssj_jbxx_dialog_div table").css("magin","-100px");
+	$("#detail_sssj_jbxx_dialog_div table td").css("padding-left","50px");
+	$("#detail_sssj_jbxx_dialog_div table td").css("padding-right","20px");
+	$("#detail_sssj_jbxx_dialog_div table td").css("font-size","15px");
+	$("#detail_sssj_jbxx_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dsssjjbxxdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dsssjjbxxdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dsssjjbxxdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dsssjjbxxdNum).css("border-color","#ddd");
+
+	$("#detail_sssj_jbxx_dialog_div #cancel_but").css("left","30%");
+	$("#detail_sssj_jbxx_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_sssj_jbxx_dialog_div #ok_but").css("left","45%");
+	$("#detail_sssj_jbxx_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailSSSJJBXXDialog(0);
+	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
+}
+
+function initDetailSSSJZJJSDialog(){
+	detailSSSJZJJSDialog=$("#detail_sssj_zjjs_dialog_div").dialog({
+		title:"直接角色",
+		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:435,
+		left:20,
+	});
+
+	$(".panel.window").eq(dsssjzjjsdNum).css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"))+"px");
+	$(".panel.window").eq(dsssjzjjsdNum).css("margin-top","20px");
+	//$(".panel.window").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dsssjzjjsdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dsssjzjjsdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dsssjzjjsdNum).css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"))+"px");
+	$(".window-shadow").eq(dsssjzjjsdNum).css("width","1000px");
+	$(".window-shadow").eq(dsssjzjjsdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dsssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dsssjzjjsdNum).css("border-color","#ddd");
+
+	initDetailZJJSTab();
+	openDetailSSSJZJJSDialog(0);
+}
+
+function initDetailZJJSTab(){
+	detailZJJSTab=$("#detail_zjjs_tab").datagrid({
+		url:path+"main/queryJueSeByIds",
+		width:setFitWidthInParent("#detail_sssj_div","detail_zjjs_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="拥有角色";
+					break;
+				}
+            	return str;
+			}},
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="新增";
+					break;
+				case 2:
+					str="正常使用";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				case 4:
+					str="有误";
+					break;
+				}
+            	return str;
+            }},
+			{field:"ms",title:"描述",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function openDetailSSSJJBXXDialog(flag){
+	if(flag==1){
+		detailSSSJDialog.dialog("open");
+	}
+	else{
+		detailSSSJDialog.dialog("close");
+	}
+}
+
+function openDetailSSSJZJJSDialog(flag){
+	if(flag==1){
+		detailSSSJZJJSDialog.dialog("open");
+	}
+	else{
+		detailSSSJZJJSDialog.dialog("close");
+	}
+}
+
 function initWLXXDialog(){
 	dialogTop+=320;//650
 	wlxxDialog=$("#wlxx_div").dialog({
@@ -505,58 +989,6 @@ function initCYSJDialog(){
 	initCYSJTab();
 }
 
-function initSSSJTab(){
-	sssjChooseLB=$("#sssj_div #choose_but").linkbutton({
-		iconCls:"icon-edit",
-		onClick:function(){
-			openSelectSSSJDialog(1);
-		}
-	});
-	
-	sssjTab=$("#sssj_tab").datagrid({
-		toolbar:"#sssj_toolbar",
-		width:setFitWidthInParent("body","sssj_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		columns:[[
-			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
-				var str;
-				switch (value) {
-				case "1":
-					str="所属司机";
-					break;
-				}
-				return str;
-			}},
-            {field:"yhm",title:"用户名",width:200,align:"center"},
-            {field:"nc",title:"昵称",width:200,align:"center"},
-            {field:"sm",title:"实名",width:200,align:"center"},
-			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
-            	var str="<a onclick=\"deleteSSSJTabRow()\">删除</a>"
-            		+"&nbsp;|&nbsp;<a onclick=\"editSSSJTabRow()\">编辑</a>"
-            		+"&nbsp;|&nbsp;<a onclick=\"detailSSSJTabRow()\">查看</a>";
-            	return str;
-            }}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			//reSizeCol();
-		}
-	});
-	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
-	loadSSSJTabData([]);
-}
 
 function initWLXXTab(){
 	wlxxChooseLB=$("#wlxx_div #choose_but").linkbutton({
@@ -815,52 +1247,6 @@ function initCYSJTab(){
 	loadCYSJTabData([]);
 }
 
-function initSelectSSSJDialog(){
-	selectSSSJDialog=$("#select_sssj_dialog_div").dialog({
-		title:"所属司机列表",
-		width:setFitWidthInParent("#select_sssj_div","select_sssj_dialog_div"),
-		//height:setFitHeightInParent(".left_nav_div"),
-		height:400,
-		top:160,
-		buttons:[
-           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openSelectSSSJDialog(0);
-           }},
-           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
-        	   	saveSelectSSSJ();
-           }}
-        ]
-	});
-	
-	$(".panel.window").eq(ssssjdNum).css("width","983px");
-	$(".panel.window").eq(ssssjdNum).css("margin-top","20px");
-	//$(".panel.window").eq(ssssjdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(ssssjdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(ssssjdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(ssssjdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(ssssjdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(ssssjdNum).css("border-color","#ddd");
-	
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(ssssjdNum).css("width","1000px");
-	$(".window-shadow").eq(ssssjdNum).css("margin-top","20px");
-	$(".window-shadow").eq(ssssjdNum).css("margin-left",initWindowMarginLeft());
-	
-	$(".window,.window .window-body").eq(ssssjdNum).css("border-color","#ddd");
-
-	$("#select_sssj_dialog_div #cancel_but").css("left","30%");
-	$("#select_sssj_dialog_div #cancel_but").css("position","absolute");
-	
-	$("#select_sssj_dialog_div #save_but").css("left","45%");
-	$("#select_sssj_dialog_div #save_but").css("position","absolute");
-	$(".dialog-button").css("background-color","#fff");
-	$(".dialog-button .l-btn-text").css("font-size","20px");
-	
-	initSelectSSSJTab();
-	openSelectSSSJDialog(0);
-}
-
 function initSelectWLXXDialog(){
 	selectWLXXDialog=$("#select_wlxx_div").dialog({
 		title:"选择实体",
@@ -1094,76 +1480,6 @@ function initSelectCYSJDialog(){
 	
 	initSelectCYSJTab();
 	openSelectCYSJDialog(0);
-}
-
-function initSelectSSSJTab(){
-	sssjZTCBB=$("#select_sssj_toolbar #zt_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[
-			{"value":"","text":"请选择状态"},
-			{"value":"1","text":"新增"},
-			{"value":"2","text":"正常使用"},
-			{"value":"3","text":"废弃"},
-			{"value":"4","text":"有误"}
-		]
-	});
-	
-	$("#select_sssj_toolbar #search_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var yhm=$("#select_sssj_toolbar #yhm_inp").val();
-			var zt=sssjZTCBB.combobox("getValue");
-			selectSSSJTab.datagrid("load",{yhm:yhm,zt:zt});
-		}
-	});
-	
-	selectSSSJTab=$("#select_sssj_tab").datagrid({
-		url:path+"main/queryYongHuList",
-		toolbar:"#select_sssj_toolbar",
-		width:setFitWidthInParent("body","select_sssj_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
-		columns:[[
-			{field:"yhm",title:"用户名",width:200,align:"center"},
-			{field:"nc",title:"昵称",width:200,align:"center"},
-			{field:"sm",title:"实名",width:200,align:"center"},
-			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
-            	var str;
-            	switch (value) {
-				case 1:
-					str="新增";
-					break;
-				case 2:
-					str="正常使用";
-					break;
-				case 3:
-					str="废弃";
-					break;
-				case 4:
-					str="有误";
-					break;
-				}
-            	return str;
-            }}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{yhm:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"yhm",colspan:4});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			//reSizeCol();
-		}
-	});
 }
 
 function initSelectWLXXTab(){
@@ -1400,274 +1716,6 @@ function initSelectCYSJTab(){
 			//reSizeCol();
 		}
 	});
-}
-
-function initEditZJJSTab(){
-	editZJJSTab=$("#edit_zjjs_tab").datagrid({
-		url:path+"main/queryJueSeByIds",
-		width:setFitWidthInParent("#edit_sssj_div","edit_zjjs_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
-		columns:[[
-			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
-				var str;
-            	switch (value) {
-				case "1":
-					str="拥有角色";
-					break;
-				}
-            	return str;
-			}},
-			{field:"mc",title:"名称",width:200,align:"center"},
-			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
-            	var str;
-            	switch (value) {
-				case 1:
-					str="新增";
-					break;
-				case 2:
-					str="正常使用";
-					break;
-				case 3:
-					str="废弃";
-					break;
-				case 4:
-					str="有误";
-					break;
-				}
-            	return str;
-            }},
-			{field:"ms",title:"描述",width:200,align:"center"}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			//reSizeCol();
-		}
-	});
-}
-
-function initDetailZJJSTab(){
-	detailZJJSTab=$("#detail_zjjs_tab").datagrid({
-		url:path+"main/queryJueSeByIds",
-		width:setFitWidthInParent("#detail_sssj_div","detail_zjjs_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
-		columns:[[
-			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
-				var str;
-            	switch (value) {
-				case "1":
-					str="拥有角色";
-					break;
-				}
-            	return str;
-			}},
-			{field:"mc",title:"名称",width:200,align:"center"},
-			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
-            	var str;
-            	switch (value) {
-				case 1:
-					str="新增";
-					break;
-				case 2:
-					str="正常使用";
-					break;
-				case 3:
-					str="废弃";
-					break;
-				case 4:
-					str="有误";
-					break;
-				}
-            	return str;
-            }},
-			{field:"ms",title:"描述",width:200,align:"center"}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			//reSizeCol();
-		}
-	});
-}
-
-function initEditSSSJJBXXDialog(){
-	editSSSJDialog=$("#edit_sssj_jbxx_dialog_div").dialog({
-		title:"基本信息",
-		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"),
-		height:331,
-		top:60,
-		left:20,
-		buttons:[
-           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openEditSSSJDialog(0);
-           }},
-           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	    editSSSJ();
-           }}
-        ]
-	});
-
-	$("#edit_sssj_jbxx_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"))+"px");
-	$("#edit_sssj_jbxx_dialog_div table").css("magin","-100px");
-	$("#edit_sssj_jbxx_dialog_div table td").css("padding-left","50px");
-	$("#edit_sssj_jbxx_dialog_div table td").css("padding-right","20px");
-	$("#edit_sssj_jbxx_dialog_div table td").css("font-size","15px");
-	$("#edit_sssj_jbxx_dialog_div table tr").css("height","45px");
-
-	$(".panel.window").eq(esssjjbxxdNum).css("margin-top","40px");
-	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(esssjjbxxdNum).css("border-color","#ddd");
-	
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(esssjjbxxdNum).css("margin-top","40px");
-	$(".window,.window .window-body").eq(esssjjbxxdNum).css("border-color","#ddd");
-
-	$("#edit_sssj_jbxx_dialog_div #cancel_but").css("left","30%");
-	$("#edit_sssj_jbxx_dialog_div #cancel_but").css("position","absolute");
-
-	$("#edit_sssj_jbxx_dialog_div #ok_but").css("left","45%");
-	$("#edit_sssj_jbxx_dialog_div #ok_but").css("position","absolute");
-	$(".dialog-button").css("background-color","#fff");
-	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openEditSSSJJBXXDialog(0);
-	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
-}
-
-function initEditSSSJZJJSDialog(){
-	editSSSJZJJSDialog=$("#edit_sssj_zjjs_dialog_div").dialog({
-		title:"直接角色",
-		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"),
-		//height:setFitHeightInParent(".left_nav_div"),
-		height:400,
-		top:435,
-		left:20,
-	});
-
-	$(".panel.window").eq(esssjzjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"))+"px");
-	$(".panel.window").eq(esssjzjjsdNum).css("margin-top","20px");
-	//$(".panel.window").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(esssjzjjsdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(esssjzjjsdNum).css("border-color","#ddd");
-
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(esssjzjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"))+"px");
-	$(".window-shadow").eq(esssjzjjsdNum).css("width","1000px");
-	$(".window-shadow").eq(esssjzjjsdNum).css("margin-top","20px");
-	$(".window-shadow").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
-	
-	$(".window,.window .window-body").eq(esssjzjjsdNum).css("border-color","#ddd");
-
-	initEditZJJSTab();
-	openEditSSSJZJJSDialog(0);
-}
-
-function initDetailSSSJZJJSDialog(){
-	detailSSSJZJJSDialog=$("#detail_sssj_zjjs_dialog_div").dialog({
-		title:"直接角色",
-		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"),
-		//height:setFitHeightInParent(".left_nav_div"),
-		height:400,
-		top:435,
-		left:20,
-	});
-
-	$(".panel.window").eq(dsssjzjjsdNum).css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"))+"px");
-	$(".panel.window").eq(dsssjzjjsdNum).css("margin-top","20px");
-	//$(".panel.window").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(dsssjzjjsdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(dsssjzjjsdNum).css("border-color","#ddd");
-
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(dsssjzjjsdNum).css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"))+"px");
-	$(".window-shadow").eq(dsssjzjjsdNum).css("width","1000px");
-	$(".window-shadow").eq(dsssjzjjsdNum).css("margin-top","20px");
-	$(".window-shadow").eq(dsssjzjjsdNum).css("margin-left",initWindowMarginLeft());
-	
-	$(".window,.window .window-body").eq(dsssjzjjsdNum).css("border-color","#ddd");
-
-	initDetailZJJSTab();
-	openDetailSSSJZJJSDialog(0);
-}
-
-function initDetailSSSJJBXXDialog(){
-	detailSSSJDialog=$("#detail_sssj_jbxx_dialog_div").dialog({
-		title:"基本信息",
-		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"),
-		height:331,
-		top:60,
-		left:20,
-		buttons:[
-           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openDetailSSSJDialog(0);
-           }},
-           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   openDetailSSSJDialog(0);
-           }}
-        ]
-	});
-
-	$("#detail_sssj_jbxx_dialog_div table").css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"))+"px");
-	$("#detail_sssj_jbxx_dialog_div table").css("magin","-100px");
-	$("#detail_sssj_jbxx_dialog_div table td").css("padding-left","50px");
-	$("#detail_sssj_jbxx_dialog_div table td").css("padding-right","20px");
-	$("#detail_sssj_jbxx_dialog_div table td").css("font-size","15px");
-	$("#detail_sssj_jbxx_dialog_div table tr").css("height","45px");
-
-	$(".panel.window").eq(dsssjjbxxdNum).css("margin-top","40px");
-	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(dsssjjbxxdNum).css("border-color","#ddd");
-	
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(dsssjjbxxdNum).css("margin-top","40px");
-	$(".window,.window .window-body").eq(dsssjjbxxdNum).css("border-color","#ddd");
-
-	$("#detail_sssj_jbxx_dialog_div #cancel_but").css("left","30%");
-	$("#detail_sssj_jbxx_dialog_div #cancel_but").css("position","absolute");
-
-	$("#detail_sssj_jbxx_dialog_div #ok_but").css("left","45%");
-	$("#detail_sssj_jbxx_dialog_div #ok_but").css("position","absolute");
-	$(".dialog-button").css("background-color","#fff");
-	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openDetailSSSJJBXXDialog(0);
-	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
 }
 
 function initEditWLXXDialog(){
@@ -2007,17 +2055,6 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function openSelectSSSJDialog(flag){
-	if(flag==1){
-		$("#select_sssj_bg_div").css("display","block");
-		selectSSSJDialog.dialog("open");
-	}
-	else{
-		$("#select_sssj_bg_div").css("display","none");
-		selectSSSJDialog.dialog("close");
-	}
-}
-
 function openSelectWLXXDialog(flag){
 	if(flag==1){
 		selectWLXXDialog.dialog("open");
@@ -2085,24 +2122,6 @@ function openDetailSSSJDialog(flag){
 	openDetailSSSJZJJSDialog(flag);
 }
 
-function openEditSSSJJBXXDialog(flag){
-	if(flag==1){
-		editSSSJDialog.dialog("open");
-	}
-	else{
-		editSSSJDialog.dialog("close");
-	}
-}
-
-function openDetailSSSJJBXXDialog(flag){
-	if(flag==1){
-		detailSSSJDialog.dialog("open");
-	}
-	else{
-		detailSSSJDialog.dialog("close");
-	}
-}
-
 function openEditWLXXDialog(flag){
 	if(flag==1){
 		editWLXXDialog.dialog("open");
@@ -2136,24 +2155,6 @@ function openEditCYCLDialog(flag){
 	}
 	else{
 		editCYCLDialog.dialog("close");
-	}
-}
-
-function openEditSSSJZJJSDialog(flag){
-	if(flag==1){
-		editSSSJZJJSDialog.dialog("open");
-	}
-	else{
-		editSSSJZJJSDialog.dialog("close");
-	}
-}
-
-function openDetailSSSJZJJSDialog(flag){
-	if(flag==1){
-		detailSSSJZJJSDialog.dialog("open");
-	}
-	else{
-		detailSSSJZJJSDialog.dialog("close");
 	}
 }
 
