@@ -71,6 +71,44 @@
 .edit_sssj_div .title_span{
 	margin-left: 30px;
 }
+
+.detail_sssj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9010;
+	display:none;
+}
+.detail_sssj_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	overflow-y: scroll;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_sssj_div .ckst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_sssj_div .ckst_span{
+	margin-left: 30px;
+}
+.detail_sssj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_sssj_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_sssj_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -79,8 +117,10 @@ var dialogLeft=20;
 var ndNum=0;
 var sssjdNum=1;
 var ssssjdNum=2;
-var esssjdNum=3;
-var ezjjsdNum=4;
+var esssjjbxxdNum=3;
+var esssjzjjsdNum=4;
+var dsssjjbxxdNum=5;
+var dsssjzjjsdNum=6;
 
 var wlxxdNum=4;
 var swlxxdNum=5;
@@ -101,8 +141,12 @@ $(function(){
 	
 	initSSSJDialog();//1.所属司机窗口
 	initSelectSSSJDialog();//2.选择所属司机窗口
+	
 	initEditSSSJJBXXDialog();//3.修改所属司机基本信息窗口
-	initEditZJJSDialog();//4.修改直接角色窗口
+	initEditSSSJZJJSDialog();//4.修改所属司机直接角色窗口
+	
+	initDetailSSSJJBXXDialog();//5.查看所属司机基本信息窗口
+	initDetailSSSJZJJSDialog();//6.查看所属司机直接角色窗口
 	
 	//initWLXXDialog();//4.物料信息窗口
 	//initSelectWLXXDialog();//5.选择物料信息窗口
@@ -140,10 +184,16 @@ function initDialogPosition(){
 	var ssssjdws=$("body").find(".window-shadow").eq(ssssjdNum);
 	
 	//编辑所属司机
-	var esssjdpw=$("body").find(".panel.window").eq(esssjdNum);
-	var esssjdws=$("body").find(".window-shadow").eq(esssjdNum);
-	var ezjjsdpw=$("body").find(".panel.window").eq(ezjjsdNum);
-	var ezjjsdws=$("body").find(".window-shadow").eq(ezjjsdNum);
+	var esssjdpw=$("body").find(".panel.window").eq(esssjjbxxdNum);
+	var esssjdws=$("body").find(".window-shadow").eq(esssjjbxxdNum);
+	var ezjjsdpw=$("body").find(".panel.window").eq(esssjzjjsdNum);
+	var ezjjsdws=$("body").find(".window-shadow").eq(esssjzjjsdNum);
+	
+	//查看所属司机
+	var dsssjdpw=$("body").find(".panel.window").eq(dsssjjbxxdNum);
+	var dsssjdws=$("body").find(".window-shadow").eq(dsssjjbxxdNum);
+	var dzjjsdpw=$("body").find(".panel.window").eq(dsssjzjjsdNum);
+	var dzjjsdws=$("body").find(".window-shadow").eq(dsssjzjjsdNum);
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
@@ -156,12 +206,21 @@ function initDialogPosition(){
 	ssDiv.append(ssssjdpw)
 	ssDiv.append(ssssjdws)
 	
+	var esDiv=$("#edit_sssj_div");
+	esDiv.append(esssjdpw)
+	esDiv.append(esssjdws)
 	
-	var ecDiv=$("#edit_sssj_div");
-	ecDiv.append(esssjdpw)
-	ecDiv.append(esssjdws)
-	ecDiv.append(ezjjsdpw)
-	ecDiv.append(ezjjsdws)
+	esDiv.append(ezjjsdpw)
+	esDiv.append(ezjjsdws)
+	
+	var dsDiv=$("#detail_sssj_div");
+	dsDiv.append(dsssjdpw)
+	dsDiv.append(dsssjdws)
+	
+	dsDiv.append(dzjjsdpw)
+	dsDiv.append(dzjjsdws)
+	
+	
 }
 
 function initNewDialog(){
@@ -474,8 +533,9 @@ function initSSSJTab(){
             {field:"nc",title:"昵称",width:200,align:"center"},
             {field:"sm",title:"实名",width:200,align:"center"},
 			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
-            	var str="<a onclick=\"editSSSJTabRow()\">编辑</a>"
-            		+"&nbsp;|&nbsp;<a onclick=\"deleteSSSJTabRow()\">删除</a>";
+            	var str="<a onclick=\"deleteSSSJTabRow()\">删除</a>"
+            		+"&nbsp;|&nbsp;<a onclick=\"editSSSJTabRow()\">编辑</a>"
+            		+"&nbsp;|&nbsp;<a onclick=\"detailSSSJTabRow()\">查看</a>";
             	return str;
             }}
 	    ]],
@@ -1398,10 +1458,66 @@ function initEditZJJSTab(){
 	});
 }
 
+function initDetailZJJSTab(){
+	detailZJJSTab=$("#detail_zjjs_tab").datagrid({
+		url:path+"main/queryJueSeByIds",
+		width:setFitWidthInParent("#detail_sssj_div","detail_zjjs_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="拥有角色";
+					break;
+				}
+            	return str;
+			}},
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="新增";
+					break;
+				case 2:
+					str="正常使用";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				case 4:
+					str="有误";
+					break;
+				}
+            	return str;
+            }},
+			{field:"ms",title:"描述",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
 function initEditSSSJJBXXDialog(){
-	editSSSJDialog=$("#edit_sssjjbxx_dialog_div").dialog({
+	editSSSJDialog=$("#edit_sssj_jbxx_dialog_div").dialog({
 		title:"基本信息",
-		width:setFitWidthInParent("#edit_sssj_div","edit_sssjjbxx_dialog_div"),
+		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"),
 		height:331,
 		top:60,
 		left:20,
@@ -1415,65 +1531,143 @@ function initEditSSSJJBXXDialog(){
         ]
 	});
 
-	$("#edit_sssjjbxx_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssjjbxx_dialog_div"))+"px");
-	$("#edit_sssjjbxx_dialog_div table").css("magin","-100px");
-	$("#edit_sssjjbxx_dialog_div table td").css("padding-left","50px");
-	$("#edit_sssjjbxx_dialog_div table td").css("padding-right","20px");
-	$("#edit_sssjjbxx_dialog_div table td").css("font-size","15px");
-	$("#edit_sssjjbxx_dialog_div table tr").css("height","45px");
+	$("#edit_sssj_jbxx_dialog_div table").css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"))+"px");
+	$("#edit_sssj_jbxx_dialog_div table").css("magin","-100px");
+	$("#edit_sssj_jbxx_dialog_div table td").css("padding-left","50px");
+	$("#edit_sssj_jbxx_dialog_div table td").css("padding-right","20px");
+	$("#edit_sssj_jbxx_dialog_div table td").css("font-size","15px");
+	$("#edit_sssj_jbxx_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(esssjdNum).css("margin-top","40px");
-	$(".panel.window .panel-title").eq(esssjdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(esssjdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(esssjdNum).css("padding-left","10px");
+	$(".panel.window").eq(esssjjbxxdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(esssjjbxxdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(esssjdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(esssjjbxxdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(esssjdNum).css("margin-top","40px");
-	$(".window,.window .window-body").eq(esssjdNum).css("border-color","#ddd");
+	$(".window-shadow").eq(esssjjbxxdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(esssjjbxxdNum).css("border-color","#ddd");
 
-	$("#edit_sssjjbxx_dialog_div #cancel_but").css("left","30%");
-	$("#edit_sssjjbxx_dialog_div #cancel_but").css("position","absolute");
+	$("#edit_sssj_jbxx_dialog_div #cancel_but").css("left","30%");
+	$("#edit_sssj_jbxx_dialog_div #cancel_but").css("position","absolute");
 
-	$("#edit_sssjjbxx_dialog_div #ok_but").css("left","45%");
-	$("#edit_sssjjbxx_dialog_div #ok_but").css("position","absolute");
+	$("#edit_sssj_jbxx_dialog_div #ok_but").css("left","45%");
+	$("#edit_sssj_jbxx_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openEditSSSJJBXXDialog(0);
-	//$(".panel.window").eq(esssjdNum).css("z-index","9010");
+	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
 }
 
-function initEditZJJSDialog(){
-	editZJJSDialog=$("#edit_zjjs_dialog_div").dialog({
+function initEditSSSJZJJSDialog(){
+	editSSSJZJJSDialog=$("#edit_sssj_zjjs_dialog_div").dialog({
 		title:"直接角色",
-		width:setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"),
+		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
 		top:435,
 		left:20,
 	});
 
-	$(".panel.window").eq(ezjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"))+"px");
-	$(".panel.window").eq(ezjjsdNum).css("margin-top","20px");
-	//$(".panel.window").eq(ezjjsdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(ezjjsdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(ezjjsdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(ezjjsdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(ezjjsdNum).css("padding-left","10px");
+	$(".panel.window").eq(esssjzjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"))+"px");
+	$(".panel.window").eq(esssjzjjsdNum).css("margin-top","20px");
+	//$(".panel.window").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(esssjzjjsdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(esssjzjjsdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(ezjjsdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(esssjzjjsdNum).css("border-color","#ddd");
 
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(ezjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_zjjs_dialog_div"))+"px");
-	$(".window-shadow").eq(ezjjsdNum).css("width","1000px");
-	$(".window-shadow").eq(ezjjsdNum).css("margin-top","20px");
-	$(".window-shadow").eq(ezjjsdNum).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(esssjzjjsdNum).css("width",(setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"))+"px");
+	$(".window-shadow").eq(esssjzjjsdNum).css("width","1000px");
+	$(".window-shadow").eq(esssjzjjsdNum).css("margin-top","20px");
+	$(".window-shadow").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(ezjjsdNum).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(esssjzjjsdNum).css("border-color","#ddd");
 
 	initEditZJJSTab();
-	openEditZJJSDialog(0);
+	openEditSSSJZJJSDialog(0);
+}
+
+function initDetailSSSJZJJSDialog(){
+	detailSSSJZJJSDialog=$("#detail_sssj_zjjs_dialog_div").dialog({
+		title:"直接角色",
+		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:435,
+		left:20,
+	});
+
+	$(".panel.window").eq(dsssjzjjsdNum).css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"))+"px");
+	$(".panel.window").eq(dsssjzjjsdNum).css("margin-top","20px");
+	//$(".panel.window").eq(esssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dsssjzjjsdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dsssjzjjsdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dsssjzjjsdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dsssjzjjsdNum).css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"))+"px");
+	$(".window-shadow").eq(dsssjzjjsdNum).css("width","1000px");
+	$(".window-shadow").eq(dsssjzjjsdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dsssjzjjsdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dsssjzjjsdNum).css("border-color","#ddd");
+
+	initDetailZJJSTab();
+	openDetailSSSJZJJSDialog(0);
+}
+
+function initDetailSSSJJBXXDialog(){
+	detailSSSJDialog=$("#detail_sssj_jbxx_dialog_div").dialog({
+		title:"基本信息",
+		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"),
+		height:331,
+		top:60,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailSSSJDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	   openDetailSSSJDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_sssj_jbxx_dialog_div table").css("width",(setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"))+"px");
+	$("#detail_sssj_jbxx_dialog_div table").css("magin","-100px");
+	$("#detail_sssj_jbxx_dialog_div table td").css("padding-left","50px");
+	$("#detail_sssj_jbxx_dialog_div table td").css("padding-right","20px");
+	$("#detail_sssj_jbxx_dialog_div table td").css("font-size","15px");
+	$("#detail_sssj_jbxx_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dsssjjbxxdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dsssjjbxxdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dsssjjbxxdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dsssjjbxxdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dsssjjbxxdNum).css("border-color","#ddd");
+
+	$("#detail_sssj_jbxx_dialog_div #cancel_but").css("left","30%");
+	$("#detail_sssj_jbxx_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_sssj_jbxx_dialog_div #ok_but").css("left","45%");
+	$("#detail_sssj_jbxx_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailSSSJJBXXDialog(0);
+	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
 }
 
 function initEditWLXXDialog(){
@@ -1661,9 +1855,9 @@ function initEditCYCLDialog(){
 }
 
 function editSSSJ(){
-	var id=$("#edit_sssjjbxx_dialog_div #id").val();
-	var yhm=$("#edit_sssjjbxx_dialog_div #yhm").val();
-	var bjsj=$("#edit_sssjjbxx_dialog_div #bjsj").text();
+	var id=$("#edit_sssj_jbxx_dialog_div #id").val();
+	var yhm=$("#edit_sssj_jbxx_dialog_div #yhm").val();
+	var bjsj=$("#edit_sssj_jbxx_dialog_div #bjsj").text();
 	var rows=[{gx:"1",yhm:yhm,bjsj:bjsj,id:id}];
 	loadSSSJTabData(rows);
 	openEditSSSJJBXXDialog(0);
@@ -1710,13 +1904,28 @@ function editSSSJTabRow(){
 		$.messager.alert("提示","请选择要编辑的信息！","warning");
 		return false;
 	}
-	$("#edit_sssjjbxx_dialog_div #id").val(row.id);
-	$("#edit_sssjjbxx_dialog_div #yhm").val(row.yhm);
-	$("#edit_sssjjbxx_dialog_div #nc").val(row.nc);
-	$("#edit_sssjjbxx_dialog_div #sm").val(row.sm);
-	$("#edit_sssjjbxx_dialog_div #ysmm").val(row.ysmm);
-	$("#edit_sssjjbxx_dialog_div #js").val(row.js);
+	$("#edit_sssj_jbxx_dialog_div #id").val(row.id);
+	$("#edit_sssj_jbxx_dialog_div #yhm").val(row.yhm);
+	$("#edit_sssj_jbxx_dialog_div #nc").val(row.nc);
+	$("#edit_sssj_jbxx_dialog_div #sm").val(row.sm);
+	$("#edit_sssj_jbxx_dialog_div #ysmm").val(row.ysmm);
+	$("#edit_sssj_jbxx_dialog_div #js").val(row.js);
 	openEditSSSJDialog(1);
+}
+
+function detailSSSJTabRow(){
+	var row=sssjTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_sssj_jbxx_dialog_div #id").text(row.id);
+	$("#detail_sssj_jbxx_dialog_div #yhm").text(row.yhm);
+	$("#detail_sssj_jbxx_dialog_div #nc").text(row.nc);
+	$("#detail_sssj_jbxx_dialog_div #sm").text(row.sm);
+	$("#detail_sssj_jbxx_dialog_div #ysmm").text(row.ysmm);
+	$("#detail_sssj_jbxx_dialog_div #js").text(row.js);
+	openDetailSSSJDialog(1);
 }
 
 function editWLXXTabRow(){
@@ -1862,7 +2071,18 @@ function openEditSSSJDialog(flag){
 		$("#edit_sssj_bg_div").css("display","none");
 	}
 	openEditSSSJJBXXDialog(flag);
-	openEditZJJSDialog(flag)
+	openEditSSSJZJJSDialog(flag);
+}
+
+function openDetailSSSJDialog(flag){
+	if(flag==1){
+		$("#detail_sssj_bg_div").css("display","block");
+	}
+	else{
+		$("#detail_sssj_bg_div").css("display","none");
+	}
+	openDetailSSSJJBXXDialog(flag);
+	openDetailSSSJZJJSDialog(flag);
 }
 
 function openEditSSSJJBXXDialog(flag){
@@ -1871,6 +2091,15 @@ function openEditSSSJJBXXDialog(flag){
 	}
 	else{
 		editSSSJDialog.dialog("close");
+	}
+}
+
+function openDetailSSSJJBXXDialog(flag){
+	if(flag==1){
+		detailSSSJDialog.dialog("open");
+	}
+	else{
+		detailSSSJDialog.dialog("close");
 	}
 }
 
@@ -1910,12 +2139,21 @@ function openEditCYCLDialog(flag){
 	}
 }
 
-function openEditZJJSDialog(flag){
+function openEditSSSJZJJSDialog(flag){
 	if(flag==1){
-		editZJJSDialog.dialog("open");
+		editSSSJZJJSDialog.dialog("open");
 	}
 	else{
-		editZJJSDialog.dialog("close");
+		editSSSJZJJSDialog.dialog("close");
+	}
+}
+
+function openDetailSSSJZJJSDialog(flag){
+	if(flag==1){
+		detailSSSJZJJSDialog.dialog("open");
+	}
+	else{
+		detailSSSJZJJSDialog.dialog("close");
 	}
 }
 
@@ -2247,11 +2485,13 @@ function setFitWidthInParent(parent,self){
 	case "fhdw_tab":
 		space=355;
 		break;
-	case "edit_sssjjbxx_dialog_div":
+	case "edit_sssj_jbxx_dialog_div":
+	case "detail_sssj_jbxx_dialog_div":
 	case "select_sssj_dialog_div":
 		space=50;
 		break;
-	case "edit_zjjs_dialog_div":
+	case "edit_sssj_zjjs_dialog_div":
+	case "detail_sssj_zjjs_dialog_div":
 		space=60;
 		break;
 	}
@@ -2302,7 +2542,7 @@ function initWindowMarginLeft(){
 		<div class="title_div">
 			<span class="title_span">号码查询-所属司机-修改</span>
 		</div>
-		<div id="edit_sssjjbxx_dialog_div">
+		<div id="edit_sssj_jbxx_dialog_div">
 			<input type="hidden" id="id"/>
 			<table>
 			  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2362,13 +2602,92 @@ function initWindowMarginLeft(){
 			</table>
 		</div>
 		
-		<div id="edit_zjjs_dialog_div">
+		<div id="edit_sssj_zjjs_dialog_div">
 			<input type="hidden" id="id"/>
 			<table id="edit_zjjs_tab"></table>
 		</div>
 	</div>
 </div>
 <!-- 编辑所属司机 end -->
+
+
+<!-- 查看所属司机 start -->
+<div class="detail_sssj_bg_div" id="detail_sssj_bg_div">
+	<div class="detail_sssj_div" id="detail_sssj_div">
+		<div class="ckst_div">
+			<span class="ckst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailSSSJDialog(0)">X</span>
+		</div>
+		<div class="title_div">
+			<span class="title_span">号码查询-所属司机-详情</span>
+		</div>
+		<div id="detail_sssj_jbxx_dialog_div">
+			<input type="hidden" id="id"/>
+			<table>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right" style="width:15%;">
+					用户名
+				</td>
+				<td style="width:30%;">
+					<span id="yhm"></span>
+				</td>
+				<td align="right" style="width:15%;">
+					昵称
+				</td>
+				<td style="width:30%;">
+					<span id="nc"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					头像
+				</td>
+				<td>
+					
+				</td>
+				<td align="right">
+					实名
+				</td>
+				<td>
+					<span id="sm"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					状态
+				</td>
+				<td>
+					
+				</td>
+				<td align="right">
+					原始密码
+				</td>
+				<td>
+					<span id="ysmm"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					简述
+				</td>
+				<td>
+					<span id="js"></span>
+				</td>
+				<td align="right">
+				</td>
+				<td>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		
+		<div id="detail_sssj_zjjs_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_zjjs_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 查看所属司机 end -->
 
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
