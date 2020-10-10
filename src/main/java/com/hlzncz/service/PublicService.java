@@ -171,4 +171,6 @@ public interface PublicService {
 	public List<HaoMaZhuangTai> queryHaoMaZhuangTaiCBBList();
 
 	public List<JueSe> queryJueSeByIds(String ids);
+
+	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids);
 }

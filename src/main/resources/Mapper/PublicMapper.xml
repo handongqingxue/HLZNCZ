@@ -1043,5 +1043,11 @@
 			and id in(#{ids})
 		</if>
 	</select>
+	<select id="queryShouHuoDanWeiByIds" resultType="com.hlzncz.entity.ShouHuoDanWei">
+		select * from shou_huo_dan_wei where 1=1
+		<if test="ids!=''&amp;ids!=null">
+			and id in(#{ids})
+		</if>
+	</select>
 	
 </mapper>

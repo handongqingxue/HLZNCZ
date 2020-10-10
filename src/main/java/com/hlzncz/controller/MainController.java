@@ -1632,6 +1632,20 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/queryShouHuoDanWeiByIds")
+	@ResponseBody
+	public Map<String, Object> queryShouHuoDanWeiByIds(String ids) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<ShouHuoDanWei> shdwList=publicService.queryShouHuoDanWeiByIds(ids);
+
+		jsonMap.put("total", shdwList.size());
+		jsonMap.put("rows", shdwList);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody

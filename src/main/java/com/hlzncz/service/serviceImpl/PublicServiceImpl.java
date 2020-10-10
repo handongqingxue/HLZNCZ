@@ -553,4 +553,10 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.queryJueSeByIds(ids);
 	}
 
+	@Override
+	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids) {
+		// TODO Auto-generated method stub
+		return publicDao.queryShouHuoDanWeiByIds(ids);
+	}
+
 }

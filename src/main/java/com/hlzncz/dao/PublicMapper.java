@@ -169,4 +169,6 @@ public interface PublicMapper {
 	public List<HaoMaZhuangTai> queryHaoMaZhuangTaiCBBList();
 
 	public List<JueSe> queryJueSeByIds(@Param("ids") String ids);
+
+	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(@Param("ids") String ids);
 }
