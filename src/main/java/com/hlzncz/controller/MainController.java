@@ -136,6 +136,14 @@ public class MainController {
 		return "ddgl/zhgl/ddsh/list";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/zhgl/list")
+	public String goZhglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "ddgl/zhgl/zhgl/list";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
@@ -669,6 +677,37 @@ public class MainController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", ddshList);
+		
+		return jsonMap;
+	}
+
+	/**
+	 * 订单管理-综合管理查询
+	 * @param ddh
+	 * @param ddztId
+	 * @param cph
+	 * @param jcsjs
+	 * @param jcsje
+	 * @param jhysrq
+	 * @param yss
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryDDGLZHGLList")
+	@ResponseBody
+	public Map<String, Object> queryDDGLZHGLList(String ddh,Integer ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,
+			int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = publicService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
+		List<DingDan> zhglList=publicService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", zhglList);
 		
 		return jsonMap;
 	}

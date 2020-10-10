@@ -856,53 +856,6 @@ function initDetailSSSJJBXXDialog(){
 	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
 }
 
-
-function initDetailSSDLJBSXZDialog(){
-	detailSSDLDialog=$("#detail_ssdl_jbsxz_dialog_div").dialog({
-		title:"基本属性组",
-		width:setFitWidthInParent("#detail_ssdl_div","detail_ssdl_jbsxz_dialog_div"),
-		height:331,
-		top:60,
-		left:20,
-		buttons:[
-           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openDetailSSDLDialog(0);
-           }},
-           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   openDetailSSDLDialog(0);
-           }}
-        ]
-	});
-
-	$("#detail_ssdl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_ssdl_div","detail_ssdl_jbsxz_dialog_div"))+"px");
-	$("#detail_ssdl_jbsxz_dialog_div table").css("magin","-100px");
-	$("#detail_ssdl_jbsxz_dialog_div table td").css("padding-left","50px");
-	$("#detail_ssdl_jbsxz_dialog_div table td").css("padding-right","20px");
-	$("#detail_ssdl_jbsxz_dialog_div table td").css("font-size","15px");
-	$("#detail_ssdl_jbsxz_dialog_div table tr").css("height","45px");
-
-	$(".panel.window").eq(dssdljbsxzNum).css("margin-top","40px");
-	$(".panel.window .panel-title").eq(dssdljbsxzNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dssdljbsxzNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dssdljbsxzNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(dssdljbsxzNum).css("border-color","#ddd");
-	
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(dssdljbsxzNum).css("margin-top","40px");
-	$(".window,.window .window-body").eq(dssdljbsxzNum).css("border-color","#ddd");
-
-	$("#detail_ssdl_jbsxz_dialog_div #cancel_but").css("left","30%");
-	$("#detail_ssdl_jbsxz_dialog_div #cancel_but").css("position","absolute");
-
-	$("#detail_ssdl_jbsxz_dialog_div #ok_but").css("left","45%");
-	$("#detail_ssdl_jbsxz_dialog_div #ok_but").css("position","absolute");
-	$(".dialog-button").css("background-color","#fff");
-	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openDetailSSDLJBSXZDialog(0);
-	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
-}
-
 function initDetailSSSJZJJSDialog(){
 	detailSSSJZJJSDialog=$("#detail_sssj_zjjs_dialog_div").dialog({
 		title:"直接角色",
@@ -933,38 +886,6 @@ function initDetailSSSJZJJSDialog(){
 
 	initDetailSSSJZJJSTab();
 	openDetailSSSJZJJSDialog(0);
-}
-
-function initDetailSSDLSHDWDialog(){
-	detailSSDLSHDWDialog=$("#detail_ssdl_shdw_dialog_div").dialog({
-		title:"收货单位",
-		width:setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"),
-		//height:setFitHeightInParent(".left_nav_div"),
-		height:400,
-		top:435,
-		left:20,
-	});
-
-	$(".panel.window").eq(dssdlshdwdNum).css("width",(setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"))+"px");
-	$(".panel.window").eq(dssdlshdwdNum).css("margin-top","20px");
-	//$(".panel.window").eq(dssdlshdwdNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(dssdlshdwdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(dssdlshdwdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dssdlshdwdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dssdlshdwdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(dssdlshdwdNum).css("border-color","#ddd");
-
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(dssdlshdwdNum).css("width",(setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"))+"px");
-	$(".window-shadow").eq(dssdlshdwdNum).css("width","1000px");
-	$(".window-shadow").eq(dssdlshdwdNum).css("margin-top","20px");
-	$(".window-shadow").eq(dssdlshdwdNum).css("margin-left",initWindowMarginLeft());
-	
-	$(".window,.window .window-body").eq(dssdlshdwdNum).css("border-color","#ddd");
-
-	initDetailSSDLSHDWTab();
-	openDetailSSDLSHDWDialog(0);
 }
 
 function initDetailSSSJZJJSTab(){
@@ -1066,15 +987,6 @@ function openDetailSSSJJBXXDialog(flag){
 	}
 	else{
 		detailSSSJDialog.dialog("close");
-	}
-}
-
-function openDetailSSDLJBSXZDialog(flag){
-	if(flag==1){
-		detailSSDLDialog.dialog("open");
-	}
-	else{
-		detailSSDLDialog.dialog("close");
 	}
 }
 
@@ -1366,8 +1278,92 @@ function openSelectSSDLDialog(flag){
 	}
 }
 
+function initDetailSSDLJBSXZDialog(){
+	detailSSDLDialog=$("#detail_ssdl_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_ssdl_div","detail_ssdl_jbsxz_dialog_div"),
+		height:331,
+		top:60,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailSSDLDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	   openDetailSSDLDialog(0);
+           }}
+        ]
+	});
 
+	$("#detail_ssdl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_ssdl_div","detail_ssdl_jbsxz_dialog_div"))+"px");
+	$("#detail_ssdl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_ssdl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_ssdl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_ssdl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_ssdl_jbsxz_dialog_div table tr").css("height","45px");
 
+	$(".panel.window").eq(dssdljbsxzNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(dssdljbsxzNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssdljbsxzNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssdljbsxzNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssdljbsxzNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssdljbsxzNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dssdljbsxzNum).css("border-color","#ddd");
+
+	$("#detail_ssdl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_ssdl_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_ssdl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_ssdl_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailSSDLJBSXZDialog(0);
+	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
+}
+
+function openDetailSSDLJBSXZDialog(flag){
+	if(flag==1){
+		detailSSDLDialog.dialog("open");
+	}
+	else{
+		detailSSDLDialog.dialog("close");
+	}
+}
+
+function initDetailSSDLSHDWDialog(){
+	detailSSDLSHDWDialog=$("#detail_ssdl_shdw_dialog_div").dialog({
+		title:"收货单位",
+		width:setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:435,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssdlshdwdNum).css("width",(setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"))+"px");
+	$(".panel.window").eq(dssdlshdwdNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssdlshdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssdlshdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssdlshdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssdlshdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssdlshdwdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssdlshdwdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssdlshdwdNum).css("width",(setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"))+"px");
+	$(".window-shadow").eq(dssdlshdwdNum).css("width","1000px");
+	$(".window-shadow").eq(dssdlshdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssdlshdwdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssdlshdwdNum).css("border-color","#ddd");
+
+	initDetailSSDLSHDWTab();
+	openDetailSSDLSHDWDialog(0);
+}
 
 
 

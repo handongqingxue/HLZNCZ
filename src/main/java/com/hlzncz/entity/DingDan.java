@@ -118,6 +118,14 @@ public class DingDan implements Serializable {
 		this.yssId = yssId;
 	}
 
+	public String getYssmc() {
+		return yssmc;
+	}
+
+	public void setYssmc(String yssmc) {
+		this.yssmc = yssmc;
+	}
+
 	public Integer getWlxxId() {
 		return wlxxId;
 	}
@@ -149,6 +157,14 @@ public class DingDan implements Serializable {
 	public void setCyclId(Integer cyclId) {
 		this.cyclId = cyclId;
 	}
+	
+	public String getCph() {
+		return cph;
+	}
+
+	public void setCph(String cph) {
+		this.cph = cph;
+	}
 
 	public Integer getCysjId() {
 		return cysjId;
@@ -169,10 +185,12 @@ public class DingDan implements Serializable {
 	private String cksj;//出库时间
 	private String ewm;//二维码
 	private Integer yssId;//运输商id
+	private String yssmc;
 	private Integer wlxxId;//物料信息id
 	private Integer fhdwId;//发货单位id
 	private Integer shdwId;//收货单位id
 	private Integer cyclId;//承运车辆id
+	private String cph;
 	private Integer cysjId;//承运司机id
 	
 	public static void main(String[] args) {

@@ -30,6 +30,12 @@ public interface PublicService {
 	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,
 			String order);
 
+	public int queryDDGLZHGLForInt(String ddh, Integer ddztId, String cph, String jcsjs, String jcsje, String jhysrq,
+			String yss);
+
+	public List<DingDan> queryDDGLZHGLList(String ddh, Integer ddztId, String cph, String jcsjs, String jcsje,
+			String jhysrq, String yss, int page, int rows, String sort, String order);
+
 	public DingDan selectDingDanByWybm(String wybm);
 
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
