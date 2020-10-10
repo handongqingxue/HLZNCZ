@@ -109,18 +109,48 @@
 .detail_sssj_div .title_span{
 	margin-left: 30px;
 }
+
+.select_ssdl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_ssdl_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_ssdl_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_ssdl_div .xzst_span{
+	margin-left: 30px;
+}
+.select_ssdl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
-var sssjdNum=1;
-var ssssjdNum=2;
-var esssjjbxxdNum=3;
-var esssjzjjsdNum=4;
-var dsssjjbxxdNum=5;
-var dsssjzjjsdNum=6;
+var sssjdNum=1;//所属司机
+var ssssjdNum=2;//选择所属司机
+var esssjjbxxdNum=3;//编辑所属司机的基本信息
+var esssjzjjsdNum=4;//编辑所属司机的直接角色
+var dsssjjbxxdNum=5;//查看所属司机的基本信息
+var dsssjzjjsdNum=6;//查看所属司机的直接角色
+var ssdldNum=7;//所属队列
+var sssdldNum=8;//选择所属队列
 
 var wlxxdNum=4;
 var swlxxdNum=5;
@@ -147,6 +177,9 @@ $(function(){
 	
 	initDetailSSSJJBXXDialog();//5.查看所属司机基本信息窗口
 	initDetailSSSJZJJSDialog();//6.查看所属司机直接角色窗口
+	
+	initSSDLDialog();//7.所属队列窗口
+	initSelectSSDLDialog();//8.选择所属队列窗口
 	
 	//initWLXXDialog();//4.物料信息窗口
 	//initSelectWLXXDialog();//5.选择物料信息窗口
@@ -194,6 +227,10 @@ function initDialogPosition(){
 	var dsssjdws=$("body").find(".window-shadow").eq(dsssjjbxxdNum);
 	var dzjjsdpw=$("body").find(".panel.window").eq(dsssjzjjsdNum);
 	var dzjjsdws=$("body").find(".window-shadow").eq(dsssjzjjsdNum);
+	
+	//选择所属队列
+	var ssdldpw=$("body").find(".panel.window").eq(ssdldNum);
+	var ssdldws=$("body").find(".window-shadow").eq(ssdldNum);
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
@@ -201,6 +238,9 @@ function initDialogPosition(){
 	
 	ccDiv.append(sssjdpw)
 	ccDiv.append(sssjdws)
+	
+	ccDiv.append(ssdldpw)
+	ccDiv.append(ssdldws)
 	
 	var ssDiv=$("#select_sssj_div");
 	ssDiv.append(ssssjdpw)
@@ -453,6 +493,52 @@ function initSelectSSSJDialog(){
 	openSelectSSSJDialog(0);
 }
 
+function initSelectSSDLDialog(){
+	selectSSDLDialog=$("#select_ssdl_dialog_div").dialog({
+		title:"选择实体",
+		width:setFitWidthInParent("#select_ssdl_div","select_ssdl_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:160,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectSSDLDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectSSDL();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(sssdldNum).css("width","983px");
+	$(".panel.window").eq(sssdldNum).css("margin-top","20px");
+	//$(".panel.window").eq(sssdldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(sssdldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sssdldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sssdldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sssdldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(sssdldNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(sssdldNum).css("width","1000px");
+	$(".window-shadow").eq(sssdldNum).css("margin-top","20px");
+	$(".window-shadow").eq(sssdldNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(sssdldNum).css("border-color","#ddd");
+
+	$("#select_ssdl_dialog_div #cancel_but").css("left","30%");
+	$("#select_ssdl_dialog_div #cancel_but").css("position","absolute");
+	
+	$("#select_ssdl_dialog_div #save_but").css("left","45%");
+	$("#select_ssdl_dialog_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectSSDLTab();
+	openSelectSSDLDialog(0);
+}
+
 function initSelectSSSJTab(){
 	sssjZTCBB=$("#select_sssj_toolbar #zt_cbb").combobox({
 		valueField:"value",
@@ -523,6 +609,74 @@ function initSelectSSSJTab(){
 	});
 }
 
+function initSelectSSDLTab(){
+	ssdlZTCBB=$("#select_ssdl_toolbar #zt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[
+			{"value":"","text":"请选择状态"},
+			{"value":"1","text":"在用"},
+			{"value":"2","text":"暂停"},
+			{"value":"3","text":"废弃"}
+		]
+	});
+	
+	$("#select_ssdl_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var mc=$("#select_sssj_toolbar #mc_inp").val();
+			var dm=$("#select_sssj_toolbar #dm_inp").val();
+			var zt=ssdlZTCBB.combobox("getValue");
+			selectSSSJTab.datagrid("load",{mc:mc,dm:dm,zt:zt});
+		}
+	});
+	
+	selectSSDLTab=$("#select_ssdl_tab").datagrid({
+		url:path+"main/queryDuiLieList",
+		toolbar:"#select_ssdl_toolbar",
+		width:setFitWidthInParent("body","select_ssdl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"dm",title:"代码",width:200,align:"center"},
+			{field:"jhxs",title:"叫号形式",width:200,align:"center"},
+			{field:"jhyz",title:"叫号阈值",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+            	var str;
+            	switch (value) {
+				case 1:
+					str="在用";
+					break;
+				case 2:
+					str="暂停";
+					break;
+				case 3:
+					str="废弃";
+					break;
+				}
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
 function openSelectSSSJDialog(flag){
 	if(flag==1){
 		$("#select_sssj_bg_div").css("display","block");
@@ -531,6 +685,17 @@ function openSelectSSSJDialog(flag){
 	else{
 		$("#select_sssj_bg_div").css("display","none");
 		selectSSSJDialog.dialog("close");
+	}
+}
+
+function openSelectSSDLDialog(flag){
+	if(flag==1){
+		$("#select_ssdl_bg_div").css("display","block");
+		selectSSDLDialog.dialog("open");
+	}
+	else{
+		$("#select_ssdl_bg_div").css("display","none");
+		selectSSDLDialog.dialog("close");
 	}
 }
 
@@ -837,6 +1002,104 @@ function openDetailSSSJZJJSDialog(flag){
 		detailSSSJZJJSDialog.dialog("close");
 	}
 }
+
+function initSSDLDialog(){
+	dialogTop+=320;//330
+	yssDialog=$("#ssdl_div").dialog({
+		title:"所属队列",
+		width:setFitWidthInParent("body","ssdl_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:300,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(ssdldNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(ssdldNum).css("margin-top","20px");
+	$(".panel.window").eq(ssdldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(ssdldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(ssdldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ssdldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ssdldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(ssdldNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(ssdldNum).css("width","1000px");
+	$(".window-shadow").eq(ssdldNum).css("margin-top","20px");
+	$(".window-shadow").eq(ssdldNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(ssdldNum).css("border-color","#ddd");
+
+	initSSDLTab();
+}
+
+function initSSDLTab(){
+	ssdlChooseLB=$("#ssdl_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectSSDLDialog(1);
+		}
+	});
+	
+	ssdlTab=$("#ssdl_tab").datagrid({
+		toolbar:"#ssdl_toolbar",
+		width:setFitWidthInParent("body","ssdl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="所在队列";
+					break;
+				}
+				return str;
+			}},
+            {field:"dm",title:"代码",width:200,align:"center"},
+            {field:"mc",title:"名称",width:200,align:"center"},
+            {field:"jhyz",title:"叫号阈值",width:200,align:"center"},
+            {field:"jhxs",title:"叫号形式",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"deleteSSDLTabRow()\">删除</a>"
+            		+"&nbsp;|&nbsp;<a onclick=\"detailSSDLTabRow()\">查看</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:6});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadSSDLTabData([]);
+}
+
+function loadSSDLTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		ssdlChooseLB.linkbutton("disable");
+	else
+		ssdlChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	ssdlTab.datagrid('loadData',obj);
+}
+
+
+
+
 
 function initWLXXDialog(){
 	dialogTop+=320;//650
@@ -1976,6 +2239,21 @@ function detailSSSJTabRow(){
 	openDetailSSSJDialog(1);
 }
 
+function detailSSDLTabRow(){
+	var row=ssdlTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_ssdl_jbxx_dialog_div #id").text(row.id);
+	$("#detail_ssdl_jbxx_dialog_div #yhm").text(row.yhm);
+	$("#detail_ssdl_jbxx_dialog_div #nc").text(row.nc);
+	$("#detail_ssdl_jbxx_dialog_div #sm").text(row.sm);
+	$("#detail_ssdl_jbxx_dialog_div #ysmm").text(row.ysmm);
+	$("#detail_ssdl_jbxx_dialog_div #js").text(row.js);
+	openDetailSSSJDialog(1);
+}
+
 function editWLXXTabRow(){
 	var row=wlxxTab.datagrid("getSelected");
 	if (row == null) {
@@ -2015,6 +2293,11 @@ function editSHDWTabRow(){
 function deleteSSSJTabRow(){
 	sssjTab.datagrid("deleteRow",0);
 	loadSSSJTabData([]);
+}
+
+function deleteSSDLTabRow(){
+	ssdlTab.datagrid("deleteRow",0);
+	loadSSDLTabData([]);
 }
 
 function deleteWLXXTabRow(){
@@ -2167,6 +2450,17 @@ function saveSelectSSSJ(){
 	var rows=[{gx:"1",yhm:row.yhm,nc:row.nc,sm:row.sm,ysmm:row.ysmm,js:row.js,id:row.id}];
 	loadSSSJTabData(rows);
 	openSelectSSSJDialog(0);
+}
+
+function saveSelectSSDL(){
+	var row=selectSSDLTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择所属队列！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",dm:row.dm,mc:row.mc,jhyz:row.jhyz,jhxs:row.jhxs,id:row.id}];
+	loadSSDLTabData(rows);
+	openSelectSSDLDialog(0);
 }
 
 function saveSelectWLXX(){
@@ -2465,6 +2759,7 @@ function setFitWidthInParent(parent,self){
 	switch (self) {
 	case "new_div":
 	case "sssj_div":
+	case "ssdl_div":
 	case "select_sssj_tab":
 	case "wlxx_div":
 	case "select_wlxx_tab":
@@ -2489,6 +2784,7 @@ function setFitWidthInParent(parent,self){
 	case "edit_sssj_jbxx_dialog_div":
 	case "detail_sssj_jbxx_dialog_div":
 	case "select_sssj_dialog_div":
+	case "select_ssdl_dialog_div":
 		space=50;
 		break;
 	case "edit_sssj_zjjs_dialog_div":
@@ -2690,6 +2986,29 @@ function initWindowMarginLeft(){
 </div>
 <!-- 查看所属司机 end -->
 
+<!-- 选择所属队列 start -->
+<div class="select_ssdl_bg_div" id="select_ssdl_bg_div">
+	<div class="select_ssdl_div" id="select_ssdl_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectSSDLDialog(0)">X</span>
+		</div>
+		<div id="select_ssdl_dialog_div">
+			<div id="select_ssdl_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">名称：</span>
+				<input type="text" id="mc_inp" placeholder="名称" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">代码：</span>
+				<input type="text" id="dm_inp" placeholder="代码" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">状态：</span>
+				<input id="zt_cbb"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_ssdl_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择所属队列 end -->
+
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<!-- 新字段组 start -->
@@ -2767,6 +3086,15 @@ function initWindowMarginLeft(){
 		<table id="sssj_tab"></table>
 	</div>
 	<!-- 所属司机 end -->
+	
+	<!-- 所属队列 start -->
+	<div id="ssdl_div">
+		<div id="ssdl_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="ssdl_tab"></table>
+	</div>
+	<!-- 所属队列 end -->
 	
 	
 	
