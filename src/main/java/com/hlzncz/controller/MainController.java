@@ -1685,6 +1685,19 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/selectYunShuShangById")
+	@ResponseBody
+	public Map<String, Object> selectYunShuShangById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		YunShuShang yss=publicService.selectYunShuShangById(id);
+
+		jsonMap.put("yss", yss);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody

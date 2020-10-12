@@ -203,6 +203,44 @@
 .select_ssdd_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
+
+.detail_ssdd_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9024;
+	display:none;
+}
+.detail_ssdd_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	overflow-y: scroll;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_ssdd_div .ckst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_ssdd_div .ckst_span{
+	margin-left: 30px;
+}
+.detail_ssdd_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_ssdd_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_ssdd_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -225,6 +263,9 @@ var dssdlshdwdNum=10;//查看所属队列收货单位
 var ssdddNum=11;//所属订单
 var sssdddNum=12;//选择所属订单
 
+var dssddjbxxNum=13;//查看所属订单基本信息
+var dssddyssdNum=14;//查看所属订单运输商
+
 $(function(){
 	initNewDialog();//0
 	
@@ -245,6 +286,9 @@ $(function(){
 
 	initSSDDDialog();//11.所属订单窗口
 	initSelectSSDDDialog();//12.选择所属队列窗口
+	
+	initDetailSSDDJBXXDialog();//13.查看所属订单基本信息窗口
+	initDetailSSDDYSSDialog();//14.查看所属订单运输商窗口
 	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -296,6 +340,12 @@ function initDialogPosition(){
 	var sssdddpw=$("body").find(".panel.window").eq(sssdddNum);
 	var sssdddws=$("body").find(".window-shadow").eq(sssdddNum);
 
+	//查看所属订单
+	var dssdddpw=$("body").find(".panel.window").eq(dssddjbxxNum);
+	var dssdddws=$("body").find(".window-shadow").eq(dssddjbxxNum);
+	var dssddyssdpw=$("body").find(".panel.window").eq(dssddyssdNum);
+	var dssddyssdws=$("body").find(".window-shadow").eq(dssddyssdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
 	ccDiv.append(ndws);
@@ -341,6 +391,13 @@ function initDialogPosition(){
 	var sssddDiv=$("#select_ssdd_div");
 	sssddDiv.append(sssdddpw);
 	sssddDiv.append(sssdddws);
+	
+	var dssddDiv=$("#detail_ssdd_div");
+	dssddDiv.append(dssdddpw);
+	dssddDiv.append(dssdddws);
+
+	dssdlDiv.append(dssddyssdpw);
+	dssdlDiv.append(dssddyssdws);
 	
 }
 
@@ -1032,6 +1089,43 @@ function initDetailSSDLSHDWTab(){
 	});
 }
 
+function initDetailSSDDYSSTab(){
+	detailSSDDYSSTab=$("#detail_ssdd_yss_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_yss_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="关联运输商";
+					break;
+				}
+            	return str;
+			}},
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
 function openDetailSSSJJBXXDialog(flag){
 	if(flag==1){
 		detailSSSJDialog.dialog("open");
@@ -1056,6 +1150,15 @@ function openDetailSSDLSHDWDialog(flag){
 	}
 	else{
 		detailSSDLSHDWDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDYSSDialog(flag){
+	if(flag==1){
+		detailSSDDYSSDialog.dialog("open");
+	}
+	else{
+		detailSSDDYSSDialog.dialog("close");
 	}
 }
 
@@ -1202,8 +1305,7 @@ function initSSDDTab(){
 			}},
             {field:"ddh",title:"订单号",width:200,align:"center"},
             {field:"cph",title:"车牌号",width:200,align:"center"},
-            {field:"ddzt",title:"订单状态",width:200,align:"center"},
-            {field:"wybm",title:"唯一编码",width:200,align:"center"},
+            {field:"ddztmc",title:"订单状态",width:200,align:"center"},
 			{field:"wybm",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"deleteSSDDTabRow()\">删除</a>"
             		+"&nbsp;|&nbsp;<a onclick=\"detailSSDDTabRow()\">查看</a>";
@@ -1213,7 +1315,7 @@ function initSSDDTab(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:6});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
 				data.total=0;
 			}
 			
@@ -1232,6 +1334,11 @@ function initSSDDTab(){
 function deleteSSDLTabRow(){
 	ssdlTab.datagrid("deleteRow",0);
 	loadSSDLTabData([]);
+}
+
+function deleteSSDDTabRow(){
+	ssddTab.datagrid("deleteRow",0);
+	loadSSDDTabData([]);
 }
 
 function detailSSDLTabRow(){
@@ -1274,6 +1381,36 @@ function detailSSDLTabRow(){
 	,"json");
 	
 	openDetailSSDLDialog(1);
+}
+
+function detailSSDDTabRow(){
+	var row=ssddTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_ssdd_jbxx_dialog_div #wybm").text(row.wybm);
+	$("#detail_ssdd_jbxx_dialog_div #ddh").text(row.ddh);
+	$("#detail_ssdd_jbxx_dialog_div #yzxzl").text(row.yzxzl);
+	$("#detail_ssdd_jbxx_dialog_div #lxlx").text(row.lxlx==1?"送运":"取运");
+	$("#detail_ssdd_jbxx_dialog_div #bjsj").text(row.bjsj);
+	
+	$("#detail_ssdd_yss_dialog_div #id").val(row.yssId);
+	
+	alert(row.yssId);
+	$.post(path+"main/selectYunShuShangById",
+		{ids:row.yssId},
+		function(result){
+			var yss=result.yss;
+			var rows=[];
+			alert(yss.id);
+			rows[0]=yss;
+			var obj = {"total":rows.length,"rows":rows};
+			detailSSDDYSSTab.datagrid('loadData',obj);
+		}
+	,"json");
+	
+	openDetailSSDDDialog(1);
 }
 
 function loadSSDLTabData(rows){
@@ -1459,24 +1596,22 @@ function initSelectSSDLTab(){
 }
 
 function initSelectSSDDTab(){
-	ssddZTCBB=$("#select_ssdd_toolbar #zt_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[
-			{"value":"","text":"请选择状态"},
-			{"value":"1","text":"在用"},
-			{"value":"2","text":"暂停"},
-			{"value":"3","text":"废弃"}
-		]
-	});
+	initSSDDDDZTCBB();
+	initSSDDJCSJSDTB();
+	initSSDDJCSJEDTB();
+	initSSDDJHYSRQDTB();
 	
 	$("#select_ssdd_toolbar #search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var mc=$("#select_ssdd_toolbar #mc_inp").val();
-			var dm=$("#select_ssdd_toolbar #dm_inp").val();
-			var zt=ssddZTCBB.combobox("getValue");
-			selectSSDDTab.datagrid("load",{mc:mc,dm:dm,zt:zt});
+			var ddh=$("#select_ssdd_toolbar #ddh_inp").val();
+			var ddzt=ssddDDZTCBB.combobox("getValue");
+			var cph=$("#select_ssdd_toolbar #cph_inp").val();
+			var jcsjs=jcsjsDTB.datetimebox("getValue");
+			var jcsje=jcsjeDTB.datetimebox("getValue");
+			var jhysrq=jhysrqDB.datebox("getValue");
+			var yss=$("#select_ssdd_toolbar #yss_inp").val();
+			selectSSDDTab.datagrid("load",{ddh:ddh,ddztId:ddzt,cph:cph,jcsjs:jcsjs,jcsje:jcsje,jhysrq:jhysrq,yss:yss});
 		}
 	});
 	
@@ -1517,6 +1652,44 @@ function initSelectSSDDTab(){
 			//reSizeCol();
 		}
 	});
+}
+
+function initSSDDDDZTCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择订单状态"});
+	$.post(path+"main/queryDingDanZhuangTaiCBBList",
+		function(result){
+			var rows=result.rows;
+			for(var i=0;i<rows.length;i++){
+				data.push({"value":rows[i].id,"text":rows[i].mc});
+			}
+			ssddDDZTCBB=$("#select_ssdd_toolbar #ddzt_cbb").combobox({
+				valueField:"value",
+				textField:"text",
+				data:data
+			});
+		}
+	,"json");
+	
+	
+}
+
+function initSSDDJCSJSDTB(){
+	jcsjsDTB=$('#select_ssdd_toolbar #jcsjs_dtb').datetimebox({
+        required:false
+    });
+}
+
+function initSSDDJCSJEDTB(){
+	jcsjeDTB=$('#select_ssdd_toolbar #jcsje_dtb').datetimebox({
+        required:false
+    });
+}
+
+function initSSDDJHYSRQDTB(){
+	jhysrqDB=$('#select_ssdd_toolbar #jhysrq_db').datebox({
+        required:false
+    });
 }
 
 function openSelectSSDLDialog(flag){
@@ -1587,12 +1760,67 @@ function initDetailSSDLJBSXZDialog(){
 	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
 }
 
+function initDetailSSDDJBXXDialog(){
+	detailSSDDDialog=$("#detail_ssdd_jbxx_dialog_div").dialog({
+		title:"基本信息",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jbxx_dialog_div"),
+		height:331,
+		top:60,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailSSDDDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	   openDetailSSDDDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_ssdd_jbxx_dialog_div table").css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jbxx_dialog_div"))+"px");
+	$("#detail_ssdd_jbxx_dialog_div table").css("magin","-100px");
+	$("#detail_ssdd_jbxx_dialog_div table td").css("padding-left","50px");
+	$("#detail_ssdd_jbxx_dialog_div table td").css("padding-right","20px");
+	$("#detail_ssdd_jbxx_dialog_div table td").css("font-size","15px");
+	$("#detail_ssdd_jbxx_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dssddjbxxNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(dssddjbxxNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddjbxxNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddjbxxNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddjbxxNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddjbxxNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dssddjbxxNum).css("border-color","#ddd");
+
+	$("#detail_ssdd_jbxx_dialog_div #cancel_but").css("left","30%");
+	$("#detail_ssdd_jbxx_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_ssdd_jbxx_dialog_div #ok_but").css("left","45%");
+	$("#detail_ssdd_jbxx_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailSSDDJBXXDialog(0);
+	//$(".panel.window").eq(esssjjbxxdNum).css("z-index","9010");
+}
+
 function openDetailSSDLJBSXZDialog(flag){
 	if(flag==1){
 		detailSSDLDialog.dialog("open");
 	}
 	else{
 		detailSSDLDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDJBXXDialog(flag){
+	if(flag==1){
+		detailSSDDDialog.dialog("open");
+	}
+	else{
+		detailSSDDDialog.dialog("close");
 	}
 }
 
@@ -1626,6 +1854,38 @@ function initDetailSSDLSHDWDialog(){
 
 	initDetailSSDLSHDWTab();
 	openDetailSSDLSHDWDialog(0);
+}
+
+function initDetailSSDDYSSDialog(){
+	detailSSDDYSSDialog=$("#detail_ssdd_yss_dialog_div").dialog({
+		title:"运输商",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_yss_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:435,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddyssdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_yss_dialog_div"))+"px");
+	$(".panel.window").eq(dssddyssdNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssddyssdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssddyssdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddyssdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddyssdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddyssdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddyssdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddyssdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_yss_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddyssdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddyssdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddyssdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddyssdNum).css("border-color","#ddd");
+
+	initDetailSSDDYSSTab();
+	openDetailSSDDYSSDialog(0);
 }
 
 
@@ -1695,6 +1955,17 @@ function openDetailSSDLDialog(flag){
 	openDetailSSDLSHDWDialog(flag);
 }
 
+function openDetailSSDDDialog(flag){
+	if(flag==1){
+		$("#detail_ssdd_bg_div").css("display","block");
+	}
+	else{
+		$("#detail_ssdd_bg_div").css("display","none");
+	}
+	openDetailSSDDJBXXDialog(flag);
+	openDetailSSDDYSSDialog(flag);
+}
+
 function saveSelectSSSJ(){
 	var row=selectSSSJTab.datagrid("getSelected");
 	if (row == null) {
@@ -1715,6 +1986,17 @@ function saveSelectSSDL(){
 	var rows=[{gx:"1",mc:row.mc,dm:row.dm,jhyz:row.jhyz,jhxs:row.jhxs,zt:row.zt,shdwId:row.shdwId,id:row.id}];
 	loadSSDLTabData(rows);
 	openSelectSSDLDialog(0);
+}
+
+function saveSelectSSDD(){
+	var row=selectSSDDTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择所属订单！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,wybm:row.wybm}];
+	loadSSDDTabData(rows);
+	openSelectSSDDDialog(0);
 }
 
 function checkNew(){
@@ -2223,14 +2505,16 @@ function initWindowMarginLeft(){
 			<span class="close_span" onclick="openSelectSSDDDialog(0)">X</span>
 		</div>
 		<div id="select_ssdd_dialog_div">
-			<div id="select_ssdd_toolbar" style="height:64px;">
+			<div id="select_ssdd_toolbar" style="height:96px;">
 				<div style="height:32px;">
 					<span style="margin-left: 13px;">订单号：</span>
-					<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
+					<input type="text" id="ddh_inp" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
 					<span style="margin-left: 13px;">订单状态：</span>
-					<input id="ddzt"/>
+					<input id="ddzt_cbb"/>
 					<span style="margin-left: 13px;">车牌号：</span>
-					<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+					<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+				</div>
+				<div style="height:32px;">
 					<span style="margin-left: 13px;">进场时间：</span>
 					<input id="jcsjs_dtb"/>
 					-
@@ -2240,7 +2524,7 @@ function initWindowMarginLeft(){
 					<span style="margin-left: 13px;">计划运输日期：</span>
 					<input id="jhysrq_db"/>
 					<span style="margin-left: 13px;">运输商：</span>
-					<input type="text" id="yss" placeholder="请输入运输商" style="width: 120px;height: 25px;"/>
+					<input type="text" id="yss_inp" placeholder="请输入运输商" style="width: 120px;height: 25px;"/>
 					<a id="search_but" style="margin-left: 13px;">查询</a>
 				</div>
 			</div>
@@ -2249,6 +2533,98 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 选择所属订单 end -->
+
+<!-- 查看所属订单 start -->
+<div class="detail_ssdd_bg_div" id="detail_ssdd_bg_div">
+	<div class="detail_ssdd_div" id="detail_ssdd_div">
+		<div class="ckst_div">
+			<span class="ckst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailSSDDDialog(0)">X</span>
+		</div>
+		<div class="title_div">
+			<span class="title_span">号码查询-所属订单-详情</span>
+		</div>
+		<div id="detail_ssdd_jbxx_dialog_div">
+			<input type="hidden" id="id"/>
+			<table>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right" style="width:15%;">
+					订单号
+				</td>
+				<td style="width:30%;">
+					<span id="ddh"></span>
+				</td>
+				<td align="right" style="width:15%;">
+					预装卸重量
+				</td>
+				<td style="width:30%;">
+					<span id="yzxzl"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					流向类型
+				</td>
+				<td>
+					<span id="lxlx"></span>
+				</td>
+				<td align="right">
+					编辑时间
+				</td>
+				<td>
+					<span id="bjsj"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					二维码
+				</td>
+				<td>
+					<span id="ewm"></span>
+				</td>
+				<td align="right">
+					实际重量
+				</td>
+				<td>
+					<span id="sjzl"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					重量差额比
+				</td>
+				<td>
+					<span id="zlceb"></span>
+				</td>
+				<td align="right">
+					订单状态
+				</td>
+				<td>
+					<span id="ddzt"></span>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right">
+					计划运输日期
+				</td>
+				<td>
+					<span id="jhysrq"></span>
+				</td>
+				<td align="right">
+				</td>
+				<td>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		
+		<div id="detail_ssdd_yss_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_yss_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 查看所属订单 end -->
 
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
