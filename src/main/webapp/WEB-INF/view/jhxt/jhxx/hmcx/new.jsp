@@ -265,6 +265,9 @@ var sssdddNum=12;//选择所属订单
 
 var dssddjbxxNum=13;//查看所属订单基本信息
 var dssddyssdNum=14;//查看所属订单运输商
+var dssddwlxxdNum=15;//查看所属订单物料信息
+var dssddfhdwdNum=16;//查看所属订单发货单位
+var dssddshdwdNum=17;//查看所属订单收货单位
 
 $(function(){
 	initNewDialog();//0
@@ -285,10 +288,13 @@ $(function(){
 	initDetailSSDLSHDWDialog();//10.查看所属队列收货单位窗口
 
 	initSSDDDialog();//11.所属订单窗口
-	initSelectSSDDDialog();//12.选择所属队列窗口
+	initSelectSSDDDialog();//12.选择所属订单窗口
 	
 	initDetailSSDDJBXXDialog();//13.查看所属订单基本信息窗口
 	initDetailSSDDYSSDialog();//14.查看所属订单运输商窗口
+	initDetailSSDDWLXXDialog();//15.查看所属订单物料信息窗口
+	initDetailSSDDFHDWDialog();//16.查看所属订单发货单位窗口
+	initDetailSSDDSHDWDialog();//17.查看所属订单收货单位窗口
 	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -345,6 +351,12 @@ function initDialogPosition(){
 	var dssdddws=$("body").find(".window-shadow").eq(dssddjbxxNum);
 	var dssddyssdpw=$("body").find(".panel.window").eq(dssddyssdNum);
 	var dssddyssdws=$("body").find(".window-shadow").eq(dssddyssdNum);
+	var dssddwlxxdpw=$("body").find(".panel.window").eq(dssddwlxxdNum);
+	var dssddwlxxdws=$("body").find(".window-shadow").eq(dssddwlxxdNum);
+	var dssddfhdwdpw=$("body").find(".panel.window").eq(dssddfhdwdNum);
+	var dssddfhdwdws=$("body").find(".window-shadow").eq(dssddfhdwdNum);
+	var dssddshdwdpw=$("body").find(".panel.window").eq(dssddshdwdNum);
+	var dssddshdwdws=$("body").find(".window-shadow").eq(dssddshdwdNum);
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
@@ -398,6 +410,15 @@ function initDialogPosition(){
 
 	dssddDiv.append(dssddyssdpw);
 	dssddDiv.append(dssddyssdws);
+	
+	dssddDiv.append(dssddwlxxdpw);
+	dssddDiv.append(dssddwlxxdws);
+	
+	dssddDiv.append(dssddfhdwdpw);
+	dssddDiv.append(dssddfhdwdws);
+
+	dssddDiv.append(dssddshdwdpw);
+	dssddDiv.append(dssddshdwdws);
 	
 }
 
@@ -1128,6 +1149,121 @@ function initDetailSSDDYSSTab(){
 	});
 }
 
+function initDetailSSDDWLXXTab(){
+	detailSSDDWLXXTab=$("#detail_ssdd_wlxx_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_wlxx_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="运输物资";
+					break;
+				}
+            	return str;
+			}},
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDFHDWTab(){
+	detailSSDDFHDWTab=$("#detail_ssdd_fhdw_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_fhdw_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="发货单位";
+					break;
+				}
+            	return str;
+			}},
+			{field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDSHDWTab(){
+	detailSSDDSHDWTab=$("#detail_ssdd_shdw_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_shdw_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="收货单位";
+					break;
+				}
+            	return str;
+			}},
+			{field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
 function openDetailSSSJJBXXDialog(flag){
 	if(flag==1){
 		detailSSSJDialog.dialog("open");
@@ -1161,6 +1297,33 @@ function openDetailSSDDYSSDialog(flag){
 	}
 	else{
 		detailSSDDYSSDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDWLXXDialog(flag){
+	if(flag==1){
+		detailSSDDWLXXDialog.dialog("open");
+	}
+	else{
+		detailSSDDWLXXDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDFHDWDialog(flag){
+	if(flag==1){
+		detailSSDDFHDWDialog.dialog("open");
+	}
+	else{
+		detailSSDDFHDWDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDSHDWDialog(flag){
+	if(flag==1){
+		detailSSDDSHDWDialog.dialog("open");
+	}
+	else{
+		detailSSDDSHDWDialog.dialog("close");
 	}
 }
 
@@ -1408,6 +1571,42 @@ function detailSSDDTabRow(){
 			rows[0]=yss;
 			var obj = {"total":rows.length,"rows":rows};
 			detailSSDDYSSTab.datagrid('loadData',obj);
+		}
+	,"json");
+
+	$.post(path+"main/selectWuZiById",
+		{id:row.wlxxId},
+		function(result){
+			var wz=result.wz;
+			wz.gx="1";
+			var rows=[];
+			rows[0]=wz;
+			var obj = {"total":rows.length,"rows":rows};
+			detailSSDDWLXXTab.datagrid('loadData',obj);
+		}
+	,"json");
+
+	$.post(path+"main/selectFaHuoDanWeiById",
+		{id:row.fhdwId},
+		function(result){
+			var fhdw=result.fhdw;
+			fhdw.gx="1";
+			var rows=[];
+			rows[0]=fhdw;
+			var obj = {"total":rows.length,"rows":rows};
+			detailSSDDFHDWTab.datagrid('loadData',obj);
+		}
+	,"json");
+
+	$.post(path+"main/selectShouHuoDanWeiById",
+		{id:row.shdwId},
+		function(result){
+			var shdw=result.shdw;
+			shdw.gx="1";
+			var rows=[];
+			rows[0]=shdw;
+			var obj = {"total":rows.length,"rows":rows};
+			detailSSDDSHDWTab.datagrid('loadData',obj);
 		}
 	,"json");
 	
@@ -1862,7 +2061,7 @@ function initDetailSSDDYSSDialog(){
 		title:"运输商",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_yss_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
-		height:400,
+		height:200,
 		top:435,
 		left:20,
 	});
@@ -1887,6 +2086,102 @@ function initDetailSSDDYSSDialog(){
 
 	initDetailSSDDYSSTab();
 	openDetailSSDDYSSDialog(0);
+}
+
+function initDetailSSDDWLXXDialog(){
+	detailSSDDWLXXDialog=$("#detail_ssdd_wlxx_dialog_div").dialog({
+		title:"物料信息",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_wlxx_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:655,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddwlxxdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_wlxx_dialog_div"))+"px");
+	$(".panel.window").eq(dssddwlxxdNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssddwlxxdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssddwlxxdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddwlxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddwlxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddwlxxdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddwlxxdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddwlxxdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_wlxx_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddwlxxdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddwlxxdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddwlxxdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddwlxxdNum).css("border-color","#ddd");
+
+	initDetailSSDDWLXXTab();
+	openDetailSSDDWLXXDialog(0);
+}
+
+function initDetailSSDDFHDWDialog(){
+	detailSSDDFHDWDialog=$("#detail_ssdd_fhdw_dialog_div").dialog({
+		title:"发货单位",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_fhdw_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:885,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddfhdwdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_fhdw_dialog_div"))+"px");
+	$(".panel.window").eq(dssddfhdwdNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssddfhdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssddfhdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddfhdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddfhdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddfhdwdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddfhdwdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddfhdwdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_fhdw_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddfhdwdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddfhdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddfhdwdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddfhdwdNum).css("border-color","#ddd");
+
+	initDetailSSDDFHDWTab();
+	openDetailSSDDFHDWDialog(0);
+}
+
+function initDetailSSDDSHDWDialog(){
+	detailSSDDSHDWDialog=$("#detail_ssdd_shdw_dialog_div").dialog({
+		title:"收货单位",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_shdw_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:1115,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddshdwdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_shdw_dialog_div"))+"px");
+	$(".panel.window").eq(dssddshdwdNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssddfhdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssddshdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddshdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddshdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddshdwdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddshdwdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddshdwdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_shdw_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddshdwdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddshdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddshdwdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddshdwdNum).css("border-color","#ddd");
+
+	initDetailSSDDSHDWTab();
+	openDetailSSDDSHDWDialog(0);
 }
 
 
@@ -1965,6 +2260,9 @@ function openDetailSSDDDialog(flag){
 	}
 	openDetailSSDDJBXXDialog(flag);
 	openDetailSSDDYSSDialog(flag);
+	openDetailSSDDWLXXDialog(flag);
+	openDetailSSDDFHDWDialog(flag);
+	openDetailSSDDSHDWDialog(flag);
 }
 
 function saveSelectSSSJ(){
@@ -1995,7 +2293,7 @@ function saveSelectSSDD(){
 		$.messager.alert("提示","请选择所属订单！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,yssId:row.yssId,wybm:row.wybm}];
+	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,yssId:row.yssId,wlxxId:row.wlxxId,fhdwId:row.fhdwId,shdwId:row.shdwId,wybm:row.wybm}];
 	loadSSDDTabData(rows);
 	openSelectSSDDDialog(0);
 }
@@ -2216,6 +2514,9 @@ function setFitWidthInParent(parent,self){
 	case "detail_sssj_zjjs_dialog_div":
 	case "detail_ssdl_shdw_dialog_div":
 	case "detail_ssdd_yss_dialog_div":
+	case "detail_ssdd_wlxx_dialog_div":
+	case "detail_ssdd_fhdw_dialog_div":
+	case "detail_ssdd_shdw_dialog_div":
 		space=60;
 		break;
 	}
@@ -2624,6 +2925,21 @@ function initWindowMarginLeft(){
 		<div id="detail_ssdd_yss_dialog_div">
 			<input type="hidden" id="id"/>
 			<table id="detail_ssdd_yss_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_wlxx_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_wlxx_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_fhdw_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_fhdw_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_shdw_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_shdw_tab"></table>
 		</div>
 	</div>
 </div>

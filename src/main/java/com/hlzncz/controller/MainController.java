@@ -1698,6 +1698,45 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/selectWuZiById")
+	@ResponseBody
+	public Map<String, Object> selectWuZiById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		WuZi wz=publicService.selectWuZiById(id);
+
+		jsonMap.put("wz", wz);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/selectFaHuoDanWeiById")
+	@ResponseBody
+	public Map<String, Object> selectFaHuoDanWeiById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(id);
+
+		jsonMap.put("fhdw", fhdw);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/selectShouHuoDanWeiById")
+	@ResponseBody
+	public Map<String, Object> selectShouHuoDanWeiById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+
+		jsonMap.put("shdw", shdw);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
