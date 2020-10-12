@@ -5,6 +5,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.select_yss_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_yss_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_yss_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_yss_div .xzst_span{
+	margin-left: 30px;
+}
+.select_yss_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var dialogTop=10;
@@ -65,6 +94,10 @@ function initDialogPosition(){
 	var yssdpw=$("body").find(".panel.window").eq(yssdNum);
 	var yssdws=$("body").find(".window-shadow").eq(yssdNum);
 
+	//选择运输商
+	var syssdpw=$("body").find(".panel.window").eq(syssdNum);
+	var syssdws=$("body").find(".window-shadow").eq(syssdNum);
+
 	//物料信息
 	var wlxxdpw=$("body").find(".panel.window").eq(wlxxdNum);
 	var wlxxdws=$("body").find(".window-shadow").eq(wlxxdNum);
@@ -106,6 +139,10 @@ function initDialogPosition(){
 
 	ccDiv.append(cysjdpw);
 	ccDiv.append(cysjdws);
+
+	var syssDiv=$("#select_yss_div");
+	syssDiv.append(syssdpw);
+	syssDiv.append(syssdws);
 }
 
 function initNewDialog(){
@@ -667,13 +704,12 @@ function initCYSJTab(){
 }
 
 function initSelectYSSDialog(){
-	selectYSSDialog=$("#select_yss_div").dialog({
-		title:"选择实体",
-		width:setFitWidthInParent("body"),
+	selectYSSDialog=$("#select_yss_dialog_div").dialog({
+		title:"运输商列表",
+		width:setFitWidthInParent("#select_yss_div","select_yss_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectYSSDialog(0);
@@ -701,11 +737,11 @@ function initSelectYSSDialog(){
 	
 	$(".window,.window .window-body").eq(syssdNum).css("border-color","#ddd");
 
-	$("#select_yss_div #cancel_but").css("left","30%");
-	$("#select_yss_div #cancel_but").css("position","absolute");
+	$("#select_yss_dialog_div #cancel_but").css("left","30%");
+	$("#select_yss_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_yss_div #save_but").css("left","45%");
-	$("#select_yss_div #save_but").css("position","absolute");
+	$("#select_yss_dialog_div #save_but").css("left","45%");
+	$("#select_yss_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -1588,9 +1624,11 @@ function reSizeCol(){
 
 function openSelectYSSDialog(flag){
 	if(flag==1){
+		$("#select_yss_bg_div").css("display","block");
 		selectYSSDialog.dialog("open");
 	}
 	else{
+		$("#select_yss_bg_div").css("display","none");
 		selectYSSDialog.dialog("close");
 	}
 }
@@ -2014,6 +2052,9 @@ function setFitWidthInParent(parent,self){
 	case "fhdw_tab":
 		space=355;
 		break;
+	case "select_yss_dialog_div":
+		space=50;
+		break;
 	}
 	var width=$(parent).css("width");
 	return width.substring(0,width.length-2)-space;
@@ -2030,52 +2071,15 @@ function initWindowMarginLeft(){
 <title>创建</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
-	<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
-		<div id="new_div">
-		<form id="form1" name="form1" method="post" enctype="multipart/form-data">
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					计划运输日期
-				</td>
-				<td style="width:30%;">
-					<input id="jhysrq_db"/>
-					<input type="hidden" id="jhysrq" name="jhysrq"/>
-				</td>
-				<td align="right" style="width:15%;">
-					预装卸重量
-				</td>
-				<td style="width:30%;">
-					<input type="number" id="yzxzl" name="yzxzl" placeholder="请输入预装卸重量" style="width: 150px;height:30px;"/>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					流向类型
-				</td>
-				<td>
-					<input id="lxlx_cbb"/>
-					<input type="hidden" id="lxlx" name="lxlx"/>
-				</td>
-				<td align="right">
-				</td>
-				<td>
-				</td>
-			  </tr>
-			</table>
-		</form>
+
+<!-- 选择运输商 start -->
+<div class="select_yss_bg_div" id="select_yss_bg_div">
+	<div class="select_yss_div" id="select_yss_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectYSSDialog(0)">X</span>
 		</div>
-	
-		<div id="yss_div">
-			<div id="yss_toolbar" style="height:32px;line-height:32px;">
-				<a id="choose_but" style="margin-left: 13px;">选择</a>
-			</div>
-			<table id="yss_tab"></table>
-		</div>
-		
-		<div id="select_yss_div">
+		<div id="select_yss_dialog_div">
 			<div id="select_yss_toolbar" style="height:32px;line-height:32px;">
 				<span style="margin-left: 13px;">名称：</span>
 				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
@@ -2083,192 +2087,238 @@ function initWindowMarginLeft(){
 			</div>
 			<table id="select_yss_tab"></table>
 		</div>
-	
-		<div id="edit_yss_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					名称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					编辑时间
-				</td>
-				<td style="width:30%;">
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			</table>
-		</div>
-	
-		<div id="wlxx_div">
-			<div id="wlxx_toolbar" style="height:32px;line-height:32px;">
-				<a id="choose_but" style="margin-left: 13px;">选择</a>
-			</div>
-			<table id="wlxx_tab"></table>
-		</div>
+	</div>
+</div>
+<!-- 选择运输商 end -->
 		
-		<div id="select_wlxx_div">
-			<div id="select_wlxx_toolbar" style="height:32px;line-height:32px;">
-				<span style="margin-left: 13px;">名称：</span>
-				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
-				<a id="search_but" style="margin-left: 13px;">查询</a>
-			</div>
-			<table id="select_wlxx_tab"></table>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
+	<div id="new_div">
+	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				计划运输日期
+			</td>
+			<td style="width:30%;">
+				<input id="jhysrq_db"/>
+				<input type="hidden" id="jhysrq" name="jhysrq"/>
+			</td>
+			<td align="right" style="width:15%;">
+				预装卸重量
+			</td>
+			<td style="width:30%;">
+				<input type="number" id="yzxzl" name="yzxzl" placeholder="请输入预装卸重量" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				流向类型
+			</td>
+			<td>
+				<input id="lxlx_cbb"/>
+				<input type="hidden" id="lxlx" name="lxlx"/>
+			</td>
+			<td align="right">
+			</td>
+			<td>
+			</td>
+		  </tr>
+		</table>
+	</form>
+	</div>
+
+	<div id="yss_div">
+		<div id="yss_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
+		<table id="yss_tab"></table>
+	</div>
+
+	<div id="edit_yss_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
+
+	<div id="wlxx_div">
+		<div id="wlxx_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="wlxx_tab"></table>
+	</div>
 	
-		<div id="edit_wlxx_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					名称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					编辑时间
-				</td>
-				<td style="width:30%;">
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			</table>
+	<div id="select_wlxx_div">
+		<div id="select_wlxx_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">名称：</span>
+			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
+		<table id="select_wlxx_tab"></table>
+	</div>
+
+	<div id="edit_wlxx_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
+
+	<div id="fhdw_div">
+		<div id="fhdw_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="fhdw_tab"></table>
+	</div>
 	
-		<div id="fhdw_div">
-			<div id="fhdw_toolbar" style="height:32px;line-height:32px;">
-				<a id="choose_but" style="margin-left: 13px;">选择</a>
-			</div>
-			<table id="fhdw_tab"></table>
+	<div id="select_fhdw_div">
+		<div id="select_fhdw_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">单位名称：</span>
+			<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
-		
-		<div id="select_fhdw_div">
-			<div id="select_fhdw_toolbar" style="height:32px;line-height:32px;">
-				<span style="margin-left: 13px;">单位名称：</span>
-				<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
-				<a id="search_but" style="margin-left: 13px;">查询</a>
-			</div>
-			<table id="select_fhdw_tab"></table>
+		<table id="select_fhdw_tab"></table>
+	</div>
+
+	<div id="edit_fhdw_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
+
+	<div id="shdw_div">
+		<div id="shdw_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
+		<table id="shdw_tab"></table>
+	</div>
 	
-		<div id="edit_fhdw_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					单位名称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					编辑时间
-				</td>
-				<td style="width:30%;">
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			</table>
+	<div id="select_shdw_div">
+		<div id="select_shdw_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">单位名称：</span>
+			<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
+		<table id="select_shdw_tab"></table>
+	</div>
+
+	<div id="edit_shdw_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
 	
-		<div id="shdw_div">
-			<div id="shdw_toolbar" style="height:32px;line-height:32px;">
-				<a id="choose_but" style="margin-left: 13px;">选择</a>
-			</div>
-			<table id="shdw_tab"></table>
+	<div id="cycl_div">
+		<div id="cycl_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
-		
-		<div id="select_shdw_div">
-			<div id="select_shdw_toolbar" style="height:32px;line-height:32px;">
-				<span style="margin-left: 13px;">单位名称：</span>
-				<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
-				<a id="search_but" style="margin-left: 13px;">查询</a>
-			</div>
-			<table id="select_shdw_tab"></table>
+		<table id="cycl_tab"></table>
+	</div>
+
+	<div id="select_cycl_div">
+		<div id="select_cycl_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">车牌号：</span>
+			<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">车辆类型：</span>
+			<input id="cllx_cbb"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
+		<table id="select_cycl_tab"></table>
+	</div>
 	
-		<div id="edit_shdw_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					单位名称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					编辑时间
-				</td>
-				<td style="width:30%;">
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			</table>
+	<div id="edit_cycl_div">
+		<input type="hidden" id="id"/>
+		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				单位名称
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right" style="width:15%;">
+				编辑时间
+			</td>
+			<td style="width:30%;">
+				<span id="bjsj"></span>
+			</td>
+		  </tr>
+		</table>
+	</div>
+
+	<div id="cysj_div">
+		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
-		
-		<div id="cycl_div">
-			<div id="cycl_toolbar" style="height:32px;line-height:32px;">
-				<a id="choose_but" style="margin-left: 13px;">选择</a>
-			</div>
-			<table id="cycl_tab"></table>
-		</div>
+		<table id="cysj_tab"></table>
+	</div>
 	
-		<div id="select_cycl_div">
-			<div id="select_cycl_toolbar" style="height:32px;line-height:32px;">
-				<span style="margin-left: 13px;">车牌号：</span>
-				<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
-				<span style="margin-left: 13px;">车辆类型：</span>
-				<input id="cllx_cbb"/>
-				<a id="search_but" style="margin-left: 13px;">查询</a>
-			</div>
-			<table id="select_cycl_tab"></table>
+	<div id="select_cysj_div">
+		<div id="select_cysj_toolbar" style="height:32px;line-height:32px;">
+			<span style="margin-left: 13px;">姓名：</span>
+			<input type="text" id="xm_inp" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">身份证号：</span>
+			<input type="text" id="sfz_inp" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">在用状态：</span>
+			<input id="zyzt_cbb"/>
+			<a id="search_but" style="margin-left: 13px;">查询</a>
 		</div>
-		
-		<div id="edit_cycl_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					单位名称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					编辑时间
-				</td>
-				<td style="width:30%;">
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			</table>
-		</div>
-	
-		<div id="cysj_div">
-			<div id="cysj_toolbar" style="height:32px;line-height:32px;">
-				<a id="choose_but" style="margin-left: 13px;">选择</a>
-			</div>
-			<table id="cysj_tab"></table>
-		</div>
-		
-		<div id="select_cysj_div">
-			<div id="select_cysj_toolbar" style="height:32px;line-height:32px;">
-				<span style="margin-left: 13px;">姓名：</span>
-				<input type="text" id="xm_inp" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
-				<span style="margin-left: 13px;">身份证号：</span>
-				<input type="text" id="sfz_inp" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
-				<span style="margin-left: 13px;">在用状态：</span>
-				<input id="zyzt_cbb"/>
-				<a id="search_but" style="margin-left: 13px;">查询</a>
-			</div>
-			<table id="select_cysj_tab"></table>
-		</div>
+		<table id="select_cysj_tab"></table>
 	</div>
 </div>
 </body>
