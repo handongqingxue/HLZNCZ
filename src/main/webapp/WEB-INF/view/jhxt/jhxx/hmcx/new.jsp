@@ -218,7 +218,6 @@
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
-	overflow-y: scroll;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -240,6 +239,12 @@
 }
 .detail_ssdd_div .title_span{
 	margin-left: 30px;
+}
+.detail_ssdd_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
 }
 </style>
 <script type="text/javascript">
@@ -428,7 +433,7 @@ function initDialogPosition(){
 	sssddDiv.append(sssdddpw);
 	sssddDiv.append(sssdddws);
 	
-	var dssddDiv=$("#detail_ssdd_div");
+	var dssddDiv=$("#detail_ssdd_dialog_div");
 	dssddDiv.append(dssdddpw);
 	dssddDiv.append(dssdddws);
 
@@ -2381,7 +2386,7 @@ function initDetailSSDDJBXXDialog(){
 		title:"基本信息",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jbxx_dialog_div"),
 		height:331,
-		top:60,
+		top:10,
 		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
@@ -2478,7 +2483,7 @@ function initDetailSSDDYSSDialog(){
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_yss_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:200,
-		top:435,
+		top:385,
 		left:20,
 	});
 
@@ -2510,7 +2515,7 @@ function initDetailSSDDWLXXDialog(){
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_wlxx_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:200,
-		top:655,
+		top:605,
 		left:20,
 	});
 
@@ -2542,7 +2547,7 @@ function initDetailSSDDFHDWDialog(){
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_fhdw_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:200,
-		top:885,
+		top:835,
 		left:20,
 	});
 
@@ -2574,7 +2579,7 @@ function initDetailSSDDSHDWDialog(){
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_shdw_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:200,
-		top:1115,
+		top:1065,
 		left:20,
 	});
 
@@ -2605,7 +2610,7 @@ function initDetailSSDDCYCLDialog(){
 		title:"承运车辆",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cycl_dialog_div"),
 		height:200,
-		top:1345,
+		top:1295,
 		left:20,
 	});
 
@@ -2636,7 +2641,7 @@ function initDetailSSDDCYSJDialog(){
 		title:"承运司机",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysj_dialog_div"),
 		height:200,
-		top:1575,
+		top:1525,
 		left:20,
 	});
 
@@ -2667,7 +2672,7 @@ function initDetailSSDDJYBGDialog(){
 		title:"检验报告",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jybg_dialog_div"),
 		height:200,
-		top:1805,
+		top:1755,
 		left:20,
 	});
 
@@ -2697,7 +2702,7 @@ function initDetailSSDDXDZXTZHDialog(){
 		title:"下单者系统账户",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_xdzxtzh_dialog_div"),
 		height:200,
-		top:2035,
+		top:1985,
 		left:20,
 	});
 
@@ -2727,7 +2732,7 @@ function initDetailSSDDCYSJXTZHDialog(){
 		title:"承运司机系统账户",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysjxtzh_dialog_div"),
 		height:200,
-		top:2265,
+		top:2215,
 		left:20,
 	});
 
@@ -2757,7 +2762,7 @@ function initDetailSSDDPHXXDialog(){
 		title:"排号信息",
 		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_phxx_dialog_div"),
 		height:200,
-		top:2495,
+		top:2445,
 		left:20,
 	});
 
@@ -3455,131 +3460,133 @@ function initWindowMarginLeft(){
 			<span class="ckst_span">查看实体</span>
 			<span class="close_span" onclick="openDetailSSDDDialog(0)">X</span>
 		</div>
-		<div class="title_div">
-			<span class="title_span">号码查询-所属订单-详情</span>
-		</div>
-		<div id="detail_ssdd_jbxx_dialog_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					订单号
-				</td>
-				<td style="width:30%;">
-					<span id="ddh"></span>
-				</td>
-				<td align="right" style="width:15%;">
-					预装卸重量
-				</td>
-				<td style="width:30%;">
-					<span id="yzxzl"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					流向类型
-				</td>
-				<td>
-					<span id="lxlx"></span>
-				</td>
-				<td align="right">
-					编辑时间
-				</td>
-				<td>
-					<span id="bjsj"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					二维码
-				</td>
-				<td>
-					<span id="ewm"></span>
-				</td>
-				<td align="right">
-					实际重量
-				</td>
-				<td>
-					<span id="sjzl"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					重量差额比
-				</td>
-				<td>
-					<span id="zlceb"></span>
-				</td>
-				<td align="right">
-					订单状态
-				</td>
-				<td>
-					<span id="ddzt"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					计划运输日期
-				</td>
-				<td>
-					<span id="jhysrq"></span>
-				</td>
-				<td align="right">
-				</td>
-				<td>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
-		<div id="detail_ssdd_yss_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_yss_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_wlxx_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_wlxx_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_fhdw_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_fhdw_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_shdw_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_shdw_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_cycl_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_cycl_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_cysj_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_cysj_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_jybg_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_jybg_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_xdzxtzh_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_xdzxtzh_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_cysjxtzh_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_cysjxtzh_tab"></table>
-		</div>
-		
-		<div id="detail_ssdd_phxx_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdd_phxx_tab"></table>
+		<div class="detail_ssdd_dialog_div" id="detail_ssdd_dialog_div">
+			<div class="title_div">
+				<span class="title_span">号码查询-所属订单-详情</span>
+			</div>
+			<div id="detail_ssdd_jbxx_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:20%;">
+						订单号
+					</td>
+					<td style="width:25%;">
+						<span id="ddh"></span>
+					</td>
+					<td align="right" style="width:20%;">
+						预装卸重量
+					</td>
+					<td style="width:25%;">
+						<span id="yzxzl"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						流向类型
+					</td>
+					<td>
+						<span id="lxlx"></span>
+					</td>
+					<td align="right">
+						编辑时间
+					</td>
+					<td>
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						二维码
+					</td>
+					<td>
+						<span id="ewm"></span>
+					</td>
+					<td align="right">
+						实际重量
+					</td>
+					<td>
+						<span id="sjzl"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						重量差额比
+					</td>
+					<td>
+						<span id="zlceb"></span>
+					</td>
+					<td align="right">
+						订单状态
+					</td>
+					<td>
+						<span id="ddzt"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						计划运输日期
+					</td>
+					<td>
+						<span id="jhysrq"></span>
+					</td>
+					<td align="right">
+					</td>
+					<td>
+					</td>
+				  </tr>
+				</table>
+			</div>
+			
+			<div id="detail_ssdd_yss_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_yss_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_wlxx_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_wlxx_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_fhdw_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_fhdw_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_shdw_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_shdw_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_cycl_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_cycl_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_cysj_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_cysj_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_jybg_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_jybg_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_xdzxtzh_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_xdzxtzh_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_cysjxtzh_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_cysjxtzh_tab"></table>
+			</div>
+			
+			<div id="detail_ssdd_phxx_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdd_phxx_tab"></table>
+			</div>
 		</div>
 	</div>
 </div>
