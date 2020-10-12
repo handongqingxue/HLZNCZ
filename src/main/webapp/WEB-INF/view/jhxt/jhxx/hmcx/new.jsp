@@ -396,8 +396,8 @@ function initDialogPosition(){
 	dssddDiv.append(dssdddpw);
 	dssddDiv.append(dssdddws);
 
-	dssdlDiv.append(dssddyssdpw);
-	dssdlDiv.append(dssddyssdws);
+	dssddDiv.append(dssddyssdpw);
+	dssddDiv.append(dssddyssdws);
 	
 }
 
@@ -1107,7 +1107,9 @@ function initDetailSSDDYSSTab(){
             	return str;
 			}},
 			{field:"mc",title:"名称",width:200,align:"center"},
-			{field:"id",title:"操作",width:200,align:"center"}
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -1397,13 +1399,12 @@ function detailSSDDTabRow(){
 	
 	$("#detail_ssdd_yss_dialog_div #id").val(row.yssId);
 	
-	alert(row.yssId);
 	$.post(path+"main/selectYunShuShangById",
-		{ids:row.yssId},
+		{id:row.yssId},
 		function(result){
 			var yss=result.yss;
+			yss.gx="1";
 			var rows=[];
-			alert(yss.id);
 			rows[0]=yss;
 			var obj = {"total":rows.length,"rows":rows};
 			detailSSDDYSSTab.datagrid('loadData',obj);
@@ -1994,7 +1995,7 @@ function saveSelectSSDD(){
 		$.messager.alert("提示","请选择所属订单！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,wybm:row.wybm}];
+	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,yssId:row.yssId,wybm:row.wybm}];
 	loadSSDDTabData(rows);
 	openSelectSSDDDialog(0);
 }
@@ -2208,11 +2209,13 @@ function setFitWidthInParent(parent,self){
 	case "select_ssdl_dialog_div":
 	case "detail_ssdl_jbsxz_dialog_div":
 	case "select_ssdd_dialog_div":
+	case "detail_ssdd_jbxx_dialog_div":
 		space=50;
 		break;
 	case "edit_sssj_zjjs_dialog_div":
 	case "detail_sssj_zjjs_dialog_div":
 	case "detail_ssdl_shdw_dialog_div":
+	case "detail_ssdd_yss_dialog_div":
 		space=60;
 		break;
 	}
