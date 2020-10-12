@@ -48,7 +48,6 @@
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
-	overflow-y: scroll;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -64,6 +63,12 @@
 }
 .edit_sssj_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_sssj_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
 }
 .edit_sssj_div .title_div{
 	width: 100%;height: 50px;line-height: 50px;
@@ -86,7 +91,6 @@
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
-	overflow-y: scroll;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -102,6 +106,12 @@
 }
 .detail_sssj_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_sssj_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
 }
 .detail_sssj_div .title_div{
 	width: 100%;height: 50px;line-height: 50px;
@@ -152,7 +162,6 @@
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
-	overflow-y: scroll;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -168,6 +177,12 @@
 }
 .detail_ssdl_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_ssdl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
 }
 .detail_ssdl_div .title_div{
 	width: 100%;height: 50px;line-height: 50px;
@@ -234,17 +249,17 @@
 .detail_ssdd_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
-.detail_ssdd_div .title_div{
-	width: 100%;height: 50px;line-height: 50px;
-}
-.detail_ssdd_div .title_span{
-	margin-left: 30px;
-}
 .detail_ssdd_dialog_div{
 	width: 1000px;
 	height: 450px;
 	overflow-y: scroll;
 	position: absolute;
+}
+.detail_ssdd_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_ssdd_div .title_span{
+	margin-left: 30px;
 }
 </style>
 <script type="text/javascript">
@@ -404,68 +419,68 @@ function initDialogPosition(){
 	ssssjDiv.append(ssssjdpw);
 	ssssjDiv.append(ssssjdws);
 	
-	var esDiv=$("#edit_sssj_div");
-	esDiv.append(esssjdpw);
-	esDiv.append(esssjdws);
+	var esdDiv=$("#edit_sssj_dialog_div");
+	esdDiv.append(esssjdpw);
+	esdDiv.append(esssjdws);
 	
-	esDiv.append(ezjjsdpw);
-	esDiv.append(ezjjsdws);
+	esdDiv.append(ezjjsdpw);
+	esdDiv.append(ezjjsdws);
 	
-	var dsssjDiv=$("#detail_sssj_div");
-	dsssjDiv.append(dsssjdpw);
-	dsssjDiv.append(dsssjdws);
+	var dsssjdDiv=$("#detail_sssj_dialog_div");
+	dsssjdDiv.append(dsssjdpw);
+	dsssjdDiv.append(dsssjdws);
 	
-	dsssjDiv.append(dzjjsdpw);
-	dsssjDiv.append(dzjjsdws);
+	dsssjdDiv.append(dzjjsdpw);
+	dsssjdDiv.append(dzjjsdws);
 
 	var sssdlDiv=$("#select_ssdl_div");
 	sssdlDiv.append(sssdldpw);
 	sssdlDiv.append(sssdldws);
 
-	var dssdlDiv=$("#detail_ssdl_div");
-	dssdlDiv.append(dssdldpw);
-	dssdlDiv.append(dssdldws);
+	var dssdldDiv=$("#detail_ssdl_dialog_div");
+	dssdldDiv.append(dssdldpw);
+	dssdldDiv.append(dssdldws);
 	
-	dssdlDiv.append(dshdwdpw);
-	dssdlDiv.append(dshdwdws);
+	dssdldDiv.append(dshdwdpw);
+	dssdldDiv.append(dshdwdws);
 
 	var sssddDiv=$("#select_ssdd_div");
 	sssddDiv.append(sssdddpw);
 	sssddDiv.append(sssdddws);
 	
-	var dssddDiv=$("#detail_ssdd_dialog_div");
-	dssddDiv.append(dssdddpw);
-	dssddDiv.append(dssdddws);
+	var dssdddDiv=$("#detail_ssdd_dialog_div");
+	dssdddDiv.append(dssdddpw);
+	dssdddDiv.append(dssdddws);
 
-	dssddDiv.append(dssddyssdpw);
-	dssddDiv.append(dssddyssdws);
+	dssdddDiv.append(dssddyssdpw);
+	dssdddDiv.append(dssddyssdws);
 	
-	dssddDiv.append(dssddwlxxdpw);
-	dssddDiv.append(dssddwlxxdws);
+	dssdddDiv.append(dssddwlxxdpw);
+	dssdddDiv.append(dssddwlxxdws);
 	
-	dssddDiv.append(dssddfhdwdpw);
-	dssddDiv.append(dssddfhdwdws);
+	dssdddDiv.append(dssddfhdwdpw);
+	dssdddDiv.append(dssddfhdwdws);
 
-	dssddDiv.append(dssddshdwdpw);
-	dssddDiv.append(dssddshdwdws);
+	dssdddDiv.append(dssddshdwdpw);
+	dssdddDiv.append(dssddshdwdws);
 
-	dssddDiv.append(dssddcycldpw);
-	dssddDiv.append(dssddcycldws);
+	dssdddDiv.append(dssddcycldpw);
+	dssdddDiv.append(dssddcycldws);
 
-	dssddDiv.append(dssddcysjdpw);
-	dssddDiv.append(dssddcysjdws);
+	dssdddDiv.append(dssddcysjdpw);
+	dssdddDiv.append(dssddcysjdws);
 
-	dssddDiv.append(dssddjybgdpw);
-	dssddDiv.append(dssddjybgdws);
+	dssdddDiv.append(dssddjybgdpw);
+	dssdddDiv.append(dssddjybgdws);
 
-	dssddDiv.append(dssddxdzxtzhdpw);
-	dssddDiv.append(dssddxdzxtzhdws);
+	dssdddDiv.append(dssddxdzxtzhdpw);
+	dssdddDiv.append(dssddxdzxtzhdws);
 
-	dssddDiv.append(dssddcysjxtzhdpw);
-	dssddDiv.append(dssddcysjxtzhdws);
+	dssdddDiv.append(dssddcysjxtzhdpw);
+	dssdddDiv.append(dssddcysjxtzhdws);
 
-	dssddDiv.append(dssddphxxdpw);
-	dssddDiv.append(dssddphxxdws);
+	dssdddDiv.append(dssddphxxdpw);
+	dssdddDiv.append(dssddphxxdws);
 	
 }
 
@@ -830,7 +845,7 @@ function initEditSSSJJBXXDialog(){
 		title:"基本信息",
 		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_jbxx_dialog_div"),
 		height:331,
-		top:60,
+		top:10,
 		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
@@ -895,7 +910,7 @@ function initEditSSSJZJJSDialog(){
 		width:setFitWidthInParent("#edit_sssj_div","edit_sssj_zjjs_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:435,
+		top:385,
 		left:20,
 	});
 
@@ -991,7 +1006,7 @@ function initDetailSSSJJBXXDialog(){
 		title:"基本信息",
 		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_jbxx_dialog_div"),
 		height:331,
-		top:60,
+		top:10,
 		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
@@ -1038,7 +1053,7 @@ function initDetailSSSJZJJSDialog(){
 		width:setFitWidthInParent("#detail_sssj_div","detail_sssj_zjjs_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:435,
+		top:385,
 		left:20,
 	});
 
@@ -1369,7 +1384,7 @@ function initDetailSSDLJBSXZDialog(){
 		title:"基本属性组",
 		width:setFitWidthInParent("#detail_ssdl_div","detail_ssdl_jbsxz_dialog_div"),
 		height:331,
-		top:60,
+		top:10,
 		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
@@ -1425,7 +1440,7 @@ function initDetailSSDLSHDWDialog(){
 		width:setFitWidthInParent("#detail_ssdl_div","detail_ssdl_shdw_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:435,
+		top:385,
 		left:20,
 	});
 
@@ -3168,72 +3183,74 @@ function initWindowMarginLeft(){
 			<span class="xgst_span">修改实体</span>
 			<span class="close_span" onclick="openEditSSSJDialog(0)">X</span>
 		</div>
-		<div class="title_div">
-			<span class="title_span">号码查询-所属司机-修改</span>
-		</div>
-		<div id="edit_sssj_jbxx_dialog_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					用户名
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="yhm" placeholder="请输入用户名" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right" style="width:15%;">
-					昵称
-				</td>
-				<td style="width:30%;">
-					<input type="text" id="nc" placeholder="请输入昵称" style="width: 150px;height:30px;"/>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					头像
-				</td>
-				<td>
-					
-				</td>
-				<td align="right">
-					实名
-				</td>
-				<td>
-					<input type="text" id="sm" placeholder="请输入实名" style="width: 150px;height:30px;"/>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					状态
-				</td>
-				<td>
-					
-				</td>
-				<td align="right">
-					原始密码
-				</td>
-				<td>
-					<input type="text" id="ysmm" placeholder="请输入原始密码" style="width: 150px;height:30px;"/>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					简述
-				</td>
-				<td>
-					<input type="text" id="js" placeholder="请输入简述" style="width: 150px;height:30px;"/>
-				</td>
-				<td align="right">
-				</td>
-				<td>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
-		<div id="edit_sssj_zjjs_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="edit_zjjs_tab"></table>
+		<div class="edit_sssj_dialog_div" id="edit_sssj_dialog_div">
+			<div class="title_div">
+				<span class="title_span">号码查询-所属司机-修改</span>
+			</div>
+			<div id="edit_sssj_jbxx_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						用户名
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="yhm" placeholder="请输入用户名" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						昵称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="nc" placeholder="请输入昵称" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						头像
+					</td>
+					<td>
+						
+					</td>
+					<td align="right">
+						实名
+					</td>
+					<td>
+						<input type="text" id="sm" placeholder="请输入实名" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						状态
+					</td>
+					<td>
+						
+					</td>
+					<td align="right">
+						原始密码
+					</td>
+					<td>
+						<input type="text" id="ysmm" placeholder="请输入原始密码" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						简述
+					</td>
+					<td>
+						<input type="text" id="js" placeholder="请输入简述" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right">
+					</td>
+					<td>
+					</td>
+				  </tr>
+				</table>
+			</div>
+			
+			<div id="edit_sssj_zjjs_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="edit_zjjs_tab"></table>
+			</div>
 		</div>
 	</div>
 </div>
@@ -3247,72 +3264,74 @@ function initWindowMarginLeft(){
 			<span class="ckst_span">查看实体</span>
 			<span class="close_span" onclick="openDetailSSSJDialog(0)">X</span>
 		</div>
-		<div class="title_div">
-			<span class="title_span">号码查询-所属司机-详情</span>
-		</div>
-		<div id="detail_sssj_jbxx_dialog_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					用户名
-				</td>
-				<td style="width:30%;">
-					<span id="yhm"></span>
-				</td>
-				<td align="right" style="width:15%;">
-					昵称
-				</td>
-				<td style="width:30%;">
-					<span id="nc"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					头像
-				</td>
-				<td>
-					
-				</td>
-				<td align="right">
-					实名
-				</td>
-				<td>
-					<span id="sm"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					状态
-				</td>
-				<td>
-					
-				</td>
-				<td align="right">
-					原始密码
-				</td>
-				<td>
-					<span id="ysmm"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					简述
-				</td>
-				<td>
-					<span id="js"></span>
-				</td>
-				<td align="right">
-				</td>
-				<td>
-				</td>
-			  </tr>
-			</table>
-		</div>
+		<div class="detail_sssj_dialog_div" id="detail_sssj_dialog_div">
+			<div class="title_div">
+				<span class="title_span">号码查询-所属司机-详情</span>
+			</div>
+			<div id="detail_sssj_jbxx_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						用户名
+					</td>
+					<td style="width:30%;">
+						<span id="yhm"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						昵称
+					</td>
+					<td style="width:30%;">
+						<span id="nc"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						头像
+					</td>
+					<td>
+						
+					</td>
+					<td align="right">
+						实名
+					</td>
+					<td>
+						<span id="sm"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						状态
+					</td>
+					<td>
+						
+					</td>
+					<td align="right">
+						原始密码
+					</td>
+					<td>
+						<span id="ysmm"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						简述
+					</td>
+					<td>
+						<span id="js"></span>
+					</td>
+					<td align="right">
+					</td>
+					<td>
+					</td>
+				  </tr>
+				</table>
+			</div>
 		
-		<div id="detail_sssj_zjjs_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_zjjs_tab"></table>
+			<div id="detail_sssj_zjjs_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_zjjs_tab"></table>
+			</div>
 		</div>
 	</div>
 </div>
@@ -3348,58 +3367,60 @@ function initWindowMarginLeft(){
 			<span class="ckst_span">查看实体</span>
 			<span class="close_span" onclick="openDetailSSDLDialog(0)">X</span>
 		</div>
-		<div class="title_div">
-			<span class="title_span">号码查询-所属队列-详情</span>
-		</div>
-		<div id="detail_ssdl_jbsxz_dialog_div">
-			<input type="hidden" id="id"/>
-			<table>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right" style="width:15%;">
-					名称
-				</td>
-				<td style="width:30%;">
-					<span id="mc"></span>
-				</td>
-				<td align="right" style="width:15%;">
-					代码
-				</td>
-				<td style="width:30%;">
-					<span id="dm"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					叫号阈值
-				</td>
-				<td>
-					<span id="jhyz"></span>
-				</td>
-				<td align="right">
-					叫号形式
-				</td>
-				<td>
-					<span id="jhxs"></span>
-				</td>
-			  </tr>
-			  <tr style="border-bottom: #CAD9EA solid 1px;">
-				<td align="right">
-					状态
-				</td>
-				<td>
-					<span id="zt"></span>
-				</td>
-				<td align="right">
-				</td>
-				<td>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
-		<div id="detail_ssdl_shdw_dialog_div">
-			<input type="hidden" id="id"/>
-			<table id="detail_ssdl_shdw_tab"></table>
+		<div class="detail_ssdl_dialog_div" id="detail_ssdl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">号码查询-所属队列-详情</span>
+			</div>
+			<div id="detail_ssdl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						名称
+					</td>
+					<td style="width:30%;">
+						<span id="mc"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						代码
+					</td>
+					<td style="width:30%;">
+						<span id="dm"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						叫号阈值
+					</td>
+					<td>
+						<span id="jhyz"></span>
+					</td>
+					<td align="right">
+						叫号形式
+					</td>
+					<td>
+						<span id="jhxs"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						状态
+					</td>
+					<td>
+						<span id="zt"></span>
+					</td>
+					<td align="right">
+					</td>
+					<td>
+					</td>
+				  </tr>
+				</table>
+			</div>
+			
+			<div id="detail_ssdl_shdw_dialog_div">
+				<input type="hidden" id="id"/>
+				<table id="detail_ssdl_shdw_tab"></table>
+			</div>
 		</div>
 	</div>
 </div>
