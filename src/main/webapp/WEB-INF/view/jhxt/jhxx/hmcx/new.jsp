@@ -268,6 +268,12 @@ var dssddyssdNum=14;//查看所属订单运输商
 var dssddwlxxdNum=15;//查看所属订单物料信息
 var dssddfhdwdNum=16;//查看所属订单发货单位
 var dssddshdwdNum=17;//查看所属订单收货单位
+var dssddcycldNum=18;//查看所属订单承运车辆
+var dssddcysjdNum=19;//查看所属订单承运司机
+var dssddjybgdNum=20;//查看所属订单检验报告
+var dssddxdzxtzhdNum=21;//查看所属订单下单者系统账户
+var dssddcysjxtzhdNum=22;//查看所属订单承运司机系统账户
+var dssddphxxdNum=23;//查看所属订单排号信息
 
 $(function(){
 	initNewDialog();//0
@@ -295,6 +301,12 @@ $(function(){
 	initDetailSSDDWLXXDialog();//15.查看所属订单物料信息窗口
 	initDetailSSDDFHDWDialog();//16.查看所属订单发货单位窗口
 	initDetailSSDDSHDWDialog();//17.查看所属订单收货单位窗口
+	initDetailSSDDCYCLDialog();//18.查看所属订单承运车辆窗口
+	initDetailSSDDCYSJDialog();//19.查看所属订单承运司机窗口
+	initDetailSSDDJYBGDialog();//20.查看所属订单检验报告窗口
+	initDetailSSDDXDZXTZHDialog();//21.查看所属订单下单者系统账户窗口
+	initDetailSSDDCYSJXTZHDialog();//22.查看所属订单承运司机系统账户窗口
+	initDetailSSDDPHXXDialog();//23.查看所属订单排号信息窗口
 	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -355,8 +367,20 @@ function initDialogPosition(){
 	var dssddwlxxdws=$("body").find(".window-shadow").eq(dssddwlxxdNum);
 	var dssddfhdwdpw=$("body").find(".panel.window").eq(dssddfhdwdNum);
 	var dssddfhdwdws=$("body").find(".window-shadow").eq(dssddfhdwdNum);
-	var dssddshdwdpw=$("body").find(".panel.window").eq(dssddshdwdNum);
-	var dssddshdwdws=$("body").find(".window-shadow").eq(dssddshdwdNum);
+	var dssddshdwdpw=$("body").find(".panel.window").eq(dssddshdwdNum);//收货单位
+	var dssddshdwdws=$("body").find(".window-shadow").eq(dssddshdwdNum);//收货单位
+	var dssddcycldpw=$("body").find(".panel.window").eq(dssddcycldNum);//承运车辆
+	var dssddcycldws=$("body").find(".window-shadow").eq(dssddcycldNum);//承运车辆
+	var dssddcysjdpw=$("body").find(".panel.window").eq(dssddcysjdNum);//承运司机
+	var dssddcysjdws=$("body").find(".window-shadow").eq(dssddcysjdNum);//承运司机
+	var dssddjybgdpw=$("body").find(".panel.window").eq(dssddjybgdNum);//检验报告
+	var dssddjybgdws=$("body").find(".window-shadow").eq(dssddjybgdNum);//检验报告
+	var dssddxdzxtzhdpw=$("body").find(".panel.window").eq(dssddxdzxtzhdNum);//下单者系统账户
+	var dssddxdzxtzhdws=$("body").find(".window-shadow").eq(dssddxdzxtzhdNum);//下单者系统账户
+	var dssddcysjxtzhdpw=$("body").find(".panel.window").eq(dssddcysjxtzhdNum);//承运司机系统账户
+	var dssddcysjxtzhdws=$("body").find(".window-shadow").eq(dssddcysjxtzhdNum);//承运司机系统账户
+	var dssddphxxdpw=$("body").find(".panel.window").eq(dssddphxxdNum);//排号信息
+	var dssddphxxdws=$("body").find(".window-shadow").eq(dssddphxxdNum);//排号信息
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
@@ -419,6 +443,24 @@ function initDialogPosition(){
 
 	dssddDiv.append(dssddshdwdpw);
 	dssddDiv.append(dssddshdwdws);
+
+	dssddDiv.append(dssddcycldpw);
+	dssddDiv.append(dssddcycldws);
+
+	dssddDiv.append(dssddcysjdpw);
+	dssddDiv.append(dssddcysjdws);
+
+	dssddDiv.append(dssddjybgdpw);
+	dssddDiv.append(dssddjybgdws);
+
+	dssddDiv.append(dssddxdzxtzhdpw);
+	dssddDiv.append(dssddxdzxtzhdws);
+
+	dssddDiv.append(dssddcysjxtzhdpw);
+	dssddDiv.append(dssddcysjxtzhdws);
+
+	dssddDiv.append(dssddphxxdpw);
+	dssddDiv.append(dssddphxxdws);
 	
 }
 
@@ -1032,6 +1074,9 @@ function initDetailSSSJZJJSTab(){
 				case "1":
 					str="拥有角色";
 					break;
+				default:
+					str=value;
+					break;
 				}
             	return str;
 			}},
@@ -1087,6 +1132,9 @@ function initDetailSSDLSHDWTab(){
 				case "1":
 					str="收货单位";
 					break;
+				default:
+					str=value;
+					break;
 				}
             	return str;
 			}},
@@ -1123,6 +1171,9 @@ function initDetailSSDDYSSTab(){
             	switch (value) {
 				case "1":
 					str="关联运输商";
+					break;
+				default:
+					str=value;
 					break;
 				}
             	return str;
@@ -1163,6 +1214,9 @@ function initDetailSSDDWLXXTab(){
 				case "1":
 					str="运输物资";
 					break;
+				default:
+					str=value;
+					break;
 				}
             	return str;
 			}},
@@ -1200,6 +1254,9 @@ function initDetailSSDDFHDWTab(){
             	switch (value) {
 				case "1":
 					str="发货单位";
+					break;
+				default:
+					str=value;
 					break;
 				}
             	return str;
@@ -1239,6 +1296,9 @@ function initDetailSSDDSHDWTab(){
 				case "1":
 					str="收货单位";
 					break;
+				default:
+					str=value;
+					break;
 				}
             	return str;
 			}},
@@ -1251,6 +1311,260 @@ function initDetailSSDDSHDWTab(){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
 				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDCYCLTab(){
+	detailSSDDCYCLTab=$("#detail_ssdd_cycl_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cycl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="货运车辆";
+					break;
+				default:
+					str=value;
+					break;
+				}
+            	return str;
+			}},
+			{field:"cph",title:"车牌号",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDCYSJTab(){
+	detailSSDDCYSJTab=$("#detail_ssdd_cysj_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="货运司机";
+					break;
+				default:
+					str=value;
+					break;
+				}
+            	return str;
+			}},
+			{field:"xm",title:"姓名",width:200,align:"center"},
+			{field:"sjh",title:"手机号",width:200,align:"center"},
+			{field:"sfz",title:"身份证号",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDJYBGTab(){
+	detailSSDDJYBGTab=$("#detail_ssdd_jybg_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="检验报告";
+					break;
+				default:
+					str=value;
+					break;
+				}
+            	return str;
+			}},
+			{field:"jl",title:"结论",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDXDZXTZHTab(){
+	detailSSDDXDZXTZHTab=$("#detail_ssdd_xdzxtzh_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_xdzxtzh_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="下单用户";
+					break;
+				default:
+					str=value;
+					break;
+				}
+            	return str;
+			}},
+			{field:"sm",title:"实名",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDCYSJXTZHTab(){
+	detailSSDDCYSJXTZHTab=$("#detail_ssdd_cysjxtzh_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysjxtzh_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="承运司机";
+					break;
+				default:
+					str=value;
+					break;
+				}
+            	return str;
+			}},
+			{field:"sm",title:"实名",width:200,align:"center"},
+			{field:"yhm",title:"用户名",width:200,align:"center"},
+			{field:"js",title:"简述",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initDetailSSDDPHXXTab(){
+	detailSSDDPHXXTab=$("#detail_ssdd_phxx_tab").datagrid({
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_phxx_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+            	switch (value) {
+				case "1":
+					str="关联排号";
+					break;
+				default:
+					str=value;
+					break;
+				}
+            	return str;
+			}},
+			{field:"bm",title:"编码",width:200,align:"center"},
+			{field:"pdh",title:"排队号",width:200,align:"center"},
+			{field:"prsj",title:"排入时间",width:200,align:"center"},
+			{field:"ksjhsj",title:"开始叫号时间",width:200,align:"center"},
+			{field:"zt",title:"状态",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+				return "";
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:7});
 				data.total=0;
 			}
 			
@@ -1324,6 +1638,60 @@ function openDetailSSDDSHDWDialog(flag){
 	}
 	else{
 		detailSSDDSHDWDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDCYCLDialog(flag){
+	if(flag==1){
+		detailSSDDCYCLDialog.dialog("open");
+	}
+	else{
+		detailSSDDCYCLDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDCYSJDialog(flag){
+	if(flag==1){
+		detailSSDDCYSJDialog.dialog("open");
+	}
+	else{
+		detailSSDDCYSJDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDJYBGDialog(flag){
+	if(flag==1){
+		detailSSDDJYBGDialog.dialog("open");
+	}
+	else{
+		detailSSDDJYBGDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDXDZXTZHDialog(flag){
+	if(flag==1){
+		detailSSDDXDZXTZHDialog.dialog("open");
+	}
+	else{
+		detailSSDDXDZXTZHDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDCYSJXTZHDialog(flag){
+	if(flag==1){
+		detailSSDDCYSJXTZHDialog.dialog("open");
+	}
+	else{
+		detailSSDDCYSJXTZHDialog.dialog("close");
+	}
+}
+
+function openDetailSSDDPHXXDialog(flag){
+	if(flag==1){
+		detailSSDDPHXXDialog.dialog("open");
+	}
+	else{
+		detailSSDDPHXXDialog.dialog("close");
 	}
 }
 
@@ -1609,6 +1977,54 @@ function detailSSDDTabRow(){
 			detailSSDDSHDWTab.datagrid('loadData',obj);
 		}
 	,"json");
+
+	//承运车辆
+	$.post(path+"main/selectCheLiangById",
+		{id:row.cyclId},
+		function(result){
+			var cl=result.cl;
+			cl.gx="1";
+			var rows=[];
+			rows[0]=cl;
+			var obj = {"total":rows.length,"rows":rows};
+			detailSSDDCYCLTab.datagrid('loadData',obj);
+		}
+	,"json");
+
+	//承运司机
+	$.post(path+"main/selectSiJiById",
+		{id:row.cysjId},
+		function(result){
+			var sj=result.sj;
+			sj.gx="1";
+			var rows=[];
+			rows[0]=sj;
+			var obj = {"total":rows.length,"rows":rows};
+			detailSSDDCYSJTab.datagrid('loadData',obj);
+		}
+	,"json");
+	
+	//检验报告（接口未写）
+	var jybgrows=[];
+	var obj = {"total":0,"rows":jybgrows};
+	detailSSDDJYBGTab.datagrid('loadData',obj);
+	
+	//下单者系统账户
+	var xdzxtzhrow={gx:"1",sm:"默认用户"};
+	var xdzxtzhrows=[];
+	xdzxtzhrows[0]=xdzxtzhrow;
+	var obj = {"total":xdzxtzhrows.length,"rows":xdzxtzhrows};
+	detailSSDDXDZXTZHTab.datagrid('loadData',obj);
+
+	//承运司机系统账户（接口未写）
+	var xdzxtzhrows=[];
+	var obj = {"total":0,"rows":xdzxtzhrows};
+	detailSSDDCYSJXTZHTab.datagrid('loadData',obj);
+
+	//排号信息（接口未写）
+	var phxxrows=[];
+	var obj = {"total":0,"rows":phxxrows};
+	detailSSDDPHXXTab.datagrid('loadData',obj);
 	
 	openDetailSSDDDialog(1);
 }
@@ -2184,6 +2600,188 @@ function initDetailSSDDSHDWDialog(){
 	openDetailSSDDSHDWDialog(0);
 }
 
+function initDetailSSDDCYCLDialog(){
+	detailSSDDCYCLDialog=$("#detail_ssdd_cycl_dialog_div").dialog({
+		title:"承运车辆",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cycl_dialog_div"),
+		height:200,
+		top:1345,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddcycldNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cycl_dialog_div"))+"px");
+	$(".panel.window").eq(dssddcycldNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssddcycldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssddcycldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddcycldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddcycldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddcycldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddcycldNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddcycldNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cycl_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddcycldNum).css("width","1000px");
+	$(".window-shadow").eq(dssddcycldNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddcycldNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddcycldNum).css("border-color","#ddd");
+
+	initDetailSSDDCYCLTab();
+	openDetailSSDDCYCLDialog(0);
+}
+
+function initDetailSSDDCYSJDialog(){
+	detailSSDDCYSJDialog=$("#detail_ssdd_cysj_dialog_div").dialog({
+		title:"承运司机",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysj_dialog_div"),
+		height:200,
+		top:1575,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddcysjdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysj_dialog_div"))+"px");
+	$(".panel.window").eq(dssddcysjdNum).css("margin-top","20px");
+	//$(".panel.window").eq(dssddcysjdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(dssddcysjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddcysjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddcysjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddcysjdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddcysjdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddcysjdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysj_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddcysjdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddcysjdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddcysjdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddcycldNum).css("border-color","#ddd");
+
+	initDetailSSDDCYSJTab();
+	openDetailSSDDCYSJDialog(0);
+}
+
+function initDetailSSDDJYBGDialog(){
+	detailSSDDJYBGDialog=$("#detail_ssdd_jybg_dialog_div").dialog({
+		title:"检验报告",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jybg_dialog_div"),
+		height:200,
+		top:1805,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddjybgdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jybg_dialog_div"))+"px");
+	$(".panel.window").eq(dssddjybgdNum).css("margin-top","20px");
+	$(".panel.window").eq(dssddjybgdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddjybgdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddjybgdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddjybgdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddjybgdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddjybgdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_jybg_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddjybgdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddjybgdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddjybgdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddjybgdNum).css("border-color","#ddd");
+
+	initDetailSSDDJYBGTab();
+	openDetailSSDDJYBGDialog(0);
+}
+
+function initDetailSSDDXDZXTZHDialog(){
+	detailSSDDXDZXTZHDialog=$("#detail_ssdd_xdzxtzh_dialog_div").dialog({
+		title:"下单者系统账户",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_xdzxtzh_dialog_div"),
+		height:200,
+		top:2035,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddxdzxtzhdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_xdzxtzh_dialog_div"))+"px");
+	$(".panel.window").eq(dssddxdzxtzhdNum).css("margin-top","20px");
+	$(".panel.window").eq(dssddxdzxtzhdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddxdzxtzhdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddxdzxtzhdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddxdzxtzhdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddxdzxtzhdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddxdzxtzhdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_xdzxtzh_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddxdzxtzhdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddxdzxtzhdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddxdzxtzhdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddxdzxtzhdNum).css("border-color","#ddd");
+
+	initDetailSSDDXDZXTZHTab();
+	openDetailSSDDXDZXTZHDialog(0);
+}
+
+function initDetailSSDDCYSJXTZHDialog(){
+	detailSSDDCYSJXTZHDialog=$("#detail_ssdd_cysjxtzh_dialog_div").dialog({
+		title:"承运司机系统账户",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysjxtzh_dialog_div"),
+		height:200,
+		top:2265,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddcysjxtzhdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysjxtzh_dialog_div"))+"px");
+	$(".panel.window").eq(dssddcysjxtzhdNum).css("margin-top","20px");
+	$(".panel.window").eq(dssddcysjxtzhdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddcysjxtzhdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddcysjxtzhdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddcysjxtzhdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddcysjxtzhdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddcysjxtzhdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_cysjxtzh_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddcysjxtzhdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddcysjxtzhdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddcysjxtzhdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddcysjxtzhdNum).css("border-color","#ddd");
+
+	initDetailSSDDCYSJXTZHTab();
+	openDetailSSDDCYSJXTZHDialog(0);
+}
+
+function initDetailSSDDPHXXDialog(){
+	detailSSDDPHXXDialog=$("#detail_ssdd_phxx_dialog_div").dialog({
+		title:"排号信息",
+		width:setFitWidthInParent("#detail_ssdd_div","detail_ssdd_phxx_dialog_div"),
+		height:200,
+		top:2495,
+		left:20,
+	});
+
+	$(".panel.window").eq(dssddphxxdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_phxx_dialog_div"))+"px");
+	$(".panel.window").eq(dssddphxxdNum).css("margin-top","20px");
+	$(".panel.window").eq(dssddphxxdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dssddphxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dssddphxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dssddphxxdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(dssddphxxdNum).css("border-color","#ddd");
+
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dssddphxxdNum).css("width",(setFitWidthInParent("#detail_ssdd_div","detail_ssdd_phxx_dialog_div"))+"px");
+	$(".window-shadow").eq(dssddphxxdNum).css("width","1000px");
+	$(".window-shadow").eq(dssddphxxdNum).css("margin-top","20px");
+	$(".window-shadow").eq(dssddphxxdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(dssddphxxdNum).css("border-color","#ddd");
+
+	initDetailSSDDPHXXTab();
+	openDetailSSDDPHXXDialog(0);
+}
+
 
 
 
@@ -2263,6 +2861,12 @@ function openDetailSSDDDialog(flag){
 	openDetailSSDDWLXXDialog(flag);
 	openDetailSSDDFHDWDialog(flag);
 	openDetailSSDDSHDWDialog(flag);
+	openDetailSSDDCYCLDialog(flag);
+	openDetailSSDDCYSJDialog(flag);
+	openDetailSSDDJYBGDialog(flag);
+	openDetailSSDDXDZXTZHDialog(flag);//下单者系统账户
+	openDetailSSDDCYSJXTZHDialog(flag);//承运司机系统账户
+	openDetailSSDDPHXXDialog(flag);//排号信息
 }
 
 function saveSelectSSSJ(){
@@ -2293,7 +2897,7 @@ function saveSelectSSDD(){
 		$.messager.alert("提示","请选择所属订单！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,yssId:row.yssId,wlxxId:row.wlxxId,fhdwId:row.fhdwId,shdwId:row.shdwId,wybm:row.wybm}];
+	var rows=[{gx:"1",ddh:row.ddh,cph:row.cph,ddztmc:row.ddztmc,yssId:row.yssId,wlxxId:row.wlxxId,fhdwId:row.fhdwId,shdwId:row.shdwId,cyclId:row.cyclId,cysjId:row.cysjId,wybm:row.wybm}];
 	loadSSDDTabData(rows);
 	openSelectSSDDDialog(0);
 }
@@ -2517,6 +3121,12 @@ function setFitWidthInParent(parent,self){
 	case "detail_ssdd_wlxx_dialog_div":
 	case "detail_ssdd_fhdw_dialog_div":
 	case "detail_ssdd_shdw_dialog_div":
+	case "detail_ssdd_cycl_dialog_div":
+	case "detail_ssdd_cysj_dialog_div":
+	case "detail_ssdd_jybg_dialog_div":
+	case "detail_ssdd_xdzxtzh_dialog_div":
+	case "detail_ssdd_cysjxtzh_dialog_div":
+	case "detail_ssdd_phxx_dialog_div":
 		space=60;
 		break;
 	}
@@ -2940,6 +3550,36 @@ function initWindowMarginLeft(){
 		<div id="detail_ssdd_shdw_dialog_div">
 			<input type="hidden" id="id"/>
 			<table id="detail_ssdd_shdw_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_cycl_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_cycl_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_cysj_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_cysj_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_jybg_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_jybg_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_xdzxtzh_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_xdzxtzh_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_cysjxtzh_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_cysjxtzh_tab"></table>
+		</div>
+		
+		<div id="detail_ssdd_phxx_dialog_div">
+			<input type="hidden" id="id"/>
+			<table id="detail_ssdd_phxx_tab"></table>
 		</div>
 	</div>
 </div>

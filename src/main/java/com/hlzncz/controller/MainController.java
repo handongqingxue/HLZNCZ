@@ -1737,6 +1737,32 @@ public class MainController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/selectCheLiangById")
+	@ResponseBody
+	public Map<String, Object> selectCheLiangById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		CheLiang cl=publicService.selectCheLiangById(id);
+
+		jsonMap.put("cl", cl);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/selectSiJiById")
+	@ResponseBody
+	public Map<String, Object> selectSiJiById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		SiJi sj=publicService.selectSiJiById(id);
+
+		jsonMap.put("sj", sj);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
