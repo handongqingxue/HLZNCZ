@@ -5,8 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var showZIndex=9999;
 var edNum=0;
 var yssdNum=1;
 var syssdNum=2;
@@ -50,15 +56,69 @@ $(function(){
 
 	initCYSJDialog();//16.承运司机窗口
 	initSelectCYSJDialog();//17.选择承运司机窗口
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
+
+function initDialogPosition(){
+	//基本属性组
+	var edpw=$("body").find(".panel.window").eq(edNum);
+	var edws=$("body").find(".window-shadow").eq(edNum);
+
+	//运输商
+	var yssdpw=$("body").find(".panel.window").eq(yssdNum);
+	var yssdws=$("body").find(".window-shadow").eq(yssdNum);
+
+	//物料信息
+	var wlxxdpw=$("body").find(".panel.window").eq(wlxxdNum);
+	var wlxxdws=$("body").find(".window-shadow").eq(wlxxdNum);
+
+	//发货单位
+	var fhdwdpw=$("body").find(".panel.window").eq(fhdwdNum);
+	var fhdwdws=$("body").find(".window-shadow").eq(fhdwdNum);
+
+	//收货单位
+	var shdwdpw=$("body").find(".panel.window").eq(shdwdNum);
+	var shdwdws=$("body").find(".window-shadow").eq(shdwdNum);
+
+	//承运车辆
+	var cycldpw=$("body").find(".panel.window").eq(cycldNum);
+	var cycldws=$("body").find(".window-shadow").eq(cycldNum);
+
+	//承运司机
+	var cysjdpw=$("body").find(".panel.window").eq(cysjdNum);
+	var cysjdws=$("body").find(".window-shadow").eq(cysjdNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(edpw);
+	ccDiv.append(edws);
+
+	ccDiv.append(yssdpw);
+	ccDiv.append(yssdws);
+
+	ccDiv.append(wlxxdpw);
+	ccDiv.append(wlxxdws);
+
+	ccDiv.append(fhdwdpw);
+	ccDiv.append(fhdwdws);
+
+	ccDiv.append(shdwdpw);
+	ccDiv.append(shdwdws);
+
+	ccDiv.append(cycldpw);
+	ccDiv.append(cycldws);
+
+	ccDiv.append(cysjdpw);
+	ccDiv.append(cysjdws);
+}
 
 function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","edit_div"),
 		height:200,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkEdit();
@@ -122,13 +182,14 @@ function initLXLXCBB(){
 }
 
 function initYSSDialog(){
+	dialogTop+=220;//230
 	yssDialog=$("#yss_div").dialog({
 		title:"运输商",
 		width:setFitWidthInParent("body","yss_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
-		height:300,
-		top:300,
-		left:308
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(yssdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -152,13 +213,14 @@ function initYSSDialog(){
 }
 
 function initWLXXDialog(){
+	dialogTop+=230;//460
 	wlxxDialog=$("#wlxx_div").dialog({
 		title:"物料信息",
 		width:setFitWidthInParent("body","wlxx_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
-		height:300,
-		top:650,
-		left:308
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(wlxxdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -182,13 +244,14 @@ function initWLXXDialog(){
 }
 
 function initFHDWDialog(){
+	dialogTop+=230;//690
 	fhdwDialog=$("#fhdw_div").dialog({
 		title:"发货单位",
 		width:setFitWidthInParent("body","fhdw_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
-		height:300,
-		top:1000,
-		left:308
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(fhdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -212,13 +275,14 @@ function initFHDWDialog(){
 }
 
 function initSHDWDialog(){
+	dialogTop+=230;//920
 	shdwDialog=$("#shdw_div").dialog({
 		title:"收货单位",
 		width:setFitWidthInParent("body","shdw_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
-		height:300,
-		top:1350,
-		left:308
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(shdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -242,13 +306,14 @@ function initSHDWDialog(){
 }
 
 function initCYCLDialog(){
+	dialogTop+=230;//1150
 	cyclDialog=$("#cycl_div").dialog({
 		title:"承运车辆",
 		width:setFitWidthInParent("body","cycl_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
-		height:300,
-		top:1700,
-		left:308
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(cycldNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -272,12 +337,13 @@ function initCYCLDialog(){
 }
 
 function initCYSJDialog(){
+	dialogTop+=230;//1380
 	cysjDialog=$("#cysj_div").dialog({
 		title:"承运司机",
 		width:setFitWidthInParent("body","cysj_div"),
 		height:300,
-		top:2050,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
 	$(".panel.window").eq(cysjdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
@@ -2021,8 +2087,8 @@ function initWindowMarginLeft(){
 <title>修改</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="wybm" name="wybm" value="${requestScope.wyxd.wybm }"/>
