@@ -147,11 +147,40 @@
 .edit_wlxx_div .title_span{
 	margin-left: 30px;
 }
+
+.select_fhdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_fhdw_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_fhdw_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_fhdw_div .xzst_span{
+	margin-left: 30px;
+}
+.select_fhdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var dialogTop=10;
 var dialogLeft=20;
+var showZIndex=9999;
 var ndNum=0;
 var yssdNum=1;
 var syssdNum=2;
@@ -232,6 +261,10 @@ function initDialogPosition(){
 	var fhdwdpw=$("body").find(".panel.window").eq(fhdwdNum);
 	var fhdwdws=$("body").find(".window-shadow").eq(fhdwdNum);
 
+	//选择发货单位
+	var sfhdwdpw=$("body").find(".panel.window").eq(sfhdwdNum);
+	var sfhdwdws=$("body").find(".window-shadow").eq(sfhdwdNum);
+
 	//收货单位
 	var shdwdpw=$("body").find(".panel.window").eq(shdwdNum);
 	var shdwdws=$("body").find(".window-shadow").eq(shdwdNum);
@@ -281,6 +314,10 @@ function initDialogPosition(){
 	var ewlxxdDiv=$("#edit_wlxx_dialog_div");
 	ewlxxdDiv.append(ewlxxjbsxdpw);
 	ewlxxdDiv.append(ewlxxjbsxdws);
+
+	var sfhdwDiv=$("#select_fhdw_div");
+	sfhdwDiv.append(sfhdwdpw);
+	sfhdwDiv.append(sfhdwdws);
 }
 
 function initNewDialog(){
@@ -934,13 +971,12 @@ function initSelectWLXXDialog(){
 }
 
 function initSelectFHDWDialog(){
-	selectFHDWDialog=$("#select_fhdw_div").dialog({
+	selectFHDWDialog=$("#select_fhdw_dialog_div").dialog({
 		title:"选择实体",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("#select_fhdw_div","select_fhdw_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectFHDWDialog(0);
@@ -968,11 +1004,11 @@ function initSelectFHDWDialog(){
 	
 	$(".window,.window .window-body").eq(sfhdwdNum).css("border-color","#ddd");
 
-	$("#select_fhdw_div #cancel_but").css("left","30%");
-	$("#select_fhdw_div #cancel_but").css("position","absolute");
+	$("#select_fhdw_dialog_div #cancel_but").css("left","30%");
+	$("#select_fhdw_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_fhdw_div #save_but").css("left","45%");
-	$("#select_fhdw_div #save_but").css("position","absolute");
+	$("#select_fhdw_dialog_div #save_but").css("left","45%");
+	$("#select_fhdw_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -1762,10 +1798,12 @@ function reSizeCol(){
 function openSelectYSSDialog(flag){
 	if(flag==1){
 		$("#select_yss_bg_div").css("display","block");
+		$("#select_yss_bg_div").css("z-index",showZIndex);
 		selectYSSDialog.dialog("open");
 	}
 	else{
 		$("#select_yss_bg_div").css("display","none");
+		$("#select_yss_bg_div").css("z-index","9016");
 		selectYSSDialog.dialog("close");
 	}
 }
@@ -1773,19 +1811,25 @@ function openSelectYSSDialog(flag){
 function openSelectWLXXDialog(flag){
 	if(flag==1){
 		$("#select_wlxx_bg_div").css("display","block");
+		$("#select_wlxx_bg_div").css("z-index",showZIndex);
 		selectWLXXDialog.dialog("open");
 	}
 	else{
 		$("#select_wlxx_bg_div").css("display","none");
+		$("#select_wlxx_bg_div").css("z-index","9016");
 		selectWLXXDialog.dialog("close");
 	}
 }
 
 function openSelectFHDWDialog(flag){
 	if(flag==1){
+		$("#select_fhdw_bg_div").css("display","block");
+		$("#select_fhdw_bg_div").css("z-index",showZIndex);
 		selectFHDWDialog.dialog("open");
 	}
 	else{
+		$("#select_fhdw_bg_div").css("display","none");
+		$("#select_fhdw_bg_div").css("z-index","9010");
 		selectFHDWDialog.dialog("close");
 	}
 }
@@ -2214,6 +2258,7 @@ function setFitWidthInParent(parent,self){
 	case "edit_yss_jbsxz_dialog_div":
 	case "select_wlxx_dialog_div":
 	case "edit_wlxx_jbsxz_dialog_div":
+	case "select_fhdw_dialog_div":
 		space=50;
 		break;
 	}
@@ -2340,6 +2385,25 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 编辑物料信息 end -->
+
+<!-- 选择发货单位 start -->
+<div class="select_fhdw_bg_div" id="select_fhdw_bg_div">
+	<div class="select_fhdw_div" id="select_fhdw_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectFHDWDialog(0)">X</span>
+		</div>
+		<div id="select_fhdw_dialog_div">
+			<div id="select_fhdw_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">单位名称：</span>
+				<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_fhdw_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择发货单位 end -->
 		
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
@@ -2397,15 +2461,6 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="fhdw_tab"></table>
-	</div>
-	
-	<div id="select_fhdw_div">
-		<div id="select_fhdw_toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">单位名称：</span>
-			<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
-			<a id="search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="select_fhdw_tab"></table>
 	</div>
 
 	<div id="edit_fhdw_div">
