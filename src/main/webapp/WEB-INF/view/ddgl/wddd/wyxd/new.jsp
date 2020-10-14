@@ -289,6 +289,105 @@
 .edit_shdw_div .title_span{
 	margin-left: 30px;
 }
+
+.select_cycl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_cycl_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_cycl_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_cycl_div .xzst_span{
+	margin-left: 30px;
+}
+.select_cycl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+
+.edit_cycl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_cycl_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_cycl_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_cycl_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_cycl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_cycl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_cycl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_cycl_div .title_span{
+	margin-left: 30px;
+}
+
+.select_cysj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_cysj_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_cysj_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_cysj_div .xzst_span{
+	margin-left: 30px;
+}
+.select_cysj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -334,7 +433,7 @@ $(function(){
 	
 	initCYCLDialog();//13.承运车辆窗口
 	initSelectCYCLDialog();//14.选择承运车辆窗口
-	initEditCYCLDialog();//15.修改承运车辆窗口
+	initEditCYCLJBSXZDialog();//15.修改承运车辆窗口
 
 	initCYSJDialog();//16.承运司机窗口
 	initSelectCYSJDialog();//17.选择承运司机窗口
@@ -399,9 +498,17 @@ function initDialogPosition(){
 	var cycldpw=$("body").find(".panel.window").eq(cycldNum);
 	var cycldws=$("body").find(".window-shadow").eq(cycldNum);
 
+	//选择承运车辆
+	var scycldpw=$("body").find(".panel.window").eq(scycldNum);
+	var scycldws=$("body").find(".window-shadow").eq(scycldNum);
+
 	//承运司机
 	var cysjdpw=$("body").find(".panel.window").eq(cysjdNum);
 	var cysjdws=$("body").find(".window-shadow").eq(cysjdNum);
+
+	//选择承运司机
+	var scysjdpw=$("body").find(".panel.window").eq(scysjdNum);
+	var scysjdws=$("body").find(".window-shadow").eq(scysjdNum);
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
@@ -456,6 +563,14 @@ function initDialogPosition(){
 	var eshdwdDiv=$("#edit_shdw_dialog_div");
 	eshdwdDiv.append(eshdwjbsxdpw);
 	eshdwdDiv.append(eshdwjbsxdws);
+
+	var scyclDiv=$("#select_cycl_div");
+	scyclDiv.append(scycldpw);
+	scyclDiv.append(scycldws);
+
+	var scysjDiv=$("#select_cysj_div");
+	scysjDiv.append(scysjdpw);
+	scysjDiv.append(scysjdws);
 }
 
 function initNewDialog(){
@@ -938,9 +1053,9 @@ function initCYCLTab(){
 			}},
             {field:"cph",title:"车牌号",width:200,align:"center"},
 			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
-            	//var str="<a onclick=\"editCYCLTabRow()\">编辑</a>"
-            	//+"&nbsp;|&nbsp;<a onclick=\"deleteCYCLTabRow()\">删除</a>";
-            	var str="<a onclick=\"deleteCYCLTabRow()\">删除</a>";
+            	var str="<a onclick=\"editCYCLTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteCYCLTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteCYCLTabRow()\">删除</a>";
             	return str;
             }}
 	    ]],
@@ -1201,13 +1316,12 @@ function initSelectSHDWDialog(){
 }
 
 function initSelectCYCLDialog(){
-	selectCYCLDialog=$("#select_cycl_div").dialog({
+	selectCYCLDialog=$("#select_cycl_dialog_div").dialog({
 		title:"选择实体",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("#select_cycl_div","select_cycl_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectCYCLDialog(0);
@@ -1235,11 +1349,11 @@ function initSelectCYCLDialog(){
 	
 	$(".window,.window .window-body").eq(scycldNum).css("border-color","#ddd");
 
-	$("#select_cycl_div #cancel_but").css("left","30%");
-	$("#select_cycl_div #cancel_but").css("position","absolute");
+	$("#select_cycl_dialog_div #cancel_but").css("left","30%");
+	$("#select_cycl_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_cycl_div #save_but").css("left","45%");
-	$("#select_cycl_div #save_but").css("position","absolute");
+	$("#select_cycl_dialog_div #save_but").css("left","45%");
+	$("#select_cycl_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -1248,13 +1362,12 @@ function initSelectCYCLDialog(){
 }
 
 function initSelectCYSJDialog(){
-	selectCYSJDialog=$("#select_cysj_div").dialog({
-		title:"选择实体",
-		width:setFitWidthInParent("body"),
+	selectCYSJDialog=$("#select_cysj_dialog_div").dialog({
+		title:"承运司机列表",
+		width:setFitWidthInParent("#select_cysj_div","select_cysj_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectCYSJDialog(0);
@@ -1282,11 +1395,11 @@ function initSelectCYSJDialog(){
 	
 	$(".window,.window .window-body").eq(scysjdNum).css("border-color","#ddd");
 
-	$("#select_cysj_div #cancel_but").css("left","30%");
-	$("#select_cysj_div #cancel_but").css("position","absolute");
+	$("#select_cysj_dialog_div #cancel_but").css("left","30%");
+	$("#select_cysj_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_cysj_div #save_but").css("left","45%");
-	$("#select_cysj_div #save_but").css("position","absolute");
+	$("#select_cysj_dialog_div #save_but").css("left","45%");
+	$("#select_cysj_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -1751,10 +1864,10 @@ function initEditSHDWJBSXZDialog(){
 	openEditSHDWJBSXZDialog(0);
 }
 
-function initEditCYCLDialog(){
-	editCYCLDialog=$("#edit_cycl_div").dialog({
+function initEditCYCLJBSXZDialog(){
+	editCYCLDialog=$("#edit_cycl_jbsxz_dialog_div").dialog({
 		title:"修改承运车辆实体",
-		width:setFitWidthInParent("body","edit_cycl_div"),
+		width:setFitWidthInParent("#edit_cycl_div","edit_cycl_jbsxz_dialog_div"),
 		height:231,
 		top:200,
 		left:308,
@@ -1768,12 +1881,12 @@ function initEditCYCLDialog(){
         ]
 	});
 
-	$("#edit_cycl_div table").css("width",(setFitWidthInParent("body","edit_shdw_div"))+"px");
-	$("#edit_cycl_div table").css("magin","-100px");
-	$("#edit_cycl_div table td").css("padding-left","50px");
-	$("#edit_cycl_div table td").css("padding-right","20px");
-	$("#edit_cycl_div table td").css("font-size","15px");
-	$("#edit_cycl_div table tr").css("height","45px");
+	$("#edit_cycl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("body","edit_cycl_jbsxz_dialog_div"))+"px");
+	$("#edit_cycl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_cycl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_cycl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_cycl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_cycl_jbsxz_dialog_div table tr").css("height","45px");
 
 	$(".panel.window").eq(ecycldNum).css("margin-top","20px");
 	$(".panel.window").eq(ecycldNum).css("border-color","#ddd");
@@ -1787,14 +1900,14 @@ function initEditCYCLDialog(){
 	$(".window-shadow").eq(ecycldNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ecycldNum).css("border-color","#ddd");
 
-	$("#edit_cycl_div #cancel_but").css("left","30%");
-	$("#edit_cycl_div #cancel_but").css("position","absolute");
+	$("#edit_cycl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_cycl_jbsxz_dialog_div #cancel_but").css("position","absolute");
 
-	$("#edit_cycl_div #ok_but").css("left","45%");
-	$("#edit_cycl_div #ok_but").css("position","absolute");
+	$("#edit_cycl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_cycl_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openEditCYCLDialog(0);
+	openEditCYCLJBSXZDialog(0);
 }
 
 function editYSS(){
@@ -1986,18 +2099,26 @@ function openSelectSHDWDialog(flag){
 
 function openSelectCYCLDialog(flag){
 	if(flag==1){
+		$("#select_cycl_bg_div").css("display","block");
+		$("#select_cycl_bg_div").css("z-index",showZIndex);
 		selectCYCLDialog.dialog("open");
 	}
 	else{
+		$("#select_cycl_bg_div").css("display","none");
+		$("#select_cycl_bg_div").css("z-index","9010");
 		selectCYCLDialog.dialog("close");
 	}
 }
 
 function openSelectCYSJDialog(flag){
 	if(flag==1){
+		$("#select_cysj_bg_div").css("display","block");
+		$("#select_cysj_bg_div").css("z-index",showZIndex);
 		selectCYSJDialog.dialog("open");
 	}
 	else{
+		$("#select_cysj_bg_div").css("display","none");
+		$("#select_cysj_bg_div").css("z-index","9010");
 		selectCYSJDialog.dialog("close");
 	}
 }
@@ -2083,6 +2204,18 @@ function openEditSHDWJBSXZDialog(flag){
 }
 
 function openEditCYCLDialog(flag){
+	if(flag==1){
+		$("#edit_cycl_bg_div").css("display","block");
+		$("#edit_cycl_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#edit_cycl_bg_div").css("display","none");
+		$("#edit_cycl_bg_div").css("z-index","9016");
+	}
+	openEditCYCLJBSXZDialog(flag);
+}
+
+function openEditCYCLJBSXZDialog(flag){
 	if(flag==1){
 		editCYCLDialog.dialog("open");
 	}
@@ -2427,6 +2560,9 @@ function setFitWidthInParent(parent,self){
 	case "edit_fhdw_jbsxz_dialog_div":
 	case "select_shdw_dialog_div":
 	case "edit_shdw_jbsxz_dialog_div":
+	case "select_cycl_dialog_div":
+	case "edit_cycl_jbsxz_dialog_div":
+	case "select_cysj_dialog_div":
 		space=50;
 		break;
 	}
@@ -2661,6 +2797,85 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 编辑收货单位end -->
+
+<!-- 选择承运车辆 start -->
+<div class="select_cycl_bg_div" id="select_cycl_bg_div">
+	<div class="select_cycl_div" id="select_cycl_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectCYCLDialog(0)">X</span>
+		</div>
+		<div id="select_cycl_dialog_div">
+			<div id="select_cycl_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">车牌号：</span>
+				<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">车辆类型：</span>
+				<input id="cllx_cbb"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_cycl_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择承运车辆 end -->
+	
+<!-- 编辑承运车辆 start -->
+<div class="edit_cycl_bg_div" id="edit_cycl_bg_div">
+	<div class="edit_cycl_div" id="edit_cycl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditCYCLDialog(0)">X</span>
+		</div>
+		<div class="edit_cycl_dialog_div" id="edit_cycl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">我要下单-收货单位-修改</span>
+			</div>
+			<div id="edit_cycl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						单位名称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>	
+<!-- 编辑承运车辆 end -->
+	
+<!-- 选择承运司机 start -->
+<div class="select_cysj_bg_div" id="select_cysj_bg_div">
+	<div class="select_cysj_div" id="select_cysj_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectCYSJDialog(0)">X</span>
+		</div>
+		<div id="select_cysj_dialog_div">
+			<div id="select_cysj_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">姓名：</span>
+				<input type="text" id="xm_inp" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">身份证号：</span>
+				<input type="text" id="sfz_inp" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">在用状态：</span>
+				<input id="zyzt_cbb"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_cysj_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择承运司机end -->
 		
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
@@ -2734,55 +2949,11 @@ function initWindowMarginLeft(){
 		<table id="cycl_tab"></table>
 	</div>
 
-	<div id="select_cycl_div">
-		<div id="select_cycl_toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">车牌号：</span>
-			<input type="text" id="cph_inp" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">车辆类型：</span>
-			<input id="cllx_cbb"/>
-			<a id="search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="select_cycl_tab"></table>
-	</div>
-	
-	<div id="edit_cycl_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				单位名称
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
-			</td>
-			<td align="right" style="width:15%;">
-				编辑时间
-			</td>
-			<td style="width:30%;">
-				<span id="bjsj"></span>
-			</td>
-		  </tr>
-		</table>
-	</div>
-
 	<div id="cysj_div">
 		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="cysj_tab"></table>
-	</div>
-	
-	<div id="select_cysj_div">
-		<div id="select_cysj_toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">姓名：</span>
-			<input type="text" id="xm_inp" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">身份证号：</span>
-			<input type="text" id="sfz_inp" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">在用状态：</span>
-			<input id="zyzt_cbb"/>
-			<a id="search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="select_cysj_tab"></table>
 	</div>
 </div>
 </body>
