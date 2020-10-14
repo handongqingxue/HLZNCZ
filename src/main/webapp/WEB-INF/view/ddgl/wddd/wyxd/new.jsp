@@ -33,6 +33,49 @@
 .select_yss_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
+
+.edit_yss_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_yss_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_yss_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_yss_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_yss_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_yss_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_yss_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_yss_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -41,7 +84,7 @@ var dialogLeft=20;
 var ndNum=0;
 var yssdNum=1;
 var syssdNum=2;
-var eyssdNum=3;
+var eyssjbsxzdNum=3;
 var wlxxdNum=4;
 var swlxxdNum=5;
 var ewlxxdNum=6;
@@ -61,7 +104,7 @@ $(function(){
 	
 	initYSSDialog();//1.运输商窗口
 	initSelectYSSDialog();//2.选择运输商窗口
-	initEditYSSDialog();//3.修改运输商窗口
+	initEditYSSJBSXZDialog();//3.修改运输商窗口
 	
 	initWLXXDialog();//4.物料信息窗口
 	initSelectWLXXDialog();//5.选择物料信息窗口
@@ -97,6 +140,10 @@ function initDialogPosition(){
 	//选择运输商
 	var syssdpw=$("body").find(".panel.window").eq(syssdNum);
 	var syssdws=$("body").find(".window-shadow").eq(syssdNum);
+
+	//修改运输商
+	var eyssjbsxdpw=$("body").find(".panel.window").eq(eyssjbsxzdNum);
+	var eyssjbsxdws=$("body").find(".window-shadow").eq(eyssjbsxzdNum);
 
 	//物料信息
 	var wlxxdpw=$("body").find(".panel.window").eq(wlxxdNum);
@@ -143,6 +190,10 @@ function initDialogPosition(){
 	var syssDiv=$("#select_yss_div");
 	syssDiv.append(syssdpw);
 	syssDiv.append(syssdws);
+
+	var eyssdDiv=$("#edit_yss_dialog_div");
+	eyssdDiv.append(eyssjbsxdpw);
+	eyssdDiv.append(eyssjbsxdws);
 }
 
 function initNewDialog(){
@@ -1258,13 +1309,13 @@ function initSelectCYSJTab(){
 	});
 }
 
-function initEditYSSDialog(){
-	editYSSDialog=$("#edit_yss_div").dialog({
+function initEditYSSJBSXZDialog(){
+	editYSSDialog=$("#edit_yss_jbsxz_dialog_div").dialog({
 		title:"修改运输商实体",
-		width:setFitWidthInParent("body","edit_yss_div"),
+		width:setFitWidthInParent("#edit_yss_div","edit_yss_jbsxz_dialog_div"),
 		height:231,
-		top:160,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openEditYSSDialog(0);
@@ -1275,32 +1326,32 @@ function initEditYSSDialog(){
         ]
 	});
 
-	$("#edit_yss_div table").css("width",(setFitWidthInParent("body","edit_yss_div"))+"px");
-	$("#edit_yss_div table").css("magin","-100px");
-	$("#edit_yss_div table td").css("padding-left","50px");
-	$("#edit_yss_div table td").css("padding-right","20px");
-	$("#edit_yss_div table td").css("font-size","15px");
-	$("#edit_yss_div table tr").css("height","45px");
+	$("#edit_yss_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_yss_div","edit_yss_jbsxz_dialog_div"))+"px");
+	$("#edit_yss_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_yss_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_yss_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_yss_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_yss_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(eyssdNum).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(eyssdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(eyssdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(eyssdNum).css("padding-left","10px");
+	$(".panel.window").eq(eyssjbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(eyssjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(eyssjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(eyssjbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(eyssdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(eyssjbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(eyssdNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(eyssdNum).css("border-color","#ddd");
+	$(".window-shadow").eq(eyssjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(eyssjbsxzdNum).css("border-color","#ddd");
 
-	$("#edit_yss_div #cancel_but").css("left","30%");
-	$("#edit_yss_div #cancel_but").css("position","absolute");
+	$("#edit_yss_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_yss_jbsxz_dialog_div #cancel_but").css("position","absolute");
 
-	$("#edit_yss_div #ok_but").css("left","45%");
-	$("#edit_yss_div #ok_but").css("position","absolute");
+	$("#edit_yss_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_yss_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openEditYSSDialog(0);
+	openEditYSSJBSXZDialog(0);
 }
 
 function initEditWLXXDialog(){
@@ -1680,6 +1731,16 @@ function openSelectCYSJDialog(flag){
 
 function openEditYSSDialog(flag){
 	if(flag==1){
+		$("#edit_yss_bg_div").css("display","block");
+	}
+	else{
+		$("#edit_yss_bg_div").css("display","none");
+	}
+	openEditYSSJBSXZDialog(flag);
+}
+
+function openEditYSSJBSXZDialog(flag){
+	if(flag==1){
 		editYSSDialog.dialog("open");
 	}
 	else{
@@ -2031,7 +2092,6 @@ function setFitWidthInParent(parent,self){
 	case "new_div":
 	case "yss_div":
 	case "select_yss_tab":
-	case "edit_yss_div":
 	case "wlxx_div":
 	case "select_wlxx_tab":
 	case "edit_wlxx_div":
@@ -2053,6 +2113,7 @@ function setFitWidthInParent(parent,self){
 		space=355;
 		break;
 	case "select_yss_dialog_div":
+	case "edit_yss_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -2090,6 +2151,41 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 选择运输商 end -->
+
+<!-- 编辑运输商 start -->
+<div class="edit_yss_bg_div" id="edit_yss_bg_div">
+	<div class="edit_yss_div" id="edit_yss_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditYSSDialog(0)">X</span>
+		</div>
+		<div class="edit_yss_dialog_div" id="edit_yss_dialog_div">
+			<div class="title_div">
+				<span class="title_span">我要下单-运输商-修改</span>
+			</div>
+			<div id="edit_yss_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						名称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑运输商 end -->
 		
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
@@ -2133,26 +2229,6 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="yss_tab"></table>
-	</div>
-
-	<div id="edit_yss_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				名称
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
-			</td>
-			<td align="right" style="width:15%;">
-				编辑时间
-			</td>
-			<td style="width:30%;">
-				<span id="bjsj"></span>
-			</td>
-		  </tr>
-		</table>
 	</div>
 
 	<div id="wlxx_div">
