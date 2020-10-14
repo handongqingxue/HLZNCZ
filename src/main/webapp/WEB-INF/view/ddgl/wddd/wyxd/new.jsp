@@ -175,6 +175,49 @@
 .select_fhdw_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
+
+.edit_fhdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_fhdw_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_fhdw_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_fhdw_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_fhdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_fhdw_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_fhdw_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_fhdw_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -190,7 +233,7 @@ var swlxxdNum=5;
 var ewlxxjbsxzdNum=6;
 var fhdwdNum=7;
 var sfhdwdNum=8;
-var efhdwdNum=9;
+var efhdwjbsxzdNum=9;
 var shdwdNum=10;
 var sshdwdNum=11;
 var eshdwdNum=12;
@@ -212,7 +255,7 @@ $(function(){
 
 	initFHDWDialog();//7.发货单位窗口
 	initSelectFHDWDialog();//8.选择发货单位窗口
-	initEditFHDWDialog();//9.修改发货单位窗口
+	initEditFHDWJBSXZDialog();//9.修改发货单位窗口
 
 	initSHDWDialog();//10.收货单位窗口
 	initSelectSHDWDialog();//11.选择收货单位窗口
@@ -264,6 +307,10 @@ function initDialogPosition(){
 	//选择发货单位
 	var sfhdwdpw=$("body").find(".panel.window").eq(sfhdwdNum);
 	var sfhdwdws=$("body").find(".window-shadow").eq(sfhdwdNum);
+
+	//修改发货单位
+	var efhdwjbsxdpw=$("body").find(".panel.window").eq(efhdwjbsxzdNum);
+	var efhdwjbsxdws=$("body").find(".window-shadow").eq(efhdwjbsxzdNum);
 
 	//收货单位
 	var shdwdpw=$("body").find(".panel.window").eq(shdwdNum);
@@ -318,6 +365,10 @@ function initDialogPosition(){
 	var sfhdwDiv=$("#select_fhdw_div");
 	sfhdwDiv.append(sfhdwdpw);
 	sfhdwDiv.append(sfhdwdws);
+
+	var efhdwdDiv=$("#edit_fhdw_dialog_div");
+	efhdwdDiv.append(efhdwjbsxdpw);
+	efhdwdDiv.append(efhdwjbsxdws);
 }
 
 function initNewDialog(){
@@ -1522,13 +1573,13 @@ function initEditWLXXJBSXZDialog(){
 	openEditWLXXJBSXZDialog(0);
 }
 
-function initEditFHDWDialog(){
-	editFHDWDialog=$("#edit_fhdw_div").dialog({
-		title:"修改发货单位实体",
-		width:setFitWidthInParent("body","edit_fhdw_div"),
+function initEditFHDWJBSXZDialog(){
+	editFHDWDialog=$("#edit_fhdw_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#edit_fhdw_div","edit_fhdw_jbsxz_dialog_div"),
 		height:231,
-		top:200,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openEditFHDWDialog(0);
@@ -1539,33 +1590,33 @@ function initEditFHDWDialog(){
         ]
 	});
 
-	$("#edit_fhdw_div table").css("width",(setFitWidthInParent("body","edit_fhdw_div"))+"px");
-	$("#edit_fhdw_div table").css("magin","-100px");
-	$("#edit_fhdw_div table td").css("padding-left","50px");
-	$("#edit_fhdw_div table td").css("padding-right","20px");
-	$("#edit_fhdw_div table td").css("font-size","15px");
-	$("#edit_fhdw_div table tr").css("height","45px");
+	$("#edit_fhdw_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_fhdw_div","edit_fhdw_jbsxz_dialog_div"))+"px");
+	$("#edit_fhdw_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_fhdw_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_fhdw_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_fhdw_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_fhdw_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(efhdwdNum).css("margin-top","20px");
-	$(".panel.window").eq(efhdwdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(efhdwdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(efhdwdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(efhdwdNum).css("padding-left","10px");
+	$(".panel.window").eq(efhdwjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(efhdwjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(efhdwjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(efhdwjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(efhdwjbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(efhdwdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(efhdwjbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(efhdwdNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(efhdwdNum).css("border-color","#ddd");
+	$(".window-shadow").eq(efhdwjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(efhdwjbsxzdNum).css("border-color","#ddd");
 
-	$("#edit_fhdw_div #cancel_but").css("left","30%");
-	$("#edit_fhdw_div #cancel_but").css("position","absolute");
+	$("#edit_fhdw_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_fhdw_jbsxz_dialog_div #cancel_but").css("position","absolute");
 
-	$("#edit_fhdw_div #ok_but").css("left","45%");
-	$("#edit_fhdw_div #ok_but").css("position","absolute");
+	$("#edit_fhdw_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_fhdw_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openEditFHDWDialog(0);
+	openEditFHDWJBSXZDialog(0);
 }
 
 function initEditSHDWDialog(){
@@ -1900,6 +1951,18 @@ function openEditWLXXJBSXZDialog(flag){
 }
 
 function openEditFHDWDialog(flag){
+	if(flag==1){
+		$("#edit_fhdw_bg_div").css("display","block");
+		$("#edit_fhdw_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#edit_fhdw_bg_div").css("display","none");
+		$("#edit_fhdw_bg_div").css("z-index","9016");
+	}
+	openEditFHDWJBSXZDialog(flag);
+}
+
+function openEditFHDWJBSXZDialog(flag){
 	if(flag==1){
 		editFHDWDialog.dialog("open");
 	}
@@ -2259,6 +2322,7 @@ function setFitWidthInParent(parent,self){
 	case "select_wlxx_dialog_div":
 	case "edit_wlxx_jbsxz_dialog_div":
 	case "select_fhdw_dialog_div":
+	case "edit_fhdw_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -2404,6 +2468,41 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 选择发货单位 end -->
+
+<!-- 编辑发货单位 start -->
+<div class="edit_fhdw_bg_div" id="edit_fhdw_bg_div">
+	<div class="edit_fhdw_div" id="edit_fhdw_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditFHDWDialog(0)">X</span>
+		</div>
+		<div class="edit_fhdw_dialog_div" id="edit_fhdw_dialog_div">
+			<div class="title_div">
+				<span class="title_span">我要下单-物料信息-修改</span>
+			</div>
+			<div id="edit_fhdw_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						单位名称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑发货单位 end -->
 		
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
@@ -2461,26 +2560,6 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="fhdw_tab"></table>
-	</div>
-
-	<div id="edit_fhdw_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				单位名称
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
-			</td>
-			<td align="right" style="width:15%;">
-				编辑时间
-			</td>
-			<td style="width:30%;">
-				<span id="bjsj"></span>
-			</td>
-		  </tr>
-		</table>
 	</div>
 
 	<div id="shdw_div">
