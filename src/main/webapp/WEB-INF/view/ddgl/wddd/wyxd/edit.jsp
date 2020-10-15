@@ -759,7 +759,7 @@ function initCYSJDialog(){
 	cysjDialog=$("#cysj_div").dialog({
 		title:"承运司机",
 		width:setFitWidthInParent("body","cysj_div"),
-		height:300,
+		height:200,
 		top:dialogTop,
 		left:dialogLeft
 	});
