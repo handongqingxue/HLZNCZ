@@ -7,13 +7,32 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var edNum=0;
 $(function(){
+	initEditDialog();//0
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
+});
+
+function initDialogPosition(){
+	//基本属性组
+	var edpw=$("body").find(".panel.window").eq(edNum);
+	var edws=$("body").find(".window-shadow").eq(edNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(edpw);
+	ccDiv.append(edws);
+}
+
+function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:231,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkEdit();
@@ -30,21 +49,21 @@ $(function(){
 	$("#edit_div table tr").eq(1).css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window .panel-title").eq(edNum).css("color","#000");
+	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
 	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
 	$("#ok_but").css("left","45%");
 	$("#ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-});
+}
 
 function checkEdit(){
 	if(checkMC()){
@@ -100,8 +119,8 @@ function setFitWidthInParent(o){
 <title>修改</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="edit_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.wzlx.id }"/>
 		<table>

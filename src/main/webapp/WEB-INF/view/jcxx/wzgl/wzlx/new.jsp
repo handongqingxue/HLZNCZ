@@ -7,13 +7,32 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var ndNum=0;
 $(function(){
+	initNewDialog();//0
+	
+	initDialogPosition();//将不同窗体移动到主要内容区域
+});
+
+function initDialogPosition(){
+	//基本属性组
+	var ndpw=$("body").find(".panel.window").eq(ndNum);
+	var ndws=$("body").find(".window-shadow").eq(ndNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(ndpw);
+	ccDiv.append(ndws);
+}
+
+function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:231,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkNew();
@@ -30,21 +49,21 @@ $(function(){
 	$("#new_div table tr").eq(1).css("height","45px");
 
 	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ndNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ndNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
 	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
 
-	$("#ok_but").css("left","45%");
-	$("#ok_but").css("position","absolute");
+	$("#new_div #ok_but").css("left","45%");
+	$("#new_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-});
+}
 
 function checkNew(){
 	if(checkMC()){
@@ -99,8 +118,8 @@ function setFitWidthInParent(o){
 <title>创建</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="new_div">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">

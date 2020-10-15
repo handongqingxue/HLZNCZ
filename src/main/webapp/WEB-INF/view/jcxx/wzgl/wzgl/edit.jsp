@@ -5,20 +5,73 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.select_wzlx_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_wzlx_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_wzlx_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_wzlx_div .xzst_span{
+	margin-left: 30px;
+}
+.select_wzlx_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var showZIndex=9999;
+var edNum=0;
+var swzlxdNum=1;
 $(function(){
 	initEditDialog();
 	initSelectWzlxDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
+
+function initDialogPosition(){
+	//基本属性组
+	var edpw=$("body").find(".panel.window").eq(edNum);
+	var edws=$("body").find(".window-shadow").eq(edNum);
+
+	var swzlxdpw=$("body").find(".panel.window").eq(swzlxdNum);
+	var swzlxdws=$("body").find(".window-shadow").eq(swzlxdNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(edpw);
+	ccDiv.append(edws);
+
+	var swzlxDiv=$("#select_wzlx_div");
+	swzlxDiv.append(swzlxdpw);
+	swzlxDiv.append(swzlxdws);
+}
 
 function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:231,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkEdit();
@@ -34,16 +87,16 @@ function initEditDialog(){
 	$("#edit_div table tr").eq(0).css("height","90px");
 	$("#edit_div table tr").eq(1).css("height","45px");
 
-	$(".panel.window").eq(0).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(0).css("color","#000");
-	$(".panel.window .panel-title").eq(0).css("font-size","15px");
-	$(".panel.window .panel-title").eq(0).css("padding-left","10px");
+	$(".panel.window").eq(edNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(edNum).css("color","#000");
+	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(0).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(edNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(0).css("margin-top","20px");
-	$(".window,.window .window-body").eq(0).css("border-color","#ddd");
+	$(".window-shadow").eq(edNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
 	$("#edit_div #ok_but").css("left","45%");
 	$("#edit_div #ok_but").css("position","absolute");
@@ -52,16 +105,15 @@ function initEditDialog(){
 }
 
 function initSelectWzlxDialog(){
-	wzlxDialog=$("#select_wzlx_div").dialog({
+	wzlxDialog=$("#select_wzlx_dialog_div").dialog({
 		title:"选择实体",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("#select_wzlx_div","select_wzlx_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openWZLXDialog(0);
+        	   openSelectWZLXDialog(0);
            }},
            {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
         	   	saveWZLX();
@@ -69,32 +121,32 @@ function initSelectWzlxDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(1).css("width","983px");
-	$(".panel.window").eq(1).css("margin-top","20px");
-	$(".panel.window").eq(1).css("margin-left",initWindowMarginLeft());
-	$(".panel.window .panel-title").eq(1).css("color","#000");
-	$(".panel.window .panel-title").eq(1).css("font-size","15px");
-	$(".panel.window .panel-title").eq(1).css("padding-left","10px");
+	$(".panel.window").eq(swzlxdNum).css("width","983px");
+	$(".panel.window").eq(swzlxdNum).css("margin-top","20px");
+	//$(".panel.window").eq(swzlxdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window .panel-title").eq(swzlxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(swzlxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(swzlxdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(1).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(swzlxdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(1).css("width","1000px");
-	$(".window-shadow").eq(1).css("margin-top","20px");
-	$(".window-shadow").eq(1).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(swzlxdNum).css("width","1000px");
+	$(".window-shadow").eq(swzlxdNum).css("margin-top","20px");
+	//$(".window-shadow").eq(swzlxdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(1).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(swzlxdNum).css("border-color","#ddd");
 
-	$("#select_wzlx_div #cancel_but").css("left","30%");
-	$("#select_wzlx_div #cancel_but").css("position","absolute");
+	$("#select_wzlx_dialog_div #cancel_but").css("left","30%");
+	$("#select_wzlx_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_wzlx_div #save_but").css("left","45%");
-	$("#select_wzlx_div #save_but").css("position","absolute");
+	$("#select_wzlx_dialog_div #save_but").css("left","45%");
+	$("#select_wzlx_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
 	initWZLXTab();
-	openWZLXDialog(0);
+	openSelectWZLXDialog(0);
 }
 
 function initWZLXTab(){
@@ -156,11 +208,15 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function openWZLXDialog(flag){
+function openSelectWZLXDialog(flag){
 	if(flag==1){
+		$("#select_wzlx_bg_div").css("display","block");
+		$("#select_wzlx_bg_div").css("z-index",showZIndex);
 		wzlxDialog.dialog("open");
 	}
 	else{
+		$("#select_wzlx_bg_div").css("display","none");
+		$("#select_wzlx_bg_div").css("z-index","9016");
 		wzlxDialog.dialog("close");
 	}
 }
@@ -173,7 +229,7 @@ function saveWZLX(){
 	}
 	$("#edit_div #wzlx_hid").val(row.id);
 	$("#edit_div #wzlxmc_span").text(row.mc);
-	openWZLXDialog(0);
+	openSelectWZLXDialog(0);
 }
 
 function checkEdit(){
@@ -234,9 +290,23 @@ function checkWZLXId(){
 		return true;
 }
 
-function setFitWidthInParent(o){
-	var width=$(o).css("width");
-	return width.substring(0,width.length-2)-340;
+function setFitWidthInParent(parent,self){
+	var space=0;
+	switch (self) {
+	case "edit_div":
+		space=340;
+		break;
+	case "edit_div_table":
+	case "panel_window":
+	case "wzlx_tab":
+		space=355;
+		break;
+	case "select_wzlx_dialog_div":
+		space=50;
+		break;
+	}
+	var width=$(parent).css("width");
+	return width.substring(0,width.length-2)-space;
 }
 
 function setFitHeightInParent(o){
@@ -255,8 +325,28 @@ function initWindowMarginLeft(){
 <title>修改</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+	
+<!-- 选择物资类型 start -->
+<div class="select_wzlx_bg_div" id="select_wzlx_bg_div">
+	<div class="select_wzlx_div" id="select_wzlx_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectWZLXDialog(0)">X</span>
+		</div>
+		<div id="select_wzlx_dialog_div">
+			<div id="toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">名称：</span>
+				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="wzlx_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择物资类型 end -->
+	
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="edit_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.wz.id }"/>
 		<table>
@@ -272,7 +362,7 @@ function initWindowMarginLeft(){
 			</td>
 			<td style="width:30%;">
 				<input type="hidden" id="wzlx_hid"/>
-				<span id="wzlxmc_span" style="cursor: pointer;" onclick="openWZLXDialog(1)">${requestScope.wz.wzlxmc }</span>
+				<span id="wzlxmc_span" style="cursor: pointer;" onclick="openSelectWZLXDialog(1)">${requestScope.wz.wzlxmc }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -288,15 +378,6 @@ function initWindowMarginLeft(){
 			</td>
 		  </tr>
 		</table>
-	</div>
-	
-	<div id="select_wzlx_div">
-		<div id="toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">名称：</span>
-			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
-			<a id="search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="wzlx_tab"></table>
 	</div>
 </div>
 </body>
