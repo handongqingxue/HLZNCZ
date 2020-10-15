@@ -7,17 +7,32 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var edNum=0;
 $(function(){
 	initEditDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
+
+function initDialogPosition(){
+	//基本属性组
+	var edpw=$("body").find(".panel.window").eq(edNum);
+	var edws=$("body").find(".window-shadow").eq(edNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(edpw);
+	ccDiv.append(edws);
+}
 
 function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("body","edit_div"),
 		height:200,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkEdit();
@@ -25,23 +40,23 @@ function initEditDialog(){
         ]
 	});
 
-	$("#edit_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#edit_div table").css("width",(setFitWidthInParent("body","edit_div_table"))+"px");
 	$("#edit_div table").css("magin","-100px");
 	$("#edit_div table td").css("padding-left","50px");
 	$("#edit_div table td").css("padding-right","20px");
 	$("#edit_div table td").css("font-size","15px");
 	$("#edit_div table tr").css("height","45px");
 
-	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window").eq(edNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(edNum).css("color","#000");
+	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window-shadow").eq(edNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
 	$("#edit_div #ok_but").css("left","45%");
 	$("#edit_div #ok_but").css("position","absolute");
@@ -110,16 +125,26 @@ function checkMC(){
 		return true;
 }
 
-function setFitWidthInParent(o){
-	var width=$(o).css("width");
-	return width.substring(0,width.length-2)-340;
+function setFitWidthInParent(parent,self){
+	var space=0;
+	switch (self) {
+	case "edit_div":
+		space=340;
+		break;
+	case "edit_div_table":
+	case "panel_window":
+		space=355;
+		break;
+	}
+	var width=$(parent).css("width");
+	return width.substring(0,width.length-2)-space;
 }
 </script>
 <title>修改</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
 		<input type="hidden" id="id" name="id" value="${requestScope.yss.id }"/>

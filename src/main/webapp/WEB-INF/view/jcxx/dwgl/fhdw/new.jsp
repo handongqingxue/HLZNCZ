@@ -7,17 +7,32 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var ndNum=0;
 $(function(){
 	initNewDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
+
+function initDialogPosition(){
+	//基本属性组
+	var ndpw=$("body").find(".panel.window").eq(ndNum);
+	var ndws=$("body").find(".window-shadow").eq(ndNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(ndpw);
+	ccDiv.append(ndws);
+}
 
 function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("body","new_div"),
 		height:150,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkNew();
@@ -25,23 +40,23 @@ function initNewDialog(){
         ]
 	});
 
-	$("#new_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#new_div table").css("width",(setFitWidthInParent("body","new_div_table"))+"px");
 	$("#new_div table").css("magin","-100px");
 	$("#new_div table td").css("padding-left","50px");
 	$("#new_div table td").css("padding-right","20px");
 	$("#new_div table td").css("font-size","15px");
 	$("#new_div table tr").css("height","45px");
 
-	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window").eq(ndNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ndNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ndNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window-shadow").eq(ndNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
 
 	$("#new_div #ok_but").css("left","45%");
 	$("#new_div #ok_but").css("position","absolute");
@@ -110,16 +125,26 @@ function checkDWMC(){
 		return true;
 }
 
-function setFitWidthInParent(o){
-	var width=$(o).css("width");
-	return width.substring(0,width.length-2)-340;
+function setFitWidthInParent(parent,self){
+	var space=0;
+	switch (self) {
+	case "new_div":
+		space=340;
+		break;
+	case "new_div_table":
+	case "panel_window":
+		space=355;
+		break;
+	}
+	var width=$(parent).css("width");
+	return width.substring(0,width.length-2)-space;
 }
 </script>
 <title>创建</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<table>

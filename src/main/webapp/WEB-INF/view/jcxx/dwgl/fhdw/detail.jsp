@@ -6,20 +6,36 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
+var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var ddNum=0;
 $(function(){
 	initDetailDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
+
+function initDialogPosition(){
+	//基本属性组
+	var ddpw=$("body").find(".panel.window").eq(ddNum);
+	var ddws=$("body").find(".window-shadow").eq(ddNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(ddpw);
+	ccDiv.append(ddws);
+}
 
 function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("body","detail_div"),
 		height:150,
-		top:60,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 
-	$("#detail_div table").css("width",(setFitWidthInParent("body")-15)+"px");
+	$("#detail_div table").css("width",(setFitWidthInParent("body","detail_div_table"))+"px");
 	$("#detail_div table").css("magin","-100px");
 	$("#detail_div table td").css("padding-left","50px");
 	$("#detail_div table td").css("padding-right","20px");
@@ -38,16 +54,26 @@ function initDetailDialog(){
 	$(".window,.window .window-body").css("border-color","#ddd");
 }
 
-function setFitWidthInParent(o){
-	var width=$(o).css("width");
-	return width.substring(0,width.length-2)-340;
+function setFitWidthInParent(parent,self){
+	var space=0;
+	switch (self) {
+	case "detail_div":
+		space=340;
+		break;
+	case "detail_div_table":
+	case "panel_window":
+		space=355;
+		break;
+	}
+	var width=$(parent).css("width");
+	return width.substring(0,width.length-2)-space;
 }
 </script>
 <title>详情</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="detail_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.fhdw.id }"/>
 		<table>

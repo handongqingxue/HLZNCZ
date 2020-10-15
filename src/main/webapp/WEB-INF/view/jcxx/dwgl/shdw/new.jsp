@@ -5,22 +5,84 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.select_ssdl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_ssdl_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_ssdl_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_ssdl_div .xzst_span{
+	margin-left: 30px;
+}
+.select_ssdl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var showZIndex=9999;
+var ndNum=0;
+var ssdldNum=1;
+var sssdldNum=2;
 $(function(){
 	initNewDialog();
 	initSSDLDialog();
 	initSelectSSDLDialog();
 	initEditSSDLDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
+
+function initDialogPosition(){
+	//基本属性组
+	var ndpw=$("body").find(".panel.window").eq(ndNum);
+	var ndws=$("body").find(".window-shadow").eq(ndNum);
+
+	//所属队列
+	var ssdldpw=$("body").find(".panel.window").eq(ssdldNum);
+	var ssdldws=$("body").find(".window-shadow").eq(ssdldNum);
+
+	//选择所属队列
+	var sssdldpw=$("body").find(".panel.window").eq(sssdldNum);
+	var sssdldws=$("body").find(".window-shadow").eq(sssdldNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(ndpw);
+	ccDiv.append(ndws);
+
+	ccDiv.append(ssdldpw);
+	ccDiv.append(ssdldws);
+
+	var sssdlDiv=$("#select_ssdl_div");
+	sssdlDiv.append(sssdldpw);
+	sssdlDiv.append(sssdldws);
+}
 
 function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","new_div"),
 		height:150,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkNew();
@@ -35,16 +97,16 @@ function initNewDialog(){
 	$("#new_div table td").css("font-size","15px");
 	$("#new_div table tr").css("height","45px");
 
-	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window").eq(ndNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ndNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ndNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window-shadow").eq(ndNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
 
 	$("#new_div #ok_but").css("left","45%");
 	$("#new_div #ok_but").css("position","absolute");
@@ -53,42 +115,42 @@ function initNewDialog(){
 }
 
 function initSSDLDialog(){
+	dialogTop+=180;//190
 	shdwDialog=$("#ssdl_div").dialog({
 		title:"所属队列",
 		width:setFitWidthInParent("body","ssdl_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
-	$(".panel.window").eq(1).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(1).css("margin-top","20px");
-	$(".panel.window").eq(1).css("margin-left",initWindowMarginLeft());
-	$(".panel.window .panel-title").eq(1).css("color","#000");
-	$(".panel.window .panel-title").eq(1).css("font-size","15px");
-	$(".panel.window .panel-title").eq(1).css("padding-left","10px");
+	$(".panel.window").eq(ssdldNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(ssdldNum).css("margin-top","20px");
+	$(".panel.window").eq(ssdldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window .panel-title").eq(ssdldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ssdldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ssdldNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(1).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(ssdldNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	//$(".window-shadow").eq(1).css("width","1000px");
-	$(".window-shadow").eq(1).css("margin-top","20px");
-	$(".window-shadow").eq(1).css("margin-left",initWindowMarginLeft());
+	//$(".window-shadow").eq(ssdldNum).css("width","1000px");
+	$(".window-shadow").eq(ssdldNum).css("margin-top","20px");
+	$(".window-shadow").eq(ssdldNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(1).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(ssdldNum).css("border-color","#ddd");
 
 	initSSDLTab();
 }
 
 function initSelectSSDLDialog(){
-	selectSSDLDialog=$("#select_ssdl_div").dialog({
+	selectSSDLDialog=$("#select_ssdl_dialog_div").dialog({
 		title:"选择实体",
-		width:setFitWidthInParent("body"),
+		width:setFitWidthInParent("#select_ssdl_div","select_ssdl_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectSSDLDialog(0);
@@ -99,27 +161,27 @@ function initSelectSSDLDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(2).css("width","983px");
-	$(".panel.window").eq(2).css("margin-top","20px");
-	$(".panel.window").eq(2).css("margin-left",initWindowMarginLeft());
-	$(".panel.window .panel-title").eq(2).css("color","#000");
-	$(".panel.window .panel-title").eq(2).css("font-size","15px");
-	$(".panel.window .panel-title").eq(2).css("padding-left","10px");
+	$(".panel.window").eq(sssdldNum).css("width","983px");
+	$(".panel.window").eq(sssdldNum).css("margin-top","20px");
+	$(".panel.window").eq(sssdldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window .panel-title").eq(sssdldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sssdldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sssdldNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(2).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(sssdldNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(2).css("width","1000px");
-	$(".window-shadow").eq(2).css("margin-top","20px");
-	$(".window-shadow").eq(2).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(sssdldNum).css("width","1000px");
+	$(".window-shadow").eq(sssdldNum).css("margin-top","20px");
+	$(".window-shadow").eq(sssdldNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(2).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(sssdldNum).css("border-color","#ddd");
 
-	$("#select_ssdl_div #cancel_but").css("left","30%");
-	$("#select_ssdl_div #cancel_but").css("position","absolute");
+	$("#select_ssdl_dialog_div #cancel_but").css("left","30%");
+	$("#select_ssdl_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_ssdl_div #save_but").css("left","45%");
-	$("#select_ssdl_div #save_but").css("position","absolute");
+	$("#select_ssdl_dialog_div #save_but").css("left","45%");
+	$("#select_ssdl_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -367,9 +429,13 @@ function reSizeCol(){
 
 function openSelectSSDLDialog(flag){
 	if(flag==1){
+		$("#select_ssdl_bg_div").css("display","block");
+		$("#select_ssdl_bg_div").css("z-index",showZIndex);
 		selectSSDLDialog.dialog("open");
 	}
 	else{
+		$("#select_ssdl_bg_div").css("display","none");
+		$("#select_ssdl_bg_div").css("z-index","9016");
 		selectSSDLDialog.dialog("close");
 	}
 }
@@ -479,6 +545,9 @@ function setFitWidthInParent(parent,self){
 	case "ssdl_tab":
 		space=355;
 		break;
+	case "select_ssdl_dialog_div":
+		space=50;
+		break;
 	}
 	var width=$(parent).css("width");
 	return width.substring(0,width.length-2)-space;
@@ -495,8 +564,32 @@ function initWindowMarginLeft(){
 <title>创建</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+	
+<!-- 选择所属队列 start -->
+<div class="select_ssdl_bg_div" id="select_ssdl_bg_div">
+	<div class="select_ssdl_div" id="select_ssdl_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectSSDLDialog(0)">X</span>
+		</div>
+		<div id="select_ssdl_dialog_div">
+			<div id="select_ssdl_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">名称：</span>
+				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">代码：</span>
+				<input type="text" id="dm_inp" placeholder="请输入代码" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">状态：</span>
+				<input id="zt_cbb"/>
+				<a id="select_ssdl_search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_ssdl_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择所属队列 end -->
+	
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="new_div">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -519,19 +612,6 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="ssdl_tab"></table>
-	</div>
-	
-	<div id="select_ssdl_div">
-		<div id="select_ssdl_toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">名称：</span>
-			<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">代码：</span>
-			<input type="text" id="dm_inp" placeholder="请输入代码" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">状态：</span>
-			<input id="zt_cbb"/>
-			<a id="select_ssdl_search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="select_ssdl_tab"></table>
 	</div>
 	
 	<div id="edit_ssdl_div">
