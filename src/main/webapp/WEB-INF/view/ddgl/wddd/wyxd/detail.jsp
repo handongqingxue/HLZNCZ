@@ -134,6 +134,135 @@
 .detail_fhdw_div .title_span{
 	margin-left: 30px;
 }
+
+.detail_shdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_shdw_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_shdw_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_shdw_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_shdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_shdw_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_shdw_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_shdw_div .title_span{
+	margin-left: 30px;
+}
+
+.detail_cycl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_cycl_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_cycl_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_cycl_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_cycl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_cycl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_cycl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_cycl_div .title_span{
+	margin-left: 30px;
+}
+
+.detail_cysj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_cysj_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_cysj_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_cysj_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_cysj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_cysj_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_cysj_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_cysj_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -148,11 +277,11 @@ var dwlxxjbsxzdNum=4;
 var fhdwdNum=5;
 var dfhdwjbsxzdNum=6;
 var shdwdNum=7;
-var dshdwdNum=8;
+var dshdwjbsxzdNum=8;
 var cycldNum=9;
-var dcycldNum=10;
+var dcycljbsxzdNum=10;
 var cysjdNum=11;
-var dcysjdNum=12;
+var dcysjjbsxzdNum=12;
 $(function(){
 	initDetailDialog();
 	
@@ -166,13 +295,13 @@ $(function(){
 	initDetailFHDWJBSXZDialog();//6.发货单位详情窗口
 
 	initSHDWDialog();//7.收货单位窗口
-	initDetailSHDWDialog();//8.发货单位详情窗口
+	initDetailSHDWJBSXZDialog();//8.收货单位详情窗口
 	
 	initCYCLDialog();//9.承运车辆窗口
-	initDetailCYCLDialog();//10.承运车辆详情窗口
+	initDetailCYCLJBSXZDialog();//10.承运车辆详情窗口
 	
 	initCYSJDialog();//11.承运司机窗口
-	initDetailCYSJDialog();//12.承运司机详情窗口
+	initDetailCYSJJBSXZDialog();//12.承运司机详情窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -210,13 +339,25 @@ function initDialogPosition(){
 	var shdwdpw=$("body").find(".panel.window").eq(shdwdNum);
 	var shdwdws=$("body").find(".window-shadow").eq(shdwdNum);
 
+	//查看收货单位
+	var dshdwjbsxdpw=$("body").find(".panel.window").eq(dshdwjbsxzdNum);
+	var dshdwjbsxdws=$("body").find(".window-shadow").eq(dshdwjbsxzdNum);
+
 	//承运车辆
 	var cycldpw=$("body").find(".panel.window").eq(cycldNum);
 	var cycldws=$("body").find(".window-shadow").eq(cycldNum);
 
+	//查看承运车辆
+	var dcycljbsxdpw=$("body").find(".panel.window").eq(dcycljbsxzdNum);
+	var dcycljbsxdws=$("body").find(".window-shadow").eq(dcycljbsxzdNum);
+
 	//承运司机
 	var cysjdpw=$("body").find(".panel.window").eq(cysjdNum);
 	var cysjdws=$("body").find(".window-shadow").eq(cysjdNum);
+
+	//查看承运司机
+	var dcysjjbsxdpw=$("body").find(".panel.window").eq(dcysjjbsxzdNum);
+	var dcysjjbsxdws=$("body").find(".window-shadow").eq(dcysjjbsxzdNum);
 	
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ddpw);
@@ -251,6 +392,18 @@ function initDialogPosition(){
 	var dfhdwdDiv=$("#detail_fhdw_dialog_div");
 	dfhdwdDiv.append(dfhdwjbsxdpw);
 	dfhdwdDiv.append(dfhdwjbsxdws);
+
+	var dshdwdDiv=$("#detail_shdw_dialog_div");
+	dshdwdDiv.append(dshdwjbsxdpw);
+	dshdwdDiv.append(dshdwjbsxdws);
+
+	var dcycldDiv=$("#detail_cycl_dialog_div");
+	dcycldDiv.append(dcycljbsxdpw);
+	dcycldDiv.append(dcycljbsxdws);
+
+	var dcysjdDiv=$("#detail_cysj_dialog_div");
+	dcysjdDiv.append(dcysjjbsxdpw);
+	dcysjdDiv.append(dcysjjbsxdws);
 }
 
 function initDetailDialog(){
@@ -933,13 +1086,13 @@ function initDetailFHDWJBSXZDialog(){
 	openDetailFHDWDialog(0);
 }
 
-function initDetailSHDWDialog(){
-	detailSHDWDialog=$("#detail_shdw_div").dialog({
+function initDetailSHDWJBSXZDialog(){
+	detailSHDWDialog=$("#detail_shdw_jbsxz_dialog_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body","detail_shdw_div"),
+		width:setFitWidthInParent("#detail_shdw_div","detail_shdw_jbsxz_dialog_div"),
 		height:231,
-		top:200,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openDetailSHDWDialog(0);
@@ -950,42 +1103,42 @@ function initDetailSHDWDialog(){
         ]
 	});
 
-	$("#detail_shdw_div table").css("width",(setFitWidthInParent("body","detail_shdw_div"))+"px");
-	$("#detail_shdw_div table").css("magin","-100px");
-	$("#detail_shdw_div table td").css("padding-left","50px");
-	$("#detail_shdw_div table td").css("padding-right","20px");
-	$("#detail_shdw_div table td").css("font-size","15px");
-	$("#detail_shdw_div table tr").css("height","45px");
+	$("#detail_shdw_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_shdw_div","detail_shdw_jbsxz_dialog_div"))+"px");
+	$("#detail_shdw_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_shdw_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_shdw_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_shdw_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_shdw_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(dshdwdNum).css("margin-top","20px");
-	$(".panel.window").eq(dshdwdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(dshdwdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dshdwdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dshdwdNum).css("padding-left","10px");
+	$(".panel.window").eq(dshdwjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dshdwjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dshdwjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dshdwjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dshdwjbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(dshdwdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(dshdwjbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(dshdwdNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(dshdwdNum).css("border-color","#ddd");
+	$(".window-shadow").eq(dshdwjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dshdwjbsxzdNum).css("border-color","#ddd");
 
-	$("#detail_shdw_div #cancel_but").css("left","30%");
-	$("#detail_shdw_div #cancel_but").css("position","absolute");
+	$("#detail_shdw_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_shdw_jbsxz_dialog_div #cancel_but").css("position","absolute");
 
-	$("#detail_shdw_div #ok_but").css("left","45%");
-	$("#detail_shdw_div #ok_but").css("position","absolute");
+	$("#detail_shdw_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_shdw_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openDetailSHDWDialog(0);
 }
 
-function initDetailCYCLDialog(){
-	detailCYCLDialog=$("#detail_cycl_div").dialog({
+function initDetailCYCLJBSXZDialog(){
+	detailCYCLDialog=$("#detail_cycl_jbsxz_dialog_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body","detail_cycl_div"),
+		width:setFitWidthInParent("#detail_cycl_div","detail_cycl_jbsxz_dialog_div"),
 		height:500,
-		top:200,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openDetailCYCLDialog(0);
@@ -996,42 +1149,42 @@ function initDetailCYCLDialog(){
         ]
 	});
 
-	$("#detail_cycl_div table").css("width",(setFitWidthInParent("body","detail_cycl_div"))+"px");
-	$("#detail_cycl_div table").css("magin","-100px");
-	$("#detail_cycl_div table td").css("padding-left","50px");
-	$("#detail_cycl_div table td").css("padding-right","20px");
-	$("#detail_cycl_div table td").css("font-size","15px");
-	$("#detail_cycl_div table tr").css("height","45px");
+	$("#detail_cycl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_cycl_div","detail_cycl_jbsxz_dialog_div"))+"px");
+	$("#detail_cycl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_cycl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_cycl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_cycl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_cycl_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(dcycldNum).css("margin-top","20px");
-	$(".panel.window").eq(dcycldNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(dcycldNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dcycldNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dcycldNum).css("padding-left","10px");
+	$(".panel.window").eq(dcycljbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dcycljbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dcycljbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dcycljbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dcycljbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(dcycldNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(dcycljbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(dcycldNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(dcycldNum).css("border-color","#ddd");
+	$(".window-shadow").eq(dcycljbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dcycljbsxzdNum).css("border-color","#ddd");
 
-	$("#detail_cycl_div #cancel_but").css("left","30%");
-	$("#detail_cycl_div #cancel_but").css("position","absolute");
+	$("#detail_cycl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_cycl_jbsxz_dialog_div #cancel_but").css("position","absolute");
 
-	$("#detail_cycl_div #ok_but").css("left","45%");
-	$("#detail_cycl_div #ok_but").css("position","absolute");
+	$("#detail_cycl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_cycl_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openDetailCYCLDialog(0);
 }
 
-function initDetailCYSJDialog(){
-	detailCYSJDialog=$("#detail_cysj_div").dialog({
+function initDetailCYSJJBSXZDialog(){
+	detailCYSJDialog=$("#detail_cysj_jbsxz_dialog_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body","detail_cysj_div"),
+		width:setFitWidthInParent("#detail_cysj_div","detail_cysj_jbsxz_dialog_div"),
 		height:500,
-		top:200,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openDetailCYSJDialog(0);
@@ -1042,30 +1195,30 @@ function initDetailCYSJDialog(){
         ]
 	});
 
-	$("#detail_cysj_div table").css("width",(setFitWidthInParent("body","detail_cysj_div"))+"px");
-	$("#detail_cysj_div table").css("magin","-100px");
-	$("#detail_cysj_div table td").css("padding-left","50px");
-	$("#detail_cysj_div table td").css("padding-right","20px");
-	$("#detail_cysj_div table td").css("font-size","15px");
-	$("#detail_cysj_div table tr").css("height","45px");
+	$("#detail_cysj_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_cysj_div","detail_cysj_jbsxz_dialog_div"))+"px");
+	$("#detail_cysj_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_cysj_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_cysj_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_cysj_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_cysj_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(dcysjdNum).css("margin-top","20px");
-	$(".panel.window").eq(dcysjdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(dcysjdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dcysjdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dcysjdNum).css("padding-left","10px");
+	$(".panel.window").eq(dcysjjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dcysjjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dcysjjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dcysjjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dcysjjbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(dcysjdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(dcysjjbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(dcysjdNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(dcysjdNum).css("border-color","#ddd");
+	$(".window-shadow").eq(dcysjjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(dcysjjbsxzdNum).css("border-color","#ddd");
 
-	$("#detail_cysj_div #cancel_but").css("left","30%");
-	$("#detail_cysj_div #cancel_but").css("position","absolute");
+	$("#detail_cysj_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_cysj_jbsxz_dialog_div #cancel_but").css("position","absolute");
 
-	$("#detail_cysj_div #ok_but").css("left","45%");
-	$("#detail_cysj_div #ok_but").css("position","absolute");
+	$("#detail_cysj_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_cysj_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openDetailCYSJDialog(0);
@@ -1178,9 +1331,11 @@ function showCYSJDetail(){
 function openDetailYSSDialog(flag){
 	if(flag==1){
 		$("#detail_yss_bg_div").css("display","block");
+		$("#detail_yss_bg_div").css("z-index",showZIndex);
 	}
 	else{
 		$("#detail_yss_bg_div").css("display","none");
+		$("#detail_yss_bg_div").css("z-index","9016");
 	}
 	openDetailYSSJBSXZDialog(flag);
 }
@@ -1197,9 +1352,11 @@ function openDetailYSSJBSXZDialog(flag){
 function openDetailWLXXDialog(flag){
 	if(flag==1){
 		$("#detail_wlxx_bg_div").css("display","block");
+		$("#detail_wlxx_bg_div").css("z-index",showZIndex);
 	}
 	else{
 		$("#detail_wlxx_bg_div").css("display","none");
+		$("#detail_wlxx_bg_div").css("z-index","9016");
 	}
 	openDetailWLXXJBSXZDialog(flag);
 }
@@ -1216,9 +1373,11 @@ function openDetailWLXXJBSXZDialog(flag){
 function openDetailFHDWDialog(flag){
 	if(flag==1){
 		$("#detail_fhdw_bg_div").css("display","block");
+		$("#detail_fhdw_bg_div").css("z-index",showZIndex);
 	}
 	else{
 		$("#detail_fhdw_bg_div").css("display","none");
+		$("#detail_fhdw_bg_div").css("z-index","9016");
 	}
 	openDetailFHDWJBSXZDialog(flag);
 }
@@ -1234,6 +1393,18 @@ function openDetailFHDWJBSXZDialog(flag){
 
 function openDetailSHDWDialog(flag){
 	if(flag==1){
+		$("#detail_shdw_bg_div").css("display","block");
+		$("#detail_shdw_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_shdw_bg_div").css("display","none");
+		$("#detail_shdw_bg_div").css("z-index","9016");
+	}
+	openDetailSHDWJBSXZDialog(flag);
+}
+
+function openDetailSHDWJBSXZDialog(flag){
+	if(flag==1){
 		detailSHDWDialog.dialog("open");
 	}
 	else{
@@ -1243,6 +1414,18 @@ function openDetailSHDWDialog(flag){
 
 function openDetailCYCLDialog(flag){
 	if(flag==1){
+		$("#detail_cycl_bg_div").css("display","block");
+		$("#detail_cycl_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_cycl_bg_div").css("display","none");
+		$("#detail_cycl_bg_div").css("z-index","9016");
+	}
+	openDetailCYCLJBSXZDialog(flag);
+}
+
+function openDetailCYCLJBSXZDialog(flag){
+	if(flag==1){
 		detailCYCLDialog.dialog("open");
 	}
 	else{
@@ -1251,6 +1434,18 @@ function openDetailCYCLDialog(flag){
 }
 
 function openDetailCYSJDialog(flag){
+	if(flag==1){
+		$("#detail_cysj_bg_div").css("display","block");
+		$("#detail_cysj_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_cysj_bg_div").css("display","none");
+		$("#detail_cysj_bg_div").css("z-index","9016");
+	}
+	openDetailCYSJJBSXZDialog(flag);
+}
+
+function openDetailCYSJJBSXZDialog(flag){
 	if(flag==1){
 		detailCYSJDialog.dialog("open");
 	}
@@ -1334,6 +1529,9 @@ function setFitWidthInParent(parent,self){
 	case "detail_yss_jbsxz_dialog_div":
 	case "detail_wlxx_jbsxz_dialog_div":
 	case "detail_fhdw_jbsxz_dialog_div":
+	case "detail_shdw_jbsxz_dialog_div":
+	case "detail_cycl_jbsxz_dialog_div":
+	case "detail_cysj_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -1470,6 +1668,251 @@ function initWindowMarginLeft(){
 </div>
 <!-- 查看发货单位 end -->
 	
+<!-- 查看收货单位 start -->
+<div class="detail_shdw_bg_div" id="detail_shdw_bg_div">
+	<div class="detail_shdw_div" id="detail_shdw_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailSHDWDialog(0)">X</span>
+		</div>
+		<div class="detail_shdw_dialog_div" id="detail_shdw_dialog_div">
+			<div class="title_div">
+				<span class="title_span">我要下单-发货单位-查看</span>
+			</div>
+			<div id="detail_shdw_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						单位名称
+					</td>
+					<td style="width:30%;">
+						<span id="dwmc"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看收货单位 end -->
+	
+<!-- 查看承运车辆 start -->
+<div class="detail_cycl_bg_div" id="detail_cycl_bg_div">
+	<div class="detail_cycl_div" id="detail_cycl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailCYCLDialog(0)">X</span>
+		</div>
+		<div class="detail_cycl_dialog_div" id="detail_cycl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">我要下单-承运车辆-查看</span>
+			</div>
+			<div id="detail_cycl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						车牌号
+					</td>
+					<td style="width:30%;">
+						<span id="cph"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						车主信息
+					</td>
+					<td style="width:30%;">
+						<span id="czxx"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						皮重
+					</td>
+					<td>
+						<span id="pz"></span>
+					</td>
+					<td align="right">
+						车辆类型
+					</td>
+					<td>
+						<span id="cllx"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						照片
+					</td>
+					<td>
+						<span id="zp"></span>
+					</td>
+					<td align="right">
+						发动机号码
+					</td>
+					<td>
+						<span id="fdjhm"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						车辆识别代号
+					</td>
+					<td>
+						<span id="clsbdh"></span>
+					</td>
+					<td align="right">
+						排放阶段
+					</td>
+					<td>
+						<span id="pfjd"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						注册日期
+					</td>
+					<td>
+						<span id="zcrq"></span>
+					</td>
+					<td align="right">
+						是否在用
+					</td>
+					<td>
+						<span id="sfzy"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						车辆运输类型
+					</td>
+					<td>
+						<span id="clyslx"></span>
+					</td>
+					<td align="right">
+						行驶证
+					</td>
+					<td>
+						<span id="xsz"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						随车清单
+					</td>
+					<td>
+						<span id="scqd"></span>
+					</td>
+					<td align="right">
+						排放阶段查询截图
+					</td>
+					<td>
+						<span id="pfjdcxjt"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看承运车辆 end -->
+
+<!-- 查看承运司机 start -->
+<div class="detail_cysj_bg_div" id="detail_cysj_bg_div">
+	<div class="detail_cysj_div" id="detail_cysj_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailCYSJDialog(0)">X</span>
+		</div>
+		<div class="detail_cysj_dialog_div" id="detail_cysj_dialog_div">
+			<div class="title_div">
+				<span class="title_span">我要下单-承运司机-查看</span>
+			</div>
+			<div id="detail_cysj_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						姓名
+					</td>
+					<td style="width:30%;">
+						<span id="xm"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						手机号
+					</td>
+					<td style="width:30%;">
+						<span id="sjh"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						照片
+					</td>
+					<td>
+						<span id="zp"></span>
+					</td>
+					<td align="right">
+						身份证
+					</td>
+					<td>
+						<span id="sfz"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						资格证有效期至
+					</td>
+					<td>
+						<span id="zgzyxqz"></span>
+					</td>
+					<td align="right">
+						驾证
+					</td>
+					<td>
+						<span id="jz"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						驾证有限期至
+					</td>
+					<td>
+						<span id="jzyxqz"></span>
+					</td>
+					<td align="right">
+						资格证书
+					</td>
+					<td>
+						<span id="zgzs"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						审核状态
+					</td>
+					<td>
+						<span id="shzt"></span>
+					</td>
+					<td align="right">
+						在用状态
+					</td>
+					<td>
+						<span id="zyzt"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看承运司机 end -->
+	
 <%@include file="../../../inc/nav.jsp"%>
 <div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="detail_div">
@@ -1529,212 +1972,12 @@ function initWindowMarginLeft(){
 		<table id="shdw_tab"></table>
 	</div>
 	
-	<div id="detail_shdw_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				单位名称
-			</td>
-			<td style="width:30%;">
-				<span id="dwmc"></span>
-			</td>
-			<td align="right" style="width:15%;">
-				编辑时间
-			</td>
-			<td style="width:30%;">
-				<span id="bjsj"></span>
-			</td>
-		  </tr>
-		</table>
-	</div>
-	
 	<div id="cycl_div">
 		<table id="cycl_tab"></table>
 	</div>
 	
-	<div id="detail_cycl_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				车牌号
-			</td>
-			<td style="width:30%;">
-				<span id="cph"></span>
-			</td>
-			<td align="right" style="width:15%;">
-				车主信息
-			</td>
-			<td style="width:30%;">
-				<span id="czxx"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				皮重
-			</td>
-			<td>
-				<span id="pz"></span>
-			</td>
-			<td align="right">
-				车辆类型
-			</td>
-			<td>
-				<span id="cllx"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				照片
-			</td>
-			<td>
-				<span id="zp"></span>
-			</td>
-			<td align="right">
-				发动机号码
-			</td>
-			<td>
-				<span id="fdjhm"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				车辆识别代号
-			</td>
-			<td>
-				<span id="clsbdh"></span>
-			</td>
-			<td align="right">
-				排放阶段
-			</td>
-			<td>
-				<span id="pfjd"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				注册日期
-			</td>
-			<td>
-				<span id="zcrq"></span>
-			</td>
-			<td align="right">
-				是否在用
-			</td>
-			<td>
-				<span id="sfzy"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				车辆运输类型
-			</td>
-			<td>
-				<span id="clyslx"></span>
-			</td>
-			<td align="right">
-				行驶证
-			</td>
-			<td>
-				<span id="xsz"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				随车清单
-			</td>
-			<td>
-				<span id="scqd"></span>
-			</td>
-			<td align="right">
-				排放阶段查询截图
-			</td>
-			<td>
-				<span id="pfjdcxjt"></span>
-			</td>
-		  </tr>
-		</table>
-	</div>
-	
 	<div id="cysj_div">
 		<table id="cysj_tab"></table>
-	</div>
-	
-	<div id="detail_cysj_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				姓名
-			</td>
-			<td style="width:30%;">
-				<span id="xm"></span>
-			</td>
-			<td align="right" style="width:15%;">
-				手机号
-			</td>
-			<td style="width:30%;">
-				<span id="sjh"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				照片
-			</td>
-			<td>
-				<span id="zp"></span>
-			</td>
-			<td align="right">
-				身份证
-			</td>
-			<td>
-				<span id="sfz"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				资格证有效期至
-			</td>
-			<td>
-				<span id="zgzyxqz"></span>
-			</td>
-			<td align="right">
-				驾证
-			</td>
-			<td>
-				<span id="jz"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				驾证有限期至
-			</td>
-			<td>
-				<span id="jzyxqz"></span>
-			</td>
-			<td align="right">
-				资格证书
-			</td>
-			<td>
-				<span id="zgzs"></span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				审核状态
-			</td>
-			<td>
-				<span id="shzt"></span>
-			</td>
-			<td align="right">
-				在用状态
-			</td>
-			<td>
-				<span id="zyzt"></span>
-			</td>
-		  </tr>
-		</table>
 	</div>
 </div>
 </body>
