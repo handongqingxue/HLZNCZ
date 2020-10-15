@@ -5,22 +5,136 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.select_shdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_shdw_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_shdw_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_shdw_div .xzst_span{
+	margin-left: 30px;
+}
+.select_shdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+
+.edit_shdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_shdw_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_shdw_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_shdw_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_shdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_shdw_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_shdw_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_shdw_div .title_span{
+	margin-left: 30px;
+}
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var showZIndex=9999;
+var ndNum=0;
+var shdwdNum=1;
+var sshdwdNum=2;
+var eshdwjbsxzdNum=3;
 $(function(){
-	initEditDialog();
+	initNewDialog();
 	initSHDWDialog();
 	initSelectShdwDialog();
-	initEditShdwDialog();
+	initEditShdwJBSXZDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
-function initEditDialog(){
+function initDialogPosition(){
+	//基本属性组
+	var ndpw=$("body").find(".panel.window").eq(ndNum);
+	var ndws=$("body").find(".window-shadow").eq(ndNum);
+
+	//收货单位
+	var shdwdpw=$("body").find(".panel.window").eq(shdwdNum);
+	var shdwdws=$("body").find(".window-shadow").eq(shdwdNum);
+
+	//选择收货单位
+	var sshdwdpw=$("body").find(".panel.window").eq(sshdwdNum);
+	var sshdwdws=$("body").find(".window-shadow").eq(sshdwdNum);
+
+	//修改收货单位
+	var eshdwjbsxzdpw=$("body").find(".panel.window").eq(eshdwjbsxzdNum);
+	var eshdwjbsxzdws=$("body").find(".window-shadow").eq(eshdwjbsxzdNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(ndpw);
+	ccDiv.append(ndws);
+
+	ccDiv.append(shdwdpw);
+	ccDiv.append(shdwdws);
+
+	var sshdwdDiv=$("#select_shdw_div");
+	sshdwdDiv.append(sshdwdpw);
+	sshdwdDiv.append(sshdwdws);
+	
+	var eshdwdDiv=$("#edit_shdw_dialog_div");
+	eshdwdDiv.append(eshdwjbsxzdpw);
+	eshdwdDiv.append(eshdwjbsxzdws);
+}
+
+function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","new_div"),
 		height:231,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   checkNew();
@@ -35,16 +149,16 @@ function initEditDialog(){
 	$("#new_div table td").css("font-size","15px");
 	$("#new_div table tr").css("height","45px");
 
-	$(".panel.window").eq(0).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(0).css("color","#000");
-	$(".panel.window .panel-title").eq(0).css("font-size","15px");
-	$(".panel.window .panel-title").eq(0).css("padding-left","10px");
+	$(".panel.window").eq(ndNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ndNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ndNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(0).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(ndNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(0).css("margin-top","20px");
-	$(".window,.window .window-body").eq(0).css("border-color","#ddd");
+	$(".window-shadow").eq(ndNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
 
 	$("#new_div #ok_but").css("left","45%");
 	$("#new_div #ok_but").css("position","absolute");
@@ -56,42 +170,42 @@ function initEditDialog(){
 }
 
 function initSHDWDialog(){
+	dialogTop+=260;//270
 	shdwDialog=$("#shdw_div").dialog({
 		title:"收货单位",
 		width:setFitWidthInParent("body","shdw_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 	
-	$(".panel.window").eq(1).css("width",(setFitWidthInParent("body","panel_window"))+"px");
-	$(".panel.window").eq(1).css("margin-top","20px");
-	$(".panel.window").eq(1).css("margin-left",initWindowMarginLeft());
-	$(".panel.window .panel-title").eq(1).css("color","#000");
-	$(".panel.window .panel-title").eq(1).css("font-size","15px");
-	$(".panel.window .panel-title").eq(1).css("padding-left","10px");
+	$(".panel.window").eq(shdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(shdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(shdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window .panel-title").eq(shdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(shdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(shdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(1).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(shdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	//$(".window-shadow").eq(1).css("width","1000px");
-	$(".window-shadow").eq(1).css("margin-top","20px");
-	$(".window-shadow").eq(1).css("margin-left",initWindowMarginLeft());
+	//$(".window-shadow").eq(shdwdNum).css("width","1000px");
+	$(".window-shadow").eq(shdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(shdwdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(1).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(shdwdNum).css("border-color","#ddd");
 
 	initSHDWTab();
 }
 
 function initSelectShdwDialog(){
-	selectSHDWDialog=$("#select_shdw_div").dialog({
+	selectSHDWDialog=$("#select_shdw_dialog_div").dialog({
 		title:"选择实体",
-		width:setFitWidthInParent("body","select_shdw_div"),
+		width:setFitWidthInParent("#select_shdw_div","select_shdw_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
-		top:300,
-		left:400,
+		top:160,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
         	   openSelectSHDWDialog(0);
@@ -102,27 +216,27 @@ function initSelectShdwDialog(){
         ]
 	});
 	
-	$(".panel.window").eq(2).css("width","983px");
-	$(".panel.window").eq(2).css("margin-top","20px");
-	$(".panel.window").eq(2).css("margin-left",initWindowMarginLeft());
-	$(".panel.window .panel-title").eq(2).css("color","#000");
-	$(".panel.window .panel-title").eq(2).css("font-size","15px");
-	$(".panel.window .panel-title").eq(2).css("padding-left","10px");
+	$(".panel.window").eq(sshdwdNum).css("width","983px");
+	$(".panel.window").eq(sshdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(sshdwdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window .panel-title").eq(sshdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sshdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sshdwdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(2).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(sshdwdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(2).css("width","1000px");
-	$(".window-shadow").eq(2).css("margin-top","20px");
-	$(".window-shadow").eq(2).css("margin-left",initWindowMarginLeft());
+	$(".window-shadow").eq(sshdwdNum).css("width","1000px");
+	$(".window-shadow").eq(sshdwdNum).css("margin-top","20px");
+	$(".window-shadow").eq(sshdwdNum).css("margin-left",initWindowMarginLeft());
 	
-	$(".window,.window .window-body").eq(2).css("border-color","#ddd");
+	$(".window,.window .window-body").css("border-color","#ddd");
 
-	$("#select_shdw_div #cancel_but").css("left","30%");
-	$("#select_shdw_div #cancel_but").css("position","absolute");
+	$("#select_shdw_dialog_div #cancel_but").css("left","30%");
+	$("#select_shdw_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_shdw_div #save_but").css("left","45%");
-	$("#select_shdw_div #save_but").css("position","absolute");
+	$("#select_shdw_dialog_div #save_but").css("left","45%");
+	$("#select_shdw_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
@@ -130,13 +244,13 @@ function initSelectShdwDialog(){
 	openSelectSHDWDialog(0);
 }
 
-function initEditShdwDialog(){
-	editSHDWDialog=$("#edit_shdw_div").dialog({
+function initEditShdwJBSXZDialog(){
+	editSHDWDialog=$("#edit_shdw_jbsxz_dialog_div").dialog({
 		title:"修改",
-		width:setFitWidthInParent("body","edit_shdw_div"),
+		width:setFitWidthInParent("#edit_shdw_div","edit_shdw_jbsxz_dialog_div"),
 		height:231,
-		top:160,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	    editSHDW();
@@ -144,26 +258,26 @@ function initEditShdwDialog(){
         ]
 	});
 
-	$("#edit_shdw_div table").css("width",(setFitWidthInParent("body","edit_shdw_div"))+"px");
-	$("#edit_shdw_div table").css("magin","-100px");
-	$("#edit_shdw_div table td").css("padding-left","50px");
-	$("#edit_shdw_div table td").css("padding-right","20px");
-	$("#edit_shdw_div table td").css("font-size","15px");
-	$("#edit_shdw_div table tr").css("height","45px");
+	$("#edit_shdw_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_shdw_div","edit_shdw_jbsxz_dialog_div"))+"px");
+	$("#edit_shdw_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_shdw_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_shdw_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_shdw_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_shdw_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(3).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(3).css("color","#000");
-	$(".panel.window .panel-title").eq(3).css("font-size","15px");
-	$(".panel.window .panel-title").eq(3).css("padding-left","10px");
+	$(".panel.window").eq(eshdwjbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(eshdwjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(eshdwjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(eshdwjbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(3).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(eshdwjbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(3).css("margin-top","20px");
-	$(".window,.window .window-body").eq(3).css("border-color","#ddd");
+	$(".window-shadow").eq(eshdwjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
 
-	$("#edit_shdw_div #ok_but").css("left","45%");
-	$("#edit_shdw_div #ok_but").css("position","absolute");
+	$("#edit_shdw_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_shdw_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	initEditSHDWGXCBB();
@@ -348,14 +462,28 @@ function reSizeCol(){
 
 function openSelectSHDWDialog(flag){
 	if(flag==1){
+		$("#select_shdw_bg_div").css("display","block");
+		$("#select_shdw_bg_div").css("z-index",showZIndex);
 		selectSHDWDialog.dialog("open");
 	}
 	else{
+		$("#select_shdw_bg_div").css("display","none");
+		$("#select_shdw_bg_div").css("z-index","9016");
 		selectSHDWDialog.dialog("close");
 	}
 }
 
 function openEditSHDWDialog(flag){
+	if(flag==1){
+		$("#edit_shdw_bg_div").css("display","block");
+	}
+	else{
+		$("#edit_shdw_bg_div").css("display","none");
+	}
+	openEditSHDWJBSXZDialog(flag);
+}
+
+function openEditSHDWJBSXZDialog(flag){
 	if(flag==1){
 		editSHDWDialog.dialog("open");
 	}
@@ -538,6 +666,10 @@ function setFitWidthInParent(parent,self){
 	case "edit_shdw_div":
 		space=355;
 		break;
+	case "select_shdw_dialog_div":
+	case "edit_shdw_jbsxz_dialog_div":
+		space=50;
+		break;
 	}
 	var width=$(parent).css("width");
 	return width.substring(0,width.length-2)-space;
@@ -559,8 +691,64 @@ function initWindowMarginLeft(){
 <title>创建</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+	
+<!-- 选择收货单位 start -->
+<div class="select_shdw_bg_div" id="select_shdw_bg_div">
+	<div class="select_shdw_div" id="select_shdw_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectSHDWDialog(0)">X</span>
+		</div>
+		<div id="select_shdw_dialog_div">
+			<div id="select_shdw_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">单位名称：</span>
+				<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
+				<a id="select_shdw_search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_shdw_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择收货单位 end -->
+	
+<!-- 编辑收货单位 start -->
+<div class="edit_shdw_bg_div" id="edit_shdw_bg_div">
+	<div class="edit_shdw_div" id="edit_shdw_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditSHDWDialog(0)">X</span>
+		</div>
+		<div class="edit_shdw_dialog_div" id="edit_shdw_dialog_div">
+			<div class="title_div">
+				<span class="title_span">队列管理-收货单位-修改</span>
+			</div>
+			<div id="edit_shdw_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<input type="hidden" id="bjsj"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						关系
+					</td>
+					<td style="width:30%;">
+						<input id="edit_shdw_gx_cbb"/>
+					</td>
+					<td align="right" style="width:15%;">
+						单位名称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑收货单位 end -->
+	
+<%@include file="../../../inc/nav.jsp"%>
+<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
 	<div id="new_div">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -613,36 +801,6 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="shdw_tab"></table>
-	</div>
-	
-	<div id="select_shdw_div">
-		<div id="select_shdw_toolbar" style="height:32px;line-height:32px;">
-			<span style="margin-left: 13px;">单位名称：</span>
-			<input type="text" id="dwmc_inp" placeholder="请输入单位名称" style="width: 120px;height: 25px;"/>
-			<a id="select_shdw_search_but" style="margin-left: 13px;">查询</a>
-		</div>
-		<table id="select_shdw_tab"></table>
-	</div>
-	
-	<div id="edit_shdw_div">
-		<input type="hidden" id="id"/>
-		<input type="hidden" id="bjsj"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				关系
-			</td>
-			<td style="width:30%;">
-				<input id="edit_shdw_gx_cbb"/>
-			</td>
-			<td align="right" style="width:15%;">
-				单位名称
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="dwmc" placeholder="请输入单位名称" style="width: 150px;height:30px;"/>
-			</td>
-		  </tr>
-		</table>
 	</div>
 </div>
 </body>
