@@ -1677,7 +1677,7 @@ function initWindowMarginLeft(){
 		</div>
 		<div class="detail_shdw_dialog_div" id="detail_shdw_dialog_div">
 			<div class="title_div">
-				<span class="title_span">我要下单-发货单位-查看</span>
+				<span class="title_span">我要下单-收货单位-查看</span>
 			</div>
 			<div id="detail_shdw_jbsxz_dialog_div">
 				<input type="hidden" id="id"/>
