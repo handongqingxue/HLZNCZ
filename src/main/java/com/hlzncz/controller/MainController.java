@@ -126,14 +126,73 @@ public class MainController {
 		return "ddgl/wddd/wyxd/detail";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/ddsh/edit")
+	public String goDdglZhglDdshEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+		
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/zhgl/ddsh/edit";
+	}
+
 	@RequestMapping(value="/ddgl/zhgl/ddsh/list")
-	public String goDdshList(HttpServletRequest request) {
+	public String goDdglZhglDdshList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
 		request.setAttribute("zxztId", DingDan.DAI_SHEN_HE);
 		
 		return "ddgl/zhgl/ddsh/list";
+	}
+
+	@RequestMapping(value="/ddgl/zhgl/ddsh/detail")
+	public String goDdglZhglDdshDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/zhgl/ddsh/detail";
 	}
 
 	@RequestMapping(value="/ddgl/zhgl/zhgl/edit")

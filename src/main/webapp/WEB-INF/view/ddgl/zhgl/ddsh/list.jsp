@@ -115,8 +115,8 @@ function initTab1(){
             {field:"jhysrq",title:"计划运输日期",width:200},
             {field:"ddztmc",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -234,7 +234,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:32px;line-height:32px;">
+		<div id="toolbar" style="height:32px;">
 			<span style="margin-left: 13px;">订单号：</span>
 			<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">执行状态：</span>
