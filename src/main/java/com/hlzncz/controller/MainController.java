@@ -143,6 +143,24 @@ public class MainController {
 		String wybm = request.getParameter("wybm");
 		DingDan dd=publicService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
 		
 		return "ddgl/zhgl/zhgl/edit";
 	}
@@ -153,6 +171,35 @@ public class MainController {
 		selectNav(request);
 		
 		return "ddgl/zhgl/zhgl/list";
+	}
+
+	@RequestMapping(value="/ddgl/zhgl/zhgl/detail")
+	public String goDdglZhglZhglDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/zhgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")

@@ -219,7 +219,7 @@
 		limit #{rowNum},#{rows}
 	</select>
 	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
-		select * from ding_dan where wybm=#{wybm}
+		select dd.*,ddzt.mc ddztmc from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id where dd.wybm=#{wybm}
 	</select>
 	<select id="queryDingDanZhuangTaiCBBList" resultType="com.hlzncz.entity.DingDanZhuangTai">
 		select * from ding_dan_zhuang_tai
