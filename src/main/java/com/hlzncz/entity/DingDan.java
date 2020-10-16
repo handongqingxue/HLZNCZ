@@ -85,6 +85,14 @@ public class DingDan implements Serializable {
 	public void setDdztmc(String ddztmc) {
 		this.ddztmc = ddztmc;
 	}
+	
+	public String getBjsj() {
+		return bjsj;
+	}
+
+	public void setBjsj(String bjsj) {
+		this.bjsj = bjsj;
+	}
 
 	public String getJhysrq() {
 		return jhysrq;
@@ -181,6 +189,7 @@ public class DingDan implements Serializable {
 	private Float zlceb;//重量差额比
 	private Integer ddztId;//订单状态id
 	private String ddztmc;//订单状态名称
+	private String bjsj;//编辑时间
 	private String jhysrq;//计划运输日期
 	private String cksj;//出库时间
 	private String ewm;//二维码

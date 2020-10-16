@@ -136,8 +136,19 @@ public class MainController {
 		return "ddgl/zhgl/ddsh/list";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/zhgl/edit")
+	public String goDdglZhglZhglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+		
+		return "ddgl/zhgl/zhgl/edit";
+	}
+
 	@RequestMapping(value="/ddgl/zhgl/zhgl/list")
-	public String goZhglList(HttpServletRequest request) {
+	public String goDdglZhglZhglList(HttpServletRequest request) {
 		
 		selectNav(request);
 		

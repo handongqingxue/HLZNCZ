@@ -22,6 +22,7 @@
 			<if test="ddztId!=null">
 				ddztId,
 			</if>
+				bjsj,
 			<if test="jhysrq!=null">
 				jhysrq,
 			</if>
@@ -61,6 +62,7 @@
 			<if test="ddztId!=null">
 				#{ddztId},
 			</if>
+				now(),
 			<if test="jhysrq!=null">
 				#{jhysrq},
 			</if>
