@@ -626,6 +626,20 @@ public class MainController {
 		
 		return "jcxx/jhpz/dlgl/new";
 	}
+
+	@RequestMapping(value="/jcxx/jhpz/dlgl/edit")
+	public String goJcxxJhpzDlglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		DuiLie dl=publicService.selectDuiLieById(id);
+		request.setAttribute("dl", dl);
+
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		return "jcxx/jhpz/dlgl/edit";
+	}
 	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/list")
 	public String goDlglList(HttpServletRequest request) {

@@ -165,6 +165,8 @@ public interface PublicService {
 	public List<DuiLie> queryDuiLieList(String mc, String dm, Integer zt, int page, int rows, String sort,
 			String order);
 
+	public DuiLie selectDuiLieById(String id);
+
 	public int queryYongHuForInt(String yhm, Integer zt);
 
 	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order);

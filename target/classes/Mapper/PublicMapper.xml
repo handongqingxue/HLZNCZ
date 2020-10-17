@@ -1029,6 +1029,9 @@
 		</if>
 		 limit ${param4},${param5}
 	</select>
+	<select id="selectDuiLieById" resultType="com.hlzncz.entity.DuiLie">
+		select * from dui_lie where id=#{id}
+	</select>
 	<select id="queryYongHuForInt" resultType="java.lang.Integer">
 		select count(*) from yong_hu where 1=1
 		<if test="yhm!=''&amp;yhm!=null">

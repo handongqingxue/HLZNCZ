@@ -531,6 +531,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public DuiLie selectDuiLieById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectDuiLieById(id);
+	}
+
+	@Override
 	public int queryYongHuForInt(String yhm, Integer zt) {
 		// TODO Auto-generated method stub
 		return publicDao.queryYongHuForInt(yhm,zt);

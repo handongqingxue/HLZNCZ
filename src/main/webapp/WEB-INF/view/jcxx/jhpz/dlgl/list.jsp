@@ -86,8 +86,8 @@ $(function(){
 				return str;
 			}},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/jhpz/dlgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/jhpz/dlgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -172,7 +172,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:32px;line-height:32px;">
+		<div id="toolbar" style="height:32px;">
 			<span style="margin-left: 13px;">名称：</span>
 			<input type="text" id="mc" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">代码：</span>
