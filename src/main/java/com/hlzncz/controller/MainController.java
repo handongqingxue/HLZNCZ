@@ -1574,6 +1574,24 @@ public class MainController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/editDuiLie")
+	@ResponseBody
+	public Map<String, Object> editDuiLie(DuiLie dl) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editDuiLie(dl);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑队列成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑队列失败！");
+		}
+		return jsonMap;
+	}
+
 	@RequestMapping(value="/queryCangKuList")
 	@ResponseBody
 	public Map<String, Object> queryCangKuList(String mc,int page,int rows,String sort,String order) {

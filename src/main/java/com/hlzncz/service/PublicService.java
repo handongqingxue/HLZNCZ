@@ -160,6 +160,8 @@ public interface PublicService {
 
 	public int newDuiLie(DuiLie dl);
 
+	public int editDuiLie(DuiLie dl);
+
 	public int queryDuiLieForInt(String mc, String dm, Integer zt);
 
 	public List<DuiLie> queryDuiLieList(String mc, String dm, Integer zt, int page, int rows, String sort,

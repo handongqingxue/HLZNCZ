@@ -399,7 +399,7 @@ $(function(){
 	
 	initSHDWDialog();//10.收货单位窗口
 	initSelectSHDWDialog();//11.选择收货单位窗口
-	initEditSHDWJBSXZDialog();//12.修改发货单位窗口
+	initEditSHDWJBSXZDialog();//12.修改收货单位窗口
 
 	initCYCLDialog();//13.承运车辆窗口
 	initSelectCYCLDialog();//14.选择承运车辆窗口

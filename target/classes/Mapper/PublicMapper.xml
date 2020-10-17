@@ -1004,6 +1004,30 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="editDuiLie" parameterType="com.hlzncz.entity.DuiLie">
+		update dui_lie set 
+		<trim suffixOverrides=",">
+			<if test="mc!=null">
+				mc=#{mc},
+			</if>
+			<if test="dm!=null">
+				dm=#{dm},
+			</if>
+			<if test="jhxs!=null">
+				jhxs=#{jhxs},
+			</if>
+			<if test="jhyz!=null">
+				jhyz=#{jhyz},
+			</if>
+			<if test="zt!=null">
+				zt=#{zt},
+			</if>
+			<if test="shdwId!=null">
+				shdwId=#{shdwId},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
 	<select id="queryDuiLieForInt" resultType="java.lang.Integer">
 		select count(*) from dui_lie where 1=1
 		<if test="mc!=''&amp;mc!=null">

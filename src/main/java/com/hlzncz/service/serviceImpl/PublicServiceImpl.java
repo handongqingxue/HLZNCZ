@@ -518,6 +518,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int editDuiLie(DuiLie dl) {
+		// TODO Auto-generated method stub
+		return publicDao.editDuiLie(dl);
+	}
+
+	@Override
 	public int queryDuiLieForInt(String mc, String dm, Integer zt) {
 		// TODO Auto-generated method stub
 		return publicDao.queryDuiLieForInt(mc,dm,zt);
