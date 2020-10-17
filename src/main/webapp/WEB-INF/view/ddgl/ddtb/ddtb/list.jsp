@@ -52,7 +52,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/ddgl/wddd/wyxd/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=path+"main/ddgl/ddtb/ddtb/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
