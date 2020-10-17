@@ -5,19 +5,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.center_con_div{
+	width: 100%;
+	height: 90vh;
+	margin-left:288px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.page_location_div{
+	height: 50px;
+	line-height: 50px;
+	margin-left: 20px;
+	font-size: 18px;
+}
+</style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var edNum=0;
 $(function(){
 	initEditDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
+function initDialogPosition(){
+	//基本属性组
+	var edpw=$("body").find(".panel.window").eq(edNum);
+	var edws=$("body").find(".window-shadow").eq(edNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(edpw);
+	ccDiv.append(edws);
+}
+
 function initEditDialog(){
+	dialogTop+=20;
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:200,
-		top:60,
-		left:308,
+		top:dialogTop,
+		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkEdit();
@@ -32,16 +63,16 @@ function initEditDialog(){
 	$("#edit_div table td").css("font-size","15px");
 	$("#edit_div table tr").css("height","45px");
 
-	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window").eq(edNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(edNum).css("color","#000");
+	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window-shadow").eq(edNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
 	$("#edit_div #ok_but").css("left","45%");
 	$("#edit_div #ok_but").css("position","absolute");
@@ -118,8 +149,10 @@ function setFitWidthInParent(o){
 <title>修改</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div class="center_con_div" id="center_con_div">
+	<div class="page_location_div">卡片维护-修改</div>
+	
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="id" name="id" value="${requestScope.kpwh.id }"/>

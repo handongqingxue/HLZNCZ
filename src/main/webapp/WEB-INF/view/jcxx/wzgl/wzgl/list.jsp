@@ -52,8 +52,8 @@ $(function(){
             {field:"wzlxmc",title:"物资类型",width:200},
 			{field:"bjsj",title:"编辑时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/detail?fnid="+'${param.fnid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/edit?fnid="+'${param.fnid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

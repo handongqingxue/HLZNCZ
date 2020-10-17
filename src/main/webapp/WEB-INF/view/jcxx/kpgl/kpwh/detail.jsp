@@ -5,18 +5,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
+<style type="text/css">
+.center_con_div{
+	width: 100%;
+	height: 90vh;
+	margin-left:288px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.page_location_div{
+	height: 50px;
+	line-height: 50px;
+	margin-left: 20px;
+	font-size: 18px;
+}
+</style>
 <script type="text/javascript">
+var path='<%=basePath %>';
+var dialogTop=10;
+var dialogLeft=20;
+var ddNum=0;
 $(function(){
 	initDetailDialog();
+
+	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
+function initDialogPosition(){
+	//基本属性组
+	var ddpw=$("body").find(".panel.window").eq(ddNum);
+	var ddws=$("body").find(".window-shadow").eq(ddNum);
+
+	var ccDiv=$("#center_con_div");
+	ccDiv.append(ddpw);
+	ccDiv.append(ddws);
+}
+
 function initDetailDialog(){
+	dialogTop+=20;
 	$("#detail_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body"),
 		height:200,
-		top:60,
-		left:308
+		top:dialogTop,
+		left:dialogLeft
 	});
 
 	$("#detail_div table").css("width",(setFitWidthInParent("body")-15)+"px");
@@ -26,16 +58,16 @@ function initDetailDialog(){
 	$("#detail_div table td").css("font-size","15px");
 	$("#detail_div table tr").css("height","45px");
 
-	$(".panel.window").css("margin-top","20px");
-	$(".panel.window .panel-title").css("color","#000");
-	$(".panel.window .panel-title").css("font-size","15px");
-	$(".panel.window .panel-title").css("padding-left","10px");
+	$(".panel.window").eq(ddNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ddNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ddNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ddNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").css("margin-top","20px");
-	$(".window,.window .window-body").css("border-color","#ddd");
+	$(".window-shadow").eq(ddNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ddNum).css("border-color","#ddd");
 }
 
 function setFitWidthInParent(o){
@@ -46,8 +78,10 @@ function setFitWidthInParent(o){
 <title>详情</title>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<%@include file="../../../inc/nav.jsp"%>
+<%@include file="../../../inc/nav.jsp"%>
+<div class="center_con_div" id="center_con_div">
+	<div class="page_location_div">卡片维护-详情</div>
+	
 	<div id="detail_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.kpwh.id }"/>
 		<table>

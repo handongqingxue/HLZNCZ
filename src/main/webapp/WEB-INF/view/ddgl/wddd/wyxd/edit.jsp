@@ -6,6 +6,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../../../inc/js.jsp"%>
 <style type="text/css">
+.center_con_div{
+	width: 100%;
+	height: 90vh;
+	margin-left:288px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.page_location_div{
+	height: 50px;
+	line-height: 50px;
+	margin-left: 20px;
+	font-size: 18px;
+}
 .select_yss_bg_div{
 	width: 100%;
 	height: 100%;
@@ -531,6 +544,7 @@ function initDialogPosition(){
 }
 
 function initEditDialog(){
+	dialogTop+=20;
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","edit_div"),
@@ -2845,7 +2859,9 @@ function initWindowMarginLeft(){
 <!-- 选择承运司机end -->
 	
 <%@include file="../../../inc/nav.jsp"%>
-<div id="center_con_div" style="margin-left:288px;width: 100%;height: 90vh;overflow-y: scroll;position: absolute;">
+<div class="center_con_div" id="center_con_div">
+	<div class="page_location_div">我要下单-修改</div>
+	
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="wybm" name="wybm" value="${requestScope.wyxd.wybm }"/>
