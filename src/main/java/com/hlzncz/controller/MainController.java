@@ -261,6 +261,16 @@ public class MainController {
 		return "ddgl/zhgl/zhgl/detail";
 	}
 
+	@RequestMapping(value="/ddgl/ddtb/ddtb/list")
+	public String goDdglDdtbDdtbList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("zxztId", DingDan.YI_WAN_CHENG+","+DingDan.DAI_JIAN_YAN+","+DingDan.DAI_LI_CHANG);
+		
+		return "ddgl/ddtb/ddtb/list";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
@@ -843,16 +853,21 @@ public class MainController {
 	 */
 	@RequestMapping(value="/queryDDGLZHGLList")
 	@ResponseBody
-	public Map<String, Object> queryDDGLZHGLList(String ddh,Integer ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,
+	public Map<String, Object> queryDDGLZHGLList(String ddh,String ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,
 			int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
-		List<DingDan> zhglList=publicService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", zhglList);
+		try {
+			int count = publicService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
+			List<DingDan> zhglList=publicService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", zhglList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return jsonMap;
 	}

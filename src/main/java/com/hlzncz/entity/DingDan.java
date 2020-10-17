@@ -18,9 +18,25 @@ public class DingDan implements Serializable {
 	 */
 	public static final Integer YI_XIA_DAN=2;
 	/**
+	 * 已完成
+	 */
+	public static final Integer YI_WAN_CHENG=3;
+	/**
 	 * 待审核状态
 	 */
 	public static final Integer DAI_SHEN_HE=4;
+	/**
+	 * 排队中
+	 */
+	public static final Integer PAI_DUI_ZHONG=5;
+	/**
+	 * 待检验
+	 */
+	public static final Integer DAI_JIAN_YAN=6;
+	/**
+	 * 待离厂
+	 */
+	public static final Integer DAI_LI_CHANG=12;
 	private String wybm;//唯一编码
 	public String getWybm() {
 		return wybm;

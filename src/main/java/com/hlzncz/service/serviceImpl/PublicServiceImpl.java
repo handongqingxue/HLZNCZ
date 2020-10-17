@@ -101,14 +101,14 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int queryDDGLZHGLForInt(String ddh, Integer ddztId, String cph, String jcsjs, String jcsje, String jhysrq,
+	public int queryDDGLZHGLForInt(String ddh, String ddztId, String cph, String jcsjs, String jcsje, String jhysrq,
 			String yss) {
 		// TODO Auto-generated method stub
 		return publicDao.queryDDGLZHGLForInt(ddh, ddztId, cph, jcsjs, jcsje, jhysrq, yss);
 	}
 
 	@Override
-	public List<DingDan> queryDDGLZHGLList(String ddh, Integer ddztId, String cph, String jcsjs, String jcsje,
+	public List<DingDan> queryDDGLZHGLList(String ddh, String ddztId, String cph, String jcsjs, String jcsje,
 			String jhysrq, String yss, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryDDGLZHGLList(ddh, ddztId, cph, jcsjs, jcsje, jhysrq, yss, (page-1)*rows, rows, sort, order);
