@@ -90,6 +90,77 @@
 .edit_yss_div .title_span{
 	margin-left: 30px;
 }
+
+.select_yswl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_yswl_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_yswl_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_yswl_div .xzst_span{
+	margin-left: 30px;
+}
+.select_yswl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+
+.edit_yswl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_yswl_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_yswl_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_yswl_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_yswl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_yswl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_yswl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_yswl_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -102,6 +173,8 @@ var yssdNum=2;
 var syssdNum=3;
 var eyssjbsxzdNum=4;
 var yswldNum=5;
+var syswldNum=6;
+var eyswljbsxzdNum=7;
 
 $(function(){
 	initTBXXDialog();//0
@@ -112,6 +185,8 @@ $(function(){
 	initEditYSSJBSXZDialog();//4.修改运输商窗口
 
 	initYSWLDialog();//5.运输物料
+	initSelectYSWLDialog();//6.选择运输物料窗口
+	initEditYSWLJBSXZDialog();//7.修改运输物料窗口
 	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -137,6 +212,18 @@ function initDialogPosition(){
 	var eyssjbsxdpw=$("body").find(".panel.window").eq(eyssjbsxzdNum);
 	var eyssjbsxdws=$("body").find(".window-shadow").eq(eyssjbsxzdNum);
 
+	//运输物料
+	var yswldpw=$("body").find(".panel.window").eq(yswldNum);
+	var yswldws=$("body").find(".window-shadow").eq(yswldNum);
+
+	//选择运输物料
+	var syswldpw=$("body").find(".panel.window").eq(syswldNum);
+	var syswldws=$("body").find(".window-shadow").eq(syswldNum);
+
+	//修改运输物料
+	var eyswljbsxdpw=$("body").find(".panel.window").eq(eyswljbsxzdNum);
+	var eyswljbsxdws=$("body").find(".window-shadow").eq(eyswljbsxzdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(tbxxdpw);
 	ccDiv.append(tbxxdws);
@@ -147,6 +234,9 @@ function initDialogPosition(){
 	ccDiv.append(yssdpw);
 	ccDiv.append(yssdws);
 
+	ccDiv.append(yswldpw);
+	ccDiv.append(yswldws);
+
 	var syssDiv=$("#select_yss_div");
 	syssDiv.append(syssdpw);
 	syssDiv.append(syssdws);
@@ -154,6 +244,14 @@ function initDialogPosition(){
 	var eyssdDiv=$("#edit_yss_dialog_div");
 	eyssdDiv.append(eyssjbsxdpw);
 	eyssdDiv.append(eyssjbsxdws);
+
+	var syswlDiv=$("#select_yswl_div");
+	syswlDiv.append(syswldpw);
+	syswlDiv.append(syswldws);
+
+	var eyswldDiv=$("#edit_yswl_dialog_div");
+	eyswldDiv.append(eyswljbsxdpw);
+	eyswldDiv.append(eyswljbsxdws);
 }
 
 function initTBXXDialog(){
@@ -485,7 +583,7 @@ function initEditYSSJBSXZDialog(){
 }
 
 function initYSWLDialog(){
-	dialogTop+=350;//230
+	dialogTop+=230;//230
 	yswlDialog=$("#yswl_div").dialog({
 		title:"运输物料",
 		width:setFitWidthInParent("body","yswl_div"),
@@ -539,9 +637,9 @@ function initYSWLTab(){
 			}},
             {field:"mc",title:"名称",width:200,align:"center"},
 			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
-            	var str="<a onclick=\"editYSSTabRow()\">编辑</a>"
-            	+"&nbsp;|&nbsp;<a onclick=\"deleteYSSTabRow()\">删除</a>";
-            	//var str="<a onclick=\"deleteYSSTabRow()\">删除</a>";
+            	var str="<a onclick=\"editYSWLTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteYSWLTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteYSWLTabRow()\">删除</a>";
             	return str;
             }}
 	    ]],
@@ -574,6 +672,134 @@ function loadYSWLTabData(rows){
 	yswlTab.datagrid('loadData',obj);
 }
 
+function initSelectYSWLDialog(){
+	selectYSWLDialog=$("#select_yswl_dialog_div").dialog({
+		title:"运输物料列表",
+		width:setFitWidthInParent("#select_yswl_div","select_yswl_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:160,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectYSWLDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectYSWL();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(syswldNum).css("width","983px");
+	$(".panel.window").eq(syswldNum).css("margin-top","20px");
+	$(".panel.window").eq(syswldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(syswldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(syswldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(syswldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(syswldNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(syswldNum).css("width","1000px");
+	$(".window-shadow").eq(syswldNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(syswldNum).css("border-color","#ddd");
+
+	$("#select_yswl_dialog_div #cancel_but").css("left","30%");
+	$("#select_yswl_dialog_div #cancel_but").css("position","absolute");
+	
+	$("#select_yswl_dialog_div #save_but").css("left","45%");
+	$("#select_yswl_dialog_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectYSWLTab();
+	openSelectYSWLDialog(0);
+}
+
+function initSelectYSWLTab(){
+	$("#select_yswl_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var mc=$("#select_yswl_toolbar #mc_inp").val();
+			selectYSWLTab.datagrid("load",{mc:mc});
+		}
+	});
+	
+	selectYSWLTab=$("#select_yswl_tab").datagrid({
+		url:path+"main/queryWuZiList",
+		toolbar:"#select_yswl_toolbar",
+		width:setFitWidthInParent("body","select_yswl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"mc",title:"名称",width:200,align:"center"},
+			{field:"wzlxmc",title:"物资类型",width:200,align:"center"},
+			{field:"bjsj",title:"编辑时间",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{mc:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"mc",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
+function initEditYSWLJBSXZDialog(){
+	editYSWLDialog=$("#edit_yswl_jbsxz_dialog_div").dialog({
+		title:"修改运输物料实体",
+		width:setFitWidthInParent("#edit_yswl_div","edit_yswl_jbsxz_dialog_div"),
+		height:231,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditYSWLDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editYSWL();
+           }}
+        ]
+	});
+
+	$("#edit_yswl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_yswl_div","edit_yswl_jbsxz_dialog_div"))+"px");
+	$("#edit_yswl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_yswl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_yswl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_yswl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_yswl_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(eyswljbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(eyswljbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(eyswljbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(eyswljbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(eyswljbsxzdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(eyswljbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#edit_yswl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_yswl_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#edit_yswl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_yswl_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openEditYSWLJBSXZDialog(0);
+}
+
 function openSelectYSSDialog(flag){
 	if(flag==1){
 		$("#select_yss_bg_div").css("display","block");
@@ -584,6 +810,19 @@ function openSelectYSSDialog(flag){
 		$("#select_yss_bg_div").css("display","none");
 		$("#select_yss_bg_div").css("z-index","9016");
 		selectYSSDialog.dialog("close");
+	}
+}
+
+function openSelectYSWLDialog(flag){
+	if(flag==1){
+		$("#select_yswl_bg_div").css("display","block");
+		$("#select_yswl_bg_div").css("z-index",showZIndex);
+		selectYSWLDialog.dialog("open");
+	}
+	else{
+		$("#select_yswl_bg_div").css("display","none");
+		$("#select_yswl_bg_div").css("z-index","9016");
+		selectYSWLDialog.dialog("close");
 	}
 }
 
@@ -598,9 +837,25 @@ function saveSelectYSS(){
 	openSelectYSSDialog(0);
 }
 
+function saveSelectYSWL(){
+	var row=selectYSWLTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",mc:row.mc,bjsj:row.bjsj,id:row.id}];
+	loadYSWLTabData(rows);
+	openSelectYSWLDialog(0);
+}
+
 function deleteYSSTabRow(){
 	yssTab.datagrid("deleteRow",0);
 	loadYSSTabData([]);
+}
+
+function deleteYSWLTabRow(){
+	yswlTab.datagrid("deleteRow",0);
+	loadYSWLTabData([]);
 }
 
 function openEditYSSDialog(flag){
@@ -622,6 +877,25 @@ function openEditYSSJBSXZDialog(flag){
 	}
 }
 
+function openEditYSWLDialog(flag){
+	if(flag==1){
+		$("#edit_yswl_bg_div").css("display","block");
+	}
+	else{
+		$("#edit_yswl_bg_div").css("display","none");
+	}
+	openEditYSWLJBSXZDialog(flag);
+}
+
+function openEditYSWLJBSXZDialog(flag){
+	if(flag==1){
+		editYSWLDialog.dialog("open");
+	}
+	else{
+		editYSWLDialog.dialog("close");
+	}
+}
+
 function editYSS(){
 	var id=$("#edit_yss_div #id").val();
 	var mc=$("#edit_yss_div #mc").val();
@@ -629,6 +903,15 @@ function editYSS(){
 	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
 	loadYSSTabData(rows);
 	openEditYSSDialog(0);
+}
+
+function editYSWL(){
+	var id=$("#edit_yswl_div #id").val();
+	var mc=$("#edit_yswl_div #mc").val();
+	var bjsj=$("#edit_yswl_div #bjsj").text();
+	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	loadYSWLTabData(rows);
+	openEditYSWLDialog(0);
 }
 
 function editYSSTabRow(){
@@ -641,6 +924,18 @@ function editYSSTabRow(){
 	$("#edit_yss_div #mc").val(row.mc);
 	$("#edit_yss_div #bjsj").text(row.bjsj);
 	openEditYSSDialog(1);
+}
+
+function editYSWLTabRow(){
+	var row=yswlTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#edit_yswl_div #id").val(row.id);
+	$("#edit_yswl_div #mc").val(row.mc);
+	$("#edit_yswl_div #bjsj").text(row.bjsj);
+	openEditYSWLDialog(1);
 }
 
 function setFitWidthInParent(parent,self){
@@ -674,6 +969,8 @@ function setFitWidthInParent(parent,self){
 		break;
 	case "select_yss_dialog_div":
 	case "edit_yss_jbsxz_dialog_div":
+	case "select_yswl_dialog_div":
+	case "edit_yswl_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -738,6 +1035,60 @@ function setFitWidthInParent(parent,self){
 	</div>
 </div>
 <!-- 编辑运输商 end -->
+
+<!-- 选择运输物料 start -->
+<div class="select_yswl_bg_div" id="select_yswl_bg_div">
+	<div class="select_yswl_div" id="select_yswl_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectYSWLDialog(0)">X</span>
+		</div>
+		<div id="select_yswl_dialog_div">
+			<div id="select_yswl_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">名称：</span>
+				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_yswl_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择运输物料 end -->
+
+<!-- 编辑运输物料 start -->
+<div class="edit_yswl_bg_div" id="edit_yswl_bg_div">
+	<div class="edit_yswl_div" id="edit_yswl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditYSWLDialog(0)">X</span>
+		</div>
+		<div class="edit_yswl_dialog_div" id="edit_yswl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">订单填报-运输物料-修改</span>
+			</div>
+			<div id="edit_yswl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						名称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑运输物料 end -->
 
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
