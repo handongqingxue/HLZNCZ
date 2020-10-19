@@ -101,6 +101,9 @@ var edNum=1;
 var yssdNum=2;
 var syssdNum=3;
 var eyssjbsxzdNum=4;
+var yswldNum=5;
+var syswldNum=6;
+var eyswljbsxzdNum=7;
 $(function(){
 	initTBXXDialog();//0
 	initEditDialog();//1
@@ -108,6 +111,8 @@ $(function(){
 	initYSSDialog();//2.运输商窗口
 	initSelectYSSDialog();//3.选择运输商窗口
 	initEditYSSJBSXZDialog();//4.修改运输商窗口
+
+	initYSWLDialog();//5.运输物料
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -133,6 +138,10 @@ function initDialogPosition(){
 	var eyssjbsxdpw=$("body").find(".panel.window").eq(eyssjbsxzdNum);
 	var eyssjbsxdws=$("body").find(".window-shadow").eq(eyssjbsxzdNum);
 
+	//运输物料
+	var yswldpw=$("body").find(".panel.window").eq(yswldNum);
+	var yswldws=$("body").find(".window-shadow").eq(yswldNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(tbxxdpw);
 	ccDiv.append(tbxxdws);
@@ -142,6 +151,9 @@ function initDialogPosition(){
 
 	ccDiv.append(yssdpw);
 	ccDiv.append(yssdws);
+
+	ccDiv.append(yswldpw);
+	ccDiv.append(yswldws);
 
 	var syssDiv=$("#select_yss_div");
 	syssDiv.append(syssdpw);
@@ -500,6 +512,106 @@ function initEditYSSJBSXZDialog(){
 	openEditYSSJBSXZDialog(0);
 }
 
+function initYSWLDialog(){
+	dialogTop+=230;//230
+	yswlDialog=$("#yswl_div").dialog({
+		title:"运输物料",
+		width:setFitWidthInParent("body","yswl_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(yswldNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(yswldNum).css("margin-top","20px");
+	$(".panel.window").eq(yswldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(yswldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(yswldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(yswldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(yswldNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(yswldNum).css("width","1000px");
+	$(".window-shadow").eq(yswldNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(yswldNum).css("border-color","#ddd");
+
+	initYSWLTab();
+}
+
+function initYSWLTab(){
+	yswlChooseLB=$("#yswl_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectYSWLDialog(1);
+		}
+	});
+	
+	yswlTab=$("#yswl_tab").datagrid({
+		toolbar:"#yswl_toolbar",
+		width:setFitWidthInParent("body","yswl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="运输物资";
+					break;
+				}
+				return str;
+			}},
+            {field:"mc",title:"名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"editYSWLTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteYSWLTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteYSWLTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	var rows;
+	if('${requestScope.yswl}'==""){
+		rows=[];
+	}
+	else{
+		var mc='${requestScope.yswl.mc}';
+		var bjsj='${requestScope.yswl.bjsj}';
+		var id='${requestScope.yswl.id}';
+		rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	}
+	loadYSWLTabData(rows);
+}
+
+function loadYSWLTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		yswlChooseLB.linkbutton("disable");
+	else
+		yswlChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	yswlTab.datagrid('loadData',obj);
+}
+
 function openSelectYSSDialog(flag){
 	if(flag==1){
 		$("#select_yss_bg_div").css("display","block");
@@ -535,6 +647,11 @@ function openEditYSSJBSXZDialog(flag){
 function deleteYSSTabRow(){
 	yssTab.datagrid("deleteRow",0);
 	loadYSSTabData([]);
+}
+
+function deleteYSWLTabRow(){
+	yswlTab.datagrid("deleteRow",0);
+	loadYSWLTabData([]);
 }
 
 function editYSS(){
@@ -783,7 +900,6 @@ function setFitWidthInParent(parent,self){
 		<table id="yss_tab"></table>
 	</div>
 	
-	<!-- 
 	<div id="yswl_div">
 		<div id="yswl_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -791,6 +907,7 @@ function setFitWidthInParent(parent,self){
 		<table id="yswl_tab"></table>
 	</div>
 	
+	<!-- 
 	<div id="fhdw_div">
 		<div id="fhdw_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>

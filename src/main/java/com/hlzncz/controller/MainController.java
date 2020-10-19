@@ -281,6 +281,9 @@ public class MainController {
 		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
 		request.setAttribute("yss", yss);
 
+		WuZi yswl=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("yswl", yswl);
+
 		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
