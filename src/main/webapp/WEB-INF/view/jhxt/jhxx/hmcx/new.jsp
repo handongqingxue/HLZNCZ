@@ -1744,8 +1744,6 @@ function initSSDDDDZTCBB(){
 			});
 		}
 	,"json");
-	
-	
 }
 
 function initSSDDJCSJSDTB(){
