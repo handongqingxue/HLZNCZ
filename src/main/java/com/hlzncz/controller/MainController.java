@@ -269,6 +269,24 @@ public class MainController {
 		return "ddgl/ddtb/ddtb/new";
 	}
 
+	@RequestMapping(value="/ddgl/ddtb/ddtb/edit")
+	public String goDdglDdtbDdtbEdit(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		return "ddgl/ddtb/ddtb/edit";
+	}
+
 	@RequestMapping(value="/ddgl/ddtb/ddtb/list")
 	public String goDdglDdtbDdtbList(HttpServletRequest request) {
 		

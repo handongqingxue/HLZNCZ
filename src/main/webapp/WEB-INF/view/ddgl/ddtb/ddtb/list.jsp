@@ -86,8 +86,8 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"sjzl",title:"实际重量",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/ddtb/ddtb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/ddtb/ddtb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
