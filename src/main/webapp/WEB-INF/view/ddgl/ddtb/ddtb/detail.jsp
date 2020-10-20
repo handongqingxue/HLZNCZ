@@ -63,6 +63,134 @@
 	margin-left: 30px;
 }
 
+.detail_yswl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_yswl_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_yswl_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_yswl_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_yswl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_yswl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_yswl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_yswl_div .title_span{
+	margin-left: 30px;
+}
+
+.detail_fhdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_fhdw_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_fhdw_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_fhdw_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_fhdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_fhdw_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_fhdw_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_fhdw_div .title_span{
+	margin-left: 30px;
+}
+
+.detail_shdw_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_shdw_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_shdw_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_shdw_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_shdw_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_shdw_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_shdw_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_shdw_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -73,12 +201,27 @@ var tbxxdNum=0;
 var ddNum=1;
 var yssdNum=2;
 var dyssjbsxzdNum=3;
+var yswldNum=4;
+var dyswljbsxzdNum=5;
+var fhdwdNum=6;
+var dfhdwjbsxzdNum=7;
+var shdwdNum=8;
+var dshdwjbsxzdNum=9;
 $(function(){
 	initTBXXDialog();//0
 	initDetailDialog();//1
 	
 	initYSSDialog();//2.运输商窗口
 	initDetailYSSJBSXZDialog();//3.运输商详情窗口
+
+	initYSWLDialog();//4.运输物料
+	initDetailYSWLJBSXZDialog();//5.运输物料详情窗口
+	
+	initFHDWDialog();//6.发货单位窗口
+	initDetailFHDWJBSXZDialog();//7.发货单位详情窗口
+
+	initSHDWDialog();//8.收货单位窗口
+	initDetailSHDWJBSXZDialog();//9.收货单位详情窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -100,6 +243,30 @@ function initDialogPosition(){
 	var dyssjbsxdpw=$("body").find(".panel.window").eq(dyssjbsxzdNum);
 	var dyssjbsxdws=$("body").find(".window-shadow").eq(dyssjbsxzdNum);
 
+	//运输物料
+	var yswldpw=$("body").find(".panel.window").eq(yswldNum);
+	var yswldws=$("body").find(".window-shadow").eq(yswldNum);
+
+	//查看运输物料
+	var dyswljbsxdpw=$("body").find(".panel.window").eq(dyswljbsxzdNum);
+	var dyswljbsxdws=$("body").find(".window-shadow").eq(dyswljbsxzdNum);
+
+	//发货单位
+	var fhdwdpw=$("body").find(".panel.window").eq(fhdwdNum);
+	var fhdwdws=$("body").find(".window-shadow").eq(fhdwdNum);
+
+	//查看发货单位
+	var dfhdwjbsxdpw=$("body").find(".panel.window").eq(dfhdwjbsxzdNum);
+	var dfhdwjbsxdws=$("body").find(".window-shadow").eq(dfhdwjbsxzdNum);
+
+	//收货单位
+	var shdwdpw=$("body").find(".panel.window").eq(shdwdNum);
+	var shdwdws=$("body").find(".window-shadow").eq(shdwdNum);
+
+	//查看收货单位
+	var dshdwjbsxdpw=$("body").find(".panel.window").eq(dshdwjbsxzdNum);
+	var dshdwjbsxdws=$("body").find(".window-shadow").eq(dshdwjbsxzdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(tbxxdpw);
 	ccDiv.append(tbxxdws);
@@ -110,9 +277,30 @@ function initDialogPosition(){
 	ccDiv.append(yssdpw);
 	ccDiv.append(yssdws);
 
+	ccDiv.append(yswldpw);
+	ccDiv.append(yswldws);
+
+	ccDiv.append(fhdwdpw);
+	ccDiv.append(fhdwdws);
+
+	ccDiv.append(shdwdpw);
+	ccDiv.append(shdwdws);
+
 	var dyssdDiv=$("#detail_yss_dialog_div");
 	dyssdDiv.append(dyssjbsxdpw);
 	dyssdDiv.append(dyssjbsxdws);
+
+	var dyswldDiv=$("#detail_yswl_dialog_div");
+	dyswldDiv.append(dyswljbsxdpw);
+	dyswldDiv.append(dyswljbsxdws);
+
+	var dfhdwdDiv=$("#detail_fhdw_dialog_div");
+	dfhdwdDiv.append(dfhdwjbsxdpw);
+	dfhdwdDiv.append(dfhdwjbsxdws);
+
+	var dshdwdDiv=$("#detail_shdw_dialog_div");
+	dshdwdDiv.append(dshdwjbsxdpw);
+	dshdwdDiv.append(dshdwjbsxdws);
 }
 
 function initTBXXDialog(){
@@ -304,6 +492,399 @@ function initDetailYSSJBSXZDialog(){
 	openDetailYSSDialog(0);
 }
 
+function initYSWLDialog(){
+	dialogTop+=230;//230
+	yswlDialog=$("#yswl_div").dialog({
+		title:"运输物料",
+		width:setFitWidthInParent("body","yswl_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(yswldNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(yswldNum).css("margin-top","20px");
+	$(".panel.window").eq(yswldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(yswldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(yswldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(yswldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(yswldNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(yswldNum).css("width","1000px");
+	$(".window-shadow").eq(yswldNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(yswldNum).css("border-color","#ddd");
+
+	initYSWLTab();
+}
+
+function initYSWLTab(){
+	yswlTab=$("#yswl_tab").datagrid({
+		width:setFitWidthInParent("body","yswl_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="运输物资";
+					break;
+				}
+				return str;
+			}},
+            {field:"mc",title:"名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"showYSWLDetail()\">查看</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	var rows;
+	if('${requestScope.yswl}'==""){
+		rows=[];
+	}
+	else{
+		var mc='${requestScope.yswl.mc}';
+		var bjsj='${requestScope.yswl.bjsj}';
+		var id='${requestScope.yswl.id}';
+		rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	}
+	loadYSWLTabData(rows);
+}
+
+function loadYSWLTabData(rows){
+	var rowsLength=rows.length;
+	var obj = {"total":rowsLength,"rows":rows};
+	yswlTab.datagrid('loadData',obj);
+}
+
+function initDetailYSWLJBSXZDialog(){
+	detailYSWLDialog=$("#detail_yswl_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_yswl_div","detail_yswl_jbsxz_dialog_div"),
+		height:231,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailYSWLDialog(0);
+           }},
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openDetailYSWLDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_yswl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_yswl_div","detail_yswl_jbsxz_dialog_div"))+"px");
+	$("#detail_yswl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_yswl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_yswl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_yswl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_yswl_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dyswljbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(dyswljbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dyswljbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dyswljbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dyswljbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#detail_yswl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_yswl_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_yswl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_yswl_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailYSWLDialog(0);
+}
+
+function initFHDWDialog(){
+	dialogTop+=230;//690
+	fhdwDialog=$("#fhdw_div").dialog({
+		title:"发货单位",
+		width:setFitWidthInParent("body","fhdw_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(fhdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(fhdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(fhdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(fhdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(fhdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(fhdwdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(fhdwdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(fhdwdNum).css("width","1000px");
+	$(".window-shadow").eq(fhdwdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(fhdwdNum).css("border-color","#ddd");
+
+	initFHDWTab();
+}
+
+function initFHDWTab(){
+	fhdwTab=$("#fhdw_tab").datagrid({
+		width:setFitWidthInParent("body","fhdw_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="发货单位";
+					break;
+				}
+				return str;
+			}},
+            {field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"showFHDWDetail()\">查看</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	var rows;
+	if('${requestScope.fhdw}'==""){
+		rows=[];
+	}
+	else{
+		var dwmc='${requestScope.fhdw.dwmc}';
+		var bjsj='${requestScope.fhdw.bjsj}';
+		var id='${requestScope.fhdw.id}';
+		rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	}
+	loadFHDWTabData(rows);
+}
+
+function loadFHDWTabData(rows){
+	var rowsLength=rows.length;
+	var obj = {"total":rowsLength,"rows":rows};
+	fhdwTab.datagrid('loadData',obj);
+}
+
+function initDetailFHDWJBSXZDialog(){
+	detailFHDWDialog=$("#detail_fhdw_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_fhdw_div","detail_fhdw_jbsxz_dialog_div"),
+		height:231,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailFHDWDialog(0);
+           }},
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openDetailFHDWDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_fhdw_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_fhdw_div","detail_fhdw_jbsxz_dialog_div"))+"px");
+	$("#detail_fhdw_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_fhdw_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_fhdw_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_fhdw_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_fhdw_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dfhdwjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dfhdwjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dfhdwjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dfhdwjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dfhdwjbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dfhdwjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#detail_fhdw_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_fhdw_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_fhdw_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_fhdw_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailFHDWDialog(0);
+}
+
+function initSHDWDialog(){
+	dialogTop+=230;//920
+	shdwDialog=$("#shdw_div").dialog({
+		title:"收货单位",
+		width:setFitWidthInParent("body","shdw_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(shdwdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(shdwdNum).css("margin-top","20px");
+	$(".panel.window").eq(shdwdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(shdwdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(shdwdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(shdwdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(shdwdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(shdwdNum).css("width","1000px");
+	$(".window-shadow").eq(shdwdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(shdwdNum).css("border-color","#ddd");
+
+	initSHDWTab();
+}
+
+function initSHDWTab(){
+	shdwTab=$("#shdw_tab").datagrid({
+		width:setFitWidthInParent("body","shdw_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="收货单位";
+					break;
+				}
+				return str;
+			}},
+            {field:"dwmc",title:"单位名称",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"showSHDWDetail()\">查看</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	var rows;
+	if('${requestScope.shdw}'==""){
+		rows=[];
+	}
+	else{
+		var dwmc='${requestScope.shdw.dwmc}';
+		var bjsj='${requestScope.shdw.bjsj}';
+		var id='${requestScope.shdw.id}';
+		rows=[{gx:"1",dwmc:dwmc,bjsj:bjsj,id:id}];
+	}
+	loadSHDWTabData(rows);
+}
+
+function loadSHDWTabData(rows){
+	var rowsLength=rows.length;
+	var obj = {"total":rowsLength,"rows":rows};
+	shdwTab.datagrid('loadData',obj);
+}
+
+function initDetailSHDWJBSXZDialog(){
+	detailSHDWDialog=$("#detail_shdw_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_shdw_div","detail_shdw_jbsxz_dialog_div"),
+		height:231,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailSHDWDialog(0);
+           }},
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openDetailSHDWDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_shdw_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_shdw_div","detail_shdw_jbsxz_dialog_div"))+"px");
+	$("#detail_shdw_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_shdw_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_shdw_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_shdw_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_shdw_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dshdwjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dshdwjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dshdwjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dshdwjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dshdwjbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dshdwjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#detail_shdw_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_shdw_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_shdw_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_shdw_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailSHDWDialog(0);
+}
+
 function openDetailYSSDialog(flag){
 	if(flag==1){
 		$("#detail_yss_bg_div").css("display","block");
@@ -325,6 +906,69 @@ function openDetailYSSJBSXZDialog(flag){
 	}
 }
 
+function openDetailYSWLDialog(flag){
+	if(flag==1){
+		$("#detail_yswl_bg_div").css("display","block");
+		$("#detail_yswl_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_yswl_bg_div").css("display","none");
+		$("#detail_yswl_bg_div").css("z-index","9016");
+	}
+	openDetailYSWLJBSXZDialog(flag);
+}
+
+function openDetailYSWLJBSXZDialog(flag){
+	if(flag==1){
+		detailYSWLDialog.dialog("open");
+	}
+	else{
+		detailYSWLDialog.dialog("close");
+	}
+}
+
+function openDetailFHDWDialog(flag){
+	if(flag==1){
+		$("#detail_fhdw_bg_div").css("display","block");
+		$("#detail_fhdw_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_fhdw_bg_div").css("display","none");
+		$("#detail_fhdw_bg_div").css("z-index","9016");
+	}
+	openDetailFHDWJBSXZDialog(flag);
+}
+
+function openDetailFHDWJBSXZDialog(flag){
+	if(flag==1){
+		detailFHDWDialog.dialog("open");
+	}
+	else{
+		detailFHDWDialog.dialog("close");
+	}
+}
+
+function openDetailSHDWDialog(flag){
+	if(flag==1){
+		$("#detail_shdw_bg_div").css("display","block");
+		$("#detail_shdw_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_shdw_bg_div").css("display","none");
+		$("#detail_shdw_bg_div").css("z-index","9016");
+	}
+	openDetailSHDWJBSXZDialog(flag);
+}
+
+function openDetailSHDWJBSXZDialog(flag){
+	if(flag==1){
+		detailSHDWDialog.dialog("open");
+	}
+	else{
+		detailSHDWDialog.dialog("close");
+	}
+}
+
 function showYSSDetail(){
 	var row=yssTab.datagrid("getSelected");
 	if (row == null) {
@@ -335,6 +979,42 @@ function showYSSDetail(){
 	$("#detail_yss_div #mc").text(row.mc);
 	$("#detail_yss_div #bjsj").text(row.bjsj);
 	openDetailYSSDialog(1);
+}
+
+function showYSWLDetail(){
+	var row=yswlTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_yswl_div #id").val(row.id);
+	$("#detail_yswl_div #mc").text(row.mc);
+	$("#detail_yswl_div #bjsj").text(row.bjsj);
+	openDetailYSWLDialog(1);
+}
+
+function showFHDWDetail(){
+	var row=fhdwTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_fhdw_div #id").val(row.id);
+	$("#detail_fhdw_div #dwmc").text(row.dwmc);
+	$("#detail_fhdw_div #bjsj").text(row.bjsj);
+	openDetailFHDWDialog(1);
+}
+
+function showSHDWDetail(){
+	var row=shdwTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_shdw_div #id").val(row.id);
+	$("#detail_shdw_div #dwmc").text(row.dwmc);
+	$("#detail_shdw_div #bjsj").text(row.bjsj);
+	openDetailSHDWDialog(1);
 }
 
 function setFitWidthInParent(parent,self){
@@ -422,6 +1102,111 @@ function setFitWidthInParent(parent,self){
 	</div>
 </div>
 <!--查看运输商 end -->
+
+<!-- 查看运输物料 start -->
+<div class="detail_yswl_bg_div" id="detail_yswl_bg_div">
+	<div class="detail_yswl_div" id="detail_yswl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailYSWLDialog(0)">X</span>
+		</div>
+		<div class="detail_yswl_dialog_div" id="detail_yswl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">订单填报-运输物料-查看</span>
+			</div>
+			<div id="detail_yswl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						名称
+					</td>
+					<td style="width:30%;">
+						<span id="mc"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--查看运输物料 end -->
+	
+<!-- 查看发货单位 start -->
+<div class="detail_fhdw_bg_div" id="detail_fhdw_bg_div">
+	<div class="detail_fhdw_div" id="detail_fhdw_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailFHDWDialog(0)">X</span>
+		</div>
+		<div class="detail_fhdw_dialog_div" id="detail_fhdw_dialog_div">
+			<div class="title_div">
+				<span class="title_span">订单填报-发货单位-查看</span>
+			</div>
+			<div id="detail_fhdw_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						单位名称
+					</td>
+					<td style="width:30%;">
+						<span id="dwmc"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看发货单位 end -->
+
+<!-- 查看收货单位 start -->
+<div class="detail_shdw_bg_div" id="detail_shdw_bg_div">
+	<div class="detail_shdw_div" id="detail_shdw_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailSHDWDialog(0)">X</span>
+		</div>
+		<div class="detail_shdw_dialog_div" id="detail_shdw_dialog_div">
+			<div class="title_div">
+				<span class="title_span">订单填报-收货单位-查看</span>
+			</div>
+			<div id="detail_shdw_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						单位名称
+					</td>
+					<td style="width:30%;">
+						<span id="dwmc"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						编辑时间
+					</td>
+					<td style="width:30%;">
+						<span id="bjsj"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看收货单位 end -->
 
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
@@ -529,34 +1314,22 @@ function setFitWidthInParent(parent,self){
 	<!-- 基本信息 end -->
 	
 	<div id="yss_div">
-		<div id="yss_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="yss_tab"></table>
 	</div>
 	
-	<!-- 
 	<div id="yswl_div">
-		<div id="yswl_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="yswl_tab"></table>
 	</div>
 	
 	<div id="fhdw_div">
-		<div id="fhdw_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="fhdw_tab"></table>
 	</div>
 	
 	<div id="shdw_div">
-		<div id="shdw_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="shdw_tab"></table>
 	</div>
 	
+	<!-- 
 	<div id="cycl_div">
 		<div id="cycl_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
