@@ -27,11 +27,13 @@ var dialogLeft=20;
 var ndNum=0;
 $(function(){
 	initNewDialog();
-	initCLLXCBB();
-	initPFJDCBB();
 	initZCRQDB();
-	initSFZYCBB();
+	initPFJDCBB();
 	initCLYSLXCBB();
+	initFZRQDB();
+	initCLLXCBB();
+	initSFZYCBB();
+	initXXZTCBB();
 	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -51,7 +53,7 @@ function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","new_div"),
-		height:431,
+		height:550,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -66,7 +68,10 @@ function initNewDialog(){
 	$("#new_div table td").css("padding-left","50px");
 	$("#new_div table td").css("padding-right","20px");
 	$("#new_div table td").css("font-size","15px");
-	$("#new_div table tr").css("height","45px");
+	for(var i=0;i<8;i++){
+		$("#new_div table tr").eq(i).css("height","45px");
+	}
+	$("#new_div table tr").eq(8).css("height","90px");
 
 	$(".panel.window").eq(ndNum).css("margin-top","20px");
 	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
@@ -85,15 +90,13 @@ function initNewDialog(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
 
-function initCLLXCBB(){
-	cllxCBB=$("#cllx_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}],
-		onSelect:function(){
-			$("#cllx").val($(this).combobox("getValue"));
-		}
-	});
+function initZCRQDB(){
+    zcrqDB=$('#zcrq_db').datebox({
+        required:false,
+        onSelect:function(){
+        	$("#zcrq").val(zcrqDB.datebox("getValue"));
+        }
+    });
 }
 
 function initPFJDCBB(){
@@ -114,13 +117,35 @@ function initPFJDCBB(){
 	});
 }
 
-function initZCRQDB(){
-    zcrqDB=$('#zcrq_db').datebox({
+function initCLYSLXCBB(){
+	clyslxCBB=$("#clyslx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}],
+		onSelect:function(){
+			$("#clyslx").val($(this).combobox("getValue"));
+		}
+	});
+}
+
+function initFZRQDB(){
+    fzrqDB=$('#fzrq_db').datebox({
         required:false,
         onSelect:function(){
-        	$("#zcrq").val(zcrqDB.datebox("getValue"));
+        	$("#fzrq").val(fzrqDB.datebox("getValue"));
         }
     });
+}
+
+function initCLLXCBB(){
+	cllxCBB=$("#cllx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}],
+		onSelect:function(){
+			$("#cllx").val($(this).combobox("getValue"));
+		}
+	});
 }
 
 function initSFZYCBB(){
@@ -134,13 +159,13 @@ function initSFZYCBB(){
 	});
 }
 
-function initCLYSLXCBB(){
-	clyslxCBB=$("#clyslx_cbb").combobox({
+function initXXZTCBB(){
+	xxztCBB=$("#xxzt_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆运输类型"},{"value":"1","text":"普货运输"},{"value":"2","text":"厂内运输"},{"value":"3","text":"危化品运输"}],
+		data:[{"value":"","text":"请选择信息状态"},{"value":"1","text":"待审核"},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}],
 		onSelect:function(){
-			$("#clyslx").val($(this).combobox("getValue"));
+			$("#xxzt").val($(this).combobox("getValue"));
 		}
 	});
 }
@@ -252,35 +277,6 @@ function setFitWidthInParent(parent,self){
 				<input type="text" id="cph" name="cph" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
 			</td>
 			<td align="right" style="width:15%;">
-				车主信息
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="czxx" name="czxx" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				皮重
-			</td>
-			<td>
-				<input type="number" id="pz" name="pz" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
-			</td>
-			<td align="right">
-				车辆类型
-			</td>
-			<td>
-				<input id="cllx_cbb"/>
-				<input type="hidden" id="cllx" name="cllx"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				照片
-			</td>
-			<td style="width:30%;">
-				<input type="file" name="zp_file"/>
-			</td>
-			<td align="right" style="width:15%;">
 				发动机号码
 			</td>
 			<td style="width:30%;">
@@ -288,12 +284,21 @@ function setFitWidthInParent(parent,self){
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				车辆识别代号
 			</td>
-			<td style="width:30%;">
+			<td>
 				<input type="text" id="clsbdh" name="clsbdh" placeholder="请输入车辆识别代号" style="width: 150px;height:30px;"/>
 			</td>
+			<td align="right">
+				注册日期
+			</td>
+			<td>
+				<input id="zcrq_db"/>
+				<input type="hidden" id="zcrq" name="zcrq"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				排放阶段
 			</td>
@@ -301,14 +306,78 @@ function setFitWidthInParent(parent,self){
 				<input id="pfjd_cbb"/>
 				<input type="hidden" id="pfjd" name="pfjd"/>
 			</td>
+			<td align="right" style="width:15%;">
+				车辆运输类型
+			</td>
+			<td style="width:30%;">
+				<input id="clyslx_cbb"/>
+				<input type="hidden" id="clyslx" name="clyslx"/>
+			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				注册日期
+				品牌型号
 			</td>
 			<td style="width:30%;">
-				<input id="zcrq_db"/>
-				<input type="hidden" id="zcrq" name="zcrq"/>
+				<input type="text" id="ppxh" name="ppxh" placeholder="请输入品牌型号" style="width: 150px;height:30px;" onfocus="focusPPXH()" onblur="checkPPXH()"/>
+			</td>
+			<td align="right" style="width:15%;">
+				车主信息
+			</td>
+			<td style="width:30%;">
+				<input type="text" id="czxx" name="czxx" placeholder="请输入车主信息" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				发证日期
+			</td>
+			<td style="width:30%;">
+				<input id="fzrq_db"/>
+				<input type="hidden" id="fzrq" name="fzrq"/>
+			</td>
+			<td align="right" style="width:15%;">
+				皮重
+			</td>
+			<td style="width:30%;">
+				<input type="number" id="pz" name="pz" placeholder="请输入皮重" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				车辆类型
+			</td>
+			<td style="width:30%;">
+				<input id="cllx_cbb"/>
+				<input type="hidden" id="cllx" name="cllx"/>
+			</td>
+			<td align="right" style="width:15%;">
+				照片
+			</td>
+			<td style="width:30%;">
+				<input type="file" name="zp_file"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				行驶证
+			</td>
+			<td style="width:30%;">
+				<input type="file" name="xsz_file"/>
+			</td>
+			<td align="right" style="width:15%;">
+				随车清单
+			</td>
+			<td style="width:30%;">
+				<input type="file" name="scqd_file"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				排放阶段查询截图
+			</td>
+			<td style="width:30%;">
+				<input type="file" name="pfjdcxjt_file"/>
 			</td>
 			<td align="right" style="width:15%;">
 				是否在用
@@ -320,31 +389,17 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				车辆运输类型
+				信息状态
 			</td>
 			<td style="width:30%;">
-				<input id="clyslx_cbb"/>
-				<input type="hidden" id="clyslx" name="clyslx"/>
+				<input id="xxzt_cbb"/>
+				<input type="hidden" id="xxzt" name="xxzt"/>
 			</td>
 			<td align="right" style="width:15%;">
-				行驶证
+				备注
 			</td>
 			<td style="width:30%;">
-				<input type="file" name="xsz_file"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				随车清单
-			</td>
-			<td style="width:30%;">
-				<input type="file" name="scqd_file"/>
-			</td>
-			<td align="right" style="width:15%;">
-				排放阶段查询截图
-			</td>
-			<td style="width:30%;">
-				<input type="file" name="pfjdcxjt_file"/>
+				<textarea rows="3" cols="15" placeholder="请输入备注"></textarea>
 			</td>
 		  </tr>
 		</table>
