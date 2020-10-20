@@ -374,6 +374,34 @@
 .edit_cycl_div .title_span{
 	margin-left: 30px;
 }
+
+.select_cysj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_cysj_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_cysj_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_cysj_div .xzst_span{
+	margin-left: 30px;
+}
+.select_cysj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -397,6 +425,8 @@ var eshdwjbsxzdNum=13;
 var cycldNum=14;
 var scycldNum=15;
 var ecycljbsxzdNum=16;
+var cysjdNum=17;
+var scysjdNum=18;
 $(function(){
 	initTBXXDialog();//0
 	initEditDialog();//1
@@ -420,6 +450,9 @@ $(function(){
 	initCYCLDialog();//14.承运车辆窗口
 	initSelectCYCLDialog();//15.选择承运车辆窗口
 	initEditCYCLJBSXZDialog();//16.修改承运车辆窗口
+
+	initCYSJDialog();//17.承运司机窗口
+	initSelectCYSJDialog();//18.选择承运司机窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -493,6 +526,14 @@ function initDialogPosition(){
 	var ecycljbsxdpw=$("body").find(".panel.window").eq(ecycljbsxzdNum);
 	var ecycljbsxdws=$("body").find(".window-shadow").eq(ecycljbsxzdNum);
 
+	//承运司机
+	var cysjdpw=$("body").find(".panel.window").eq(cysjdNum);
+	var cysjdws=$("body").find(".window-shadow").eq(cysjdNum);
+	
+	//选择承运司机
+	var scysjdpw=$("body").find(".panel.window").eq(scysjdNum);
+	var scysjdws=$("body").find(".window-shadow").eq(scysjdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(tbxxdpw);
 	ccDiv.append(tbxxdws);
@@ -514,6 +555,9 @@ function initDialogPosition(){
 
 	ccDiv.append(cycldpw);
 	ccDiv.append(cycldws);
+
+	ccDiv.append(cysjdpw);
+	ccDiv.append(cysjdws);
 
 	var syssDiv=$("#select_yss_div");
 	syssDiv.append(syssdpw);
@@ -554,6 +598,10 @@ function initDialogPosition(){
 	var ecycldDiv=$("#edit_cycl_dialog_div");
 	ecycldDiv.append(ecycljbsxdpw);
 	ecycldDiv.append(ecycljbsxdws);
+
+	var scysjDiv=$("#select_cysj_div");
+	scysjDiv.append(scysjdpw);
+	scysjDiv.append(scysjdws);
 }
 
 function initTBXXDialog(){
@@ -1852,6 +1900,198 @@ function initEditCYCLJBSXZDialog(){
 	openEditCYCLJBSXZDialog(0);
 }
 
+function initCYSJDialog(){
+	dialogTop+=230;//1380
+	cysjDialog=$("#cysj_div").dialog({
+		title:"承运司机",
+		width:setFitWidthInParent("body","cysj_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(cysjdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(cysjdNum).css("margin-top","20px");
+	$(".panel.window").eq(cysjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(cysjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(cysjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(cysjdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(cysjdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(cysjdNum).css("width","1000px");
+	$(".window-shadow").eq(cysjdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(cysjdNum).css("border-color","#ddd");
+
+	initCYSJTab();
+}
+
+function initCYSJTab(){
+	cysjChooseLB=$("#cysj_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectCYSJDialog(1);
+		}
+	});
+	
+	cysjTab=$("#cysj_tab").datagrid({
+		toolbar:"#cysj_toolbar",
+		width:setFitWidthInParent("body","cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="货运司机";
+					break;
+				}
+				return str;
+			}},
+            {field:"xm",title:"姓名",width:200,align:"center"},
+            {field:"sjh",title:"手机号",width:200,align:"center"},
+            {field:"sfz",title:"身份证",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	//var str="<a onclick=\"editCYSJTabRow()\">编辑</a>"
+            	//+"&nbsp;|&nbsp;<a onclick=\"deleteCYSJTabRow()\">删除</a>";
+            	var str="<a onclick=\"deleteCYSJTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	var rows;
+	if('${requestScope.cysj}'==""){
+		rows=[];
+	}
+	else{
+		var xm='${requestScope.cysj.xm}';
+		var sjh='${requestScope.cysj.sjh}';
+		var sfz='${requestScope.cysj.sfz}';
+		var id='${requestScope.cysj.id}';
+		rows=[{gx:"1",xm:xm,sjh:sjh,sfz:sfz,id:id}];
+	}
+	loadCYSJTabData(rows);
+}
+
+function loadCYSJTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		cysjChooseLB.linkbutton("disable");
+	else
+		cysjChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	cysjTab.datagrid('loadData',obj);
+}
+
+function initSelectCYSJDialog(){
+	selectCYSJDialog=$("#select_cysj_dialog_div").dialog({
+		title:"承运司机列表",
+		width:setFitWidthInParent("#select_cysj_div","select_cysj_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:160,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectCYSJDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveSelectCYSJ();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(scysjdNum).css("width","983px");
+	$(".panel.window").eq(scysjdNum).css("margin-top","20px");
+	$(".panel.window").eq(scysjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(scysjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(scysjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(scysjdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(scysjdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(scysjdNum).css("width","1000px");
+	$(".window-shadow").eq(scysjdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(scysjdNum).css("border-color","#ddd");
+
+	$("#select_cysj_dialog_div #cancel_but").css("left","30%");
+	$("#select_cysj_dialog_div #cancel_but").css("position","absolute");
+	
+	$("#select_cysj_dialog_div #save_but").css("left","45%");
+	$("#select_cysj_dialog_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initSelectCYSJTab();
+	openSelectCYSJDialog(0);
+}
+
+function initSelectCYSJTab(){
+	zyztCBB=$("#zyzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+	
+	$("#select_cysj_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var xm=$("#select_cysj_toolbar #xm_inp").val();
+			var sfz=$("#select_cysj_toolbar #sfz_inp").val();
+			var zyzt=zyztCBB.combobox("getValue");
+			selectCYSJTab.datagrid("load",{xm:xm,sfz:sfz,zyzt:zyzt});
+		}
+	});
+	
+	selectCYSJTab=$("#select_cysj_tab").datagrid({
+		url:path+"main/querySiJiList",
+		toolbar:"#select_cysj_toolbar",
+		width:setFitWidthInParent("body","select_cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"xm",title:"姓名",width:200,align:"center"},
+            {field:"sjh",title:"手机号",width:200,align:"center"},
+			{field:"sfz",title:"身份证",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{xm:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"xm",colspan:3});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+}
+
 function openSelectYSSDialog(flag){
 	if(flag==1){
 		$("#select_yss_bg_div").css("display","block");
@@ -1914,6 +2154,19 @@ function openSelectCYCLDialog(flag){
 		$("#select_cycl_bg_div").css("display","none");
 		$("#select_cycl_bg_div").css("z-index","9010");
 		selectCYCLDialog.dialog("close");
+	}
+}
+
+function openSelectCYSJDialog(flag){
+	if(flag==1){
+		$("#select_cysj_bg_div").css("display","block");
+		$("#select_cysj_bg_div").css("z-index",showZIndex);
+		selectCYSJDialog.dialog("open");
+	}
+	else{
+		$("#select_cysj_bg_div").css("display","none");
+		$("#select_cysj_bg_div").css("z-index","9010");
+		selectCYSJDialog.dialog("close");
 	}
 }
 
@@ -2041,6 +2294,11 @@ function deleteSHDWTabRow(){
 function deleteCYCLTabRow(){
 	cyclTab.datagrid("deleteRow",0);
 	loadCYCLTabData([]);
+}
+
+function deleteCYSJTabRow(){
+	cysjTab.datagrid("deleteRow",0);
+	loadCYSJTabData([]);
 }
 
 function editYSS(){
@@ -2200,6 +2458,17 @@ function saveSelectCYCL(){
 	var rows=[{gx:"1",cph:row.cph,zcrq:row.zcrq,id:row.id}];
 	loadCYCLTabData(rows);
 	openSelectCYCLDialog(0);
+}
+
+function saveSelectCYSJ(){
+	var row=selectCYSJTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",xm:row.xm,sjh:row.sjh,sfz:row.sfz,id:row.id}];
+	loadCYSJTabData(rows);
+	openSelectCYSJDialog(0);
 }
 
 function setFitWidthInParent(parent,self){
@@ -2524,6 +2793,29 @@ function setFitWidthInParent(parent,self){
 	</div>
 </div>	
 <!-- 编辑承运车辆 end -->
+	
+<!-- 选择承运司机 start -->
+<div class="select_cysj_bg_div" id="select_cysj_bg_div">
+	<div class="select_cysj_div" id="select_cysj_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectCYSJDialog(0)">X</span>
+		</div>
+		<div id="select_cysj_dialog_div">
+			<div id="select_cysj_toolbar" style="height:32px;line-height:32px;">
+				<span style="margin-left: 13px;">姓名：</span>
+				<input type="text" id="xm_inp" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">身份证号：</span>
+				<input type="text" id="sfz_inp" placeholder="请输入身份证" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">在用状态：</span>
+				<input id="zyzt_cbb"/>
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="select_cysj_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择承运司机end -->
 
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
@@ -2662,14 +2954,12 @@ function setFitWidthInParent(parent,self){
 		<table id="cycl_tab"></table>
 	</div>
 	
-	<!-- 
 	<div id="cysj_div">
 		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="cysj_tab"></table>
 	</div>
-	 -->
 </div>
 </body>
 </html>

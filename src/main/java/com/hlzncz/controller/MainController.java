@@ -292,6 +292,9 @@ public class MainController {
 
 		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
+
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
 		
 		return "ddgl/ddtb/ddtb/edit";
 	}
