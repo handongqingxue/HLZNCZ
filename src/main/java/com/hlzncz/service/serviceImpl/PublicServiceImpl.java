@@ -226,15 +226,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int queryCheLiangForInt(String cph, Integer cllx) {
+	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer shzt, String bz) {
 		// TODO Auto-generated method stub
-		return publicDao.queryCheLiangForInt(cph,cllx);
+		return publicDao.queryCheLiangForInt(cph,cllx,sfzy,shzt,bz);
 	}
 
 	@Override
-	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, int page, int rows, String sort, String order) {
+	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer shzt, String bz, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return publicDao.queryCheLiangList(cph, cllx, (page-1)*rows, rows, sort, order);
+		return publicDao.queryCheLiangList(cph, cllx, sfzy, shzt, bz, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

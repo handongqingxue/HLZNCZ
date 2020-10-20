@@ -1245,12 +1245,12 @@ public class MainController {
 	
 	@RequestMapping(value="/queryCheLiangList")
 	@ResponseBody
-	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,int page,int rows,String sort,String order) {
+	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,Boolean sfzy,Integer shzt,String bz,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryCheLiangForInt(cph,cllx);
-		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, page, rows, sort, order);
+		int count = publicService.queryCheLiangForInt(cph,cllx,sfzy,shzt,bz);
+		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, sfzy, shzt, bz, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", clList);

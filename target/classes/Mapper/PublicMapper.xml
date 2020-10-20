@@ -617,6 +617,15 @@
 		<if test="cllx!=''&amp;cllx!=null">
 			and cllx=#{cllx}
 		</if> 
+		<if test="sfzy!=null">
+			and sfzy=#{sfzy}
+		</if> 
+		<if test="shzt!=''&amp;shzt!=null">
+			and shzt=#{shzt}
+		</if> 
+		<if test="bz!=''&amp;bz!=null">
+			and bz like CONCAT('%',#{bz},'%')
+		</if> 
 	</select>
 	<select id="queryCheLiangList" resultType="com.hlzncz.entity.CheLiang">
 		select * from che_liang where 1=1
@@ -625,6 +634,15 @@
 		</if> 
 		<if test="cllx!=''&amp;cllx!=null">
 			and cllx=#{cllx}
+		</if>  
+		<if test="sfzy!=null">
+			and sfzy=#{sfzy}
+		</if> 
+		<if test="shzt!=''&amp;shzt!=null">
+			and shzt=#{shzt}
+		</if> 
+		<if test="bz!=''&amp;bz!=null">
+			and bz like CONCAT('%',#{bz},'%')
 		</if> 
 	</select>
 	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">

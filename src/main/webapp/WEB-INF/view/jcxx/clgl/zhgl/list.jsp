@@ -8,28 +8,64 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	initCLLXCBB();
+	initSFZYCBB();
+	initSHZTCBB();
+	initSearchLB();
+	initAddLB();
+	initOutputLB();
+	initRemoveLB();
+	initTab1();
+});
+
+function initCLLXCBB(){
 	cllxCBB=$("#cllx").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
 	});
-	
+}
+
+function initSFZYCBB(){
+	sfzyCBB=$("#sfzy").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+}
+
+function initSHZTCBB(){
+	shztCBB=$("#shzt").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
+	});
+}
+
+function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
 			var cph=$("#toolbar #cph").val();
 			var cllx=cllxCBB.combobox("getValue");
-			tab1.datagrid("load",{cph:cph,cllx:cllx});
+			var sfzy=sfzyCBB.combobox("getValue");
+			var shzt=shztCBB.combobox("getValue");
+			var bz=$("#toolbar #bz").val();
+			tab1.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
 		}
 	});
-	
+}
+
+function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
 			location.href=path+"main/jcxx/clgl/zhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
-	
+}
+
+function initOutputLB(){
 	$("#output_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
@@ -37,14 +73,18 @@ $(function(){
 				location.href=path+"merchant/main/goBatchAddModule?trade=spzs&moduleType="+moduleType;
 		}
 	});
-	
+}
+
+function initRemoveLB(){
 	$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
 		onClick:function(){
 			deleteByIds();
 		}
 	});
+}
 
+function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"综合管理-列表",
 		url:path+"main/queryCheLiangList",
@@ -85,6 +125,21 @@ $(function(){
 				return value?"是":"否";
 			}},
 			{field:"bz",title:"备注",width:200},
+			{field:"shzt",title:"状态",width:200,formatter:function(value){
+				var str;
+				switch (value) {
+				case 1:
+					str="待审核";
+					break;
+				case 2:
+					str="审核通过";
+					break;
+				case 3:
+					str="编辑中";
+					break;
+				}
+				return str;
+			}},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
@@ -94,7 +149,7 @@ $(function(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:10});
+				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:11});
 				data.total=0;
 			}
 			
@@ -113,7 +168,7 @@ $(function(){
 			reSizeCol();
 		}
 	});
-});
+}
 
 //重设列宽
 function reSizeCol(){
@@ -177,6 +232,12 @@ function setFitWidthInParent(o){
 			<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">车辆类型：</span>
 			<input id="cllx"/>
+			<span style="margin-left: 13px;">是否在用：</span>
+			<input id="sfzy"/>
+			<span style="margin-left: 13px;">审核状态：</span>
+			<input id="shzt"/>
+			<span style="margin-left: 13px;">备注：</span>
+			<input type="text" id="bz" placeholder="请输入备注" style="width: 120px;height: 25px;"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>
