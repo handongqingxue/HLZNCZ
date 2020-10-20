@@ -252,7 +252,7 @@ function setFitWidthInParent(parent,self){
 <body>
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">车辆信息-修改</div>
+	<div class="page_location_div">综合管理-修改</div>
 	
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">

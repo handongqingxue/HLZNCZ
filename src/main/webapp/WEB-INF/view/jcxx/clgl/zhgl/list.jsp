@@ -26,7 +26,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/clgl/clxx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=path+"main/jcxx/clgl/zhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -46,7 +46,7 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"车辆信息-列表",
+		title:"综合管理-列表",
 		url:path+"main/queryCheLiangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
@@ -86,8 +86,8 @@ $(function(){
 			}},
 			{field:"bz",title:"备注",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clxx/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -172,7 +172,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:32px;line-height:32px;">
+		<div id="toolbar" style="height:32px;">
 			<span style="margin-left: 13px;">车牌号：</span>
 			<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">车辆类型：</span>

@@ -415,42 +415,42 @@ public class MainController {
 		return "jcxx/wzgl/wzgl/detail";
 	}
 
-	@RequestMapping(value="/jcxx/clgl/clxx/new")
-	public String goClxxNew(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/clgl/zhgl/new")
+	public String goJcxxClglZhglNew(HttpServletRequest request) {
 
 		selectNav(request);
 		
-		return "jcxx/clgl/clxx/new";
+		return "jcxx/clgl/zhgl/new";
 	}
 	
-	@RequestMapping(value="/jcxx/clgl/clxx/edit")
-	public String goClxxEdit(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/clgl/zhgl/edit")
+	public String goJcxxClglZhglEdit(HttpServletRequest request) {
 		
 		selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return "jcxx/clgl/clxx/edit";
+		return "jcxx/clgl/zhgl/edit";
 	}
 
-	@RequestMapping(value="/jcxx/clgl/clxx/list")
-	public String goClxxList(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/clgl/zhgl/list")
+	public String goJcxxClglZhglList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
-		return "jcxx/clgl/clxx/list";
+		return "jcxx/clgl/zhgl/list";
 	}
 
-	@RequestMapping(value="/jcxx/clgl/clxx/detail")
-	public String goClxxDetail(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/clgl/zhgl/detail")
+	public String goJcxxClglZhglDetail(HttpServletRequest request) {
 		
 		selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return "jcxx/clgl/clxx/detail";
+		return "jcxx/clgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/sjgl/sjxx/new")
