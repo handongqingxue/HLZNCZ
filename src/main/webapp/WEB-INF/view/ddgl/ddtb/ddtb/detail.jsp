@@ -191,6 +191,92 @@
 .detail_shdw_div .title_span{
 	margin-left: 30px;
 }
+
+.detail_cycl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_cycl_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_cycl_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_cycl_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_cycl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_cycl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_cycl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_cycl_div .title_span{
+	margin-left: 30px;
+}
+
+.detail_cysj_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.detail_cysj_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.detail_cysj_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.detail_cysj_div .xgst_span{
+	margin-left: 30px;
+}
+.detail_cysj_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.detail_cysj_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.detail_cysj_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.detail_cysj_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -209,6 +295,8 @@ var shdwdNum=8;
 var dshdwjbsxzdNum=9;
 var cycldNum=10;
 var dcycljbsxzdNum=11;
+var cysjdNum=12;
+var dcysjjbsxzdNum=13;
 $(function(){
 	initTBXXDialog();//0
 	initDetailDialog();//1
@@ -226,6 +314,10 @@ $(function(){
 	initDetailSHDWJBSXZDialog();//9.收货单位详情窗口
 
 	initCYCLDialog();//10.承运车辆窗口
+	initDetailCYCLJBSXZDialog();//11.承运车辆详情窗口
+
+	initCYSJDialog();//12.承运司机窗口
+	initDetailCYSJJBSXZDialog();//13.承运司机详情窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -275,6 +367,18 @@ function initDialogPosition(){
 	var cycldpw=$("body").find(".panel.window").eq(cycldNum);
 	var cycldws=$("body").find(".window-shadow").eq(cycldNum);
 
+	//查看承运车辆
+	var dcycljbsxdpw=$("body").find(".panel.window").eq(dcycljbsxzdNum);
+	var dcycljbsxdws=$("body").find(".window-shadow").eq(dcycljbsxzdNum);
+
+	//承运司机
+	var cysjdpw=$("body").find(".panel.window").eq(cysjdNum);
+	var cysjdws=$("body").find(".window-shadow").eq(cysjdNum);
+
+	//查看承运司机
+	var dcysjjbsxdpw=$("body").find(".panel.window").eq(dcysjjbsxzdNum);
+	var dcysjjbsxdws=$("body").find(".window-shadow").eq(dcysjjbsxzdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(tbxxdpw);
 	ccDiv.append(tbxxdws);
@@ -297,6 +401,9 @@ function initDialogPosition(){
 	ccDiv.append(cycldpw);
 	ccDiv.append(cycldws);
 
+	ccDiv.append(cysjdpw);
+	ccDiv.append(cysjdws);
+
 	var dyssdDiv=$("#detail_yss_dialog_div");
 	dyssdDiv.append(dyssjbsxdpw);
 	dyssdDiv.append(dyssjbsxdws);
@@ -312,6 +419,14 @@ function initDialogPosition(){
 	var dshdwdDiv=$("#detail_shdw_dialog_div");
 	dshdwdDiv.append(dshdwjbsxdpw);
 	dshdwdDiv.append(dshdwjbsxdws);
+
+	var dcycldDiv=$("#detail_cycl_dialog_div");
+	dcycldDiv.append(dcycljbsxdpw);
+	dcycldDiv.append(dcycljbsxdws);
+
+	var dcysjdDiv=$("#detail_cysj_dialog_div");
+	dcysjdDiv.append(dcysjjbsxdpw);
+	dcysjdDiv.append(dcysjjbsxdws);
 }
 
 function initTBXXDialog(){
@@ -970,20 +1085,56 @@ function initCYCLTab(){
 		var cph='${requestScope.cycl.cph}';
 		var czxx='${requestScope.cycl.czxx}';
 		var pz='${requestScope.cycl.pz}';
+		var cllxStr;
 		var cllx='${requestScope.cycl.cllx}';
+		switch (cllx) {
+		case "1":
+			cllxStr="重型";
+			break;
+		}
 		var zp='${requestScope.cycl.zp}';
 		var fdjhm='${requestScope.cycl.fdjhm}';
 		var clsbdh='${requestScope.cycl.clsbdh}';
+		var pfjdStr;
 		var pfjd='${requestScope.cycl.pfjd}';
+		switch (pfjd) {
+		case "1":
+			pfjdStr="国五燃油";
+			break;
+		case "2":
+			pfjdStr="国五燃气";
+			break;
+		case "3":
+			pfjdStr="国六燃油";
+			break;
+		case "4":
+			pfjdStr="国六燃气";
+			break;
+		case "5":
+			pfjdStr="电动";
+			break;
+		}
 		var zcrq='${requestScope.cycl.zcrq}';
 		var sfzy='${requestScope.cycl.sfzy}';
+		var clyslxStr;
 		var clyslx='${requestScope.cycl.clyslx}';
+		switch (clyslx) {
+		case "1":
+			clyslxStr="普货运输";
+			break;
+		case "2":
+			clyslxStr="厂内运输";
+			break;
+		case "3":
+			clyslxStr="危化品运输";
+			break;
+		}
 		var xsz='${requestScope.cycl.xsz}';
 		var scqd='${requestScope.cycl.scqd}';
 		var pfjdcxjt='${requestScope.cycl.pfjdcxjt}';
 		var id='${requestScope.cycl.id}';
-		rows=[{gx:"1",cph:cph,czxx:czxx,pz:pz,cllx:cllx,zp:zp,fdjhm:fdjhm,clsbdh:clsbdh,
-			pfjd:pfjd,zcrq:zcrq,sfzy:sfzy,clyslx:clyslx,xsz:xsz,scqd:scqd,pfjdcxjt:pfjdcxjt,id:id}];
+		rows=[{gx:"1",cph:cph,czxx:czxx,pz:pz,cllx:cllxStr,zp:zp,fdjhm:fdjhm,clsbdh:clsbdh,
+			pfjd:pfjdStr,zcrq:zcrq,sfzy:sfzy?"是":"否",clyslx:clyslxStr,xsz:xsz,scqd:scqd,pfjdcxjt:pfjdcxjt,id:id}];
 	}
 	loadCYCLTabData(rows);
 }
@@ -992,6 +1143,192 @@ function loadCYCLTabData(rows){
 	var rowsLength=rows.length;
 	var obj = {"total":rowsLength,"rows":rows};
 	cyclTab.datagrid('loadData',obj);
+}
+
+function initDetailCYCLJBSXZDialog(){
+	detailCYCLDialog=$("#detail_cycl_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_cycl_div","detail_cycl_jbsxz_dialog_div"),
+		height:500,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailCYCLDialog(0);
+           }},
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openDetailCYCLDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_cycl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_cycl_div","detail_cycl_jbsxz_dialog_div"))+"px");
+	$("#detail_cycl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_cycl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_cycl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_cycl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_cycl_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dcycljbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dcycljbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dcycljbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dcycljbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dcycljbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dcycljbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#detail_cycl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_cycl_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_cycl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_cycl_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailCYCLDialog(0);
+}
+
+function initCYSJDialog(){
+	dialogTop+=230;//1380
+	cysjDialog=$("#cysj_div").dialog({
+		title:"承运司机",
+		width:setFitWidthInParent("body","cysj_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(cysjdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(cysjdNum).css("margin-top","20px");
+	$(".panel.window").eq(cysjdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(cysjdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(cysjdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(cysjdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(cysjdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(cysjdNum).css("width","1000px");
+	$(".window-shadow").eq(cysjdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(cysjdNum).css("border-color","#ddd");
+
+	initCYSJTab();
+}
+
+function initCYSJTab(){
+	cysjTab=$("#cysj_tab").datagrid({
+		width:setFitWidthInParent("body","cysj_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="货运司机";
+					break;
+				}
+				return str;
+			}},
+            {field:"xm",title:"姓名",width:200,align:"center"},
+            {field:"sjh",title:"手机号",width:200,align:"center"},
+            {field:"sfz",title:"身份证",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"showCYSJDetail()\">查看</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	var rows;
+	if('${requestScope.cysj}'==""){
+		rows=[];
+	}
+	else{
+		var xm='${requestScope.cysj.xm}';
+		var sjh='${requestScope.cysj.sjh}';
+		var zp='${requestScope.cysj.zp}';
+		var sfz='${requestScope.cysj.sfz}';
+		var zgzyxqz='${requestScope.cysj.zgzyxqz}';
+		var jz='${requestScope.cysj.jz}';
+		var jzyxqz='${requestScope.cysj.jzyxqz}';
+		var zgzs='${requestScope.cysj.zgzs}';
+		var shzt='${requestScope.cysj.shzt}';
+		var zyzt='${requestScope.cysj.zyzt}';
+		var id='${requestScope.cysj.id}';
+		rows=[{gx:"1",xm:xm,sjh:sjh,zp:zp,sfz:sfz,zgzyxqz:zgzyxqz,jz:jz,jzyxqz:jzyxqz,zgzs:zgzs,shzt:shzt,zyzt:zyzt,id:id}];
+	}
+	loadCYSJTabData(rows);
+}
+
+function loadCYSJTabData(rows){
+	var rowsLength=rows.length;
+	var obj = {"total":rowsLength,"rows":rows};
+	cysjTab.datagrid('loadData',obj);
+}
+
+function initDetailCYSJJBSXZDialog(){
+	detailCYSJDialog=$("#detail_cysj_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_cysj_div","detail_cysj_jbsxz_dialog_div"),
+		height:500,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailCYSJDialog(0);
+           }},
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openDetailCYSJDialog(0);
+           }}
+        ]
+	});
+
+	$("#detail_cysj_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_cysj_div","detail_cysj_jbsxz_dialog_div"))+"px");
+	$("#detail_cysj_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_cysj_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_cysj_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_cysj_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_cysj_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dcysjjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(dcysjjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(dcysjjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dcysjjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dcysjjbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dcysjjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#detail_cysj_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_cysj_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_cysj_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_cysj_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailCYSJDialog(0);
 }
 
 function openDetailYSSDialog(flag){
@@ -1078,6 +1415,48 @@ function openDetailSHDWJBSXZDialog(flag){
 	}
 }
 
+function openDetailCYCLDialog(flag){
+	if(flag==1){
+		$("#detail_cycl_bg_div").css("display","block");
+		$("#detail_cycl_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_cycl_bg_div").css("display","none");
+		$("#detail_cycl_bg_div").css("z-index","9016");
+	}
+	openDetailCYCLJBSXZDialog(flag);
+}
+
+function openDetailCYCLJBSXZDialog(flag){
+	if(flag==1){
+		detailCYCLDialog.dialog("open");
+	}
+	else{
+		detailCYCLDialog.dialog("close");
+	}
+}
+
+function openDetailCYSJDialog(flag){
+	if(flag==1){
+		$("#detail_cysj_bg_div").css("display","block");
+		$("#detail_cysj_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_cysj_bg_div").css("display","none");
+		$("#detail_cysj_bg_div").css("z-index","9016");
+	}
+	openDetailCYSJJBSXZDialog(flag);
+}
+
+function openDetailCYSJJBSXZDialog(flag){
+	if(flag==1){
+		detailCYSJDialog.dialog("open");
+	}
+	else{
+		detailCYSJDialog.dialog("close");
+	}
+}
+
 function showYSSDetail(){
 	var row=yssTab.datagrid("getSelected");
 	if (row == null) {
@@ -1126,6 +1505,62 @@ function showSHDWDetail(){
 	openDetailSHDWDialog(1);
 }
 
+function showCYCLDetail(){
+	var row=cyclTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_cycl_div #id").val(row.id);
+	$("#detail_cycl_div #cph").text(row.cph);
+	$("#detail_cycl_div #czxx").text(row.czxx);
+	$("#detail_cycl_div #pz").text(row.pz);
+	$("#detail_cycl_div #cllx").text(row.cllx);
+	$("#detail_cycl_div #zp").text(row.zp);
+	$("#detail_cycl_div #fdjhm").text(row.fdjhm);
+	$("#detail_cycl_div #clsbdh").text(row.clsbdh);
+	$("#detail_cycl_div #pfjd").text(row.pfjd);
+	$("#detail_cycl_div #zcrq").text(row.zcrq);
+	$("#detail_cycl_div #sfzy").text(row.sfzy);
+	$("#detail_cycl_div #clyslx").text(row.clyslx);
+	$("#detail_cycl_div #xsz").text(row.xsz);
+	$("#detail_cycl_div #scqd").text(row.scqd);
+	$("#detail_cycl_div #pfjdcxjt").text(row.pfjdcxjt);
+	openDetailCYCLDialog(1);
+}
+
+function showCYSJDetail(){
+	var row=cysjTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#detail_cysj_div #id").val(row.id);
+	$("#detail_cysj_div #xm").text(row.xm);
+	$("#detail_cysj_div #sjh").text(row.sjh);
+	$("#detail_cysj_div #zp").text(row.zp);
+	$("#detail_cysj_div #sfz").text(row.sfz);
+	$("#detail_cysj_div #zgzyxqz").text(row.zgzyxqz);
+	$("#detail_cysj_div #jz").text(row.jz);
+	$("#detail_cysj_div #jzyxqz").text(row.jzyxqz);
+	$("#detail_cysj_div #zgzs").text(row.zgzs);
+	var shztStr;
+	switch (row.shzt) {
+	case "1":
+		shztStr="编辑中";
+		break;
+	case "2":
+		shztStr="待审核";
+		break;
+	case "3":
+		shztStr="审核通过";
+		break;
+	}
+	$("#detail_cysj_div #shzt").text(shztStr);
+	$("#detail_cysj_div #zyzt").text(row.zyzt?"是":"否");
+	openDetailCYSJDialog(1);
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -1166,6 +1601,7 @@ function setFitWidthInParent(parent,self){
 	case "select_cycl_dialog_div":
 	case "detail_cycl_jbsxz_dialog_div":
 	case "select_cysj_dialog_div":
+	case "detail_cysj_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -1317,6 +1753,216 @@ function setFitWidthInParent(parent,self){
 </div>
 <!-- 查看收货单位 end -->
 
+<!-- 查看承运车辆 start -->
+<div class="detail_cycl_bg_div" id="detail_cycl_bg_div">
+	<div class="detail_cycl_div" id="detail_cycl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailCYCLDialog(0)">X</span>
+		</div>
+		<div class="detail_cycl_dialog_div" id="detail_cycl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">订单填报-承运车辆-查看</span>
+			</div>
+			<div id="detail_cycl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						车牌号
+					</td>
+					<td style="width:30%;">
+						<span id="cph"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						车主信息
+					</td>
+					<td style="width:30%;">
+						<span id="czxx"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						皮重
+					</td>
+					<td>
+						<span id="pz"></span>
+					</td>
+					<td align="right">
+						车辆类型
+					</td>
+					<td>
+						<span id="cllx"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						照片
+					</td>
+					<td>
+						<span id="zp"></span>
+					</td>
+					<td align="right">
+						发动机号码
+					</td>
+					<td>
+						<span id="fdjhm"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						车辆识别代号
+					</td>
+					<td>
+						<span id="clsbdh"></span>
+					</td>
+					<td align="right">
+						排放阶段
+					</td>
+					<td>
+						<span id="pfjd"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						注册日期
+					</td>
+					<td>
+						<span id="zcrq"></span>
+					</td>
+					<td align="right">
+						是否在用
+					</td>
+					<td>
+						<span id="sfzy"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						车辆运输类型
+					</td>
+					<td>
+						<span id="clyslx"></span>
+					</td>
+					<td align="right">
+						行驶证
+					</td>
+					<td>
+						<span id="xsz"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						随车清单
+					</td>
+					<td>
+						<span id="scqd"></span>
+					</td>
+					<td align="right">
+						排放阶段查询截图
+					</td>
+					<td>
+						<span id="pfjdcxjt"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看承运车辆 end -->
+
+<!-- 查看承运司机 start -->
+<div class="detail_cysj_bg_div" id="detail_cysj_bg_div">
+	<div class="detail_cysj_div" id="detail_cysj_div">
+		<div class="xgst_div">
+			<span class="xgst_span">查看实体</span>
+			<span class="close_span" onclick="openDetailCYSJDialog(0)">X</span>
+		</div>
+		<div class="detail_cysj_dialog_div" id="detail_cysj_dialog_div">
+			<div class="title_div">
+				<span class="title_span">订单填报-承运司机-查看</span>
+			</div>
+			<div id="detail_cysj_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						姓名
+					</td>
+					<td style="width:30%;">
+						<span id="xm"></span>
+					</td>
+					<td align="right" style="width:15%;">
+						手机号
+					</td>
+					<td style="width:30%;">
+						<span id="sjh"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						照片
+					</td>
+					<td>
+						<span id="zp"></span>
+					</td>
+					<td align="right">
+						身份证
+					</td>
+					<td>
+						<span id="sfz"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						资格证有效期至
+					</td>
+					<td>
+						<span id="zgzyxqz"></span>
+					</td>
+					<td align="right">
+						驾证
+					</td>
+					<td>
+						<span id="jz"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						驾证有限期至
+					</td>
+					<td>
+						<span id="jzyxqz"></span>
+					</td>
+					<td align="right">
+						资格证书
+					</td>
+					<td>
+						<span id="zgzs"></span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right">
+						审核状态
+					</td>
+					<td>
+						<span id="shzt"></span>
+					</td>
+					<td align="right">
+						在用状态
+					</td>
+					<td>
+						<span id="zyzt"></span>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 查看承运司机 end -->
+
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
 	<div class="page_location_div">订单填报-修改</div>
@@ -1442,14 +2088,9 @@ function setFitWidthInParent(parent,self){
 		<table id="cycl_tab"></table>
 	</div>
 	
-	<!-- 
 	<div id="cysj_div">
-		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="cysj_tab"></table>
 	</div>
-	 -->
 </div>
 </body>
 </html>

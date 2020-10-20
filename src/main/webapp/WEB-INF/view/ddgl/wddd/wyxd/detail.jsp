@@ -884,20 +884,56 @@ function initCYCLTab(){
 		var cph='${requestScope.cycl.cph}';
 		var czxx='${requestScope.cycl.czxx}';
 		var pz='${requestScope.cycl.pz}';
+		var cllxStr;
 		var cllx='${requestScope.cycl.cllx}';
+		switch (cllx) {
+		case "1":
+			cllxStr="重型";
+			break;
+		}
 		var zp='${requestScope.cycl.zp}';
 		var fdjhm='${requestScope.cycl.fdjhm}';
 		var clsbdh='${requestScope.cycl.clsbdh}';
+		var pfjdStr;
 		var pfjd='${requestScope.cycl.pfjd}';
+		switch (pfjd) {
+		case "1":
+			pfjdStr="国五燃油";
+			break;
+		case "2":
+			pfjdStr="国五燃气";
+			break;
+		case "3":
+			pfjdStr="国六燃油";
+			break;
+		case "4":
+			pfjdStr="国六燃气";
+			break;
+		case "5":
+			pfjdStr="电动";
+			break;
+		}
 		var zcrq='${requestScope.cycl.zcrq}';
 		var sfzy='${requestScope.cycl.sfzy}';
+		var clyslxStr;
 		var clyslx='${requestScope.cycl.clyslx}';
+		switch (clyslx) {
+		case "1":
+			clyslxStr="普货运输";
+			break;
+		case "2":
+			clyslxStr="厂内运输";
+			break;
+		case "3":
+			clyslxStr="危化品运输";
+			break;
+		}
 		var xsz='${requestScope.cycl.xsz}';
 		var scqd='${requestScope.cycl.scqd}';
 		var pfjdcxjt='${requestScope.cycl.pfjdcxjt}';
 		var id='${requestScope.cycl.id}';
-		rows=[{gx:"1",cph:cph,czxx:czxx,pz:pz,cllx:cllx,zp:zp,fdjhm:fdjhm,clsbdh:clsbdh,
-			pfjd:pfjd,zcrq:zcrq,sfzy:sfzy,clyslx:clyslx,xsz:xsz,scqd:scqd,pfjdcxjt:pfjdcxjt,id:id}];
+		rows=[{gx:"1",cph:cph,czxx:czxx,pz:pz,cllx:cllxStr,zp:zp,fdjhm:fdjhm,clsbdh:clsbdh,
+			pfjd:pfjdStr,zcrq:zcrq,sfzy:sfzy?"是":"否",clyslx:clyslxStr,xsz:xsz,scqd:scqd,pfjdcxjt:pfjdcxjt,id:id}];
 	}
 	loadCYCLTabData(rows);
 }
