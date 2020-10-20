@@ -309,6 +309,36 @@ public class MainController {
 		return "ddgl/ddtb/ddtb/list";
 	}
 
+	@RequestMapping(value="/ddgl/ddtb/ddtb/detail")
+	public String goDdglDdtbDdtbDetail(HttpServletRequest request) {
+
+		selectNav(request);
+
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi yswl=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("yswl", yswl);
+
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/ddtb/ddtb/detail";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
