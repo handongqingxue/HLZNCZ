@@ -687,6 +687,9 @@
 		<if test="zyzt!=''&amp;zyzt!=null">
 			and zyzt=#{zyzt}
 		</if> 
+		<if test="shzt!=''&amp;shzt!=null">
+			and shzt in(#{shzt})
+		</if>
 	</select>
 	<select id="querySiJiList" resultType="com.hlzncz.entity.SiJi">
 		select * from si_ji where 1=1
@@ -699,6 +702,9 @@
 		<if test="zyzt!=''&amp;zyzt!=null">
 			and zyzt=#{zyzt}
 		</if> 
+		<if test="shzt!=''&amp;shzt!=null">
+			and shzt in(#{shzt})
+		</if>
 	</select>
 	<select id="selectSiJiById" resultType="com.hlzncz.entity.SiJi">
 		select * from si_ji where id=#{0}

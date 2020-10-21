@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var defaultShzt='${requestScope.shzt}';
 $(function(){
 	initSearchLB();
 	initAddLB();
@@ -21,7 +22,7 @@ function initSearchLB(){
 			var xm=$("#toolbar #xm").val();
 			var sfz=$("#toolbar #sfz").val();
 			var zyzt=zyztCBB.combobox("getValue");
-			tab1.datagrid("load",{xm:xm,sfz:sfz,zyzt:zyzt});
+			tab1.datagrid("load",{xm:xm,sfz:sfz,zyzt:zyzt,shzt:defaultShzt});
 		}
 	});
 }
@@ -52,7 +53,7 @@ function initTab1(){
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
+		queryParams:{shzt:defaultShzt},
 		columns:[[
 			{field:"xm",title:"姓名",width:200},
             {field:"sjh",title:"手机号",width:200},
@@ -60,8 +61,8 @@ function initTab1(){
 			{field:"zgzyxqz",title:"资格证有效期至",width:200},
 			{field:"jzyxqz",title:"驾证有效期至",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/tjsj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/tjsj/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

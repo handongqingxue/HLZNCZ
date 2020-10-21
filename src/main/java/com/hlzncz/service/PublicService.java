@@ -84,9 +84,9 @@ public interface PublicService {
 
 	public int editSiJi(SiJi sj);
 
-	public int querySiJiForInt(String xm, String sfz, Integer zyzt);
+	public int querySiJiForInt(String xm, String sfz, Integer zyzt,String shzt);
 
-	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, int page, int rows, String sort, String order);
+	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, String shzt, int page, int rows, String sort, String order);
 
 	public SiJi selectSiJiById(String id);
 

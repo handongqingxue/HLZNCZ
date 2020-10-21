@@ -274,16 +274,16 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int querySiJiForInt(String xm, String sfz, Integer zyzt) {
+	public int querySiJiForInt(String xm, String sfz, Integer zyzt,String shzt) {
 		// TODO Auto-generated method stub
-		return publicDao.querySiJiForInt(xm,sfz,zyzt);
+		return publicDao.querySiJiForInt(xm,sfz,zyzt,shzt);
 	}
 
 	@Override
-	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, int page, int rows, String sort,
+	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, String shzt, int page, int rows, String sort,
 			String order) {
 		// TODO Auto-generated method stub
-		return publicDao.querySiJiList(xm, sfz, zyzt, (page-1)*rows, rows, sort, order);
+		return publicDao.querySiJiList(xm, sfz, zyzt, shzt, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

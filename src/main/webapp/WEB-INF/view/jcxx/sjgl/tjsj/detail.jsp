@@ -90,7 +90,7 @@ function setFitWidthInParent(parent,self){
 <body>
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">综合管理-详情</div>
+	<div class="page_location_div">添加司机-详情</div>
 	
 	<div id="detail_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.sj.id }"/>
@@ -131,20 +131,6 @@ function setFitWidthInParent(parent,self){
 				<span>${requestScope.sj.zgzyxqz }</span>
 			</td>
 			<td align="right" style="width:15%;">
-				驾证有效期至
-			</td>
-			<td style="width:30%;">
-				<span>${requestScope.sj.jzyxqz }</span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				资格证书
-			</td>
-			<td style="width:30%;">
-				<span>${requestScope.sj.zgzs }</span>
-			</td>
-			<td align="right" style="width:15%;">
 				驾证
 			</td>
 			<td style="width:30%;">
@@ -153,35 +139,16 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				在用状态
+				驾证有效期至
 			</td>
 			<td style="width:30%;">
-				<span>
-				<c:choose>
-					<c:when test="${requestScope.sj.zyzt }">
-						是
-					</c:when>
-					<c:otherwise>
-						否
-					</c:otherwise>
-				</c:choose>
-				</span>
+				<span>${requestScope.sj.jzyxqz }</span>
 			</td>
 			<td align="right" style="width:15%;">
-				审核状态
+				资格证书
 			</td>
 			<td style="width:30%;">
-				<span>
-				<c:if test="${requestScope.sj.shzt eq 1 }">
-					编辑中
-				</c:if>
-				<c:if test="${requestScope.sj.shzt eq 2 }">
-					待审核
-				</c:if>
-				<c:if test="${requestScope.sj.shzt eq 3 }">
-					审核通过
-				</c:if>
-				</span>
+				<span>${requestScope.sj.zgzs }</span>
 			</td>
 		  </tr>
 		</table>

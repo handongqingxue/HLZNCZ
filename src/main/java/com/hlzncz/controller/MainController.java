@@ -560,12 +560,36 @@ public class MainController {
 		return "jcxx/sjgl/tjsj/new";
 	}
 
+	@RequestMapping(value="/jcxx/sjgl/tjsj/edit")
+	public String goJcxxSjglTjsjEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/tjsj/edit";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/tjsj/list")
 	public String goJcxxSjglTjsjList(HttpServletRequest request) {
 		
 		selectNav(request);
+
+		request.setAttribute("shzt", SiJi.BIAN_JI_ZHONG);
 		
 		return "jcxx/sjgl/tjsj/list";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/tjsj/detail")
+	public String goJcxxSjglTjsjDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/tjsj/detail";
 	}
 
 	@RequestMapping(value="/jcxx/sjgl/zhgl/new")
@@ -1530,12 +1554,12 @@ public class MainController {
 
 	@RequestMapping(value="/querySiJiList")
 	@ResponseBody
-	public Map<String, Object> querySiJiList(String xm,String sfz,Integer zyzt,int page,int rows,String sort,String order) {
+	public Map<String, Object> querySiJiList(String xm,String sfz,Integer zyzt,String shzt,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.querySiJiForInt(xm,sfz,zyzt);
-		List<SiJi> sjList=publicService.querySiJiList(xm,sfz,zyzt, page, rows, sort, order);
+		int count = publicService.querySiJiForInt(xm,sfz,zyzt,shzt);
+		List<SiJi> sjList=publicService.querySiJiList(xm,sfz,zyzt, shzt, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", sjList);

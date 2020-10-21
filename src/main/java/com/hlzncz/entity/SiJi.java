@@ -8,6 +8,18 @@ public class SiJi implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 编辑中
+	 */
+	public static final Integer BIAN_JI_ZHONG=1;
+	/**
+	 * 待审核
+	 */
+	public static final Integer DAI_SHEN_HE=2;
+	/**
+	 * 审核通过
+	 */
+	public static final Integer SHEN_HE_TONG_GUO=3;
 	private Integer id;//司机id
 	public Integer getId() {
 		return id;
