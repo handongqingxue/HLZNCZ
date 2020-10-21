@@ -552,42 +552,42 @@ public class MainController {
 		return "jcxx/clgl/zhgl/detail";
 	}
 
-	@RequestMapping(value="/jcxx/sjgl/sjxx/new")
-	public String goJcxxSjglSjxxNew(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/sjgl/zhgl/new")
+	public String goJcxxSjglZhglNew(HttpServletRequest request) {
 
 		selectNav(request);
 		
-		return "jcxx/sjgl/sjxx/new";
+		return "jcxx/sjgl/zhgl/new";
 	}
 
-	@RequestMapping(value="/jcxx/sjgl/sjxx/edit")
-	public String goSjxxEdit(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/sjgl/zhgl/edit")
+	public String goJcxxSjglZhglEdit(HttpServletRequest request) {
 		
 		selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return "jcxx/sjgl/sjxx/edit";
+		return "jcxx/sjgl/zhgl/edit";
 	}
 
-	@RequestMapping(value="/jcxx/sjgl/sjxx/list")
-	public String goSjxxList(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/sjgl/zhgl/list")
+	public String goJcxxSjglZhglList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
-		return "jcxx/sjgl/sjxx/list";
+		return "jcxx/sjgl/zhgl/list";
 	}
 
-	@RequestMapping(value="/jcxx/sjgl/sjxx/detail")
-	public String goSjxxDetail(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/sjgl/zhgl/detail")
+	public String goJcxxSjglZhglDetail(HttpServletRequest request) {
 		
 		selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return "jcxx/sjgl/sjxx/detail";
+		return "jcxx/sjgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/dwgl/fhdw/new")

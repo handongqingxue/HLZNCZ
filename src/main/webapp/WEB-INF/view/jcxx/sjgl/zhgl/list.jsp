@@ -27,7 +27,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/sjgl/sjxx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=path+"main/jcxx/sjgl/zhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -47,7 +47,7 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"司机信息-列表",
+		title:"综合管理-列表",
 		url:path+"main/querySiJiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
@@ -58,16 +58,36 @@ $(function(){
 			{field:"xm",title:"姓名",width:200},
             {field:"sjh",title:"手机号",width:200},
 			{field:"sfz",title:"身份证",width:200},
+			{field:"jzyxqz",title:"驾证有效期至",width:200},
+			{field:"zgzyxqz",title:"资格证有效期至",width:200},
+			{field:"shzt",title:"审核状态",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
+				case 1:
+					str="编辑中";
+					break;
+				case 2:
+					str="待审核";
+					break;
+				case 3:
+					str="审核通过";
+					break;
+				}
+				return str;
+			}},
+			{field:"zyzt",title:"在用状态",width:200,formatter:function(value,row){
+				return value?"是":"否";
+			}},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/sjxx/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/sjgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{xm:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"xm",colspan:4});
+				$(this).datagrid("mergeCells",{index:0,field:"xm",colspan:8});
 				data.total=0;
 			}
 			
@@ -145,7 +165,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:32px;line-height:32px;">
+		<div id="toolbar" style="height:32px;">
 			<span style="margin-left: 13px;">姓名：</span>
 			<input type="text" id="xm" placeholder="请输入姓名" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">身份证：</span>

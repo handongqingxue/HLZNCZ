@@ -29,8 +29,8 @@ $(function(){
 	initEditDialog();
 	initZGZYXQZDB();
 	initJZYXQZDB();
-	initSHZTCBB();
 	initZYZTCBB();
+	initSHZTCBB();
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -108,6 +108,22 @@ function initJZYXQZDB(){
 	jzyxqzDB.datebox("setValue",'${requestScope.sj.jzyxqz }');
 }
 
+function initZYZTCBB(){
+	zyztCBB=$("#zyzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[
+			{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}
+		],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.sj.zyzt }'=="true"?"1":"0");
+		},
+		onSelect:function(){
+			$("#zyzt").val($(this).combobox("getValue"));
+		}
+	});
+}
+
 function initSHZTCBB(){
 	shztCBB=$("#shzt_cbb").combobox({
 		valueField:"value",
@@ -118,22 +134,6 @@ function initSHZTCBB(){
 		},
 		onSelect:function(){
 			$("#shzt").val($(this).combobox("getValue"));
-		}
-	});
-}
-
-function initZYZTCBB(){
-	zyztCBB=$("#zyzt_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[
-			{"value":"","text":"请选择在用状态"},{"value":"1","text":"是"},{"value":"0","text":"否"}
-		],
-		onLoadSuccess:function(){
-			$(this).combobox("setValue",'${requestScope.sj.zyzt }'?1:0);
-		},
-		onSelect:function(){
-			$("#zyzt").val($(this).combobox("getValue"));
 		}
 	});
 }
@@ -313,6 +313,24 @@ function setFitWidthInParent(parent,self){
 				<input type="hidden" id="zgzyxqz" name="zgzyxqz"/>
 			</td>
 			<td align="right">
+				驾证有效期至
+			</td>
+			<td>
+				<input id="jzyxqz_db"/>
+				<input type="hidden" id="jzyxqz" name="jzyxqz" value="${requestScope.sj.jzyxqz }"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				资格证书
+			</td>
+			<td>
+				<input type="file" name="jz_file"/>
+				<div>
+					${requestScope.sj.zgzs }
+				</div>
+			</td>
+			<td align="right">
 				驾证
 			</td>
 			<td>
@@ -324,36 +342,18 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right">
-				驾证有效期至
+				在用状态
 			</td>
 			<td>
-				<input id="jzyxqz_db"/>
-				<input type="hidden" id="jzyxqz" name="jzyxqz" value="${requestScope.sj.jzyxqz }"/>
+				<input id="zyzt_cbb"/>
+				<input type="hidden" id="zyzt" name="zyzt" value="${requestScope.sj.zyzt }"/>
 			</td>
-			<td align="right">
-				资格证书
-			</td>
-			<td>
-				<input type="file" name="jz_file"/>
-				<div>
-					${requestScope.sj.zgzs }
-				</div>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right">
 				审核状态
 			</td>
 			<td>
 				<input id="shzt_cbb"/>
 				<input type="hidden" id="shzt" name="shzt" value="${requestScope.sj.shzt }"/>
-			</td>
-			<td align="right">
-				在用状态
-			</td>
-			<td>
-				<input id="zyzt_cbb"/>
-				<input type="hidden" id="zyzt" name="zyzt" value="${requestScope.sj.zyzt }"/>
 			</td>
 		  </tr>
 		</table>

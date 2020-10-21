@@ -131,6 +131,20 @@ function setFitWidthInParent(parent,self){
 				<span>${requestScope.sj.zgzyxqz }</span>
 			</td>
 			<td align="right" style="width:15%;">
+				驾证有效期至
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.sj.jzyxqz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				资格证书
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.sj.zgzs }</span>
+			</td>
+			<td align="right" style="width:15%;">
 				驾证
 			</td>
 			<td style="width:30%;">
@@ -139,19 +153,20 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				驾证有效期至
+				在用状态
 			</td>
 			<td style="width:30%;">
-				<span>${requestScope.sj.jzyxqz }</span>
+				<span>
+				<c:choose>
+					<c:when test="${requestScope.sj.zyzt }">
+						是
+					</c:when>
+					<c:otherwise>
+						否
+					</c:otherwise>
+				</c:choose>
+				</span>
 			</td>
-			<td align="right" style="width:15%;">
-				资格证书
-			</td>
-			<td style="width:30%;">
-				<span>${requestScope.sj.zgzs }</span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				审核状态
 			</td>
@@ -166,21 +181,6 @@ function setFitWidthInParent(parent,self){
 				<c:if test="${requestScope.sj.shzt eq 3 }">
 					审核通过
 				</c:if>
-				</span>
-			</td>
-			<td align="right" style="width:15%;">
-				在用状态
-			</td>
-			<td style="width:30%;">
-				<span>
-				<c:choose>
-					<c:when test="${requestScope.sj.zyzt }">
-						是
-					</c:when>
-					<c:otherwise>
-						否
-					</c:otherwise>
-				</c:choose>
 				</span>
 			</td>
 		  </tr>

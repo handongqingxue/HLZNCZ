@@ -29,8 +29,8 @@ $(function(){
 	initNewDialog();
 	initZGZYXQZDB();
 	initJZYXQZDB();
-	initSHZTCBB();
 	initZYZTCBB();
+	initSHZTCBB();
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -88,6 +88,9 @@ function initZGZYXQZDB(){
 	zgzyxqzDB=$('#zgzyxqz_db').datebox({
 		width:160,
         required:false,
+        onHidePanel:function(){
+        	$("#zgzyxqz").val(zgzyxqzDB.datebox("getValue"));
+        },
         onSelect:function(){
         	$("#zgzyxqz").val(zgzyxqzDB.datebox("getValue"));
         }
@@ -99,22 +102,14 @@ function initJZYXQZDB(){
 	jzyxqzDB=$('#jzyxqz_db').datebox({
 		width:160,
         required:false,
+        onHidePanel:function(){
+        	$("#jzyxqz").val(jzyxqzDB.datebox("getValue"));
+        },
         onSelect:function(){
         	$("#jzyxqz").val(jzyxqzDB.datebox("getValue"));
         }
     });
 	jzyxqzDB.datebox('textbox').attr('placeholder', '请选择驾证有效期至');
-}
-
-function initSHZTCBB(){
-	shztCBB=$("#shzt_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"编辑中"},{"value":"2","text":"待审核"},{"value":"3","text":"审核通过"}],
-		onSelect:function(){
-			$("#shzt").val($(this).combobox("getValue"));
-		}
-	});
 }
 
 function initZYZTCBB(){
@@ -126,6 +121,17 @@ function initZYZTCBB(){
 		],
 		onSelect:function(){
 			$("#zyzt").val($(this).combobox("getValue"));
+		}
+	});
+}
+
+function initSHZTCBB(){
+	shztCBB=$("#shzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"编辑中"},{"value":"2","text":"待审核"},{"value":"3","text":"审核通过"}],
+		onSelect:function(){
+			$("#shzt").val($(this).combobox("getValue"));
 		}
 	});
 }
@@ -259,7 +265,7 @@ function setFitWidthInParent(parent,self){
 <body>
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">司机信息-创建</div>
+	<div class="page_location_div">综合管理-创建</div>
 	
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
@@ -301,6 +307,21 @@ function setFitWidthInParent(parent,self){
 				<input type="hidden" id="zgzyxqz" name="zgzyxqz"/>
 			</td>
 			<td align="right" style="width:15%;">
+				驾证有效期至
+			</td>
+			<td style="width:30%;">
+				<input id="jzyxqz_db"/>
+				<input type="hidden" id="jzyxqz" name="jzyxqz"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				资格证书
+			</td>
+			<td style="width:30%;">
+				<input type="file" name="zgzs_file"/>
+			</td>
+			<td align="right" style="width:15%;">
 				驾证
 			</td>
 			<td style="width:30%;">
@@ -309,33 +330,18 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				驾证有效期至
+				在用状态
 			</td>
 			<td style="width:30%;">
-				<input id="jzyxqz_db"/>
-				<input type="hidden" id="jzyxqz" name="jzyxqz"/>
+				<input id="zyzt_cbb"/>
+				<input type="hidden" id="zyzt" name="zyzt"/>
 			</td>
-			<td align="right" style="width:15%;">
-				资格证书
-			</td>
-			<td style="width:30%;">
-				<input type="file" name="zgzs_file"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				审核状态
 			</td>
 			<td style="width:30%;">
 				<input id="shzt_cbb"/>
 				<input type="hidden" id="shzt" name="shzt"/>
-			</td>
-			<td align="right" style="width:15%;">
-				在用状态
-			</td>
-			<td style="width:30%;">
-				<input id="zyzt_cbb"/>
-				<input type="hidden" id="zyzt" name="zyzt"/>
 			</td>
 		  </tr>
 		</table>
