@@ -453,8 +453,26 @@ public class MainController {
 		return "jcxx/clgl/zhgl/detail";
 	}
 
+	@RequestMapping(value="/jcxx/clgl/xzcl/new")
+	public String goJcxxClglXzclNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/clgl/xzcl/new";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/xzcl/list")
+	public String goJcxxClglXzclList(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		request.setAttribute("shzt", CheLiang.BIAN_JI_ZHONG);
+		
+		return "jcxx/clgl/xzcl/list";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/sjxx/new")
-	public String goSjxxNew(HttpServletRequest request) {
+	public String goJcxxSjglSjxxNew(HttpServletRequest request) {
 
 		selectNav(request);
 		

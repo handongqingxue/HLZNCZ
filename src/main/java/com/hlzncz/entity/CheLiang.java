@@ -8,6 +8,18 @@ public class CheLiang implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * ´ýÉóºË
+	 */
+	public static final Integer DAI_SHEN_HE=1;
+	/**
+	 * ÉóºËÍ¨¹ý
+	 */
+	public static final Integer SHEN_HE_TONG_GUO=2;
+	/**
+	 * ±à¼­ÖÐ
+	 */
+	public static final Integer BIAN_JI_ZHONG=3;
 	private Integer id;//³µÁ¾id
 	public Integer getId() {
 		return id;

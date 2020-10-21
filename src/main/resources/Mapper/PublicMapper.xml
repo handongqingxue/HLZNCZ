@@ -8,7 +8,7 @@
 		select id,mc,lj,jb,px,sjId from cai_dan where jb=1
 	</select>
 	<select id="selectChildCaiDan" resultType="com.hlzncz.entity.CaiDan">
-		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0}
+		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0} order by px
 	</select>
 	<insert id="newWoYaoXiaDan" parameterType="com.hlzncz.entity.DingDan">
 		insert into ding_dan
@@ -367,6 +367,9 @@
 			<if test="sfzy!=null">
 				sfzy,
 			</if>
+			<if test="shzt!=null">
+				shzt,
+			</if>
 			<if test="clyslx!=null">
 				clyslx,
 			</if>
@@ -418,6 +421,9 @@
 			</if>
 			<if test="sfzy!=null">
 				#{sfzy},
+			</if>
+			<if test="shzt!=null">
+				#{shzt},
 			</if>
 			<if test="clyslx!=null">
 				#{clyslx},

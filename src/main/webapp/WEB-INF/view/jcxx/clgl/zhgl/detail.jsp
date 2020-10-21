@@ -46,7 +46,7 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","detail_div"),
-		height:431,
+		height:465,
 		top:dialogTop,
 		left:dialogLeft
 	});
@@ -108,38 +108,6 @@ function setFitWidthInParent(parent,self){
 				<span>${requestScope.cl.cph }</span>
 			</td>
 			<td align="right" style="width:15%;">
-				车主信息
-			</td>
-			<td style="width:30%;">
-				<span>${requestScope.cl.czxx }</span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				皮重
-			</td>
-			<td>
-				<span>${requestScope.cl.pz }</span>
-			</td>
-			<td align="right">
-				车辆类型
-			</td>
-			<td>
-				<span>
-				<c:if test="${requestScope.cl.cllx eq 1 }">
-					重型
-				</c:if>
-				</span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				照片
-			</td>
-			<td style="width:30%;">
-				<span>${requestScope.cl.zp }</span>
-			</td>
-			<td align="right" style="width:15%;">
 				发动机号码
 			</td>
 			<td style="width:30%;">
@@ -147,12 +115,20 @@ function setFitWidthInParent(parent,self){
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
+			<td align="right">
 				车辆识别代号
 			</td>
-			<td style="width:30%;">
+			<td>
 				<span>${requestScope.cl.clsbdh }</span>
 			</td>
+			<td align="right">
+				注册日期
+			</td>
+			<td>
+				<span>${requestScope.cl.zcrq }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				排放阶段
 			</td>
@@ -175,31 +151,6 @@ function setFitWidthInParent(parent,self){
 				</c:if>
 				</span>
 			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				注册日期
-			</td>
-			<td style="width:30%;">
-				<span>${requestScope.cl.zcrq }</span>
-			</td>
-			<td align="right" style="width:15%;">
-				是否在用
-			</td>
-			<td style="width:30%;">
-				<span>
-				<c:choose>
-					<c:when test="${requestScope.cl.pfjd eq 1 }">
-						是
-					</c:when>
-					<c:otherwise>
-						否
-					</c:otherwise>
-				</c:choose>
-				</span>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				车辆运输类型
 			</td>
@@ -216,25 +167,103 @@ function setFitWidthInParent(parent,self){
 				</c:if>
 				</span>
 			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				品牌型号
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.ppxh }</span>
+			</td>
+			<td align="right" style="width:15%;">
+				车主信息
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.czxx }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				发证日期
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.fzrq }</span>
+			</td>
+			<td align="right" style="width:15%;">
+				皮重
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.pz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				车辆类型
+			</td>
+			<td style="width:30%;">
+				<span>
+				<c:if test="${requestScope.cl.cllx eq 1 }">
+					重型
+				</c:if>
+				</span>
+			</td>
+			<td align="right" style="width:15%;">
+				照片
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.zp }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				行驶证
 			</td>
 			<td style="width:30%;">
 				<span>${requestScope.cl.xsz }</span>
 			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				随车清单
 			</td>
 			<td style="width:30%;">
 				<span>${requestScope.cl.scqd }</span>
 			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				排放阶段查询截图
 			</td>
 			<td style="width:30%;">
 				<span>${requestScope.cl.pfjdcxjt }</span>
+			</td>
+			<td align="right" style="width:15%;">
+				是否在用
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.sfzy?"是":"否" }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				信息状态
+			</td>
+			<td style="width:30%;">
+				<span>
+				<c:if test="${requestScope.cl.shzt eq 1 }">
+					待审核
+				</c:if>
+				<c:if test="${requestScope.cl.shzt eq 2 }">
+					审核通过
+				</c:if>
+				<c:if test="${requestScope.cl.shzt eq 3 }">
+					编辑中
+				</c:if>
+				</span>
+			</td>
+			<td align="right" style="width:15%;">
+				备注
+			</td>
+			<td style="width:30%;">
+				<span>${requestScope.cl.bz }</span>
 			</td>
 		  </tr>
 		</table>
