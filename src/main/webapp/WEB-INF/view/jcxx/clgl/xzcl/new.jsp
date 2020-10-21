@@ -19,6 +19,9 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+.bi_tian_xiang{
+	color: #f00;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -249,12 +252,14 @@ function setFitWidthInParent(parent,self){
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				车牌号
 			</td>
 			<td style="width:30%;">
 				<input type="text" id="cph" name="cph" placeholder="请输入车牌号" style="width: 150px;height:30px;" onfocus="focusCPH()" onblur="checkCPH()"/>
 			</td>
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				发动机号码
 			</td>
 			<td style="width:30%;">
@@ -263,12 +268,14 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right">
+				<span class="bi_tian_xiang">*</span>
 				车辆识别代号
 			</td>
 			<td>
 				<input type="text" id="clsbdh" name="clsbdh" placeholder="请输入车辆识别代号" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
+				<span class="bi_tian_xiang">*</span>
 				注册日期
 			</td>
 			<td>
@@ -278,6 +285,7 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				排放阶段
 			</td>
 			<td style="width:30%;">
@@ -294,6 +302,7 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				品牌型号
 			</td>
 			<td style="width:30%;">
@@ -308,6 +317,7 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				发证日期
 			</td>
 			<td style="width:30%;">
@@ -330,6 +340,7 @@ function setFitWidthInParent(parent,self){
 				<input type="hidden" id="cllx" name="cllx"/>
 			</td>
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				照片
 			</td>
 			<td style="width:30%;">
@@ -338,6 +349,7 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				行驶证
 			</td>
 			<td style="width:30%;">
@@ -352,6 +364,7 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
+				<span class="bi_tian_xiang">*</span>
 				排放阶段查询截图
 			</td>
 			<td style="width:30%;">
