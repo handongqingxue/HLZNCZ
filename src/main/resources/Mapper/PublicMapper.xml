@@ -516,6 +516,19 @@
 		#{id}
 		</foreach>
 	</delete>
+	<update id="shenHeCheLiang">
+		update che_liang set 
+		<if test="flag=='sh'">
+			sfzy=1,shzt=2
+		</if>
+		<if test="flag=='th'">
+			sfzy=0,shzt=3
+		</if>
+		where 1=1
+		<foreach collection="idList" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
 	<delete id="deleteSiJi">
 		delete from si_ji where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">

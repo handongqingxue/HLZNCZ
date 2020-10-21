@@ -220,6 +220,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int shenHeCheLiang(String ids,String flag) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.shenHeCheLiang(idList,flag);
+		return count;
+	}
+
+	@Override
 	public int editCheLiang(CheLiang cl) {
 		// TODO Auto-generated method stub
 		return publicDao.editCheLiang(cl);

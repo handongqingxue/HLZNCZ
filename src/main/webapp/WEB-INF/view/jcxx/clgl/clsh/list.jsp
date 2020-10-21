@@ -50,7 +50,7 @@ function initSHTGLB(){
 	$("#shtg_but").linkbutton({
 		iconCls:"icon-ok",
 		onClick:function(){
-			//deleteByIds();
+			shenHeByIds("sh");
 		}
 	});
 }
@@ -59,7 +59,7 @@ function initTuiHuiLB(){
 	$("#tuiHui_but").linkbutton({
 		iconCls:"icon-back",
 		onClick:function(){
-			
+			shenHeByIds("th");
 		}
 	});
 }
@@ -106,8 +106,8 @@ function initTab1(){
 			}},
 			{field:"bz",title:"备注",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/xzcl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/xzcl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/clgl/clsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -148,14 +148,20 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function deleteByIds() {
+function shenHeByIds(flag) {
+	var tsStr;
+	if(flag=="sh")
+		tsStr="审核";
+	else if(flag=="th")
+		tsStr="退回";
+	
 	var rows=tab1.datagrid("getSelections");
 	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要删除的信息！","warning");
+		$.messager.alert("提示","请选择要"+tsStr+"的信息！","warning");
 		return false;
 	}
 	
-	$.messager.confirm("提示","确定要删除吗？",function(r){
+	$.messager.confirm("提示","确定要"+tsStr+"吗？",function(r){
 		if(r){
 			var ids = "";
 			for (var i = 0; i < rows.length; i++) {
@@ -164,8 +170,8 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteCheLiang",
-				{ids:ids},
+			$.post(path + "main/shenHeCheLiang",
+				{ids:ids,flag:flag},
 				function(result){
 					if(result.status==1){
 						alert(result.msg);

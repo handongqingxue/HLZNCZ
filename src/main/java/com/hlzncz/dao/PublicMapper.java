@@ -68,6 +68,8 @@ public interface PublicMapper {
 
 	public int deleteCheLiang(List<String> idList);
 
+	public int shenHeCheLiang(@Param("idList") List<String> idList,@Param("flag") String flag);
+
 	public int editCheLiang(CheLiang cl);
 
 	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("shzt") Integer shzt, @Param("bz") String bz);

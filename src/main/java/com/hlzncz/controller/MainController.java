@@ -463,6 +463,18 @@ public class MainController {
 		return "jcxx/clgl/clsh/new";
 	}
 
+	@RequestMapping(value="/jcxx/clgl/clsh/edit")
+	public String goJcxxClglClshEdit(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/clsh/edit";
+	}
+
 	@RequestMapping(value="/jcxx/clgl/clsh/list")
 	public String goJcxxClglClshList(HttpServletRequest request) {
 		
@@ -471,6 +483,17 @@ public class MainController {
 		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE);
 		
 		return "jcxx/clgl/clsh/list";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clsh/detail")
+	public String goJcxxClglClshDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/clsh/detail";
 	}
 
 	@RequestMapping(value="/jcxx/clgl/zhgl/new")
@@ -1237,6 +1260,32 @@ public class MainController {
 		else {
 			plan.setStatus(1);
 			plan.setMsg("删除车辆信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/shenHeCheLiang",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String shenHeCheLiang(String ids, String flag) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.shenHeCheLiang(ids,flag);
+		PlanResult plan=new PlanResult();
+		String tsStr=null;
+		if("sh".equals(flag))
+			tsStr="审核";
+		else if("th".equals(flag))
+			tsStr="退回";
+		
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg(tsStr+"车辆信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg(tsStr+"车辆信息成功");
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;

@@ -68,6 +68,8 @@ public interface PublicService {
 
 	public int deleteCheLiang(String ids);
 
+	public int shenHeCheLiang(String ids,String flag);
+
 	public int editCheLiang(CheLiang cl);
 
 	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer shzt, String bz);
