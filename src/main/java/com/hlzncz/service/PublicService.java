@@ -72,9 +72,9 @@ public interface PublicService {
 
 	public int editCheLiang(CheLiang cl);
 
-	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer shzt, String bz);
+	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz);
 
-	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer shzt, String bz, int page, int rows, String sort, String order);
+	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz, int page, int rows, String sort, String order);
 
 	public CheLiang selectCheLiangById(String id);
 

@@ -496,6 +496,24 @@ public class MainController {
 		return "jcxx/clgl/clsh/detail";
 	}
 
+	@RequestMapping(value="/jcxx/clgl/clcx/new")
+	public String goJcxxClglClcxNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/clgl/clcx/new";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clcx/list")
+	public String goJcxxClglClcxList(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE+","+CheLiang.SHEN_HE_TONG_GUO);
+		
+		return "jcxx/clgl/clcx/list";
+	}
+
 	@RequestMapping(value="/jcxx/clgl/zhgl/new")
 	public String goJcxxClglZhglNew(HttpServletRequest request) {
 
@@ -1352,12 +1370,12 @@ public class MainController {
 	
 	@RequestMapping(value="/queryCheLiangList")
 	@ResponseBody
-	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,Boolean sfzy,Integer shzt,String bz,int page,int rows,String sort,String order) {
+	public Map<String, Object> queryCheLiangList(String cph,Integer cllx,Boolean sfzy,Integer pfjd,String shzt,String bz,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryCheLiangForInt(cph,cllx,sfzy,shzt,bz);
-		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, sfzy, shzt, bz, page, rows, sort, order);
+		int count = publicService.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shzt,bz);
+		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, sfzy, pfjd, shzt, bz, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", clList);
