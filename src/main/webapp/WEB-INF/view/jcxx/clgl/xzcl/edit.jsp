@@ -59,8 +59,11 @@ function initEditDialog(){
 		left:dialogLeft,
 		buttons:[
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkEdit();
-           }}
+        	   	checkEdit("bc");
+           }},
+           {text:"提请审核",id:"tqsh_but",iconCls:"icon-save",handler:function(){
+       	   		checkEdit("tqsh");
+          }}
         ]
 	});
 
@@ -85,8 +88,11 @@ function initEditDialog(){
 	$(".window-shadow").eq(edNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
-	$("#edit_div #ok_but").css("left","45%");
+	$("#edit_div #ok_but").css("left","30%");
 	$("#edit_div #ok_but").css("position","absolute");
+	
+	$("#edit_div #tqsh_but").css("left","45%");
+	$("#edit_div #tqsh_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
@@ -173,15 +179,21 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function checkEdit(){
+function checkEdit(flag){
 	if(checkCPH()){
 		if(checkPFJD()){
-			editCheLiang();
+			editCheLiang(flag);
 		}
 	}
 }
 
-function editCheLiang(){
+function editCheLiang(flag){
+	if(flag=="bc"){
+		$("#edit_div #shzt").val(3);
+	}
+	else if(flag=="tqsh"){
+		$("#edit_div #shzt").val(1);
+	}
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
@@ -259,6 +271,8 @@ function setFitWidthInParent(parent,self){
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
 		<input type="hidden" id="id" name="id" value="${requestScope.cl.id }"/>
+		<input type="hidden" id="sfzy" name="sfzy"/>
+		<input type="hidden" id="shzt" name="shzt"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">

@@ -415,44 +415,6 @@ public class MainController {
 		return "jcxx/wzgl/wzgl/detail";
 	}
 
-	@RequestMapping(value="/jcxx/clgl/zhgl/new")
-	public String goJcxxClglZhglNew(HttpServletRequest request) {
-
-		selectNav(request);
-		
-		return "jcxx/clgl/zhgl/new";
-	}
-	
-	@RequestMapping(value="/jcxx/clgl/zhgl/edit")
-	public String goJcxxClglZhglEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
-		request.setAttribute("cl", cl);
-		
-		return "jcxx/clgl/zhgl/edit";
-	}
-
-	@RequestMapping(value="/jcxx/clgl/zhgl/list")
-	public String goJcxxClglZhglList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "jcxx/clgl/zhgl/list";
-	}
-
-	@RequestMapping(value="/jcxx/clgl/zhgl/detail")
-	public String goJcxxClglZhglDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
-		request.setAttribute("cl", cl);
-		
-		return "jcxx/clgl/zhgl/detail";
-	}
-
 	@RequestMapping(value="/jcxx/clgl/xzcl/new")
 	public String goJcxxClglXzclNew(HttpServletRequest request) {
 
@@ -491,6 +453,62 @@ public class MainController {
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/xzcl/detail";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clsh/new")
+	public String goJcxxClglClshNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/clgl/clsh/new";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/clsh/list")
+	public String goJcxxClglClshList(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE);
+		
+		return "jcxx/clgl/clsh/list";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/zhgl/new")
+	public String goJcxxClglZhglNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/clgl/zhgl/new";
+	}
+	
+	@RequestMapping(value="/jcxx/clgl/zhgl/edit")
+	public String goJcxxClglZhglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/zhgl/edit";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/zhgl/list")
+	public String goJcxxClglZhglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/clgl/zhgl/list";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/zhgl/detail")
+	public String goJcxxClglZhglDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/sjgl/sjxx/new")

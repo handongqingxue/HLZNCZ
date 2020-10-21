@@ -561,6 +561,9 @@
 			<if test="sfzy!=null">
 				sfzy=#{sfzy},
 			</if>
+			<if test="shzt!=null">
+				shzt=#{shzt},
+			</if>
 			<if test="clyslx!=null">
 				clyslx=#{clyslx},
 			</if>

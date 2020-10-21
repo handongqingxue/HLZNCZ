@@ -58,11 +58,11 @@ function initNewDialog(){
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
-           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkNew("bc");
+           {text:"审核通过",id:"shtg_but",iconCls:"icon-ok",handler:function(){
+        	   	checkNew("shtg");
            }},
-           {text:"提请审核",id:"tqsh_but",iconCls:"icon-save",handler:function(){
-        	   	checkNew("tqsh");
+           {text:"退回",id:"th_but",iconCls:"icon-back",handler:function(){
+        	   	checkNew("th");
            }}
         ]
 	});
@@ -88,11 +88,11 @@ function initNewDialog(){
 	$(".window-shadow").eq(ndNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
 
-	$("#new_div #ok_but").css("left","30%");
-	$("#new_div #ok_but").css("position","absolute");
+	$("#new_div #shtg_but").css("left","30%");
+	$("#new_div #shtg_but").css("position","absolute");
 	
-	$("#new_div #tqsh_but").css("left","45%");
-	$("#new_div #tqsh_but").css("position","absolute");
+	$("#new_div #th_but").css("left","45%");
+	$("#new_div #th_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
@@ -177,11 +177,13 @@ function checkNew(flag){
 }
 
 function newCheLiang(flag){
-	if(flag=="bc"){
-		$("#new_div #shzt").val(3);
+	if(flag=="shtg"){
+		$("#new_div #sfzy").val(true);
+		$("#new_div #shzt").val(2);
 	}
-	else if(flag=="tqsh"){
-		$("#new_div #shzt").val(1);
+	else if(flag=="th"){
+		$("#new_div #sfzy").val(false);
+		$("#new_div #shzt").val(3);
 	}
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
@@ -255,11 +257,11 @@ function setFitWidthInParent(parent,self){
 <body>
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">新增车辆-创建</div>
+	<div class="page_location_div">车辆审核-创建</div>
 	
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
-		<input type="hidden" id="sfzy" name="sfzy" value="false"/>
+		<input type="hidden" id="sfzy" name="sfzy"/>
 		<input type="hidden" id="shzt" name="shzt"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
