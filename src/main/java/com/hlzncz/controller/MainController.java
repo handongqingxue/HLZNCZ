@@ -552,6 +552,22 @@ public class MainController {
 		return "jcxx/clgl/zhgl/detail";
 	}
 
+	@RequestMapping(value="/jcxx/sjgl/tjsj/new")
+	public String goJcxxSjglTjsjNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "jcxx/sjgl/tjsj/new";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/tjsj/list")
+	public String goJcxxSjglTjsjList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jcxx/sjgl/tjsj/list";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/zhgl/new")
 	public String goJcxxSjglZhglNew(HttpServletRequest request) {
 
