@@ -461,6 +461,17 @@ public class MainController {
 		return "jcxx/clgl/xzcl/new";
 	}
 
+	@RequestMapping(value="/jcxx/clgl/xzcl/edit")
+	public String goJcxxClglXzclEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/xzcl/edit";
+	}
+
 	@RequestMapping(value="/jcxx/clgl/xzcl/list")
 	public String goJcxxClglXzclList(HttpServletRequest request) {
 		
@@ -469,6 +480,17 @@ public class MainController {
 		request.setAttribute("shzt", CheLiang.BIAN_JI_ZHONG);
 		
 		return "jcxx/clgl/xzcl/list";
+	}
+
+	@RequestMapping(value="/jcxx/clgl/xzcl/detail")
+	public String goJcxxClglXzclDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		CheLiang cl=publicService.selectCheLiangById(id);
+		request.setAttribute("cl", cl);
+		
+		return "jcxx/clgl/xzcl/detail";
 	}
 
 	@RequestMapping(value="/jcxx/sjgl/sjxx/new")
