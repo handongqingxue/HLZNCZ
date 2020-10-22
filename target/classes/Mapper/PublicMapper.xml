@@ -535,6 +535,19 @@
 		#{id}
 		</foreach>
 	</delete>
+	<update id="shenHeSiJi">
+		update si_ji set 
+		<if test="flag=='sh'">
+			zyzt=1,shzt=3
+		</if>
+		<if test="flag=='th'">
+			zyzt=0,shzt=1
+		</if>
+		where 1=1
+		<foreach collection="idList" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
 	<update id="editCheLiang" parameterType="com.hlzncz.entity.CheLiang">
 		update che_liang set 
 		<trim suffixOverrides=",">

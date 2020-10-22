@@ -268,6 +268,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int shenHeSiJi(String ids, String flag) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.shenHeSiJi(idList,flag);
+		return count;
+	}
+
+	@Override
 	public int editSiJi(SiJi sj) {
 		// TODO Auto-generated method stub
 		return publicDao.editSiJi(sj);

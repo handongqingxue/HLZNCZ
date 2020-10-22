@@ -68,7 +68,7 @@ public interface PublicMapper {
 
 	public int deleteCheLiang(List<String> idList);
 
-	public int shenHeCheLiang(@Param("idList") List<String> idList,@Param("flag") String flag);
+	public int shenHeCheLiang(@Param("idList") List<String> idList, @Param("flag") String flag);
 
 	public int editCheLiang(CheLiang cl);
 
@@ -81,6 +81,8 @@ public interface PublicMapper {
 	public int newSiJi(SiJi sj);
 
 	public int deleteSiJi(List<String> idList);
+
+	public int shenHeSiJi(@Param("idList") List<String> idList, @Param("flag") String flag);
 
 	public int editSiJi(SiJi sj);
 

@@ -592,6 +592,38 @@ public class MainController {
 		return "jcxx/sjgl/tjsj/detail";
 	}
 
+	@RequestMapping(value="/jcxx/sjgl/xxsh/edit")
+	public String goJcxxSjglXxshEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/xxsh/edit";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/xxsh/list")
+	public String goJcxxSjglXxshList(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		request.setAttribute("shzt", SiJi.DAI_SHEN_HE);
+		
+		return "jcxx/sjgl/xxsh/list";
+	}
+
+	@RequestMapping(value="/jcxx/sjgl/xxsh/detail")
+	public String goJcxxSjglXxshDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		SiJi sj=publicService.selectSiJiById(id);
+		request.setAttribute("sj", sj);
+		
+		return "jcxx/sjgl/xxsh/detail";
+	}
+
 	@RequestMapping(value="/jcxx/sjgl/zhgl/new")
 	public String goJcxxSjglZhglNew(HttpServletRequest request) {
 
@@ -1493,6 +1525,32 @@ public class MainController {
 		else {
 			plan.setStatus(1);
 			plan.setMsg("删除司机信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/shenHeSiJi",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String shenHeSiJi(String ids, String flag) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.shenHeSiJi(ids,flag);
+		PlanResult plan=new PlanResult();
+		String tsStr=null;
+		if("sh".equals(flag))
+			tsStr="审核";
+		else if("th".equals(flag))
+			tsStr="退回";
+		
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg(tsStr+"司机信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg(tsStr+"司机信息成功");
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;

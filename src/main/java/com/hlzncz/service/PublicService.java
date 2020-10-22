@@ -82,6 +82,8 @@ public interface PublicService {
 
 	public int deleteSiJi(String ids);
 
+	public int shenHeSiJi(String ids, String flag);
+
 	public int editSiJi(SiJi sj);
 
 	public int querySiJiForInt(String xm, String sfz, Integer zyzt,String shzt);
