@@ -40,7 +40,7 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"队列收货单位-列表",
+		title:"无队列收货单位-列表",
 		url:path+"main/queryShouHuoDanWeiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
@@ -51,8 +51,8 @@ $(function(){
 			{field:"dwmc",title:"单位名称",width:200},
             {field:"bjsj",title:"编辑时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/dlshdw/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/dlshdw/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/wdlshdw/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/wdlshdw/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

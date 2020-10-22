@@ -740,6 +740,40 @@ public class MainController {
 		return "jcxx/dwgl/dlshdw/detail";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/wdlshdw/edit")
+	public String goJcxxDwglWdlshdwEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		String id = request.getParameter("id");
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		request.setAttribute("shdw", shdw);
+		
+		return "jcxx/dwgl/wdlshdw/edit";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/wdlshdw/list")
+	public String goJcxxDwglWdlshdwList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("ywdl", ShouHuoDanWei.WU_DUI_LIE);
+		
+		return "jcxx/dwgl/wdlshdw/list";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/wdlshdw/detail")
+	public String goJcxxDwglWdlshdwDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		String id = request.getParameter("id");
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		request.setAttribute("shdw", shdw);
+		
+		return "jcxx/dwgl/wdlshdw/detail";
+	}
+
 	@RequestMapping(value="/jcxx/dwgl/qbshdw/new")
 	public String goJcxxDwglQbshdwNew(HttpServletRequest request) {
 		
