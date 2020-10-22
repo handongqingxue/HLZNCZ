@@ -108,9 +108,9 @@ public interface PublicService {
 	
 	public int deleteShouHuoDanWei(String ids);
 
-	public int queryShouHuoDanWeiForInt(String dwmc);
+	public int queryShouHuoDanWeiForInt(String dwmc,Boolean ywdl);
 
-	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
+	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order);
 
 	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
 

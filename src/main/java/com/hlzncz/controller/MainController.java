@@ -700,6 +700,46 @@ public class MainController {
 		return "jcxx/dwgl/fhdw/detail";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/dlshdw/edit")
+	public String goJcxxDwglDlshdwEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		String id = request.getParameter("id");
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		request.setAttribute("shdw", shdw);
+
+		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
+		request.setAttribute("ssdl", ssdl);
+		
+		return "jcxx/dwgl/dlshdw/edit";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/dlshdw/list")
+	public String goJcxxDwglDlshdwList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("ywdl", ShouHuoDanWei.YOU_DUI_LIE);
+		
+		return "jcxx/dwgl/dlshdw/list";
+	}
+
+	@RequestMapping(value="/jcxx/dwgl/dlshdw/detail")
+	public String goJcxxDwglDlshdwDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		String id = request.getParameter("id");
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		request.setAttribute("shdw", shdw);
+
+		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
+		request.setAttribute("ssdl", ssdl);
+		
+		return "jcxx/dwgl/dlshdw/detail";
+	}
+
 	@RequestMapping(value="/jcxx/dwgl/qbshdw/new")
 	public String goJcxxDwglQbshdwNew(HttpServletRequest request) {
 		
@@ -1764,12 +1804,12 @@ public class MainController {
 
 	@RequestMapping(value="/queryShouHuoDanWeiList")
 	@ResponseBody
-	public Map<String, Object> queryShouHuoDanWeiList(String dwmc,int page,int rows,String sort,String order) {
+	public Map<String, Object> queryShouHuoDanWeiList(String dwmc,Boolean ywdl,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryShouHuoDanWeiForInt(dwmc);
-		List<ShouHuoDanWei> shdwList=publicService.queryShouHuoDanWeiList(dwmc, page, rows, sort, order);
+		int count = publicService.queryShouHuoDanWeiForInt(dwmc,ywdl);
+		List<ShouHuoDanWei> shdwList=publicService.queryShouHuoDanWeiList(dwmc, ywdl, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", shdwList);

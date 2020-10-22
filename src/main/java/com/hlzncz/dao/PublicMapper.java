@@ -108,9 +108,9 @@ public interface PublicMapper {
 
 	public int deleteShouHuoDanWei(List<String> idList);
 
-	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc);
+	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc,@Param("ywdl") Boolean ywdl);
 
-	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
+	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, @Param("ywdl") Boolean ywdl, int i, int rows, String sort, String order);
 
 	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
 

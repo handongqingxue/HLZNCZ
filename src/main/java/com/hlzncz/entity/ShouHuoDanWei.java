@@ -8,6 +8,14 @@ public class ShouHuoDanWei implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 有队列常量
+	 */
+	public static final boolean YOU_DUI_LIE=true;
+	/**
+	 * 无队列常量
+	 */
+	public static final boolean WU_DUI_LIE=false;
 	private Integer id;//收货单位id
 	public Integer getId() {
 		return id;

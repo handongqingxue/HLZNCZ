@@ -356,15 +356,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int queryShouHuoDanWeiForInt(String dwmc) {
+	public int queryShouHuoDanWeiForInt(String dwmc,Boolean ywdl) {
 		// TODO Auto-generated method stub
-		return publicDao.queryShouHuoDanWeiForInt(dwmc);
+		return publicDao.queryShouHuoDanWeiForInt(dwmc,ywdl);
 	}
 
 	@Override
-	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, int page, int rows, String sort, String order) {
+	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return publicDao.queryShouHuoDanWeiList(dwmc, (page-1)*rows, rows, sort, order);
+		return publicDao.queryShouHuoDanWeiList(dwmc, ywdl, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

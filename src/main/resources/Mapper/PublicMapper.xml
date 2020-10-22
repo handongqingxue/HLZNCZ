@@ -802,11 +802,27 @@
 		<if test="dwmc!=''&amp;dwmc!=null">
 			and dwmc like CONCAT('%',#{dwmc},'%')
 		</if> 
+		<if test="ywdl!=null">
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@YOU_DUI_LIE">
+				and dlId is not null
+			</if>
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@WU_DUI_LIE">
+				and dlId is null
+			</if>
+		</if> 
 	</select>
 	<select id="queryShouHuoDanWeiList" resultType="com.hlzncz.entity.ShouHuoDanWei">
 		select * from shou_huo_dan_wei where 1=1
 		<if test="dwmc!=''&amp;dwmc!=null">
 			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+		<if test="ywdl!=null">
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@YOU_DUI_LIE">
+				and dlId is not null
+			</if>
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@WU_DUI_LIE">
+				and dlId is null
+			</if>
 		</if> 
 	</select>
 	<select id="selectShouHuoDanWeiById" resultType="com.hlzncz.entity.ShouHuoDanWei">
