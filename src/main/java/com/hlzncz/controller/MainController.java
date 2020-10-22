@@ -730,6 +730,20 @@ public class MainController {
 		return "jcxx/dwgl/qbshdw/list";
 	}
 
+	@RequestMapping(value="/jcxx/dwgl/qbshdw/detail")
+	public String goJcxxDwglQbshdwDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		request.setAttribute("shdw", shdw);
+
+		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
+		request.setAttribute("ssdl", ssdl);
+		
+		return "jcxx/dwgl/qbshdw/detail";
+	}
+
 	@RequestMapping(value="/jcxx/dwgl/yss/new")
 	public String goYssNew(HttpServletRequest request) {
 		
