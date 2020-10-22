@@ -700,20 +700,20 @@ public class MainController {
 		return "jcxx/dwgl/fhdw/detail";
 	}
 
-	@RequestMapping(value="/jcxx/dwgl/shdw/new")
-	public String goShdwNew(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/dwgl/qbshdw/new")
+	public String goJcxxDwglQbshdwNew(HttpServletRequest request) {
 		
 		selectNav(request);
 		
-		return "jcxx/dwgl/shdw/new";
+		return "jcxx/dwgl/qbshdw/new";
 	}
 
-	@RequestMapping(value="/jcxx/dwgl/shdw/list")
-	public String goShdwList(HttpServletRequest request) {
+	@RequestMapping(value="/jcxx/dwgl/qbshdw/list")
+	public String goJcxxDwglQbshdwList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
-		return "jcxx/dwgl/shdw/list";
+		return "jcxx/dwgl/qbshdw/list";
 	}
 
 	@RequestMapping(value="/jcxx/dwgl/yss/new")

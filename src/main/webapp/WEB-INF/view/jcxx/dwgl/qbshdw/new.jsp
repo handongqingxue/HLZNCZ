@@ -46,6 +46,49 @@
 .select_ssdl_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
+
+.edit_ssdl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_ssdl_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_ssdl_div .xgst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_ssdl_div .xgst_span{
+	margin-left: 30px;
+}
+.edit_ssdl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_ssdl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_ssdl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_ssdl_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -55,6 +98,7 @@ var showZIndex=9999;
 var ndNum=0;
 var ssdldNum=1;
 var sssdldNum=2;
+var essdljbsxzdNum=3;
 $(function(){
 	initNewDialog();
 	initSSDLDialog();
@@ -77,6 +121,10 @@ function initDialogPosition(){
 	var sssdldpw=$("body").find(".panel.window").eq(sssdldNum);
 	var sssdldws=$("body").find(".window-shadow").eq(sssdldNum);
 
+	//修改所属队列
+	var essdljbsxzdpw=$("body").find(".panel.window").eq(essdljbsxzdNum);
+	var essdljbsxzdws=$("body").find(".window-shadow").eq(essdljbsxzdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
 	ccDiv.append(ndws);
@@ -87,6 +135,10 @@ function initDialogPosition(){
 	var sssdlDiv=$("#select_ssdl_div");
 	sssdlDiv.append(sssdldpw);
 	sssdlDiv.append(sssdldws);
+
+	var essdldDiv=$("#edit_ssdl_dialog_div");
+	essdldDiv.append(essdljbsxzdpw);
+	essdldDiv.append(essdljbsxzdws);
 }
 
 function initNewDialog(){
@@ -204,43 +256,49 @@ function initSelectSSDLDialog(){
 }
 
 function initEditSSDLDialog(){
-	editSSDLDialog=$("#edit_ssdl_div").dialog({
+	editSSDLDialog=$("#edit_ssdl_jbsxz_dialog_div").dialog({
 		title:"修改",
-		width:setFitWidthInParent("body","edit_ssdl_div"),
+		width:setFitWidthInParent("#edit_ssdl_div","edit_ssdl_jbsxz_dialog_div"),
 		height:231,
-		top:160,
-		left:308,
+		top:10,
+		left:20,
 		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditSSDLDialog(0);
+           }},
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	    editSHDW();
+        	    editSSDL();
            }}
         ]
 	});
 
-	$("#edit_ssdl_div table").css("width",(setFitWidthInParent("body","edit_ssdl_div"))+"px");
-	$("#edit_ssdl_div table").css("magin","-100px");
-	$("#edit_ssdl_div table td").css("padding-left","50px");
-	$("#edit_ssdl_div table td").css("padding-right","20px");
-	$("#edit_ssdl_div table td").css("font-size","15px");
-	$("#edit_ssdl_div table tr").css("height","45px");
+	$("#edit_ssdl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_ssdl_div","edit_ssdl_jbsxz_dialog_div"))+"px");
+	$("#edit_ssdl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_ssdl_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_ssdl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_ssdl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_ssdl_jbsxz_dialog_div table tr").css("height","45px");
 
-	$(".panel.window").eq(3).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(3).css("color","#000");
-	$(".panel.window .panel-title").eq(3).css("font-size","15px");
-	$(".panel.window .panel-title").eq(3).css("padding-left","10px");
+	$(".panel.window").eq(essdljbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(essdljbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(essdljbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(essdljbsxzdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(3).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(essdljbsxzdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(3).css("margin-top","20px");
-	$(".window,.window .window-body").eq(3).css("border-color","#ddd");
+	$(".window-shadow").eq(essdljbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
 
-	$("#edit_ssdl_div #ok_but").css("left","45%");
-	$("#edit_ssdl_div #ok_but").css("position","absolute");
+	$("#edit_ssdl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_ssdl_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#edit_ssdl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_ssdl_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	initEditSSDLGXCBB();
-	openEditSSDLDialog(0);
+	openEditSSDLJBSXZDialog(0);
 }
 
 function initEditSSDLGXCBB(){
@@ -294,9 +352,9 @@ function initSSDLTab(){
 				return str;
 			}},
 			{field:"id",title:"操作",width:200,formatter:function(value,row){
-            	//var str="<a onclick=\"editSSDLTabRow()\">编辑</a>"
-            	//+"&nbsp;|&nbsp;<a onclick=\"deleteSSDLTabRow()\">删除</a>";
-            	var str="<a onclick=\"deleteSSDLTabRow()\">删除</a>";
+            	var str="<a onclick=\"editSSDLTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteSSDLTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteSSDLTabRow()\">删除</a>";
             	return str;
             }}
 	    ]],
@@ -334,7 +392,7 @@ function editSSDLTabRow(){
 	}
 	$("#edit_ssdl_div #id").val(row.id);
 	$("#edit_ssdl_div #bjsj").val(row.bjsj);
-	$("#edit_ssdl_div #dwmc").val(row.dwmc);
+	$("#edit_ssdl_div #mc").val(row.mc);
 	openEditSSDLDialog(1);
 }
 
@@ -456,11 +514,30 @@ function openSelectSSDLDialog(flag){
 
 function openEditSSDLDialog(flag){
 	if(flag==1){
+		$("#edit_ssdl_bg_div").css("display","block");
+	}
+	else{
+		$("#edit_ssdl_bg_div").css("display","none");
+	}
+	openEditSSDLJBSXZDialog(flag);
+}
+
+function openEditSSDLJBSXZDialog(flag){
+	if(flag==1){
 		editSSDLDialog.dialog("open");
 	}
 	else{
 		editSSDLDialog.dialog("close");
 	}
+}
+
+function editSSDL(){
+	var id=$("#edit_ssdl_div #id").val();
+	var mc=$("#edit_ssdl_div #mc").val();
+	var bjsj=$("#edit_ssdl_div #bjsj").text();
+	var rows=[{gx:"1",mc:mc,bjsj:bjsj,id:id}];
+	loadSSDLTabData(rows);
+	openEditSSDLDialog(0);
 }
 
 function saveSelectSSDL(){
@@ -560,6 +637,7 @@ function setFitWidthInParent(parent,self){
 		space=355;
 		break;
 	case "select_ssdl_dialog_div":
+	case "edit_ssdl_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -587,7 +665,7 @@ function initWindowMarginLeft(){
 			<span class="close_span" onclick="openSelectSSDLDialog(0)">X</span>
 		</div>
 		<div id="select_ssdl_dialog_div">
-			<div id="select_ssdl_toolbar" style="height:32px;line-height:32px;">
+			<div id="select_ssdl_toolbar" style="height:32px;">
 				<span style="margin-left: 13px;">名称：</span>
 				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
 				<span style="margin-left: 13px;">代码：</span>
@@ -601,10 +679,45 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 选择所属队列 end -->
+
+<!-- 编辑所属队列start -->
+<div class="edit_ssdl_bg_div" id="edit_ssdl_bg_div">
+	<div class="edit_ssdl_div" id="edit_ssdl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditSSDLDialog(0)">X</span>
+		</div>
+		<div class="edit_ssdl_dialog_div" id="edit_ssdl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">全部收货单位-运输商-修改</span>
+			</div>
+			<div id="edit_ssdl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						关系
+					</td>
+					<td style="width:30%;">
+						<input id="edit_ssdl_gx_cbb"/>
+					</td>
+					<td align="right" style="width:15%;">
+						名称
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑所属队列 end -->
 	
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">收货单位-创建</div>
+	<div class="page_location_div">全部收货单位-创建</div>
 	
 	<div id="new_div">
 		<table>
@@ -630,25 +743,6 @@ function initWindowMarginLeft(){
 		<table id="ssdl_tab"></table>
 	</div>
 	
-	<div id="edit_ssdl_div">
-		<input type="hidden" id="id"/>
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				关系
-			</td>
-			<td style="width:30%;">
-				<input id="edit_ssdl_gx_cbb"/>
-			</td>
-			<td align="right" style="width:15%;">
-				名称
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="mc" placeholder="请输入名称" style="width: 150px;height:30px;"/>
-			</td>
-		  </tr>
-		</table>
-	</div>
 </div>
 </body>
 </html>

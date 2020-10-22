@@ -19,7 +19,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/dwgl/shdw/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=path+"main/jcxx/dwgl/qbshdw/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -39,7 +39,7 @@ $(function(){
 	});
 
 	tab1=$("#tab1").datagrid({
-		title:"收货单位-列表",
+		title:"全部收货单位-列表",
 		url:path+"main/queryShouHuoDanWeiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
