@@ -993,7 +993,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/list")
-	public String goDlglList(HttpServletRequest request) {
+	public String goJcxxJhpzDlglList(HttpServletRequest request) {
 		
 		selectNav(request);
 		
@@ -1012,6 +1012,22 @@ public class MainController {
 		request.setAttribute("shdw", shdw);
 		
 		return "jcxx/jhpz/dlgl/detail";
+	}
+
+	@RequestMapping(value="/xtgl/yhqx/yhgl/new")
+	public String goXtglYhqxYhglNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "xtgl/yhqx/yhgl/new";
+	}
+	
+	@RequestMapping(value="/xtgl/yhqx/yhgl/list")
+	public String goXtglYhqxYhglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "xtgl/yhqx/yhgl/list";
 	}
 
 	@RequestMapping(value="/jhxt/jhxx/hmcx/new")
@@ -1611,6 +1627,51 @@ public class MainController {
 		}
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/newYongHu")
+	@ResponseBody
+	public Map<String, Object> newYongHu(YongHu yh,
+			@RequestParam(value="tx_file",required=false) MultipartFile tx_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			MultipartFile[] fileArr=new MultipartFile[3];
+			fileArr[0]=tx_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								yh.setTx(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.newYongHu(yh);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建用户信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建用户信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/deleteSiJi",produces="plain/text; charset=UTF-8")
 	@ResponseBody
@@ -1627,6 +1688,26 @@ public class MainController {
 		else {
 			plan.setStatus(1);
 			plan.setMsg("删除司机信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/deleteYongHu",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteYongHu(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=publicService.deleteYongHu(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除用户信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除用户信息成功");
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;

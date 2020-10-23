@@ -259,11 +259,26 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newYongHu(YongHu yh) {
+		// TODO Auto-generated method stub
+		return publicDao.newYongHu(yh);
+	}
+
+	@Override
 	public int deleteSiJi(String ids) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> idList = Arrays.asList(ids.split(","));
 		count = publicDao.deleteSiJi(idList);
+		return count;
+	}
+
+	@Override
+	public int deleteYongHu(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = publicDao.deleteYongHu(idList);
 		return count;
 	}
 

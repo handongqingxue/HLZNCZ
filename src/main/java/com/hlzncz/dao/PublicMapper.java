@@ -80,7 +80,11 @@ public interface PublicMapper {
 
 	public int newSiJi(SiJi sj);
 
+	public int newYongHu(YongHu yh);
+
 	public int deleteSiJi(List<String> idList);
+
+	public int deleteYongHu(List<String> idList);
 
 	public int shenHeSiJi(@Param("idList") List<String> idList, @Param("flag") String flag);
 

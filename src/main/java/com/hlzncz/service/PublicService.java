@@ -80,7 +80,11 @@ public interface PublicService {
 
 	public int newSiJi(SiJi sj);
 
+	public int newYongHu(YongHu yh);
+
 	public int deleteSiJi(String ids);
+
+	public int deleteYongHu(String ids);
 
 	public int shenHeSiJi(String ids, String flag);
 

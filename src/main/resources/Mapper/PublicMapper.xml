@@ -510,6 +510,68 @@
 			</if>
 		</trim>
 	</insert>
+	<insert id="newYongHu" parameterType="com.hlzncz.entity.YongHu">
+		insert into yong_hu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="yhm!=null">
+				yhm,
+			</if>
+			<if test="nc!=null">
+				nc,
+			</if>
+			<if test="tx!=null">
+				tx,
+			</if>
+			<if test="sm!=null">
+				sm,
+			</if>
+			<if test="zt!=null">
+				zt,
+			</if>
+			<if test="ysmm!=null">
+				ysmm,
+			</if>
+			<if test="js!=null">
+				js,
+			</if>
+			<if test="zjjsId!=null">
+				zjjsId,
+			</if>
+			<if test="role!=null">
+				role,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="yhm!=null">
+				#{yhm},
+			</if>
+			<if test="nc!=null">
+				#{nc},
+			</if>
+			<if test="tx!=null">
+				#{tx},
+			</if>
+			<if test="sm!=null">
+				#{sm},
+			</if>
+			<if test="zt!=null">
+				#{zt},
+			</if>
+			<if test="ysmm!=null">
+				#{ysmm},
+			</if>
+			<if test="js!=null">
+				#{js},
+			</if>
+			<if test="zjjsId!=null">
+				#{zjjsId},
+			</if>
+			<if test="role!=null">
+				#{role},
+			</if>
+		</trim>
+	</insert>
 	<delete id="deleteCheLiang">
 		delete from che_liang where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
@@ -531,6 +593,12 @@
 	</update>
 	<delete id="deleteSiJi">
 		delete from si_ji where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<delete id="deleteYongHu">
+		delete from yong_hu where 1=1
 		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
 		#{id}
 		</foreach>
