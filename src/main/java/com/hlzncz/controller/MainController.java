@@ -29,6 +29,16 @@ import com.hlzncz.util.FileUploadUtils;
 import com.hlzncz.entity.*;
 import com.hlzncz.service.PublicService;
 
+/*
+ * 订单流程：
+ * 1.新生成的订单状态都是待审核，管理员在订单列表点击通过，状态变成已下单；
+ * 2.入厂前刷身份证，状态变成排队中。LED屏幕显示入厂号，自动叫号，变成待入厂；
+ * 3.车牌识别摄像头识别后，状态变成待检验。检验合格继续往下走，出厂后状态就是已完成。
+ * 
+ * 特殊情况：
+ * 1.订单审核未通过，状态就是编辑中，需要重新审核。通过的话，状态才是已下单；
+ * 2.自动叫号要是没有找到车辆，超过时间了，状态从待入厂又变回已下单了，就得重新排队了。
+ */
 @Controller
 @RequestMapping("/main")
 public class MainController {
@@ -271,6 +281,75 @@ public class MainController {
 		request.setAttribute("cysj", cysj);
 		
 		return "ddgl/zhgl/ddsh/detail";
+	}
+
+	@RequestMapping(value="/ddgl/zhgl/zjpd/edit")
+	public String goDdglZhglZjpdEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		String wybm = request.getParameter("wybm");
+		DingDan zjpd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("zjpd", zjpd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(zjpd.getYssId()));
+		request.setAttribute("yss", yss);
+		
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(zjpd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(zjpd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/zhgl/zjpd/edit";
+	}
+
+	@RequestMapping(value="/ddgl/zhgl/zjpd/list")
+	public String goDdglZhglZjpdList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("ddztId", DingDan.YI_XIA_DAN);
+		
+		return "ddgl/zhgl/zjpd/list";
+	}
+
+	@RequestMapping(value="/ddgl/zhgl/zjpd/detail")
+	public String goDdglZhglZjpdDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan zjpd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("zjpd", zjpd);
+
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(zjpd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(zjpd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(zjpd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/zhgl/zjpd/detail";
 	}
 
 	@RequestMapping(value="/ddgl/zhgl/zhgl/edit")
