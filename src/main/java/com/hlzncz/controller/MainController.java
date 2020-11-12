@@ -166,6 +166,44 @@ public class MainController {
 		return "ddgl/wddd/dsh/detail";
 	}
 
+	@RequestMapping(value="/ddgl/wddd/wddd/list")
+	public String goDdglWdddWdddList(HttpServletRequest request) {
+		
+		selectNav(request);
+
+		return "ddgl/wddd/wddd/list";
+	}
+
+	@RequestMapping(value="/ddgl/wddd/wddd/detail")
+	public String goDdglWdddWdddDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		String wybm = request.getParameter("wybm");
+		DingDan wddd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("wddd", wddd);
+		
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(wddd.getYssId()));
+		request.setAttribute("yss", yss);
+		
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(wddd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(wddd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wddd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wddd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(wddd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/wddd/wddd/detail";
+	}
+
 	@RequestMapping(value="/ddgl/zhgl/ddsh/edit")
 	public String goDdglZhglDdshEdit(HttpServletRequest request) {
 		
