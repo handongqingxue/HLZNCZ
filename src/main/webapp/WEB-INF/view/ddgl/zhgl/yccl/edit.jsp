@@ -358,6 +358,92 @@
 .select_cysj_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
+
+.new_ycxx_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.new_ycxx_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.new_ycxx_div .xz_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.new_ycxx_div .xz_span{
+	margin-left: 30px;
+}
+.new_ycxx_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.new_ycxx_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.new_ycxx_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.new_ycxx_div .title_span{
+	margin-left: 30px;
+}
+
+.edit_ycxx_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_ycxx_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_ycxx_div .xz_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_ycxx_div .xz_span{
+	margin-left: 30px;
+}
+.edit_ycxx_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_ycxx_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_ycxx_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_ycxx_div .title_span{
+	margin-left: 30px;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -385,6 +471,8 @@ var cysjdNum=16;
 var scysjdNum=17;
 
 var ycxxdNum=18;
+var nycxxjbsxzdNum=19;
+var eycxxjbsxzdNum=20;
 $(function(){
 	initEditDialog();
 	
@@ -412,6 +500,8 @@ $(function(){
 	initSelectCYSJDialog();//17.选择承运司机窗口
 	
 	initYCXXDialog();//18.异常信息窗口
+	initNewYCXXJBSXZDialog();//19.新增异常信息窗口
+	initEditYCXXJBSXZDialog();//20.编辑异常信息窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -489,6 +579,14 @@ function initDialogPosition(){
 	var ycxxdpw=$("body").find(".panel.window").eq(ycxxdNum);
 	var ycxxdws=$("body").find(".window-shadow").eq(ycxxdNum);
 
+	//新增异常信息
+	var nycxxjbsxzdpw=$("body").find(".panel.window").eq(nycxxjbsxzdNum);
+	var nycxxjbsxzdws=$("body").find(".window-shadow").eq(nycxxjbsxzdNum);
+
+	//编辑异常信息
+	var eycxxjbsxzdpw=$("body").find(".panel.window").eq(eycxxjbsxzdNum);
+	var eycxxjbsxzdws=$("body").find(".window-shadow").eq(eycxxjbsxzdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(edpw);
 	ccDiv.append(edws);
@@ -553,6 +651,14 @@ function initDialogPosition(){
 	var scysjDiv=$("#select_cysj_div");
 	scysjDiv.append(scysjdpw);
 	scysjDiv.append(scysjdws);
+
+	var nycxxdDiv=$("#new_ycxx_dialog_div");
+	nycxxdDiv.append(nycxxjbsxzdpw);
+	nycxxdDiv.append(nycxxjbsxzdws);
+
+	var eycxxdDiv=$("#edit_ycxx_dialog_div");
+	eycxxdDiv.append(eycxxjbsxzdpw);
+	eycxxdDiv.append(eycxxjbsxzdws);
 }
 
 function initEditDialog(){
@@ -2078,7 +2184,7 @@ function initYCXXTab(){
 	ycxxChooseLB=$("#ycxx_div #choose_but").linkbutton({
 		iconCls:"icon-edit",
 		onClick:function(){
-			openSelectYCXXDialog(1);
+			openNewYCXXDialog(1);
 		}
 	});
 	
@@ -2122,9 +2228,9 @@ function initYCXXTab(){
             {field:"ms",title:"描述",width:200,align:"center"},
             {field:"clsm",title:"处理说明",width:200,align:"center"},
 			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
-            	//var str="<a onclick=\"editYCXXTabRow()\">编辑</a>"
-            	//+"&nbsp;|&nbsp;<a onclick=\"deleteYCXXTabRow()\">删除</a>";
-            	var str="<a onclick=\"deleteYCXXTabRow()\">删除</a>";
+            	var str="<a onclick=\"editYCXXTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteYCXXTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteYCXXTabRow()\">删除</a>";
             	return str;
             }}
 	    ]],
@@ -2160,6 +2266,140 @@ function loadYCXXTabData(rows){
 		ycxxChooseLB.linkbutton("enable");
 	var obj = {"total":rowsLength,"rows":rows};
 	ycxxTab.datagrid('loadData',obj);
+}
+
+function initNewYCXXJBSXZDialog(){
+	newYCXXDialog=$("#new_ycxx_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#new_ycxx_div","new_ycxx_jbsxz_dialog_div"),
+		height:280,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openNewYCXXDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    newYCXX();
+           }}
+        ]
+	});
+
+	$("#new_ycxx_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#new_ycxx_div","new_ycxx_jbsxz_dialog_div"))+"px");
+	$("#new_ycxx_jbsxz_dialog_div table").css("magin","-100px");
+	$("#new_ycxx_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#new_ycxx_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#new_ycxx_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#new_ycxx_jbsxz_dialog_div table tr").eq(0).css("height","45px");
+	$("#new_ycxx_jbsxz_dialog_div table tr").eq(1).css("height","90px");
+
+	$(".panel.window").eq(nycxxjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(nycxxjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(nycxxjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(nycxxjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(nycxxjbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(nycxxjbsxzdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(nycxxjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(nycxxjbsxzdNum).css("border-color","#ddd");
+
+	$("#new_ycxx_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#new_ycxx_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#new_ycxx_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#new_ycxx_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initNewYCXXYclxCbb();
+	initNewYCXXClztCbb();
+	
+	openNewYCXXJBSXZDialog(0);
+}
+
+function initNewYCXXYclxCbb(){
+	$("#new_ycxx_jbsxz_dialog_div #yclx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择异常类型"},{"value":"1","text":"无异常"},{"value":"2","text":"净重异常"},{"value":"3","text":"其他异常"}]
+	});
+}
+
+function initNewYCXXClztCbb(){
+	$("#new_ycxx_jbsxz_dialog_div #clzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择处理状态"},{"value":"1","text":"待处理"},{"value":"2","text":"处理中"},{"value":"3","text":"处理完成"}]
+	});
+}
+
+function initEditYCXXJBSXZDialog(){
+	editYCXXDialog=$("#edit_ycxx_jbsxz_dialog_div").dialog({
+		title:"修改异常信息实体",
+		width:setFitWidthInParent("#edit_ycxx_div","edit_ycxx_jbsxz_dialog_div"),
+		height:280,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openEditYCXXDialog(0);
+           }},
+           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+        	    editYCXX();
+           }}
+        ]
+	});
+
+	$("#edit_ycxx_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_ycxx_div","edit_ycxx_jbsxz_dialog_div"))+"px");
+	$("#edit_ycxx_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_ycxx_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#edit_ycxx_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_ycxx_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_ycxx_jbsxz_dialog_div table tr").eq(0).css("height","45px");
+	$("#edit_ycxx_jbsxz_dialog_div table tr").eq(1).css("height","90px");
+
+	$(".panel.window").eq(eshdwjbsxzdNum).css("margin-top","40px");
+	$(".panel.window").eq(eshdwjbsxzdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(eshdwjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(eshdwjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(eshdwjbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(eshdwjbsxzdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(eshdwjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").eq(eshdwjbsxzdNum).css("border-color","#ddd");
+
+	$("#edit_ycxx_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_ycxx_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#edit_ycxx_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_ycxx_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+
+	initEditYCXXYclxCbb();
+	initEditYCXXClztCbb();
+	
+	openEditSHDWJBSXZDialog(0);
+}
+
+function initEditYCXXYclxCbb(){
+	editYcxxYclxCbb=$("#edit_ycxx_jbsxz_dialog_div #yclx_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择异常类型"},{"value":"1","text":"无异常"},{"value":"2","text":"净重异常"},{"value":"3","text":"其他异常"}]
+	});
+}
+
+function initEditYCXXClztCbb(){
+	editYcxxClztCbb=$("#edit_ycxx_jbsxz_dialog_div #clzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择处理状态"},{"value":"1","text":"待处理"},{"value":"2","text":"处理中"},{"value":"3","text":"处理完成"}]
+	});
 }
 
 function openSelectYSSDialog(flag){
@@ -2237,19 +2477,6 @@ function openSelectCYSJDialog(flag){
 		$("#select_cysj_bg_div").css("display","none");
 		$("#select_cysj_bg_div").css("z-index","9010");
 		selectCYSJDialog.dialog("close");
-	}
-}
-
-function openSelectYCXXDialog(flag){
-	if(flag==1){
-		$("#select_ycxx_bg_div").css("display","block");
-		$("#select_ycxx_bg_div").css("z-index",showZIndex);
-		selectYCXXDialog.dialog("open");
-	}
-	else{
-		$("#select_ycxx_bg_div").css("display","none");
-		$("#select_ycxx_bg_div").css("z-index","9010");
-		selectYCXXDialog.dialog("close");
 	}
 }
 
@@ -2342,6 +2569,48 @@ function openEditCYCLDialog(flag){
 	}
 }
 
+function openNewYCXXDialog(flag){
+	if(flag==1){
+		$("#new_ycxx_bg_div").css("display","block");
+		$("#new_ycxx_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#new_ycxx_bg_div").css("display","none");
+		$("#new_ycxx_bg_div").css("z-index","9016");
+	}
+	openNewYCXXJBSXZDialog(flag);
+}
+
+function openNewYCXXJBSXZDialog(flag){
+	if(flag==1){
+		newYCXXDialog.dialog("open");
+	}
+	else{
+		newYCXXDialog.dialog("close");
+	}
+}
+
+function openEditYCXXDialog(flag){
+	if(flag==1){
+		$("#edit_ycxx_bg_div").css("display","block");
+		$("#edit_ycxx_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#edit_ycxx_bg_div").css("display","none");
+		$("#edit_ycxx_bg_div").css("z-index","9016");
+	}
+	openEditYCXXJBSXZDialog(flag);
+}
+
+function openEditYCXXJBSXZDialog(flag){
+	if(flag==1){
+		editYCXXDialog.dialog("open");
+	}
+	else{
+		editYCXXDialog.dialog("close");
+	}
+}
+
 function editYSS(){
 	var id=$("#edit_yss_div #id").val();
 	var mc=$("#edit_yss_div #mc").val();
@@ -2424,6 +2693,20 @@ function editSHDWTabRow(){
 	$("#edit_shdw_div #dwmc").val(row.dwmc);
 	$("#edit_shdw_div #bjsj").text(row.bjsj);
 	openEditSHDWDialog(1);
+}
+
+function editYCXXTabRow(){
+	var row=ycxxTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要编辑的信息！","warning");
+		return false;
+	}
+	$("#edit_ycxx_div #id").val(row.id);
+	editYcxxYclxCbb.combobox("setValue",row.yclx);
+	editYcxxClztCbb.combobox("setValue",row.clzt);
+	$("#edit_ycxx_div #ms").val(row.ms);
+	$("#edit_ycxx_div #clsm").text(row.clsm);
+	openEditYCXXDialog(1);
 }
 
 function saveSelectYSS(){
@@ -2555,6 +2838,8 @@ function setFitWidthInParent(parent,self){
 	case "edit_fhdw_jbsxz_dialog_div":
 	case "select_shdw_dialog_div":
 	case "select_cycl_dialog_div":
+	case "new_ycxx_jbsxz_dialog_div":
+	case "edit_ycxx_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -2833,6 +3118,102 @@ function initWindowMarginLeft(){
 	</div>
 </div>
 <!-- 选择承运司机end -->
+
+<!-- 新增异常信息 start -->
+<div class="new_ycxx_bg_div" id="new_ycxx_bg_div">
+	<div class="new_ycxx_div" id="new_ycxx_div">
+		<div class="xz_div">
+			<span class="xz_span">新增</span>
+			<span class="close_span" onclick="openNewYCXXDialog(0)">X</span>
+		</div>
+		<div class="new_ycxx_dialog_div" id="new_ycxx_dialog_div">
+			<div class="title_div">
+				<span class="title_span">异常处理-异常信息-新增</span>
+			</div>
+			<div id="new_ycxx_jbsxz_dialog_div">
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						异常类型
+					</td>
+					<td style="width:30%;">
+						<input id="yclx_cbb"/>
+					</td>
+					<td align="right" style="width:15%;">
+						处理状态
+					</td>
+					<td style="width:30%;">
+						<input id="clzt_cbb"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						描述
+					</td>
+					<td style="width:30%;">
+						<textarea rows="3" cols="15" placeholder="请输入描述"></textarea>
+					</td>
+					<td align="right" style="width:15%;">
+						处理说明
+					</td>
+					<td style="width:30%;">
+						<textarea rows="3" cols="15" placeholder="请输入处理说明"></textarea>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 新增异常信息end -->
+
+<!-- 编辑异常信息 start -->
+<div class="edit_ycxx_bg_div" id="edit_ycxx_bg_div">
+	<div class="edit_ycxx_div" id="edit_ycxx_div">
+		<div class="xz_div">
+			<span class="xz_span">修改</span>
+			<span class="close_span" onclick="openEditYCXXDialog(0)">X</span>
+		</div>
+		<div class="edit_ycxx_dialog_div" id="edit_ycxx_dialog_div">
+			<div class="title_div">
+				<span class="title_span">异常处理-异常信息-新增</span>
+			</div>
+			<div id="edit_ycxx_jbsxz_dialog_div">
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						异常类型
+					</td>
+					<td style="width:30%;">
+						<input id="yclx_cbb"/>
+					</td>
+					<td align="right" style="width:15%;">
+						处理状态
+					</td>
+					<td style="width:30%;">
+						<input id="clzt_cbb"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						描述
+					</td>
+					<td style="width:30%;">
+						<textarea id="ms" rows="3" cols="15" placeholder="请输入描述"></textarea>
+					</td>
+					<td align="right" style="width:15%;">
+						处理说明
+					</td>
+					<td style="width:30%;">
+						<textarea id="clsm" rows="3" cols="15" placeholder="请输入处理说明"></textarea>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑异常信息end -->
 
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
