@@ -34,7 +34,12 @@ public interface PublicMapper {
 			@Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss);
 
 	public List<DingDan> queryDDGLZHGLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jcsjs") String jcsjs, 
-			@Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+			@Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+
+	public List<DingDan> queryDDGLZHGLYCCLNotLimitList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("clzt") String clzt);
+
+	public List<DingDan> queryDDGLZHGLYCCLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph,  
+			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);
 

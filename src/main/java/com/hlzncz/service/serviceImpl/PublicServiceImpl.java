@@ -109,9 +109,23 @@ public class PublicServiceImpl implements PublicService {
 
 	@Override
 	public List<DingDan> queryDDGLZHGLList(String ddh, String ddztId, String cph, String jcsjs, String jcsje,
-			String jhysrq, String yss, int page, int rows, String sort, String order) {
+			String jhysrq, String yss, String clzt, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return publicDao.queryDDGLZHGLList(ddh, ddztId, cph, jcsjs, jcsje, jhysrq, yss, (page-1)*rows, rows, sort, order);
+		return publicDao.queryDDGLZHGLList(ddh, ddztId, cph, jcsjs, jcsje, jhysrq, yss, clzt, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public int queryDDGLZHGLYCCLForInt(String ddh, String ddztId, String cph, String jhysrq, String clzt) {
+		// TODO Auto-generated method stub
+		List<DingDan> ycclList=publicDao.queryDDGLZHGLYCCLNotLimitList(ddh, ddztId, cph, jhysrq, clzt);
+		return ycclList.size();
+	}
+
+	@Override
+	public List<DingDan> queryDDGLZHGLYCCLList(String ddh, String ddztId, String cph, 
+			String jhysrq, String clzt, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryDDGLZHGLYCCLList(ddh, ddztId, cph, jhysrq, clzt, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override
