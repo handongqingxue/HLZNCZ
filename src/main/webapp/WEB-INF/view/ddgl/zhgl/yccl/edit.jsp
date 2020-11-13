@@ -380,8 +380,11 @@ var eshdwjbsxzdNum=12;
 var cycldNum=13;
 var scycldNum=14;
 var ecycldNum=15;
+
 var cysjdNum=16;
 var scysjdNum=17;
+
+var ycxxdNum=18;
 $(function(){
 	initEditDialog();
 	
@@ -407,6 +410,8 @@ $(function(){
 
 	initCYSJDialog();//16.承运司机窗口
 	initSelectCYSJDialog();//17.选择承运司机窗口
+	
+	initYCXXDialog();//18.异常信息窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -480,6 +485,10 @@ function initDialogPosition(){
 	var scysjdpw=$("body").find(".panel.window").eq(scysjdNum);
 	var scysjdws=$("body").find(".window-shadow").eq(scysjdNum);
 
+	//异常信息
+	var ycxxdpw=$("body").find(".panel.window").eq(ycxxdNum);
+	var ycxxdws=$("body").find(".window-shadow").eq(ycxxdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(edpw);
 	ccDiv.append(edws);
@@ -501,6 +510,9 @@ function initDialogPosition(){
 
 	ccDiv.append(cysjdpw);
 	ccDiv.append(cysjdws);
+
+	ccDiv.append(ycxxdpw);
+	ccDiv.append(ycxxdws);
 
 	var syssDiv=$("#select_yss_div");
 	syssDiv.append(syssdpw);
@@ -2032,6 +2044,124 @@ function initSelectCYSJTab(){
 	});
 }
 
+function initYCXXDialog(){
+	dialogTop+=230;//1380
+	ycxxDialog=$("#ycxx_div").dialog({
+		title:"异常信息",
+		width:setFitWidthInParent("body","ycxx_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(ycxxdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(ycxxdNum).css("margin-top","20px");
+	$(".panel.window").eq(ycxxdNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(ycxxdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(ycxxdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ycxxdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ycxxdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(ycxxdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(ycxxdNum).css("width","1000px");
+	$(".window-shadow").eq(ycxxdNum).css("margin-top","20px");
+	$(".window-shadow").eq(ycxxdNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(ycxxdNum).css("border-color","#ddd");
+
+	initYCXXTab();
+}
+
+function initYCXXTab(){
+	ycxxChooseLB=$("#ycxx_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectYCXXDialog(1);
+		}
+	});
+	
+	ycxxTab=$("#ycxx_tab").datagrid({
+		toolbar:"#ycxx_toolbar",
+		width:setFitWidthInParent("body","ycxx_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"yclx",title:"异常类型",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case 1:
+					str="无异常";
+					break;
+				case 2:
+					str="净重异常";
+					break;
+				case 3:
+					str="其他异常";
+					break;
+				}
+				return str;
+			}},
+            {field:"clzt",title:"处理状态",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case 1:
+					str="待处理";
+					break;
+				case 2:
+					str="处理中";
+					break;
+				case 3:
+					str="处理完成";
+					break;
+				}
+				return str;
+			}},
+            {field:"ms",title:"描述",width:200,align:"center"},
+            {field:"clsm",title:"处理说明",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	//var str="<a onclick=\"editYCXXTabRow()\">编辑</a>"
+            	//+"&nbsp;|&nbsp;<a onclick=\"deleteYCXXTabRow()\">删除</a>";
+            	var str="<a onclick=\"deleteYCXXTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{yclx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"yclx",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	var rows=[];
+	var ycxxJA=JSON.parse('${requestScope.ycxxJAStr}');
+	for(var i=0;i<ycxxJA.length;i++){
+		var ycxxJO=ycxxJA[i]
+		rows.push({yclx:ycxxJO.yclx,clzt:ycxxJO.clzt,ms:ycxxJO.ms,clsm:ycxxJO.clsm});
+	}
+	loadYCXXTabData(rows);
+}
+
+function loadYCXXTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		ycxxChooseLB.linkbutton("disable");
+	else
+		ycxxChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	ycxxTab.datagrid('loadData',obj);
+}
+
 function openSelectYSSDialog(flag){
 	if(flag==1){
 		$("#select_yss_bg_div").css("display","block");
@@ -2107,6 +2237,19 @@ function openSelectCYSJDialog(flag){
 		$("#select_cysj_bg_div").css("display","none");
 		$("#select_cysj_bg_div").css("z-index","9010");
 		selectCYSJDialog.dialog("close");
+	}
+}
+
+function openSelectYCXXDialog(flag){
+	if(flag==1){
+		$("#select_ycxx_bg_div").css("display","block");
+		$("#select_ycxx_bg_div").css("z-index",showZIndex);
+		selectYCXXDialog.dialog("open");
+	}
+	else{
+		$("#select_ycxx_bg_div").css("display","none");
+		$("#select_ycxx_bg_div").css("z-index","9010");
+		selectYCXXDialog.dialog("close");
 	}
 }
 
@@ -2377,6 +2520,11 @@ function deleteCYCLTabRow(){
 function deleteCYSJTabRow(){
 	cysjTab.datagrid("deleteRow",0);
 	loadCYSJTabData([]);
+}
+
+function deleteYCXXTabRow(){
+	ycxxTab.datagrid("deleteRow",0);
+	loadYCXXTabData([]);
 }
 
 function setFitWidthInParent(parent,self){
@@ -2832,6 +2980,13 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="cysj_tab"></table>
+	</div>
+	
+	<div id="ycxx_div">
+		<div id="ycxx_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="ycxx_tab"></table>
 	</div>
 </div>
 </body>

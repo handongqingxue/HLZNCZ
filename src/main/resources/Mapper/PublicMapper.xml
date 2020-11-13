@@ -980,6 +980,9 @@
 	<select id="selectYunShuShangById" resultType="com.hlzncz.entity.YunShuShang">
 		select * from yun_shu_shang where id=#{0}
 	</select>
+	<select id="selectDingDanYiChangByDdbm" resultType="com.hlzncz.entity.DingDanYiChang">
+		select * from ding_dan_yi_chang where ddbm=#{ddbm}
+	</select>
 	<insert id="newKaPianShenLing" parameterType="com.hlzncz.entity.KaPianShenLing">
 		insert into ka_pian_shen_ling
 		<trim prefix="(" suffix=")" suffixOverrides=",">

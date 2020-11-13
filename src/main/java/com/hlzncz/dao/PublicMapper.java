@@ -194,4 +194,6 @@ public interface PublicMapper {
 	public List<JueSe> queryJueSeByIds(@Param("ids") String ids);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(@Param("ids") String ids);
+
+	public List<DingDanYiChang> selectDingDanYiChangByDdbm(@Param("ddbm") String ddbm);
 }

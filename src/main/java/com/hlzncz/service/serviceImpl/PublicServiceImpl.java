@@ -632,4 +632,10 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.queryShouHuoDanWeiByIds(ids);
 	}
 
+	@Override
+	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm) {
+		// TODO Auto-generated method stub
+		return publicDao.selectDingDanYiChangByDdbm(wybm);
+	}
+
 }

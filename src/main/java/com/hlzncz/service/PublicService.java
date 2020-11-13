@@ -196,4 +196,6 @@ public interface PublicService {
 	public List<JueSe> queryJueSeByIds(String ids);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids);
+
+	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm);
 }

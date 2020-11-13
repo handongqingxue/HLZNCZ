@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hlzncz.util.FileUploadUtils;
@@ -426,6 +427,10 @@ public class MainController {
 		DingDan dd=publicService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
+		List<DingDanYiChang> ycxxList=publicService.selectDingDanYiChangByDdbm(wybm);
+		JSONArray ycxxJA = JSONArray.fromObject(ycxxList);
+		request.setAttribute("ycxxJAStr", ycxxJA.toString());
+		
 		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
 		request.setAttribute("yss", yss);
 
