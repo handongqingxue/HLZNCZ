@@ -462,6 +462,39 @@ public class MainController {
 		return "ddgl/zhgl/yccl/list";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/yccl/detail")
+	public String goDdglZhglYcclDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		List<DingDanYiChang> ycxxList=publicService.selectDingDanYiChangByDdbm(wybm);
+		JSONArray ycxxJA = JSONArray.fromObject(ycxxList);
+		request.setAttribute("ycxxJAStr", ycxxJA.toString());
+		
+		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return "ddgl/zhgl/yccl/detail";
+	}
+
 	@RequestMapping(value="/ddgl/ddtb/ddtb/new")
 	public String goDdglDdtbDdtbNew(HttpServletRequest request) {
 

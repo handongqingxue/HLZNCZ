@@ -479,6 +479,7 @@ var ecycldNum=18;
 
 var cysjdNum=19;
 var scysjdNum=20;
+
 $(function(){
 	initEditDialog();
 	
@@ -2830,6 +2831,8 @@ function setFitWidthInParent(parent,self){
 	case "yss_tab":
 		space=355;
 		break;
+	case "new_ycxx_jbsxz_dialog_div":
+	case "edit_ycxx_jbsxz_dialog_div":
 	case "select_yss_dialog_div":
 	case "edit_yss_jbsxz_dialog_div":
 	case "select_wlxx_dialog_div":
@@ -2844,8 +2847,6 @@ function setFitWidthInParent(parent,self){
 	case "edit_fhdw_jbsxz_dialog_div":
 	case "select_shdw_dialog_div":
 	case "select_cycl_dialog_div":
-	case "new_ycxx_jbsxz_dialog_div":
-	case "edit_ycxx_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
