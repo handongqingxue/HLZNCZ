@@ -19,6 +19,93 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+
+.new_ycxx_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.new_ycxx_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.new_ycxx_div .xz_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.new_ycxx_div .xz_span{
+	margin-left: 30px;
+}
+.new_ycxx_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.new_ycxx_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.new_ycxx_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.new_ycxx_div .title_span{
+	margin-left: 30px;
+}
+
+.edit_ycxx_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.edit_ycxx_div{
+	width: 1000px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.edit_ycxx_div .xz_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.edit_ycxx_div .xz_span{
+	margin-left: 30px;
+}
+.edit_ycxx_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_ycxx_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_ycxx_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_ycxx_div .title_span{
+	margin-left: 30px;
+}
+
 .select_yss_bg_div{
 	width: 100%;
 	height: 100%;
@@ -358,92 +445,6 @@
 .select_cysj_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
-
-.new_ycxx_bg_div{
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,.45);
-	position: fixed;
-	z-index: 9016;
-	display:none;
-}
-.new_ycxx_div{
-	width: 1000px;
-	height: 500px;
-	margin: 100px auto 0;
-	background-color: #fff;
-	border-radius:5px;
-	position: absolute;
-	left: 0;
-	right: 0;
-}
-.new_ycxx_div .xz_div{
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	border-bottom: #eee solid 1px;
-}
-.new_ycxx_div .xz_span{
-	margin-left: 30px;
-}
-.new_ycxx_div .close_span{
-	float: right;margin-right: 30px;cursor: pointer;
-}
-.new_ycxx_dialog_div{
-	width: 1000px;
-	height: 450px;
-	overflow-y: scroll;
-	position: absolute;
-}
-.new_ycxx_div .title_div{
-	width: 100%;height: 50px;line-height: 50px;
-}
-.new_ycxx_div .title_span{
-	margin-left: 30px;
-}
-
-.edit_ycxx_bg_div{
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,.45);
-	position: fixed;
-	z-index: 9016;
-	display:none;
-}
-.edit_ycxx_div{
-	width: 1000px;
-	height: 500px;
-	margin: 100px auto 0;
-	background-color: #fff;
-	border-radius:5px;
-	position: absolute;
-	left: 0;
-	right: 0;
-}
-.edit_ycxx_div .xz_div{
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	border-bottom: #eee solid 1px;
-}
-.edit_ycxx_div .xz_span{
-	margin-left: 30px;
-}
-.edit_ycxx_div .close_span{
-	float: right;margin-right: 30px;cursor: pointer;
-}
-.edit_ycxx_dialog_div{
-	width: 1000px;
-	height: 450px;
-	overflow-y: scroll;
-	position: absolute;
-}
-.edit_ycxx_div .title_div{
-	width: 100%;height: 50px;line-height: 50px;
-}
-.edit_ycxx_div .title_span{
-	margin-left: 30px;
-}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -451,57 +452,62 @@ var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
 var edNum=0;
-var yssdNum=1;
-var syssdNum=2;
-var eyssjbsxzdNum=3;
-var wlxxdNum=4;
-var swlxxdNum=5;
-var ewlxxjbsxzdNum=6;
-var fhdwdNum=7;
-var sfhdwdNum=8;
-var efhdwjbsxzdNum=9;
-var shdwdNum=10;
-var sshdwdNum=11;
-var eshdwjbsxzdNum=12;
-var cycldNum=13;
-var scycldNum=14;
-var ecycldNum=15;
 
-var cysjdNum=16;
-var scysjdNum=17;
+var ycxxdNum=1;
+var nycxxjbsxzdNum=2;
+var eycxxjbsxzdNum=3;
 
-var ycxxdNum=18;
-var nycxxjbsxzdNum=19;
-var eycxxjbsxzdNum=20;
+var yssdNum=4;
+var syssdNum=5;
+var eyssjbsxzdNum=6;
+
+var wlxxdNum=7;
+var swlxxdNum=8;
+var ewlxxjbsxzdNum=9;
+
+var fhdwdNum=10;
+var sfhdwdNum=11;
+var efhdwjbsxzdNum=12;
+
+var shdwdNum=13;
+var sshdwdNum=14;
+var eshdwjbsxzdNum=15;
+
+var cycldNum=16;
+var scycldNum=17;
+var ecycldNum=18;
+
+var cysjdNum=19;
+var scysjdNum=20;
 $(function(){
 	initEditDialog();
 	
-	initYSSDialog();//1.运输商窗口
-	initSelectYSSDialog();//2.选择运输商窗口
-	initEditYSSJBSXZDialog();//3.修改运输商窗口
-
-	initWLXXDialog();//4.物料信息窗口
-	initSelectWLXXDialog();//5.选择物料信息窗口
-	initEditWLXXJBSXZDialog();//6.修改物料信息窗口
+	initYCXXDialog();//1.异常信息窗口
+	initNewYCXXJBSXZDialog();//2.新增异常信息窗口
+	initEditYCXXJBSXZDialog();//3.编辑异常信息窗口
 	
-	initFHDWDialog();//7.发货单位窗口
-	initSelectFHDWDialog();//8.选择发货单位窗口
-	initEditFHDWJBSXZDialog();//9.修改发货单位窗口
-	
-	initSHDWDialog();//10.收货单位窗口
-	initSelectSHDWDialog();//11.选择收货单位窗口
-	initEditSHDWJBSXZDialog();//12.修改收货单位窗口
+	initYSSDialog();//4.运输商窗口
+	initSelectYSSDialog();//5.选择运输商窗口
+	initEditYSSJBSXZDialog();//6.修改运输商窗口
 
-	initCYCLDialog();//13.承运车辆窗口
-	initSelectCYCLDialog();//14.选择承运车辆窗口
-	initEditCYCLDialog();//15.修改承运车辆窗口
-
-	initCYSJDialog();//16.承运司机窗口
-	initSelectCYSJDialog();//17.选择承运司机窗口
+	initWLXXDialog();//7.物料信息窗口
+	initSelectWLXXDialog();//8.选择物料信息窗口
+	initEditWLXXJBSXZDialog();//9.修改物料信息窗口
 	
-	initYCXXDialog();//18.异常信息窗口
-	initNewYCXXJBSXZDialog();//19.新增异常信息窗口
-	initEditYCXXJBSXZDialog();//20.编辑异常信息窗口
+	initFHDWDialog();//10.发货单位窗口
+	initSelectFHDWDialog();//11.选择发货单位窗口
+	initEditFHDWJBSXZDialog();//12.修改发货单位窗口
+	
+	initSHDWDialog();//13.收货单位窗口
+	initSelectSHDWDialog();//14.选择收货单位窗口
+	initEditSHDWJBSXZDialog();//15.修改收货单位窗口
+
+	initCYCLDialog();//16.承运车辆窗口
+	initSelectCYCLDialog();//17.选择承运车辆窗口
+	initEditCYCLDialog();//18.修改承运车辆窗口
+
+	initCYSJDialog();//19.承运司机窗口
+	initSelectCYSJDialog();//20.选择承运司机窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -510,6 +516,18 @@ function initDialogPosition(){
 	//基本属性组
 	var edpw=$("body").find(".panel.window").eq(edNum);
 	var edws=$("body").find(".window-shadow").eq(edNum);
+
+	//异常信息
+	var ycxxdpw=$("body").find(".panel.window").eq(ycxxdNum);
+	var ycxxdws=$("body").find(".window-shadow").eq(ycxxdNum);
+
+	//新增异常信息
+	var nycxxjbsxzdpw=$("body").find(".panel.window").eq(nycxxjbsxzdNum);
+	var nycxxjbsxzdws=$("body").find(".window-shadow").eq(nycxxjbsxzdNum);
+
+	//编辑异常信息
+	var eycxxjbsxzdpw=$("body").find(".panel.window").eq(eycxxjbsxzdNum);
+	var eycxxjbsxzdws=$("body").find(".window-shadow").eq(eycxxjbsxzdNum);
 
 	//运输商
 	var yssdpw=$("body").find(".panel.window").eq(yssdNum);
@@ -575,21 +593,12 @@ function initDialogPosition(){
 	var scysjdpw=$("body").find(".panel.window").eq(scysjdNum);
 	var scysjdws=$("body").find(".window-shadow").eq(scysjdNum);
 
-	//异常信息
-	var ycxxdpw=$("body").find(".panel.window").eq(ycxxdNum);
-	var ycxxdws=$("body").find(".window-shadow").eq(ycxxdNum);
-
-	//新增异常信息
-	var nycxxjbsxzdpw=$("body").find(".panel.window").eq(nycxxjbsxzdNum);
-	var nycxxjbsxzdws=$("body").find(".window-shadow").eq(nycxxjbsxzdNum);
-
-	//编辑异常信息
-	var eycxxjbsxzdpw=$("body").find(".panel.window").eq(eycxxjbsxzdNum);
-	var eycxxjbsxzdws=$("body").find(".window-shadow").eq(eycxxjbsxzdNum);
-
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(edpw);
 	ccDiv.append(edws);
+
+	ccDiv.append(ycxxdpw);
+	ccDiv.append(ycxxdws);
 
 	ccDiv.append(yssdpw);
 	ccDiv.append(yssdws);
@@ -609,9 +618,14 @@ function initDialogPosition(){
 	ccDiv.append(cysjdpw);
 	ccDiv.append(cysjdws);
 
-	ccDiv.append(ycxxdpw);
-	ccDiv.append(ycxxdws);
+	var nycxxdDiv=$("#new_ycxx_dialog_div");
+	nycxxdDiv.append(nycxxjbsxzdpw);
+	nycxxdDiv.append(nycxxjbsxzdws);
 
+	var eycxxdDiv=$("#edit_ycxx_dialog_div");
+	eycxxdDiv.append(eycxxjbsxzdpw);
+	eycxxdDiv.append(eycxxjbsxzdws);
+	
 	var syssDiv=$("#select_yss_div");
 	syssDiv.append(syssdpw);
 	syssDiv.append(syssdws);
@@ -651,14 +665,6 @@ function initDialogPosition(){
 	var scysjDiv=$("#select_cysj_div");
 	scysjDiv.append(scysjdpw);
 	scysjDiv.append(scysjdws);
-
-	var nycxxdDiv=$("#new_ycxx_dialog_div");
-	nycxxdDiv.append(nycxxjbsxzdpw);
-	nycxxdDiv.append(nycxxjbsxzdws);
-
-	var eycxxdDiv=$("#edit_ycxx_dialog_div");
-	eycxxdDiv.append(eycxxjbsxzdpw);
-	eycxxdDiv.append(eycxxjbsxzdws);
 }
 
 function initEditDialog(){
@@ -763,7 +769,7 @@ function initEditDivJHYSRQDB(){
 }
 
 function initYSSDialog(){
-	dialogTop+=350;//360
+	dialogTop+=230;//360
 	yssDialog=$("#yss_div").dialog({
 		title:"运输商",
 		width:setFitWidthInParent("body","yss_div"),
@@ -2151,7 +2157,7 @@ function initSelectCYSJTab(){
 }
 
 function initYCXXDialog(){
-	dialogTop+=230;//1380
+	dialogTop+=350;//1380
 	ycxxDialog=$("#ycxx_div").dialog({
 		title:"异常信息",
 		width:setFitWidthInParent("body","ycxx_div"),
@@ -2162,7 +2168,7 @@ function initYCXXDialog(){
 	
 	$(".panel.window").eq(ycxxdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
 	$(".panel.window").eq(ycxxdNum).css("margin-top","20px");
-	$(".panel.window").eq(ycxxdNum).css("margin-left",initWindowMarginLeft());
+	//$(".panel.window").eq(ycxxdNum).css("margin-left",initWindowMarginLeft());
 	$(".panel.window").eq(ycxxdNum).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(ycxxdNum).css("color","#000");
 	$(".panel.window .panel-title").eq(ycxxdNum).css("font-size","15px");
@@ -2173,7 +2179,7 @@ function initYCXXDialog(){
 	//以下的是表格下面的面板
 	$(".window-shadow").eq(ycxxdNum).css("width","1000px");
 	$(".window-shadow").eq(ycxxdNum).css("margin-top","20px");
-	$(".window-shadow").eq(ycxxdNum).css("margin-left",initWindowMarginLeft());
+	//$(".window-shadow").eq(ycxxdNum).css("margin-left",initWindowMarginLeft());
 	
 	$(".window,.window .window-body").eq(ycxxdNum).css("border-color","#ddd");
 
@@ -2383,7 +2389,7 @@ function initEditYCXXJBSXZDialog(){
 	initEditYCXXYclxCbb();
 	initEditYCXXClztCbb();
 	
-	openEditSHDWJBSXZDialog(0);
+	openEditYCXXJBSXZDialog(0);
 }
 
 function initEditYCXXYclxCbb(){
@@ -2859,6 +2865,102 @@ function initWindowMarginLeft(){
 </head>
 <body>
 
+<!-- 新增异常信息 start -->
+<div class="new_ycxx_bg_div" id="new_ycxx_bg_div">
+	<div class="new_ycxx_div" id="new_ycxx_div">
+		<div class="xz_div">
+			<span class="xz_span">新增</span>
+			<span class="close_span" onclick="openNewYCXXDialog(0)">X</span>
+		</div>
+		<div class="new_ycxx_dialog_div" id="new_ycxx_dialog_div">
+			<div class="title_div">
+				<span class="title_span">异常处理-异常信息-新增</span>
+			</div>
+			<div id="new_ycxx_jbsxz_dialog_div">
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						异常类型
+					</td>
+					<td style="width:30%;">
+						<input id="yclx_cbb"/>
+					</td>
+					<td align="right" style="width:15%;">
+						处理状态
+					</td>
+					<td style="width:30%;">
+						<input id="clzt_cbb"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						描述
+					</td>
+					<td style="width:30%;">
+						<textarea rows="3" cols="15" placeholder="请输入描述"></textarea>
+					</td>
+					<td align="right" style="width:15%;">
+						处理说明
+					</td>
+					<td style="width:30%;">
+						<textarea rows="3" cols="15" placeholder="请输入处理说明"></textarea>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 新增异常信息end -->
+
+<!-- 编辑异常信息 start -->
+<div class="edit_ycxx_bg_div" id="edit_ycxx_bg_div">
+	<div class="edit_ycxx_div" id="edit_ycxx_div">
+		<div class="xz_div">
+			<span class="xz_span">修改</span>
+			<span class="close_span" onclick="openEditYCXXDialog(0)">X</span>
+		</div>
+		<div class="edit_ycxx_dialog_div" id="edit_ycxx_dialog_div">
+			<div class="title_div">
+				<span class="title_span">异常处理-异常信息-新增</span>
+			</div>
+			<div id="edit_ycxx_jbsxz_dialog_div">
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						异常类型
+					</td>
+					<td style="width:30%;">
+						<input id="yclx_cbb"/>
+					</td>
+					<td align="right" style="width:15%;">
+						处理状态
+					</td>
+					<td style="width:30%;">
+						<input id="clzt_cbb"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						描述
+					</td>
+					<td style="width:30%;">
+						<textarea id="ms" rows="3" cols="15" placeholder="请输入描述"></textarea>
+					</td>
+					<td align="right" style="width:15%;">
+						处理说明
+					</td>
+					<td style="width:30%;">
+						<textarea id="clsm" rows="3" cols="15" placeholder="请输入处理说明"></textarea>
+					</td>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑异常信息end -->
+
 <!-- 选择运输商 start -->
 <div class="select_yss_bg_div" id="select_yss_bg_div">
 	<div class="select_yss_div" id="select_yss_div">
@@ -3119,102 +3221,6 @@ function initWindowMarginLeft(){
 </div>
 <!-- 选择承运司机end -->
 
-<!-- 新增异常信息 start -->
-<div class="new_ycxx_bg_div" id="new_ycxx_bg_div">
-	<div class="new_ycxx_div" id="new_ycxx_div">
-		<div class="xz_div">
-			<span class="xz_span">新增</span>
-			<span class="close_span" onclick="openNewYCXXDialog(0)">X</span>
-		</div>
-		<div class="new_ycxx_dialog_div" id="new_ycxx_dialog_div">
-			<div class="title_div">
-				<span class="title_span">异常处理-异常信息-新增</span>
-			</div>
-			<div id="new_ycxx_jbsxz_dialog_div">
-				<table>
-				  <tr style="border-bottom: #CAD9EA solid 1px;">
-					<td align="right" style="width:15%;">
-						异常类型
-					</td>
-					<td style="width:30%;">
-						<input id="yclx_cbb"/>
-					</td>
-					<td align="right" style="width:15%;">
-						处理状态
-					</td>
-					<td style="width:30%;">
-						<input id="clzt_cbb"/>
-					</td>
-				  </tr>
-				  <tr style="border-bottom: #CAD9EA solid 1px;">
-					<td align="right" style="width:15%;">
-						描述
-					</td>
-					<td style="width:30%;">
-						<textarea rows="3" cols="15" placeholder="请输入描述"></textarea>
-					</td>
-					<td align="right" style="width:15%;">
-						处理说明
-					</td>
-					<td style="width:30%;">
-						<textarea rows="3" cols="15" placeholder="请输入处理说明"></textarea>
-					</td>
-				  </tr>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 新增异常信息end -->
-
-<!-- 编辑异常信息 start -->
-<div class="edit_ycxx_bg_div" id="edit_ycxx_bg_div">
-	<div class="edit_ycxx_div" id="edit_ycxx_div">
-		<div class="xz_div">
-			<span class="xz_span">修改</span>
-			<span class="close_span" onclick="openEditYCXXDialog(0)">X</span>
-		</div>
-		<div class="edit_ycxx_dialog_div" id="edit_ycxx_dialog_div">
-			<div class="title_div">
-				<span class="title_span">异常处理-异常信息-新增</span>
-			</div>
-			<div id="edit_ycxx_jbsxz_dialog_div">
-				<table>
-				  <tr style="border-bottom: #CAD9EA solid 1px;">
-					<td align="right" style="width:15%;">
-						异常类型
-					</td>
-					<td style="width:30%;">
-						<input id="yclx_cbb"/>
-					</td>
-					<td align="right" style="width:15%;">
-						处理状态
-					</td>
-					<td style="width:30%;">
-						<input id="clzt_cbb"/>
-					</td>
-				  </tr>
-				  <tr style="border-bottom: #CAD9EA solid 1px;">
-					<td align="right" style="width:15%;">
-						描述
-					</td>
-					<td style="width:30%;">
-						<textarea id="ms" rows="3" cols="15" placeholder="请输入描述"></textarea>
-					</td>
-					<td align="right" style="width:15%;">
-						处理说明
-					</td>
-					<td style="width:30%;">
-						<textarea id="clsm" rows="3" cols="15" placeholder="请输入处理说明"></textarea>
-					</td>
-				  </tr>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 编辑异常信息end -->
-
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
 	<div class="page_location_div">异常处理-修改</div>
@@ -3301,6 +3307,13 @@ function initWindowMarginLeft(){
 	</form>
 	</div>
 	
+	<div id="ycxx_div">
+		<div id="ycxx_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="ycxx_tab"></table>
+	</div>
+	
 	<div id="yss_div">
 		<div id="yss_toolbar" style="height:32px;line-height:32px;">
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
@@ -3361,13 +3374,6 @@ function initWindowMarginLeft(){
 			<a id="choose_but" style="margin-left: 13px;">选择</a>
 		</div>
 		<table id="cysj_tab"></table>
-	</div>
-	
-	<div id="ycxx_div">
-		<div id="ycxx_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
-		<table id="ycxx_tab"></table>
 	</div>
 </div>
 </body>
