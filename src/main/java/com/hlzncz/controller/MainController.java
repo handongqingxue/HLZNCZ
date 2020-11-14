@@ -1221,7 +1221,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
-	public String goDlglNew(HttpServletRequest request) {
+	public String goJcxxJhpzDlglNew(HttpServletRequest request) {
 		
 		selectNav(request);
 		
@@ -1294,6 +1294,50 @@ public class MainController {
 		selectNav(request);
 		
 		return "jhxt/jhxx/hmcx/list";
+	}
+	
+	@RequestMapping(value="/jhxt/pzgl/dlgl/new")
+	public String goJhxtPzglDlglNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jhxt/pzgl/dlgl/new";
+	}
+
+	@RequestMapping(value="/jhxt/pzgl/dlgl/edit")
+	public String goJhxtPzglDlglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		DuiLie dl=publicService.selectDuiLieById(id);
+		request.setAttribute("dl", dl);
+
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		return "jhxt/pzgl/dlgl/edit";
+	}
+
+	@RequestMapping(value="/jhxt/pzgl/dlgl/list")
+	public String goJhxtPzglDlglList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "jhxt/pzgl/dlgl/list";
+	}
+
+	@RequestMapping(value="/jhxt/pzgl/dlgl/detail")
+	public String goJhxtPzglDlglDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		DuiLie dl=publicService.selectDuiLieById(id);
+		request.setAttribute("dl", dl);
+
+		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		request.setAttribute("shdw", shdw);
+		
+		return "jhxt/pzgl/dlgl/detail";
 	}
 	
 	private void selectNav(HttpServletRequest request) {
