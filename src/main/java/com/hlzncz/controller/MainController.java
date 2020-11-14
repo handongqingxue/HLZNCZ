@@ -589,6 +589,14 @@ public class MainController {
 		return "ddgl/ddtb/ddtb/detail";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/zhcx/new")
+	public String goGbglGbglZhcxNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "gbgl/gbgl/zhcx/new";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/zhcx/list")
 	public String goGbglGbglZhcxList(HttpServletRequest request) {
 		
