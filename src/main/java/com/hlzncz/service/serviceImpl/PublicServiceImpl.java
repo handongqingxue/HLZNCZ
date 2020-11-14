@@ -28,6 +28,19 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newDingDanZongHeGuanLi(DingDan dd) {
+		// TODO Auto-generated method stub
+		String wybm = "";
+        Random random = new Random();
+        for (int i = 0; i < 18; i++) {
+        	wybm += String.valueOf(random.nextInt(10));
+        }
+        dd.setWybm(wybm);
+        dd.setDdh("DD"+wybm);
+		return publicDao.newWoYaoXiaDan(dd);
+	}
+
+	@Override
 	public int newWoYaoXiaDan(DingDan dd) {
 		// TODO Auto-generated method stub
 		String wybm = "";

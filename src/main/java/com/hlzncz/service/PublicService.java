@@ -10,6 +10,8 @@ public interface PublicService {
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
 
+	public int newDingDanZongHeGuanLi(DingDan dd);
+
 	public int newWoYaoXiaDan(DingDan dd);
 
 	public int deleteDingDan(String wybms);

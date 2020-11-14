@@ -353,6 +353,14 @@ public class MainController {
 		return "ddgl/zhgl/zjpd/detail";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/zhgl/new")
+	public String goDdglZhglZhglNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "ddgl/zhgl/zhgl/new";
+	}
+
 	@RequestMapping(value="/ddgl/zhgl/zhgl/edit")
 	public String goDdglZhglZhglEdit(HttpServletRequest request) {
 		
@@ -1299,6 +1307,24 @@ public class MainController {
 			caiDan.setChildList(childList);
 		}
 		request.setAttribute("topNavList", topNavList);
+	}
+
+	@RequestMapping(value="/newDingDanZongHeGuanLi")
+	@ResponseBody
+	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newDingDanZongHeGuanLi(dd);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建订单成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建订单失败！");
+		}
+		return jsonMap;
 	}
 
 	@RequestMapping(value="/newWoYaoXiaDan")

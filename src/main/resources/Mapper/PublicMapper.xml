@@ -29,6 +29,9 @@
 			<if test="yzxzl!=null">
 				yzxzl,
 			</if>
+			<if test="sjzl!=null">
+				sjzl,
+			</if>
 			<if test="lxlx!=null">
 				lxlx,
 			</if>
@@ -50,6 +53,9 @@
 			<if test="cysjId!=null">
 				cysjId,
 			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
 		</trim>
 		values
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -68,6 +74,9 @@
 			</if>
 			<if test="yzxzl!=null">
 				#{yzxzl},
+			</if>
+			<if test="sjzl!=null">
+				#{sjzl},
 			</if>
 			<if test="lxlx!=null">
 				#{lxlx},
@@ -89,6 +98,9 @@
 			</if>
 			<if test="cysjId!=null">
 				#{cysjId},
+			</if>
+			<if test="bz!=null">
+				#{bz},
 			</if>
 		</trim>
 	</insert>
