@@ -43,6 +43,10 @@ public interface PublicMapper {
 
 	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);
 
+	public int queryGBGLGBGLZHCXForInt(@Param("cph") String cph, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje);
+
+	public List<DingDan> queryGBGLGBGLZHCXList(@Param("cph") String cph, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
 
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);

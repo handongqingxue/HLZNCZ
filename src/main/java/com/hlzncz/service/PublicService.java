@@ -45,6 +45,11 @@ public interface PublicService {
 
 	public DingDan selectDingDanByWybm(String wybm);
 
+	public int queryGBGLGBGLZHCXForInt(String cph, String gbsjs, String gbsje);
+
+	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbsjs, String gbsje, int page, int rows, String sort,
+			String order);
+
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
 
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);

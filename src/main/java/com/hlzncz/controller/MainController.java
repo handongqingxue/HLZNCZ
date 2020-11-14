@@ -589,6 +589,14 @@ public class MainController {
 		return "ddgl/ddtb/ddtb/detail";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/zhcx/list")
+	public String goGbglGbglZhcxList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "gbgl/gbgl/zhcx/list";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
@@ -1554,6 +1562,37 @@ public class MainController {
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", ycclList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
+	}
+	
+	/**
+	 * 过磅管理-过磅管理-综合查询
+	 * @param cph
+	 * @param gbsjs
+	 * @param gbsje
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryGBGLGBGLZHCXList")
+	@ResponseBody
+	public Map<String, Object> queryGBGLGBGLZHCXList(String cph,String gbsjs,String gbsje,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = publicService.queryGBGLGBGLZHCXForInt(cph,gbsjs,gbsje);
+			List<DingDan> zhglList=publicService.queryGBGLGBGLZHCXList(cph, gbsjs, gbsje, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", zhglList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

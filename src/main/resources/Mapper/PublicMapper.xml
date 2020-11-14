@@ -273,6 +273,25 @@
 	<select id="queryDingDanZhuangTaiCBBList" resultType="com.hlzncz.entity.DingDanZhuangTai">
 		select * from ding_dan_zhuang_tai
 	</select>
+	<select id="queryGBGLGBGLZHCXForInt" resultType="java.lang.Integer">
+		select count(*) from guo_bang gb,che_liang cl where gb.gbclId=cl.id
+		<if test="cph!=''&amp;cph!=null">
+			and cl.cph like CONCAT('%',#{cph},'%')
+		</if>
+		<if test="gbsjs!=''&amp;gbsjs!=null&amp;gbsje!=''&amp;gbsje!=null">
+			and gb.gbsj between #{gbsjs} and #{gbsje}
+		</if>
+	</select>
+	<select id="queryGBGLGBGLZHCXList" resultType="com.hlzncz.entity.GuoBang">
+		select gb.*,cl.cph from guo_bang gb,che_liang cl where gb.gbclId=cl.id
+		<if test="cph!=''&amp;cph!=null">
+			and cl.cph like CONCAT('%',#{cph},'%')
+		</if>
+		<if test="gbsjs!=''&amp;gbsjs!=null&amp;gbsje!=''&amp;gbsje!=null">
+			and gb.gbsj between #{gbsjs} and #{gbsje}
+		</if>
+		limit #{rowNum},#{rows}
+	</select>
 	<insert id="newWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
 		insert into wu_zi_lei_xing
 		<trim prefix="(" suffix=")" suffixOverrides=",">
