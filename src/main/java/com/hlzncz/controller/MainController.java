@@ -245,6 +245,14 @@ public class MainController {
 		return "ddgl/zhgl/ddsh/edit";
 	}
 
+	@RequestMapping(value="/ddgl/zhgl/ddsh/new")
+	public String goDdglZhglDdshNew(HttpServletRequest request) {
+
+		selectNav(request);
+		
+		return "ddgl/zhgl/ddsh/new";
+	}
+
 	@RequestMapping(value="/ddgl/zhgl/ddsh/list")
 	public String goDdglZhglDdshList(HttpServletRequest request) {
 		
