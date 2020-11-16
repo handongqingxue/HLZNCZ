@@ -510,6 +510,74 @@
 			</if>
 		</trim>
 	</insert>
+	<insert id="newGuoBang" parameterType="com.hlzncz.entity.GuoBang">
+		insert into guo_bang
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gbclId!=null">
+				gbclId,
+			</if>
+			<if test="gbzl!=null">
+				gbzl,
+			</if>
+			<if test="gbbq!=null">
+				gbbq,
+			</if>
+			<if test="gbzt!=null">
+				gbzt,
+			</if>
+			<if test="gbsj!=null">
+				gbsj,
+			</if>
+			<if test="zp1!=null">
+				zp1,
+			</if>
+			<if test="zp2!=null">
+				zp2,
+			</if>
+			<if test="zp3!=null">
+				zp3,
+			</if>
+			<if test="pzddbm!=null">
+				pzddbm,
+			</if>
+			<if test="mzddbm!=null">
+				mzddbm,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gbclId!=null">
+				#{gbclId},
+			</if>
+			<if test="gbzl!=null">
+				#{gbzl},
+			</if>
+			<if test="gbbq!=null">
+				#{gbbq},
+			</if>
+			<if test="gbzt!=null">
+				#{gbzt},
+			</if>
+			<if test="gbsj!=null">
+				#{gbsj},
+			</if>
+			<if test="zp1!=null">
+				#{zp1},
+			</if>
+			<if test="zp2!=null">
+				#{zp2},
+			</if>
+			<if test="zp3!=null">
+				#{zp3},
+			</if>
+			<if test="pzddbm!=null">
+				#{pzddbm},
+			</if>
+			<if test="mzddbm!=null">
+				#{mzddbm},
+			</if>
+		</trim>
+	</insert>
 	<insert id="newSiJi" parameterType="com.hlzncz.entity.SiJi">
 		insert into si_ji
 		<trim prefix="(" suffix=")" suffixOverrides=",">

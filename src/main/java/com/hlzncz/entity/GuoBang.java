@@ -69,17 +69,17 @@ public class GuoBang implements Serializable {
 	public void setZp3(String zp3) {
 		this.zp3 = zp3;
 	}
-	public Integer getPzddId() {
-		return pzddId;
+	public String getPzddbm() {
+		return pzddbm;
 	}
-	public void setPzddId(Integer pzddId) {
-		this.pzddId = pzddId;
+	public void setPzddbm(String pzddbm) {
+		this.pzddbm = pzddbm;
 	}
-	public Integer getMzddId() {
-		return mzddId;
+	public String getMzddbm() {
+		return mzddbm;
 	}
-	public void setMzddId(Integer mzddId) {
-		this.mzddId = mzddId;
+	public void setMzddbm(String mzddbm) {
+		this.mzddbm = mzddbm;
 	}
 	private Integer gbclId;//π˝∞ı≥µ¡æid
 	private String cph;//≥µ≈∆∫≈
@@ -90,7 +90,7 @@ public class GuoBang implements Serializable {
 	private String zp1;//’’∆¨1
 	private String zp2;//’’∆¨2
 	private String zp3;//’’∆¨3
-	private Integer pzddId;//∆§÷ÿ∂©µ•Id
-	private Integer mzddId;//√´÷ÿ∂©µ•Id
+	private String pzddbm;//∆§÷ÿ∂©µ•±‡¬Î
+	private String mzddbm;//√´÷ÿ∂©µ•±‡¬Î
 
 }

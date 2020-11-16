@@ -78,6 +78,8 @@ public interface PublicService {
 
 	public int newCheLiang(CheLiang cl);
 
+	public int newGuoBang(GuoBang gb);
+
 	public int deleteCheLiang(String ids);
 
 	public int shenHeCheLiang(String ids,String flag);

@@ -251,6 +251,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newGuoBang(GuoBang gb) {
+		// TODO Auto-generated method stub
+		return publicDao.newGuoBang(gb);
+	}
+
+	@Override
 	public int deleteCheLiang(String ids) {
 		// TODO Auto-generated method stub
 		int count=0;

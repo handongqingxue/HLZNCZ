@@ -75,6 +75,8 @@ public interface PublicMapper {
 
 	public int newCheLiang(CheLiang cl);
 
+	public int newGuoBang(GuoBang gb);
+
 	public int deleteCheLiang(List<String> idList);
 
 	public int shenHeCheLiang(@Param("idList") List<String> idList, @Param("flag") String flag);

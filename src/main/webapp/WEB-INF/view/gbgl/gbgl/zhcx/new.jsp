@@ -326,10 +326,10 @@ function initNewDialog(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 
 	initSelectGbclDialog();//1
-	initBJSJDB();
-	initLXLXCBB();
-	initNewDivDDZTCBB();
-	initJHYSRQDB();
+	
+	initGBBQCBB();
+	initGBZTCBB();
+	initGBSJDTB();
 }
 
 function initSelectGbclDialog(){
@@ -464,6 +464,29 @@ function initGBCLTab(){
 	});
 }
 
+function initGBBQCBB(){
+	gbclGbbqCBB=$("#gbclGbbq_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		multiple:true,
+		data:[{"value":"1","text":"入厂"},{"value":"2","text":"出厂"},{"value":"3","text":"皮重"},{"value":"4","text":"载重"}],
+		onSelect:function(){
+			$("#new_div #gbbq").val($(this).combobox("getValue"));
+		}
+	});
+}
+
+function initGBZTCBB(){
+	gbztCBB=$("#gbzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择过磅状态"},{"value":"1","text":"正常"},{"value":"2","text":"异常"}],
+		onSelect:function(){
+			$("#new_div #gbzt").val($(this).combobox("getValue"));
+		}
+	});
+}
+
 function initGBCLCLLXCBB(){
 	gbclCllxCBB=$("#gbclCllx").combobox({
 		valueField:"value",
@@ -502,55 +525,15 @@ function initGBCLSearchLB(){
 	});
 }
 
-function initBJSJDB(){
-	bjsjDB=$('#bjsj_db').datebox({
-		width:160,
-        required:false,
-        disabled:true
-    });
-	bjsjDB.datebox('textbox').attr('placeholder', '无需选填');
-}
-
-function initJHYSRQDB(){
-	jhysrqDB=$('#jhysrq_db').datebox({
+function initGBSJDTB(){
+	gbsjDTB=$('#gbsj_dtb').datetimebox({
 		width:160,
         required:false,
         onSelect:function(){
-        	$("#jhysrq").val(jhysrqDB.datebox("getValue"));
+        	$("#gbsj").val(gbsjDTB.datebox("getValue"));
         }
     });
-	jhysrqDB.datebox('textbox').attr('placeholder', '请选择计划运输日期');
-}
-
-function initLXLXCBB(){
-	lxlxCBB=$("#lxlx_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[
-			{"value":"","text":"请选择流向类型"},{"value":"1","text":"送运"},{"value":"2","text":"取运"}
-		],
-		onSelect:function(){
-			$("#lxlx").val($(this).combobox("getValue"));
-		}
-	});
-}
-
-function initNewDivDDZTCBB(){
-	var data=[];
-	data.push({"value":"","text":"请选择订单状态"});
-	$.post(path+"main/queryDingDanZhuangTaiCBBList",
-		function(result){
-			var rows=result.rows;
-			for(var i=0;i<rows.length;i++){
-				data.push({"value":rows[i].id,"text":rows[i].mc});
-			}
-			jbxxDDZTCBB=$("#new_div #ddzt_cbb").combobox({
-				valueField:"value",
-				textField:"text",
-				data:data
-			});
-		}
-	,"json");
+	gbsjDTB.datetimebox('textbox').attr('placeholder', '请选择过磅时间');
 }
 
 function initGLDDPZDialog(){
@@ -625,7 +608,7 @@ function initGLDDPZTab(){
             }},
             {field:"yzxzl",title:"预装卸重量",width:200,align:"center"},
             {field:"ddzt",title:"订单状态",width:200,align:"center"},
-			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+			{field:"wybm",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"showGLDDPZDetail()\">查看</a>"
             	+"&nbsp;|&nbsp;<a onclick=\"deleteGLDDPZTabRow()\">删除</a>";
             	return str;
@@ -858,7 +841,7 @@ function initGLDDMZTab(){
             }},
             {field:"yzxzl",title:"预装卸重量",width:200,align:"center"},
             {field:"ddzt",title:"订单状态",width:200,align:"center"},
-			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+			{field:"wybm",title:"操作",width:200,align:"center",formatter:function(value,row){
             	var str="<a onclick=\"showGLDDMZDetail()\">查看</a>"
             	+"&nbsp;|&nbsp;<a onclick=\"deleteGLDDMZTabRow()\">删除</a>";
             	return str;
@@ -1189,20 +1172,12 @@ function loadGLDDPZTabData(rows){
 }
 
 function checkNew(){
-	if(checkJHYSRQ()){
-		if(checkYZXZL()){
-			if(checkLXLX()){
-				if(checkYSSId()){
-					if(checkWLXXId()){
-						if(checkFHDWId()){
-							if(checkSHDWId()){
-								if(checkCYCLId()){
-									if(checkCYSJId()){
-										newDingDanZongHeGuanLi();
-									}
-								}
-							}
-						}
+	if(checkGBZL()){
+		if(checkGBZT()){
+			if(checkGBSJ()){
+				if(checkGLDDPZBm()){
+					if(checkGLDDMZBm()){
+						newZongHeChaXun();
 					}
 				}
 			}
@@ -1210,23 +1185,20 @@ function checkNew(){
 	}
 }
 
-function newDingDanZongHeGuanLi(){
+function newZongHeChaXun(){
+	/*
 	var sjzl=$("#new_div #sjzl").val();
 	var ddztId=jbxxDDZTCBB.combobox("getValue");
-	var jhysrq=jhysrqDB.datebox("getValue");
+	var gbsj=gbsjDTB.datebox("getValue");
 	var yzxzl=$("#new_div #yzxzl").val();
 	var sjzl=$("#new_div #sjzl").val();
-	var lxlx=lxlxCBB.combobox("getValue");
-	var yssId=yssTab.datagrid("getData").rows[0].id;
-	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
-	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
-	var shdwId=shdwTab.datagrid("getData").rows[0].id;
-	var cyclId=cyclTab.datagrid("getData").rows[0].id;
-	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	var lxlx=gbztCBB.combobox("getValue");
+	var pzddId=glddpzTab.datagrid("getData").rows[0].id;
+	var mzddId=wlxxTab.datagrid("getData").rows[0].id;
 	var bz=$("#new_div #bz").val();
 	
 	$.post(path+"main/newDingDanZongHeGuanLi",
-		{sjzl:sjzl,ddztId:ddztId,jhysrq:jhysrq,yzxzl:yzxzl,sjzl:sjzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,bz:bz},
+		{sjzl:sjzl,ddztId:ddztId,gbsj:gbsj,yzxzl:yzxzl,sjzl:sjzl,lxlx:lxlx,pzddId:pzddId,mzddId:mzddId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,bz:bz},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -1237,6 +1209,27 @@ function newDingDanZongHeGuanLi(){
 			}
 		}
 	,"json");
+	*/
+	
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:path+"main/newGuoBang",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
 }
 
 function openSelectGBCLDialog(flag){
@@ -1269,7 +1262,7 @@ function saveSelectGLDDPZ(){
 		$.messager.alert("提示","请选择要保存的信息！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,id:row.id}];
+	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,wybm:row.wybm}];
 	loadGLDDPZTabData(rows);
 	openSelectGLDDPZDialog(0);
 }
@@ -1280,7 +1273,7 @@ function saveSelectGLDDMZ(){
 		$.messager.alert("提示","请选择要保存的信息！","warning");
 		return false;
 	}
-	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,id:row.id}];
+	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,wybm:row.wybm}];
 	loadGLDDMZTabData(rows);
 	openSelectGLDDMZDialog(0);
 }
@@ -1368,129 +1361,65 @@ function showGLDDMZDetail(){
 	openDetailGLDDMZDialog(1);
 }
 
-//验证计划运输日期
-function checkJHYSRQ(){
-	var jhysrq = jhysrqDB.datebox("getValue");
-	if(jhysrq==null||jhysrq==""){
-	  	alert("请选择计划运输日期");
+//验证过磅时间
+function checkGBSJ(){
+	var gbsj = gbsjDTB.datebox("getValue");
+	if(gbsj==null||gbsj==""){
+	  	alert("请选择过磅时间");
 	  	return false;
 	}
 	else
 		return true;
 }
 
-//验证预装卸重量
-function checkYZXZL(){
-	var yzxzl = $("#new_div #yzxzl").val();
-	if(yzxzl==null||yzxzl==""){
-	  	alert("请输入预装卸重量");
+//验证过磅重量
+function checkGBZL(){
+	var gbzl = $("#new_div #gbzl").val();
+	if(gbzl==null||gbzl==""){
+	  	alert("请输入过磅重量");
 	  	return false;
 	}
 	else
 		return true;
 }
 
-//验证流向类型
-function checkLXLX(){
-	var lxlx=lxlxCBB.combobox("getValue");
-	if(lxlx==null||lxlx==""){
-	  	alert("请选择流向类型");
+//验证过磅状态
+function checkGBZT(){
+	var gbzt=gbztCBB.combobox("getValue");
+	if(gbzt==null||gbzt==""){
+	  	alert("请选择过磅状态");
 	  	return false;
 	}
 	else
 		return true;
 }
 
-//验证运输商
-function checkYSSId(){
-	var yssTabData=yssTab.datagrid("getData");
-	var total=yssTabData.total;
-	var yssId=null;
+//验证关联订单皮重
+function checkGLDDPZBm(){
+	var glddpzTabData=glddpzTab.datagrid("getData");
+	var total=glddpzTabData.total;
+	var pzddbm=null;
 	if(total>0)
-		yssId=yssTabData.rows[0].id;
-	
-	if(yssId==null){
-		alert("请选择运输商");
+		pzddbm=glddpzTabData.rows[0].wybm;
+
+	if(pzddbm==null){
+		alert("请选择关联订单皮重");
 	  	return false;
 	}
 	else
 		return true;
 }
 
-//验证物料信息
-function checkWLXXId(){
-	var wlxxTabData=wlxxTab.datagrid("getData");
-	var total=wlxxTabData.total;
-	var wlxxId=null;
+//验证关联订单毛重
+function checkGLDDMZBm(){
+	var glddmzTabData=glddmzTab.datagrid("getData");
+	var total=glddmzTabData.total;
+	var mzddbm=null;
 	if(total>0)
-		wlxxId=wlxxTabData.rows[0].id;
+		mzddbm=glddmzTabData.rows[0].wybm;
 	
-	if(wlxxId==null){
-		alert("请选择物料信息");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证发货单位
-function checkFHDWId(){
-	var fhdwTabData=fhdwTab.datagrid("getData");
-	var total=fhdwTabData.total;
-	var fhdwId=null;
-	if(total>0)
-		fhdwId=fhdwTabData.rows[0].id;
-	
-	if(fhdwId==null){
-		alert("请选择发货单位");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证收货单位
-function checkSHDWId(){
-	var shdwTabData=shdwTab.datagrid("getData");
-	var total=shdwTabData.total;
-	var shdwId=null;
-	if(total>0)
-		shdwId=shdwTabData.rows[0].id;
-	
-	if(shdwId==null){
-		alert("请选择收货单位");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证承运车辆
-function checkCYCLId(){
-	var cyclTabData=cyclTab.datagrid("getData");
-	var total=cyclTabData.total;
-	var cyclId=null;
-	if(total>0)
-		cyclId=cyclTabData.rows[0].id;
-	
-	if(cyclId==null){
-		alert("请选择承运车辆");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证承运司机
-function checkCYSJId(){
-	var cysjTabData=cysjTab.datagrid("getData");
-	var total=cysjTabData.total;
-	var cysjId=null;
-	if(total>0)
-		cysjId=cysjTabData.rows[0].id;
-	
-	if(cysjId==null){
-		alert("请选择承运司机");
+	if(mzddbm==null){
+		alert("请选择关联订单毛重");
 	  	return false;
 	}
 	else
@@ -1786,83 +1715,55 @@ function initWindowMarginLeft(){
 				<span id="gbclmc_span" style="cursor: pointer;" onclick="openSelectGBCLDialog(1)">请选择过磅车辆</span>
 			</td>
 			<td align="right" style="width:15%;">
-				
+				过磅重量
 			</td>
 			<td style="width:30%;">
-				
+				<input type="number" id="gbzl" name="gbzl" placeholder="请输入过磅重量" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				订单号
+				过磅标签
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="ddh" name="ddh" placeholder="无需输入" disabled="disabled" style="width: 180px;height:30px;"/>
+				<input id="gbclGbbq_cbb"/>
+				<input type="hidden" id="gbbq" name="gbbq"/>
 			</td>
 			<td align="right" style="width:15%;">
-				预装卸重量
+				过磅状态
 			</td>
 			<td style="width:30%;">
-				<input type="number" id="yzxzl" name="yzxzl" placeholder="请输入预装卸重量" style="width: 150px;height:30px;"/>
+				<input id="gbzt_cbb"/>
+				<input type="hidden" id="gbzt" name="gbzt"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
-				流向类型
+				过磅时间
 			</td>
 			<td style="width:30%;">
-				<input id="lxlx_cbb"/>
-				<input type="hidden" id="lxlx" name="lxlx"/>
+				<input id="gbsj_dtb"/>
+				<input type="hidden" id="gbsj" name="gbsj"/>
 			</td>
 			<td align="right" style="width:15%;">
-				编辑时间
+				照片1
 			</td>
 			<td style="width:30%;">
-				<input id="bjsj_db"/>
+				<input type="file" name="zp1_file"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right">
-				二维码
+				照片2
 			</td>
 			<td>
-			
+				<input type="file" name="zp2_file"/>
 			</td>
 			<td align="right">
-				实际重量
+				照片3
 			</td>
 			<td>
-				<input type="number" id="sjzl" name="sjzl" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				重量差额比
-			</td>
-			<td>
-				<input type="number" id="zlceb" name="zlceb" placeholder="无需输入" disabled="disabled" style="width: 150px;height:30px;"/>
-			</td>
-			<td align="right">
-				订单状态
-			</td>
-			<td>
-				<input id="ddzt_cbb"/>
-				<input type="hidden" id="ddztId" name="ddztId"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				计划运输日期
-			</td>
-			<td>
-				<input id="jhysrq_db"/>
-				<input type="hidden" id="jhysrq" name="jhysrq"/>
-			</td>
-			<td align="right">
-				备注
-			</td>
-			<td>
-				<textarea id="bz" name="bz" rows="3" cols="15"></textarea>
+				<input type="file" name="zp3_file"/>
 			</td>
 		  </tr>
 		</table>
