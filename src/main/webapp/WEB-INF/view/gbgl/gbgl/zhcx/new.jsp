@@ -20,6 +20,34 @@
 	font-size: 18px;
 }
 
+.select_gbcl_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+.select_gbcl_div{
+	width: 1050px;
+	height: 500px;
+	margin: 100px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+}
+.select_gbcl_div .xzst_div{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: #eee solid 1px;
+}
+.select_gbcl_div .xzst_span{
+	margin-left: 30px;
+}
+.select_gbcl_div .close_span{
+	float: right;margin-right: 30px;cursor: pointer;
+}
+
 .select_glddpz_bg_div{
 	width: 100%;
 	height: 100%;
@@ -168,36 +196,26 @@ var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
 var ndNum=0;
+var sgbcldNum=1;
 
-var glddpzdNum=1;
-var sglddpzdNum=2;
-var dglddpzjbsxzdNum=3;
+var glddpzdNum=2;
+var sglddpzdNum=3;
+var dglddpzjbsxzdNum=4;
 
-var glddmzdNum=4;
-var sglddmzdNum=5;
-var dglddmzjbsxzdNum=6;
+var glddmzdNum=5;
+var sglddmzdNum=6;
+var dglddmzjbsxzdNum=7;
 
-var fhdwdNum=7;
-var sfhdwdNum=8;
-var efhdwjbsxzdNum=9;
-var shdwdNum=10;
-var sshdwdNum=11;
-var eshdwjbsxzdNum=12;
-var cycldNum=13;
-var scycldNum=14;
-var ecycldNum=15;
-var cysjdNum=16;
-var scysjdNum=17;
 $(function(){
 	initNewDialog();//0
 	
-	initGLDDPZDialog();//1.关联订单皮重窗口
-	initSelectGLDDPZDialog();//2.选择关联订单皮重窗口
-	initDetailGLDDPZJBSXZDialog();//3.查看关联订单皮重窗口
+	initGLDDPZDialog();//2.关联订单皮重窗口
+	initSelectGLDDPZDialog();//3.选择关联订单皮重窗口
+	initDetailGLDDPZJBSXZDialog();//4.查看关联订单皮重窗口
 
-	initGLDDMZDialog();//4.关联订单毛重窗口
-	initSelectGLDDMZDialog();//5.选择关联订单毛重窗口
-	initDetailGLDDMZJBSXZDialog();//6.查看关联订单毛重窗口
+	initGLDDMZDialog();//5.关联订单毛重窗口
+	initSelectGLDDMZDialog();//6.选择关联订单毛重窗口
+	initDetailGLDDMZJBSXZDialog();//7.查看关联订单毛重窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -206,6 +224,10 @@ function initDialogPosition(){
 	//新字段组
 	var ndpw=$("body").find(".panel.window").eq(ndNum);
 	var ndws=$("body").find(".window-shadow").eq(ndNum);
+
+	//选择过磅车辆
+	var sgbcldpw=$("body").find(".panel.window").eq(sgbcldNum);
+	var sgbcldws=$("body").find(".window-shadow").eq(sgbcldNum);
 
 	//关联订单皮重
 	var glddpzdpw=$("body").find(".panel.window").eq(glddpzdNum);
@@ -240,6 +262,10 @@ function initDialogPosition(){
 
 	ccDiv.append(glddmzdpw);
 	ccDiv.append(glddmzdws);
+
+	var sgbclDiv=$("#select_gbcl_div");
+	sgbclDiv.append(sgbcldpw);
+	sgbclDiv.append(sgbcldws);
 
 	var sglddpzDiv=$("#select_glddpz_div");
 	sglddpzDiv.append(sglddpzdpw);
@@ -299,10 +325,181 @@ function initNewDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 
+	initSelectGbclDialog();//1
 	initBJSJDB();
 	initLXLXCBB();
 	initNewDivDDZTCBB();
 	initJHYSRQDB();
+}
+
+function initSelectGbclDialog(){
+	gbclDialog=$("#select_gbcl_dialog_div").dialog({
+		title:"选择实体",
+		width:setFitWidthInParent("#select_gbcl_div","select_gbcl_dialog_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:400,
+		top:160,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openSelectGBCLDialog(0);
+           }},
+           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
+        	   	saveGBCL();
+           }}
+        ]
+	});
+	
+	$(".panel.window").eq(sgbcldNum).css("width","983px");
+	$(".panel.window").eq(sgbcldNum).css("margin-top","20px");
+	//$(".panel.window").eq(sgbcldNum).css("margin-left",initWindowMarginLeft());
+	$(".panel.window").eq(sgbcldNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sgbcldNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sgbcldNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sgbcldNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(sgbcldNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(sgbcldNum).css("width","1000px");
+	$(".window-shadow").eq(sgbcldNum).css("margin-top","20px");
+	//$(".window-shadow").eq(sgbcldNum).css("margin-left",initWindowMarginLeft());
+	
+	$(".window,.window .window-body").eq(sgbcldNum).css("border-color","#ddd");
+
+	$("#select_gbcl_dialog_div #cancel_but").css("left","30%");
+	$("#select_gbcl_dialog_div #cancel_but").css("position","absolute");
+	
+	$("#select_gbcl_dialog_div #save_but").css("left","45%");
+	$("#select_gbcl_dialog_div #save_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initGBCLTab();
+	openSelectGBCLDialog(0);
+}
+
+function initGBCLTab(){
+	initGBCLCLLXCBB();
+	initGBCLSFZYCBB();
+	initGBCLSHZTCBB();
+	initGBCLSearchLB();
+	
+	gbclTab=$("#gbcl_tab").datagrid({
+		url:path+"main/queryCheLiangList",
+		toolbar:"#toolbar",
+		width:setFitWidthInParent("body","select_gbcl_div"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"cph",title:"车牌号",width:200},
+            {field:"ppxh",title:"品牌型号",width:200},
+			{field:"fdjhm",title:"发动机号码",width:200},
+			{field:"clsbdm",title:"车辆识别代号",width:200},
+			{field:"zcrq",title:"注册日期",width:200},
+			{field:"pfjd",title:"排放阶段",width:200,formatter:function(value){
+				var str;
+				switch (value) {
+				case 1:
+					str="国五燃油";
+					break;
+				case 2:
+					str="国五燃气";
+					break;
+				case 3:
+					str="国六燃油";
+					break;
+				case 4:
+					str="国六燃气";
+					break;
+				case 5:
+					str="电动";
+					break;
+				}
+				return str;
+			}},
+			{field:"fzrq",title:"发证日期",width:200},
+			{field:"sfzy",title:"是否在用",width:200,formatter:function(value){
+				return value?"是":"否";
+			}},
+			{field:"bz",title:"备注",width:200},
+			{field:"shzt",title:"状态",width:200,formatter:function(value){
+				var str;
+				switch (value) {
+				case 1:
+					str="待审核";
+					break;
+				case 2:
+					str="审核通过";
+					break;
+				case 3:
+					str="编辑中";
+					break;
+				}
+				return str;
+			}}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:10});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			$(".datagrid-header td .datagrid-cell").each(function(){
+				$(this).find("span").eq(0).css("margin-left","11px");
+			});
+			$(".datagrid-body td .datagrid-cell").each(function(){
+				var html=$(this).html();
+				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
+			});
+			//reSizeCol();
+		}
+	});
+}
+
+function initGBCLCLLXCBB(){
+	gbclCllxCBB=$("#gbclCllx").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+	});
+}
+
+function initGBCLSFZYCBB(){
+	gbclSfzyCBB=$("#gbclSfzy").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+}
+
+function initGBCLSHZTCBB(){
+	gbclShztCBB=$("#gbclShzt").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
+	});
+}
+
+function initGBCLSearchLB(){
+	$("#gbclSearch_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var cph=$("#select_gbcl_div #toolbar #cph").val();
+			var cllx=gbclCllxCBB.combobox("getValue");
+			var sfzy=gbclSfzyCBB.combobox("getValue");
+			var shzt=gbclShztCBB.combobox("getValue");
+			var bz=$("#select_gbcl_div #toolbar #bz").val();
+			gbclTab.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
+		}
+	});
 }
 
 function initBJSJDB(){
@@ -1042,6 +1239,30 @@ function newDingDanZongHeGuanLi(){
 	,"json");
 }
 
+function openSelectGBCLDialog(flag){
+	if(flag==1){
+		$("#select_gbcl_bg_div").css("display","block");
+		$("#select_gbcl_bg_div").css("z-index",showZIndex);
+		gbclDialog.dialog("open");
+	}
+	else{
+		$("#select_gbcl_bg_div").css("display","none");
+		$("#select_gbcl_bg_div").css("z-index","9016");
+		gbclDialog.dialog("close");
+	}
+}
+
+function saveGBCL(){
+	var row=gbclTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要保存的信息！","warning");
+		return false;
+	}
+	$("#new_div #gbcl_hid").val(row.id);
+	$("#new_div #gbclmc_span").text(row.cph);
+	openSelectGBCLDialog(0);
+}
+
 function saveSelectGLDDPZ(){
 	var row=selectGLDDPZTab.datagrid("getSelected");
 	if (row == null) {
@@ -1298,6 +1519,7 @@ function setFitWidthInParent(parent,self){
 	case "glddmz_tab":
 		space=355;
 		break;
+	case "select_gbcl_dialog_div":
 	case "select_glddpz_dialog_div":
 	case "detail_glddpz_jbsxz_dialog_div":
 	case "select_glddmz_dialog_div":
@@ -1320,6 +1542,33 @@ function initWindowMarginLeft(){
 <title>创建</title>
 </head>
 <body>
+
+<!-- 选择过磅车辆 start -->
+<div class="select_gbcl_bg_div" id="select_gbcl_bg_div">
+	<div class="select_gbcl_div" id="select_gbcl_div">
+		<div class="xzst_div">
+			<span class="xzst_span">选择实体</span>
+			<span class="close_span" onclick="openSelectGBCLDialog(0)">X</span>
+		</div>
+		<div id="select_gbcl_dialog_div">
+			<div id="toolbar" style="height:32px;">
+				<span style="margin-left: 13px;">车牌号：</span>
+				<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">车辆类型：</span>
+				<input id="gbclCllx"/>
+				<span style="margin-left: 13px;">是否在用：</span>
+				<input id="gbclSfzy"/>
+				<span style="margin-left: 13px;">审核状态：</span>
+				<input id="gbclShzt"/>
+				<span style="margin-left: 13px;">备注：</span>
+				<input type="text" id="bz" placeholder="请输入备注" style="width: 120px;height: 25px;"/>
+				<a id="gbclSearch_but" style="margin-left: 13px;">查询</a>
+			</div>
+			<table id="gbcl_tab"></table>
+		</div>
+	</div>
+</div>
+<!-- 选择过磅车辆 end -->
 
 <!-- 选择关联订单皮重 start -->
 <div class="select_glddpz_bg_div" id="select_glddpz_bg_div">
@@ -1528,6 +1777,21 @@ function initWindowMarginLeft(){
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
 		<table>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right" style="width:15%;">
+				过磅车辆
+			</td>
+			<td style="width:30%;">
+				<input type="hidden" id="gbcl_hid"/>
+				<span id="gbclmc_span" style="cursor: pointer;" onclick="openSelectGBCLDialog(1)">请选择过磅车辆</span>
+			</td>
+			<td align="right" style="width:15%;">
+				
+			</td>
+			<td style="width:30%;">
+				
+			</td>
+		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				订单号
