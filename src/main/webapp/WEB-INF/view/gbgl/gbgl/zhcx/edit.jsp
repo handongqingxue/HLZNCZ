@@ -332,49 +332,6 @@ function initEditDialog(){
 	initGBSJDTB();
 }
 
-function initGBBQCBB(){
-	gbclGbbqCBB=$("#gbclGbbq_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		multiple:true,
-		data:[{"value":"1","text":"入厂"},{"value":"2","text":"出厂"},{"value":"3","text":"皮重"},{"value":"4","text":"载重"}],
-		onLoadSuccess:function(){
-			$(this).combobox("setValues",'${requestScope.gb.gbbq }'.split(','));
-		},
-		onSelect:function(){
-			$("#edit_div #gbbq").val($(this).combobox("getValues"));
-		}
-	});
-}
-
-function initGBZTCBB(){
-	gbztCBB=$("#gbzt_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择过磅状态"},{"value":"1","text":"正常"},{"value":"2","text":"异常"}],
-		onLoadSuccess:function(){
-			$(this).combobox("setValue",'${requestScope.gb.gbzt }');
-		},
-		onSelect:function(){
-			$("#edit_div #gbzt").val($(this).combobox("getValue"));
-		}
-	});
-}
-
-function initGBSJDTB(){
-	gbsjDTB=$('#gbsj_dtb').datetimebox({
-		width:160,
-        required:false,
-        onChange:function(){
-        	$("#gbsj").val(gbsjDTB.datetimebox("getValue"));
-        }
-    });
-	if('${requestScope.gb.gbsj }'==null||'${requestScope.gb.gbsj }'=="")
-		gbsjDTB.datetimebox('textbox').attr('placeholder', '请选择过磅时间');
-	else
-		gbsjDTB.datetimebox("setValue",'${requestScope.gb.gbsj }');
-}
-
 function initSelectGbclDialog(){
 	gbclDialog=$("#select_gbcl_dialog_div").dialog({
 		title:"选择实体",
@@ -507,44 +464,48 @@ function initGBCLTab(){
 	});
 }
 
-function initGBCLCLLXCBB(){
-	gbclCllxCBB=$("#gbclCllx").combobox({
+function initGBBQCBB(){
+	gbclGbbqCBB=$("#gbclGbbq_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
-	});
-}
-
-function initGBCLSFZYCBB(){
-	gbclSfzyCBB=$("#gbclSfzy").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
-	});
-}
-
-function initGBCLSHZTCBB(){
-	gbclShztCBB=$("#gbclShzt").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
-	});
-}
-
-function initGBCLSearchLB(){
-	$("#gbclSearch_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var cph=$("#select_gbcl_div #toolbar #cph").val();
-			var cllx=gbclCllxCBB.combobox("getValue");
-			var sfzy=gbclSfzyCBB.combobox("getValue");
-			var shzt=gbclShztCBB.combobox("getValue");
-			var bz=$("#select_gbcl_div #toolbar #bz").val();
-			gbclTab.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
+		multiple:true,
+		data:[{"value":"1","text":"入厂"},{"value":"2","text":"出厂"},{"value":"3","text":"皮重"},{"value":"4","text":"载重"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValues",'${requestScope.gb.gbbq }'.split(','));
+		},
+		onSelect:function(){
+			$("#edit_div #gbbq").val($(this).combobox("getValues"));
 		}
 	});
 }
 
+function initGBZTCBB(){
+	gbztCBB=$("#gbzt_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择过磅状态"},{"value":"1","text":"正常"},{"value":"2","text":"异常"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.gb.gbzt }');
+		},
+		onSelect:function(){
+			$("#edit_div #gbzt").val($(this).combobox("getValue"));
+		}
+	});
+}
+
+function initGBSJDTB(){
+	gbsjDTB=$('#gbsj_dtb').datetimebox({
+		width:160,
+        required:false,
+        onChange:function(){
+        	$("#gbsj").val(gbsjDTB.datetimebox("getValue"));
+        }
+    });
+	if('${requestScope.gb.gbsj }'==null||'${requestScope.gb.gbsj }'=="")
+		gbsjDTB.datetimebox('textbox').attr('placeholder', '请选择过磅时间');
+	else
+		gbsjDTB.datetimebox("setValue",'${requestScope.gb.gbsj }');
+}
 
 function initGLDDPZDialog(){
 	dialogTop+=340;//230
@@ -777,16 +738,6 @@ function initSGLDDPZZXZTCBB(){
 	,"json");
 }
 
-function loadGLDDPZTabData(rows){
-	var rowsLength=rows.length;
-	if(rowsLength>0)
-		glddpzChooseLB.linkbutton("disable");
-	else
-		glddpzChooseLB.linkbutton("enable");
-	var obj = {"total":rowsLength,"rows":rows};
-	glddpzTab.datagrid('loadData',obj);
-}
-
 function initDetailGLDDPZJBSXZDialog(){
 	detailGLDDPZDialog=$("#detail_glddpz_jbsxz_dialog_div").dialog({
 		title:"基本属性组",
@@ -941,16 +892,6 @@ function initGLDDMZTab(){
 		rows=[{gx:"1",ddh:ddh,sjzl:sjzl,zlceb:zlceb,lxlx:lxlx,yzxzl:yzxzl,ddzt:ddztmc,wybm:wybm}];
 	}
 	loadGLDDMZTabData(rows);
-}
-
-function loadGLDDMZTabData(rows){
-	var rowsLength=rows.length;
-	if(rowsLength>0)
-		glddmzChooseLB.linkbutton("disable");
-	else
-		glddmzChooseLB.linkbutton("enable");
-	var obj = {"total":rowsLength,"rows":rows};
-	glddmzTab.datagrid('loadData',obj);
 }
 
 function initSelectGLDDMZDialog(){
@@ -1118,31 +1059,82 @@ function initDetailGLDDMZJBSXZDialog(){
 	openDetailGLDDMZDialog(0);
 }
 
-
-
-
-
-function saveGBCL(){
-	var row=gbclTab.datagrid("getSelected");
-	if (row == null) {
-		$.messager.alert("提示","请选择要保存的信息！","warning");
-		return false;
-	}
-	$("#edit_div #gbcl_hid").val(row.id);
-	$("#edit_div #gbclmc_span").text(row.cph);
-	openSelectGBCLDialog(0);
+function initGBCLCLLXCBB(){
+	gbclCllxCBB=$("#gbclCllx").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+	});
 }
 
-function openSelectGBCLDialog(flag){
+function initGBCLSFZYCBB(){
+	gbclSfzyCBB=$("#gbclSfzy").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+}
+
+function initGBCLSHZTCBB(){
+	gbclShztCBB=$("#gbclShzt").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
+	});
+}
+
+function initGBCLSearchLB(){
+	$("#gbclSearch_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var cph=$("#select_gbcl_div #toolbar #cph").val();
+			var cllx=gbclCllxCBB.combobox("getValue");
+			var sfzy=gbclSfzyCBB.combobox("getValue");
+			var shzt=gbclShztCBB.combobox("getValue");
+			var bz=$("#select_gbcl_div #toolbar #bz").val();
+			gbclTab.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
+		}
+	});
+}
+
+function loadGLDDMZTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		glddmzChooseLB.linkbutton("disable");
+	else
+		glddmzChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	glddmzTab.datagrid('loadData',obj);
+}
+
+function deleteGLDDPZTabRow(){
+	glddpzTab.datagrid("deleteRow",0);
+	loadGLDDPZTabData([]);
+}
+
+function deleteGLDDMZTabRow(){
+	glddmzTab.datagrid("deleteRow",0);
+	loadGLDDMZTabData([]);
+}
+
+function openDetailGLDDMZDialog(flag){
 	if(flag==1){
-		$("#select_gbcl_bg_div").css("display","block");
-		$("#select_gbcl_bg_div").css("z-index",showZIndex);
-		gbclDialog.dialog("open");
+		$("#detail_glddmz_bg_div").css("display","block");
+		$("#detail_glddmz_bg_div").css("z-index",showZIndex);
 	}
 	else{
-		$("#select_gbcl_bg_div").css("display","none");
-		$("#select_gbcl_bg_div").css("z-index","9016");
-		gbclDialog.dialog("close");
+		$("#detail_glddmz_bg_div").css("display","none");
+		$("#detail_glddmz_bg_div").css("z-index","9016");
+	}
+	openDetailGLDDMZJBSXZDialog(flag);
+}
+
+function openDetailGLDDMZJBSXZDialog(flag){
+	if(flag==1){
+		detailGLDDMZDialog.dialog("open");
+	}
+	else{
+		detailGLDDMZDialog.dialog("close");
 	}
 }
 
@@ -1169,134 +1161,6 @@ function openSelectGLDDMZDialog(flag){
 		$("#select_glddmz_bg_div").css("display","none");
 		$("#select_glddmz_bg_div").css("z-index","9016");
 		selectGLDDMZDialog.dialog("close");
-	}
-}
-
-function openDetailGLDDPZDialog(flag){
-	if(flag==1){
-		$("#detail_glddpz_bg_div").css("display","block");
-		$("#detail_glddpz_bg_div").css("z-index",showZIndex);
-	}
-	else{
-		$("#detail_glddpz_bg_div").css("display","none");
-		$("#detail_glddpz_bg_div").css("z-index","9016");
-	}
-	openDetailGLDDPZJBSXZDialog(flag);
-}
-
-function openDetailGLDDPZJBSXZDialog(flag){
-	if(flag==1){
-		detailGLDDPZDialog.dialog("open");
-	}
-	else{
-		detailGLDDPZDialog.dialog("close");
-	}
-}
-
-function saveSelectGLDDPZ(){
-	var row=selectGLDDPZTab.datagrid("getSelected");
-	if (row == null) {
-		$.messager.alert("提示","请选择要保存的信息！","warning");
-		return false;
-	}
-	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,wybm:row.wybm}];
-	loadGLDDPZTabData(rows);
-	openSelectGLDDPZDialog(0);
-}
-
-function saveSelectGLDDMZ(){
-	var row=selectGLDDMZTab.datagrid("getSelected");
-	if (row == null) {
-		$.messager.alert("提示","请选择要保存的信息！","warning");
-		return false;
-	}
-	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,wybm:row.wybm}];
-	loadGLDDMZTabData(rows);
-	openSelectGLDDMZDialog(0);
-}
-
-function deleteGLDDPZTabRow(){
-	glddpzTab.datagrid("deleteRow",0);
-	loadGLDDPZTabData([]);
-}
-
-function deleteGLDDMZTabRow(){
-	glddmzTab.datagrid("deleteRow",0);
-	loadGLDDMZTabData([]);
-}
-
-function showGLDDMZDetail(){
-	var row=glddmzTab.datagrid("getSelected");
-	if (row == null) {
-		$.messager.alert("提示","请选择要查看的信息！","warning");
-		return false;
-	}
-	$("#detail_glddmz_div #id").val(row.id);
-	$("#detail_glddmz_div #ddh").text(row.ddh);
-	$("#detail_glddmz_div #yzxzl").text(row.yzxzl);
-	var lxlxStr;
-	switch (row.lxlx) {
-		case 1:
-			lxlxStr="送运";
-			break;
-		case 2:
-			lxlxStr="取运";
-			break;
-	}
-	$("#detail_glddmz_div #lxlx").text(lxlxStr);
-	$("#detail_glddmz_div #bjsj").text(row.bjsj);
-	$("#detail_glddmz_div #ewm").text(row.ewm);
-	$("#detail_glddmz_div #sjzl").text(row.sjzl);
-	$("#detail_glddmz_div #zlceb").text(row.zlceb);
-	$("#detail_glddmz_div #bz").text(row.bz);
-	openDetailGLDDMZDialog(1);
-}
-
-function showGLDDPZDetail(){
-	var row=glddpzTab.datagrid("getSelected");
-	if (row == null) {
-		$.messager.alert("提示","请选择要查看的信息！","warning");
-		return false;
-	}
-	$("#detail_glddpz_div #id").val(row.id);
-	$("#detail_glddpz_div #ddh").text(row.ddh);
-	$("#detail_glddpz_div #yzxzl").text(row.yzxzl);
-	var lxlxStr;
-	switch (row.lxlx) {
-		case 1:
-			lxlxStr="送运";
-			break;
-		case 2:
-			lxlxStr="取运";
-			break;
-	}
-	$("#detail_glddpz_div #lxlx").text(lxlxStr);
-	$("#detail_glddpz_div #bjsj").text(row.bjsj);
-	$("#detail_glddpz_div #ewm").text(row.ewm);
-	$("#detail_glddpz_div #sjzl").text(row.sjzl);
-	$("#detail_glddpz_div #zlceb").text(row.zlceb);
-	$("#detail_glddpz_div #bz").text(row.bz);
-	openDetailGLDDPZDialog(1);
-}
-
-function openDetailGLDDMZDialog(flag){
-	if(flag==1){
-		$("#detail_glddmz_bg_div").css("display","block");
-		$("#detail_glddmz_bg_div").css("z-index",showZIndex);
-	}
-	else{
-		$("#detail_glddmz_bg_div").css("display","none");
-		$("#detail_glddmz_bg_div").css("z-index","9016");
-	}
-	openDetailGLDDMZJBSXZDialog(flag);
-}
-
-function openDetailGLDDMZJBSXZDialog(flag){
-	if(flag==1){
-		detailGLDDMZDialog.dialog("open");
-	}
-	else{
-		detailGLDDMZDialog.dialog("close");
 	}
 }
 
@@ -1404,6 +1268,137 @@ function editZongHeChaXun(){
 			}
 		}
 	});
+}
+
+function openSelectGBCLDialog(flag){
+	if(flag==1){
+		$("#select_gbcl_bg_div").css("display","block");
+		$("#select_gbcl_bg_div").css("z-index",showZIndex);
+		gbclDialog.dialog("open");
+	}
+	else{
+		$("#select_gbcl_bg_div").css("display","none");
+		$("#select_gbcl_bg_div").css("z-index","9016");
+		gbclDialog.dialog("close");
+	}
+}
+
+function saveGBCL(){
+	var row=gbclTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要保存的信息！","warning");
+		return false;
+	}
+	$("#edit_div #gbcl_hid").val(row.id);
+	$("#edit_div #gbclmc_span").text(row.cph);
+	openSelectGBCLDialog(0);
+}
+
+function saveSelectGLDDPZ(){
+	var row=selectGLDDPZTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要保存的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,wybm:row.wybm}];
+	loadGLDDPZTabData(rows);
+	openSelectGLDDPZDialog(0);
+}
+
+function saveSelectGLDDMZ(){
+	var row=selectGLDDMZTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要保存的信息！","warning");
+		return false;
+	}
+	var rows=[{gx:"1",ddh:row.ddh,sjzl:row.sjzl,zlceb:row.zlceb,lxlx:row.lxlx,yzxzl:row.yzxzl,ddzt:row.ddztmc,wybm:row.wybm}];
+	loadGLDDMZTabData(rows);
+	openSelectGLDDMZDialog(0);
+}
+
+function loadGLDDPZTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		glddpzChooseLB.linkbutton("disable");
+	else
+		glddpzChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	glddpzTab.datagrid('loadData',obj);
+}
+
+function showGLDDPZDetail(){
+	var row=glddpzTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要查看的信息！","warning");
+		return false;
+	}
+	$("#detail_glddpz_div #id").val(row.id);
+	$("#detail_glddpz_div #ddh").text(row.ddh);
+	$("#detail_glddpz_div #yzxzl").text(row.yzxzl);
+	var lxlxStr;
+	switch (row.lxlx) {
+		case 1:
+			lxlxStr="送运";
+			break;
+		case 2:
+			lxlxStr="取运";
+			break;
+	}
+	$("#detail_glddpz_div #lxlx").text(lxlxStr);
+	$("#detail_glddpz_div #bjsj").text(row.bjsj);
+	$("#detail_glddpz_div #ewm").text(row.ewm);
+	$("#detail_glddpz_div #sjzl").text(row.sjzl);
+	$("#detail_glddpz_div #zlceb").text(row.zlceb);
+	$("#detail_glddpz_div #bz").text(row.bz);
+	openDetailGLDDPZDialog(1);
+}
+
+function openDetailGLDDPZDialog(flag){
+	if(flag==1){
+		$("#detail_glddpz_bg_div").css("display","block");
+		$("#detail_glddpz_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#detail_glddpz_bg_div").css("display","none");
+		$("#detail_glddpz_bg_div").css("z-index","9016");
+	}
+	openDetailGLDDPZJBSXZDialog(flag);
+}
+
+function openDetailGLDDPZJBSXZDialog(flag){
+	if(flag==1){
+		detailGLDDPZDialog.dialog("open");
+	}
+	else{
+		detailGLDDPZDialog.dialog("close");
+	}
+}
+
+function showGLDDMZDetail(){
+	var row=glddmzTab.datagrid("getSelected");
+	if (row == null) {
+		$.messager.alert("提示","请选择要查看的信息！","warning");
+		return false;
+	}
+	$("#detail_glddmz_div #id").val(row.id);
+	$("#detail_glddmz_div #ddh").text(row.ddh);
+	$("#detail_glddmz_div #yzxzl").text(row.yzxzl);
+	var lxlxStr;
+	switch (row.lxlx) {
+		case 1:
+			lxlxStr="送运";
+			break;
+		case 2:
+			lxlxStr="取运";
+			break;
+	}
+	$("#detail_glddmz_div #lxlx").text(lxlxStr);
+	$("#detail_glddmz_div #bjsj").text(row.bjsj);
+	$("#detail_glddmz_div #ewm").text(row.ewm);
+	$("#detail_glddmz_div #sjzl").text(row.sjzl);
+	$("#detail_glddmz_div #zlceb").text(row.zlceb);
+	$("#detail_glddmz_div #bz").text(row.bz);
+	openDetailGLDDMZDialog(1);
 }
 
 function setFitWidthInParent(parent,self){
