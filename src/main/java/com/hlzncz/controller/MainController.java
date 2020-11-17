@@ -622,6 +622,26 @@ public class MainController {
 		return "gbgl/gbgl/zhcx/list";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/zhcx/detail")
+	public String goGbglGbglZhcxDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		GuoBang gb=publicService.selectGuoBangById(id);
+		request.setAttribute("gb", gb);
+
+		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		request.setAttribute("gbcl", gbcl);
+		
+		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("pzdd", pzdd);
+
+		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("mzdd", mzdd);
+		
+		return "gbgl/gbgl/zhcx/detail";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
