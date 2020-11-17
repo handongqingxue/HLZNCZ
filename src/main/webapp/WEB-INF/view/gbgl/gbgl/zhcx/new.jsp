@@ -529,8 +529,8 @@ function initGBSJDTB(){
 	gbsjDTB=$('#gbsj_dtb').datetimebox({
 		width:160,
         required:false,
-        onSelect:function(){
-        	$("#gbsj").val(gbsjDTB.datebox("getValue"));
+        onChange:function(){
+        	$("#gbsj").val(gbsjDTB.datetimebox("getValue"));
         }
     });
 	gbsjDTB.datetimebox('textbox').attr('placeholder', '请选择过磅时间');
@@ -1210,6 +1210,11 @@ function newZongHeChaXun(){
 		}
 	,"json");
 	*/
+
+	var pzddbm=glddpzTab.datagrid("getData").rows[0].wybm;
+	$("#new_div #pzddbm").val(pzddbm);
+	var mzddbm=glddmzTab.datagrid("getData").rows[0].wybm;
+	$("#new_div #mzddbm").val(mzddbm);
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
@@ -1705,13 +1710,15 @@ function initWindowMarginLeft(){
 
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="pzddbm" name="pzddbm"/>
+		<input type="hidden" id="mzddbm" name="mzddbm"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
 				过磅车辆
 			</td>
 			<td style="width:30%;">
-				<input type="hidden" id="gbcl_hid"/>
+				<input type="hidden" id="gbcl_hid" name="gbclId"/>
 				<span id="gbclmc_span" style="cursor: pointer;" onclick="openSelectGBCLDialog(1)">请选择过磅车辆</span>
 			</td>
 			<td align="right" style="width:15%;">

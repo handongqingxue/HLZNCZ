@@ -34,8 +34,9 @@ function initSearchLB(){
 		iconCls:"icon-search",
 		onClick:function(){
 			var cph=$("#toolbar #cph").val();
-			var jhysrq=jhysrqDB.datebox("getValue");
-			tab1.datagrid("load",{ddh:ddh,ddztId:ddzt,cph:cph,jhysrq:jhysrq});
+			var gbsjs=gbsjsDTB.datebox("getValue");
+			var gbsje=gbsjeDTB.datebox("getValue");
+			tab1.datagrid("load",{cph:cph,gbsjs:gbsjs,gbsje:gbsje});
 		}
 	});
 }
@@ -77,7 +78,7 @@ function initTab1(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"gbcl",title:"过磅车辆",width:200},
+			{field:"cph",title:"过磅车辆",width:200},
 			{field:"gbzl",title:"过磅重量",width:200},
 			{field:"gbbq",title:"过磅标签",width:200,formatter:function(value,row){
             	var str;
