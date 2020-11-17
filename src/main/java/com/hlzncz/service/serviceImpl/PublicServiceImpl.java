@@ -64,15 +64,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int deleteGuoBang(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count=publicDao.deleteGuoBang(idList);
-		return count;
-	}
-
-	@Override
 	public int editWoYaoXiaDan(DingDan dd) {
 		// TODO Auto-generated method stub
 		return publicDao.editWoYaoXiaDan(dd);
@@ -154,6 +145,21 @@ public class PublicServiceImpl implements PublicService {
 	public DingDan selectDingDanByWybm(String wybm) {
 		// TODO Auto-generated method stub
 		return publicDao.selectDingDanByWybm(wybm);
+	}
+
+	@Override
+	public int newGuoBang(GuoBang gb) {
+		// TODO Auto-generated method stub
+		return publicDao.newGuoBang(gb);
+	}
+
+	@Override
+	public int deleteGuoBang(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count=publicDao.deleteGuoBang(idList);
+		return count;
 	}
 
 	@Override
@@ -257,12 +263,6 @@ public class PublicServiceImpl implements PublicService {
 	public int newCheLiang(CheLiang cl) {
 		// TODO Auto-generated method stub
 		return publicDao.newCheLiang(cl);
-	}
-
-	@Override
-	public int newGuoBang(GuoBang gb) {
-		// TODO Auto-generated method stub
-		return publicDao.newGuoBang(gb);
 	}
 
 	@Override

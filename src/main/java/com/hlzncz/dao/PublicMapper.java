@@ -16,8 +16,6 @@ public interface PublicMapper {
 
 	public int deleteDingDan(List<String> wybmList);
 
-	public int deleteGuoBang(List<String> idList);
-
 	public int editWoYaoXiaDan(DingDan dd);
 
 	public int queryWoYaoXiaDanForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
@@ -44,6 +42,10 @@ public interface PublicMapper {
 			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);
+
+	public int newGuoBang(GuoBang gb);
+
+	public int deleteGuoBang(List<String> idList);
 
 	public int queryGBGLGBGLZHCXForInt(@Param("cph") String cph, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje);
 
@@ -76,8 +78,6 @@ public interface PublicMapper {
 	public WuZi selectWuZiById(String id);
 
 	public int newCheLiang(CheLiang cl);
-
-	public int newGuoBang(GuoBang gb);
 
 	public int deleteCheLiang(List<String> idList);
 

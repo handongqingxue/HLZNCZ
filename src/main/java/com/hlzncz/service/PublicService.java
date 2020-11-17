@@ -16,8 +16,6 @@ public interface PublicService {
 
 	public int deleteDingDan(String wybms);
 
-	public int deleteGuoBang(String ids);
-
 	public int editWoYaoXiaDan(DingDan dd);
 
 	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);
@@ -46,6 +44,10 @@ public interface PublicService {
 			String jhysrq, String clzt, int page, int rows, String sort, String order);
 
 	public DingDan selectDingDanByWybm(String wybm);
+
+	public int newGuoBang(GuoBang gb);
+
+	public int deleteGuoBang(String ids);
 
 	public int queryGBGLGBGLZHCXForInt(String cph, String gbsjs, String gbsje);
 
@@ -79,8 +81,6 @@ public interface PublicService {
 	public WuZi selectWuZiById(String id);
 
 	public int newCheLiang(CheLiang cl);
-
-	public int newGuoBang(GuoBang gb);
 
 	public int deleteCheLiang(String ids);
 

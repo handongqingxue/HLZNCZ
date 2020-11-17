@@ -1578,6 +1578,75 @@ public class MainController {
 		return jsonMap;
 	}
 
+	/**
+	 * 添加过磅信息
+	 * @param gb
+	 * @param zp1_file
+	 * @param zp2_file
+	 * @param zp3_file
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/newGuoBang")
+	@ResponseBody
+	public Map<String, Object> newGuoBang(GuoBang gb,
+			@RequestParam(value="zp1_file",required=false) MultipartFile zp1_file,
+			@RequestParam(value="zp2_file",required=false) MultipartFile zp2_file,
+			@RequestParam(value="zp3_file",required=false) MultipartFile zp3_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			MultipartFile[] fileArr=new MultipartFile[4];
+			fileArr[0]=zp1_file;
+			fileArr[1]=zp2_file;
+			fileArr[2]=zp3_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								gb.setZp1(dataJO.get("src").toString());
+								break;
+							case 1:
+								gb.setZp2(dataJO.get("src").toString());
+								break;
+							case 2:
+								gb.setZp3(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.newGuoBang(gb);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建过磅信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建过磅信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	/**
+	 * 删除过磅信息
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value="/deleteGuoBang",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteGuoBang(String ids) {
@@ -1845,61 +1914,6 @@ public class MainController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "创建车辆信息失败！");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/newGuoBang")
-	@ResponseBody
-	public Map<String, Object> newGuoBang(GuoBang gb,
-			@RequestParam(value="zp1_file",required=false) MultipartFile zp1_file,
-			@RequestParam(value="zp2_file",required=false) MultipartFile zp2_file,
-			@RequestParam(value="zp3_file",required=false) MultipartFile zp3_file,
-			HttpServletRequest request) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		try {
-			MultipartFile[] fileArr=new MultipartFile[4];
-			fileArr[0]=zp1_file;
-			fileArr[1]=zp2_file;
-			fileArr[2]=zp3_file;
-			for (int i = 0; i < fileArr.length; i++) {
-				String jsonStr = null;
-				if(fileArr[i]!=null) {
-					if(fileArr[i].getSize()>0) {
-						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
-						JSONObject fileJson = JSONObject.fromObject(jsonStr);
-						if("成功".equals(fileJson.get("msg"))) {
-							JSONObject dataJO = (JSONObject)fileJson.get("data");
-							switch (i) {
-							case 0:
-								gb.setZp1(dataJO.get("src").toString());
-								break;
-							case 1:
-								gb.setZp2(dataJO.get("src").toString());
-								break;
-							case 2:
-								gb.setZp3(dataJO.get("src").toString());
-								break;
-							}
-						}
-					}
-				}
-			}
-			
-			int count=publicService.newGuoBang(gb);
-			if(count>0) {
-				jsonMap.put("message", "ok");
-				jsonMap.put("info", "创建过磅信息成功！");
-			}
-			else {
-				jsonMap.put("message", "no");
-				jsonMap.put("info", "创建过磅信息失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
