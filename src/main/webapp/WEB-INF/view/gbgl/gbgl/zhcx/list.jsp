@@ -81,22 +81,27 @@ function initTab1(){
 			{field:"cph",title:"过磅车辆",width:200},
 			{field:"gbzl",title:"过磅重量",width:200},
 			{field:"gbbq",title:"过磅标签",width:200,formatter:function(value,row){
-            	var str;
-            	switch (value) {
-				case 1:
-					str="入厂";
-					break;
-				case 2:
-					str="出厂";
-					break;
-				case 3:
-					str="皮重";
-					break;
-				case 4:
-					str="载重";
-					break;
-				}
-            	return str;
+            	var str="";
+            	if(value!=null){
+	            	var valArr=value.split(',');
+	            	for(var i=0;i<valArr.length;i++){
+	                	switch (valArr[i]) {
+	    				case "1":
+	    					str+=",入厂";
+	    					break;
+	    				case "2":
+	    					str+=",出厂";
+	    					break;
+	    				case "3":
+	    					str+=",皮重";
+	    					break;
+	    				case "4":
+	    					str+=",载重";
+	    					break;
+	    				}
+	            	}
+            	}
+            	return str.substring(1);
             }},
             {field:"gbzt",title:"过磅状态",width:200,formatter:function(value,row){
             	var str;
@@ -116,7 +121,7 @@ function initTab1(){
             {field:"gbsj",title:"过磅时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/gbgl/gbgl/zhcx/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

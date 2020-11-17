@@ -88,6 +88,8 @@ public interface PublicService {
 
 	public int editCheLiang(CheLiang cl);
 
+	public int editGuoBang(GuoBang gb);
+
 	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz);
 
 	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz, int page, int rows, String sort, String order);
@@ -209,4 +211,6 @@ public interface PublicService {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids);
 
 	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm);
+
+	public GuoBang selectGuoBangById(String id);
 }

@@ -290,6 +290,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int editGuoBang(GuoBang gb) {
+		// TODO Auto-generated method stub
+		return publicDao.editGuoBang(gb);
+	}
+
+	@Override
 	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz) {
 		// TODO Auto-generated method stub
 		return publicDao.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shzt,bz);
@@ -677,6 +683,12 @@ public class PublicServiceImpl implements PublicService {
 	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm) {
 		// TODO Auto-generated method stub
 		return publicDao.selectDingDanYiChangByDdbm(wybm);
+	}
+
+	@Override
+	public GuoBang selectGuoBangById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectGuoBangById(id);
 	}
 
 }

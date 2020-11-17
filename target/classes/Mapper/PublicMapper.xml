@@ -818,6 +818,42 @@
 		</trim>
 		 where id=#{id}
 	</update>
+	<update id="editGuoBang" parameterType="com.hlzncz.entity.GuoBang">
+		update guo_bang set 
+		<trim suffixOverrides=",">
+			<if test="gbclId!=null">
+				gbclId=#{gbclId},
+			</if>
+			<if test="gbzl!=null">
+				gbzl=#{gbzl},
+			</if>
+			<if test="gbbq!=null">
+				gbbq=#{gbbq},
+			</if>
+			<if test="gbzt!=null">
+				gbzt=#{gbzt},
+			</if>
+			<if test="gbsj!=null">
+				gbsj=#{gbsj},
+			</if>
+			<if test="zp1!=null">
+				zp1=#{zp1},
+			</if>
+			<if test="zp2!=null">
+				zp2=#{zp2},
+			</if>
+			<if test="zp3!=null">
+				zp3=#{zp3},
+			</if>
+			<if test="pzddbm!=null">
+				pzddbm=#{pzddbm},
+			</if>
+			<if test="mzddbm!=null">
+				mzddbm=#{mzddbm},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
 	<update id="editSiJi" parameterType="com.hlzncz.entity.SiJi">
 		update si_ji set 
 		<trim suffixOverrides=",">
@@ -1087,6 +1123,9 @@
 	</select>
 	<select id="selectDingDanYiChangByDdbm" resultType="com.hlzncz.entity.DingDanYiChang">
 		select * from ding_dan_yi_chang where ddbm=#{ddbm}
+	</select>
+	<select id="selectGuoBangById" resultType="com.hlzncz.entity.GuoBang">
+		select gb.*,cl.cph from guo_bang gb,che_liang cl where gb.gbclId=cl.id and gb.id=#{id}
 	</select>
 	<insert id="newKaPianShenLing" parameterType="com.hlzncz.entity.KaPianShenLing">
 		insert into ka_pian_shen_ling

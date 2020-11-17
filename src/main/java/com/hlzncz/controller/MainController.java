@@ -597,6 +597,23 @@ public class MainController {
 		return "gbgl/gbgl/zhcx/new";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/zhcx/edit")
+	public String goGbglGbglZhcxEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		GuoBang gb=publicService.selectGuoBangById(id);
+		request.setAttribute("gb", gb);
+
+		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("pzdd", pzdd);
+
+		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("mzdd", mzdd);
+		
+		return "gbgl/gbgl/zhcx/edit";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/zhcx/list")
 	public String goGbglGbglZhcxList(HttpServletRequest request) {
 		
@@ -1634,6 +1651,60 @@ public class MainController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "创建过磅信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editGuoBang")
+	@ResponseBody
+	public Map<String, Object> editGuoBang(GuoBang gb,
+			@RequestParam(value="zp1_file",required=false) MultipartFile zp1_file,
+			@RequestParam(value="zp2_file",required=false) MultipartFile zp2_file,
+			@RequestParam(value="zp3_file",required=false) MultipartFile zp3_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[4];
+			fileArr[0]=zp1_file;
+			fileArr[1]=zp2_file;
+			fileArr[2]=zp3_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								gb.setZp1(dataJO.get("src").toString());
+								break;
+							case 1:
+								gb.setZp2(dataJO.get("src").toString());
+								break;
+							case 2:
+								gb.setZp3(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.editGuoBang(gb);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑过磅信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑过磅信息失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

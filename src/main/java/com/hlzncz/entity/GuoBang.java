@@ -33,10 +33,10 @@ public class GuoBang implements Serializable {
 	public void setGbzl(Float gbzl) {
 		this.gbzl = gbzl;
 	}
-	public Integer getGbbq() {
+	public String getGbbq() {
 		return gbbq;
 	}
-	public void setGbbq(Integer gbbq) {
+	public void setGbbq(String gbbq) {
 		this.gbbq = gbbq;
 	}
 	public Integer getGbzt() {
@@ -84,7 +84,7 @@ public class GuoBang implements Serializable {
 	private Integer gbclId;//过磅车辆id
 	private String cph;//车牌号
 	private Float gbzl;//过磅重量
-	private Integer gbbq;//过磅标签 1.入厂 2.出厂 3.皮重 4.载重
+	private String gbbq;//过磅标签 1.入厂 2.出厂 3.皮重 4.载重
 	private Integer gbzt;//过磅状态 1.正常 2.异常
 	private String gbsj;//过磅时间
 	private String zp1;//照片1

@@ -85,6 +85,8 @@ public interface PublicMapper {
 
 	public int editCheLiang(CheLiang cl);
 
+	public int editGuoBang(GuoBang gb);
+
 	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shzt") String shzt, @Param("bz") String bz);
 
 	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shzt") String shzt, @Param("bz") String bz, int i, int rows, String sort, String order);
@@ -204,4 +206,6 @@ public interface PublicMapper {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(@Param("ids") String ids);
 
 	public List<DingDanYiChang> selectDingDanYiChangByDdbm(@Param("ddbm") String ddbm);
+
+	public GuoBang selectGuoBangById(@Param("id") String id);
 }
