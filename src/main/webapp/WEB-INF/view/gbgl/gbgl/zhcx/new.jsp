@@ -289,7 +289,7 @@ function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本信息",
 		width:setFitWidthInParent("body","new_div"),
-		height:380,
+		height:300,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -487,44 +487,6 @@ function initGBZTCBB(){
 	});
 }
 
-function initGBCLCLLXCBB(){
-	gbclCllxCBB=$("#gbclCllx").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
-	});
-}
-
-function initGBCLSFZYCBB(){
-	gbclSfzyCBB=$("#gbclSfzy").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
-	});
-}
-
-function initGBCLSHZTCBB(){
-	gbclShztCBB=$("#gbclShzt").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
-	});
-}
-
-function initGBCLSearchLB(){
-	$("#gbclSearch_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var cph=$("#select_gbcl_div #toolbar #cph").val();
-			var cllx=gbclCllxCBB.combobox("getValue");
-			var sfzy=gbclSfzyCBB.combobox("getValue");
-			var shzt=gbclShztCBB.combobox("getValue");
-			var bz=$("#select_gbcl_div #toolbar #bz").val();
-			gbclTab.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
-		}
-	});
-}
-
 function initGBSJDTB(){
 	gbsjDTB=$('#gbsj_dtb').datetimebox({
 		width:160,
@@ -537,7 +499,7 @@ function initGBSJDTB(){
 }
 
 function initGLDDPZDialog(){
-	dialogTop+=420;//230
+	dialogTop+=340;//230
 	glddpzDialog=$("#glddpz_div").dialog({
 		title:"关联订单皮重",
 		width:setFitWidthInParent("body","glddpz_div"),
@@ -679,6 +641,80 @@ function initSelectGLDDPZDialog(){
 	openSelectGLDDPZDialog(0);
 }
 
+function initSelectGLDDPZTab(){
+	$("#select_glddpz_toolbar #search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var ddh=$("#select_glddpz_toolbar #ddh_inp").val();
+			var cph=$("#select_glddpz_toolbar #cph_inp").val();
+			var zxztId=sglddpzZxztCBB.combobox("getValue");
+			selectGLDDPZTab.datagrid("load",{ddh:ddh,ddztId:zxztId,cph:cph});
+		}
+	});
+	
+	selectGLDDPZTab=$("#select_glddpz_tab").datagrid({
+		url:path+"main/queryDDGLZHGLList",
+		toolbar:"#select_glddpz_toolbar",
+		width:setFitWidthInParent("body","select_glddpz_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		//queryParams:{accountId:'${sessionScope.user.id}'},
+		columns:[[
+			{field:"ddh",title:"订单号",width:200,align:"center"},
+			{field:"cph",title:"车牌号",width:200,align:"center"},
+			{field:"lxlx",title:"流向类型",width:200,align:"center",formatter:function(value){
+				var str;
+				switch (value) {
+				case 1:
+					str="送运";
+					break;
+				case 2:
+					str="取运";
+					break;
+				}
+				return str;
+			}},
+			{field:"yzxzl",title:"预装卸重量",width:200,align:"center"},
+			{field:"ddztmc",title:"状态",width:200,align:"center"}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{ddh:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:5});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	initSGLDDPZZXZTCBB();
+}
+
+function initSGLDDPZZXZTCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择执行状态"});
+	$.post(path+"main/queryDingDanZhuangTaiCBBList",
+		function(result){
+			var rows=result.rows;
+			for(var i=0;i<rows.length;i++){
+				data.push({"value":rows[i].id,"text":rows[i].mc});
+			}
+			sglddpzZxztCBB=$("#select_glddpz_toolbar #zxzt_cbb").combobox({
+				valueField:"value",
+				textField:"text",
+				multiple:true,
+				data:data
+			});
+		}
+	,"json");
+}
+
 function initDetailGLDDPZJBSXZDialog(){
 	detailGLDDPZDialog=$("#detail_glddpz_jbsxz_dialog_div").dialog({
 		title:"基本属性组",
@@ -722,51 +758,6 @@ function initDetailGLDDPZJBSXZDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	openDetailGLDDPZDialog(0);
-}
-
-function initDetailGLDDMZJBSXZDialog(){
-	detailGLDDMZDialog=$("#detail_glddmz_jbsxz_dialog_div").dialog({
-		title:"基本属性组",
-		width:setFitWidthInParent("#detail_glddmz_div","detail_glddmz_jbsxz_dialog_div"),
-		height:350,
-		top:10,
-		left:20,
-		buttons:[
-           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openDetailGLDDMZDialog(0);
-           }},
-           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
-        	   openDetailGLDDMZDialog(0);
-           }}
-        ]
-	});
-
-	$("#detail_glddmz_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_glddmz_div","detail_glddmz_jbsxz_dialog_div"))+"px");
-	$("#detail_glddmz_jbsxz_dialog_div table").css("magin","-100px");
-	$("#detail_glddmz_jbsxz_dialog_div table td").css("padding-left","50px");
-	$("#detail_glddmz_jbsxz_dialog_div table td").css("padding-right","20px");
-	$("#detail_glddmz_jbsxz_dialog_div table td").css("font-size","15px");
-	$("#detail_glddmz_jbsxz_dialog_div table tr").css("height","45px");
-
-	$(".panel.window").eq(dglddmzjbsxzdNum).css("margin-top","40px");
-	$(".panel.window .panel-title").eq(dglddmzjbsxzdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(dglddmzjbsxzdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(dglddmzjbsxzdNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").css("border-color","#ddd");
-	
-	//以下的是表格下面的面板
-	$(".window-shadow").eq(dglddmzjbsxzdNum).css("margin-top","40px");
-	$(".window,.window .window-body").css("border-color","#ddd");
-
-	$("#detail_glddmz_jbsxz_dialog_div #cancel_but").css("left","30%");
-	$("#detail_glddmz_jbsxz_dialog_div #cancel_but").css("position","absolute");
-
-	$("#detail_glddmz_jbsxz_dialog_div #ok_but").css("left","45%");
-	$("#detail_glddmz_jbsxz_dialog_div #ok_but").css("position","absolute");
-	$(".dialog-button").css("background-color","#fff");
-	$(".dialog-button .l-btn-text").css("font-size","20px");
-	openDetailGLDDMZDialog(0);
 }
 
 function initGLDDMZDialog(){
@@ -864,16 +855,6 @@ function initGLDDMZTab(){
 	});
 	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
 	loadGLDDMZTabData([]);
-}
-
-function loadGLDDMZTabData(rows){
-	var rowsLength=rows.length;
-	if(rowsLength>0)
-		glddmzChooseLB.linkbutton("disable");
-	else
-		glddmzChooseLB.linkbutton("enable");
-	var obj = {"total":rowsLength,"rows":rows};
-	glddmzTab.datagrid('loadData',obj);
 }
 
 function initSelectGLDDMZDialog(){
@@ -996,78 +977,97 @@ function initSGLDDMZZXZTCBB(){
 	,"json");
 }
 
-function initSelectGLDDPZTab(){
-	$("#select_glddpz_toolbar #search_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var ddh=$("#select_glddpz_toolbar #ddh_inp").val();
-			var cph=$("#select_glddpz_toolbar #cph_inp").val();
-			var zxztId=sglddpzZxztCBB.combobox("getValue");
-			selectGLDDPZTab.datagrid("load",{ddh:ddh,ddztId:zxztId,cph:cph});
-		}
+function initDetailGLDDMZJBSXZDialog(){
+	detailGLDDMZDialog=$("#detail_glddmz_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#detail_glddmz_div","detail_glddmz_jbsxz_dialog_div"),
+		height:350,
+		top:10,
+		left:20,
+		buttons:[
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openDetailGLDDMZDialog(0);
+           }},
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openDetailGLDDMZDialog(0);
+           }}
+        ]
 	});
-	
-	selectGLDDPZTab=$("#select_glddpz_tab").datagrid({
-		url:path+"main/queryDDGLZHGLList",
-		toolbar:"#select_glddpz_toolbar",
-		width:setFitWidthInParent("body","select_glddpz_tab"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
-		columns:[[
-			{field:"ddh",title:"订单号",width:200,align:"center"},
-			{field:"cph",title:"车牌号",width:200,align:"center"},
-			{field:"lxlx",title:"流向类型",width:200,align:"center",formatter:function(value){
-				var str;
-				switch (value) {
-				case 1:
-					str="送运";
-					break;
-				case 2:
-					str="取运";
-					break;
-				}
-				return str;
-			}},
-			{field:"yzxzl",title:"预装卸重量",width:200,align:"center"},
-			{field:"ddztmc",title:"状态",width:200,align:"center"}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{ddh:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:5});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
 
-			//reSizeCol();
-		}
-	});
-	initSGLDDPZZXZTCBB();
+	$("#detail_glddmz_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#detail_glddmz_div","detail_glddmz_jbsxz_dialog_div"))+"px");
+	$("#detail_glddmz_jbsxz_dialog_div table").css("magin","-100px");
+	$("#detail_glddmz_jbsxz_dialog_div table td").css("padding-left","50px");
+	$("#detail_glddmz_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#detail_glddmz_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#detail_glddmz_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(dglddmzjbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(dglddmzjbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(dglddmzjbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(dglddmzjbsxzdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(dglddmzjbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
+
+	$("#detail_glddmz_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#detail_glddmz_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#detail_glddmz_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#detail_glddmz_jbsxz_dialog_div #ok_but").css("position","absolute");
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+	openDetailGLDDMZDialog(0);
 }
 
-function initSGLDDPZZXZTCBB(){
-	var data=[];
-	data.push({"value":"","text":"请选择执行状态"});
-	$.post(path+"main/queryDingDanZhuangTaiCBBList",
-		function(result){
-			var rows=result.rows;
-			for(var i=0;i<rows.length;i++){
-				data.push({"value":rows[i].id,"text":rows[i].mc});
-			}
-			sglddpzZxztCBB=$("#select_glddpz_toolbar #zxzt_cbb").combobox({
-				valueField:"value",
-				textField:"text",
-				multiple:true,
-				data:data
-			});
+function initGBCLCLLXCBB(){
+	gbclCllxCBB=$("#gbclCllx").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
+	});
+}
+
+function initGBCLSFZYCBB(){
+	gbclSfzyCBB=$("#gbclSfzy").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
+	});
+}
+
+function initGBCLSHZTCBB(){
+	gbclShztCBB=$("#gbclShzt").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
+	});
+}
+
+function initGBCLSearchLB(){
+	$("#gbclSearch_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var cph=$("#select_gbcl_div #toolbar #cph").val();
+			var cllx=gbclCllxCBB.combobox("getValue");
+			var sfzy=gbclSfzyCBB.combobox("getValue");
+			var shzt=gbclShztCBB.combobox("getValue");
+			var bz=$("#select_gbcl_div #toolbar #bz").val();
+			gbclTab.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
 		}
-	,"json");
+	});
+}
+
+function loadGLDDMZTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		glddmzChooseLB.linkbutton("disable");
+	else
+		glddmzChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	glddmzTab.datagrid('loadData',obj);
 }
 
 function deleteGLDDPZTabRow(){
@@ -1185,32 +1185,72 @@ function checkNew(){
 	}
 }
 
-function newZongHeChaXun(){
-	/*
-	var sjzl=$("#new_div #sjzl").val();
-	var ddztId=jbxxDDZTCBB.combobox("getValue");
-	var gbsj=gbsjDTB.datebox("getValue");
-	var yzxzl=$("#new_div #yzxzl").val();
-	var sjzl=$("#new_div #sjzl").val();
-	var lxlx=gbztCBB.combobox("getValue");
-	var pzddId=glddpzTab.datagrid("getData").rows[0].id;
-	var mzddId=wlxxTab.datagrid("getData").rows[0].id;
-	var bz=$("#new_div #bz").val();
-	
-	$.post(path+"main/newDingDanZongHeGuanLi",
-		{sjzl:sjzl,ddztId:ddztId,gbsj:gbsj,yzxzl:yzxzl,sjzl:sjzl,lxlx:lxlx,pzddId:pzddId,mzddId:mzddId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,bz:bz},
-		function(data){
-			if(data.message=="ok"){
-				alert(data.info);
-				history.go(-1);
-			}
-			else{
-				alert(data.info);
-			}
-		}
-	,"json");
-	*/
+//验证过磅重量
+function checkGBZL(){
+	var gbzl = $("#new_div #gbzl").val();
+	if(gbzl==null||gbzl==""){
+	  	alert("请输入过磅重量");
+	  	return false;
+	}
+	else
+		return true;
+}
 
+//验证过磅状态
+function checkGBZT(){
+	var gbzt=gbztCBB.combobox("getValue");
+	if(gbzt==null||gbzt==""){
+	  	alert("请选择过磅状态");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证过磅时间
+function checkGBSJ(){
+	var gbsj = gbsjDTB.datebox("getValue");
+	if(gbsj==null||gbsj==""){
+	  	alert("请选择过磅时间");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证关联订单皮重
+function checkGLDDPZBm(){
+	var glddpzTabData=glddpzTab.datagrid("getData");
+	var total=glddpzTabData.total;
+	var pzddbm=null;
+	if(total>0)
+		pzddbm=glddpzTabData.rows[0].wybm;
+
+	if(pzddbm==null){
+		alert("请选择关联订单皮重");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证关联订单毛重
+function checkGLDDMZBm(){
+	var glddmzTabData=glddmzTab.datagrid("getData");
+	var total=glddmzTabData.total;
+	var mzddbm=null;
+	if(total>0)
+		mzddbm=glddmzTabData.rows[0].wybm;
+	
+	if(mzddbm==null){
+		alert("请选择关联订单毛重");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+function newZongHeChaXun(){
 	var pzddbm=glddpzTab.datagrid("getData").rows[0].wybm;
 	$("#new_div #pzddbm").val(pzddbm);
 	var mzddbm=glddmzTab.datagrid("getData").rows[0].wybm;
@@ -1364,71 +1404,6 @@ function showGLDDMZDetail(){
 	$("#detail_glddmz_div #zlceb").text(row.zlceb);
 	$("#detail_glddmz_div #bz").text(row.bz);
 	openDetailGLDDMZDialog(1);
-}
-
-//验证过磅时间
-function checkGBSJ(){
-	var gbsj = gbsjDTB.datebox("getValue");
-	if(gbsj==null||gbsj==""){
-	  	alert("请选择过磅时间");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证过磅重量
-function checkGBZL(){
-	var gbzl = $("#new_div #gbzl").val();
-	if(gbzl==null||gbzl==""){
-	  	alert("请输入过磅重量");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证过磅状态
-function checkGBZT(){
-	var gbzt=gbztCBB.combobox("getValue");
-	if(gbzt==null||gbzt==""){
-	  	alert("请选择过磅状态");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证关联订单皮重
-function checkGLDDPZBm(){
-	var glddpzTabData=glddpzTab.datagrid("getData");
-	var total=glddpzTabData.total;
-	var pzddbm=null;
-	if(total>0)
-		pzddbm=glddpzTabData.rows[0].wybm;
-
-	if(pzddbm==null){
-		alert("请选择关联订单皮重");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证关联订单毛重
-function checkGLDDMZBm(){
-	var glddmzTabData=glddmzTab.datagrid("getData");
-	var total=glddmzTabData.total;
-	var mzddbm=null;
-	if(total>0)
-		mzddbm=glddmzTabData.rows[0].wybm;
-	
-	if(mzddbm==null){
-		alert("请选择关联订单毛重");
-	  	return false;
-	}
-	else
-		return true;
 }
 
 function setFitWidthInParent(parent,self){

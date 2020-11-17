@@ -64,6 +64,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int deleteGuoBang(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count=publicDao.deleteGuoBang(idList);
+		return count;
+	}
+
+	@Override
 	public int editWoYaoXiaDan(DingDan dd) {
 		// TODO Auto-generated method stub
 		return publicDao.editWoYaoXiaDan(dd);

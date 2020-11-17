@@ -16,6 +16,8 @@ public interface PublicService {
 
 	public int deleteDingDan(String wybms);
 
+	public int deleteGuoBang(String ids);
+
 	public int editWoYaoXiaDan(DingDan dd);
 
 	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);

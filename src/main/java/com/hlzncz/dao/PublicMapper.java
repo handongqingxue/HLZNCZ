@@ -16,6 +16,8 @@ public interface PublicMapper {
 
 	public int deleteDingDan(List<String> wybmList);
 
+	public int deleteGuoBang(List<String> idList);
+
 	public int editWoYaoXiaDan(DingDan dd);
 
 	public int queryWoYaoXiaDanForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
