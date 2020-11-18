@@ -605,6 +605,9 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
+		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		request.setAttribute("gbcl", gbcl);
+
 		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 

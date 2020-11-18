@@ -20,7 +20,8 @@
 	font-size: 18px;
 }
 
-.select_gbcl_bg_div{
+
+.edit_gbcl_bg_div{
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,.45);
@@ -28,53 +29,41 @@
 	z-index: 9016;
 	display:none;
 }
-.select_gbcl_div{
-	width: 1050px;
+.edit_gbcl_div{
+	width: 1000px;
 	height: 500px;
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
 }
-.select_gbcl_div .xzst_div{
+.edit_gbcl_div .xgst_div{
 	width: 100%;
 	height: 50px;
 	line-height: 50px;
 	border-bottom: #eee solid 1px;
 }
-.select_gbcl_div .xzst_span{
+.edit_gbcl_div .xgst_span{
 	margin-left: 30px;
 }
-.select_gbcl_div .close_span{
+.edit_gbcl_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
+}
+.edit_gbcl_dialog_div{
+	width: 1000px;
+	height: 450px;
+	overflow-y: scroll;
+	position: absolute;
+}
+.edit_gbcl_div .title_div{
+	width: 100%;height: 50px;line-height: 50px;
+}
+.edit_gbcl_div .title_span{
+	margin-left: 30px;
 }
 
-.select_glddpz_bg_div{
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,.45);
-	position: fixed;
-	z-index: 9016;
-	display:none;
-}
-.select_glddpz_div{
-	width: 1050px;
-	height: 500px;
-	margin: 100px auto 0;
-	background-color: #fff;
-	border-radius:5px;
-}
-.select_glddpz_div .xzst_div{
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	border-bottom: #eee solid 1px;
-}
-.select_glddpz_div .xzst_span{
-	margin-left: 30px;
-}
-.select_glddpz_div .close_span{
-	float: right;margin-right: 30px;cursor: pointer;
-}
 
 .detail_glddpz_bg_div{
 	width: 100%;
@@ -196,7 +185,7 @@ var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
 var edNum=0;
-var sgbcldNum=1;
+var egbcljbsxzdNum=1;
 
 var glddpzdNum=2;
 var sglddpzdNum=3;
@@ -225,9 +214,9 @@ function initDialogPosition(){
 	var edpw=$("body").find(".panel.window").eq(edNum);
 	var edws=$("body").find(".window-shadow").eq(edNum);
 
-	//选择过磅车辆
-	var sgbcldpw=$("body").find(".panel.window").eq(sgbcldNum);
-	var sgbcldws=$("body").find(".window-shadow").eq(sgbcldNum);
+	//修改过磅车辆
+	var egbcljbsxzdpw=$("body").find(".panel.window").eq(egbcljbsxzdNum);
+	var egbcljbsxzdws=$("body").find(".window-shadow").eq(egbcljbsxzdNum);
 
 	//关联订单皮重
 	var glddpzdpw=$("body").find(".panel.window").eq(glddpzdNum);
@@ -263,9 +252,9 @@ function initDialogPosition(){
 	ccDiv.append(glddmzdpw);
 	ccDiv.append(glddmzdws);
 
-	var sgbclDiv=$("#select_gbcl_div");
-	sgbclDiv.append(sgbcldpw);
-	sgbclDiv.append(sgbcldws);
+	var egbcldDiv=$("#edit_gbcl_dialog_div");
+	egbcldDiv.append(egbcljbsxzdpw);
+	egbcldDiv.append(egbcljbsxzdws);
 
 	var sglddpzDiv=$("#select_glddpz_div");
 	sglddpzDiv.append(sglddpzdpw);
@@ -325,144 +314,168 @@ function initEditDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 
-	initSelectGbclDialog();//1
+	initEditGBCLJBSXZDialog();//1
 	
 	initGBBQCBB();
 	initGBZTCBB();
 	initGBSJDTB();
 }
 
-function initSelectGbclDialog(){
-	gbclDialog=$("#select_gbcl_dialog_div").dialog({
-		title:"选择实体",
-		width:setFitWidthInParent("#select_gbcl_div","select_gbcl_dialog_div"),
-		//height:setFitHeightInParent(".left_nav_div"),
-		height:400,
-		top:160,
+function initEditGBCLJBSXZDialog(){
+	initGBCLPFJDCBB();
+	initGBCLCLYSLXCBB();
+	initGBCLFZRQDB();
+	initGBCLCLLXCBB();
+	initGBCLSFZYCBB();
+	initGBCLXXZTCBB();
+	
+	editGBCLDialog=$("#edit_gbcl_jbsxz_dialog_div").dialog({
+		title:"基本属性组",
+		width:setFitWidthInParent("#edit_gbcl_div","edit_gbcl_jbsxz_dialog_div"),
+		height:500,
+		top:10,
+		left:20,
 		buttons:[
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openSelectGBCLDialog(0);
+        	   openEditGBCLDialog(0);
            }},
-           {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
-        	   	saveGBCL();
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   openEditGBCLDialog(0);
            }}
         ]
 	});
+
+	$("#edit_gbcl_jbsxz_dialog_div table").css("width",(setFitWidthInParent("#edit_gbcl_div","edit_gbcl_jbsxz_dialog_div"))+"px");
+	$("#edit_gbcl_jbsxz_dialog_div table").css("magin","-100px");
+	$("#edit_gbcl_jbsxz_dialog_div table td").css("padding-left","20px");
+	$("#edit_gbcl_jbsxz_dialog_div table td").css("padding-right","20px");
+	$("#edit_gbcl_jbsxz_dialog_div table td").css("font-size","15px");
+	$("#edit_gbcl_jbsxz_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(egbcljbsxzdNum).css("margin-top","40px");
+	$(".panel.window .panel-title").eq(egbcljbsxzdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(egbcljbsxzdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(egbcljbsxzdNum).css("padding-left","10px");
 	
-	$(".panel.window").eq(sgbcldNum).css("width","983px");
-	$(".panel.window").eq(sgbcldNum).css("margin-top","20px");
-	//$(".panel.window").eq(sgbcldNum).css("margin-left",initWindowMarginLeft());
-	$(".panel.window").eq(sgbcldNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(sgbcldNum).css("color","#000");
-	$(".panel.window .panel-title").eq(sgbcldNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(sgbcldNum).css("padding-left","10px");
-	
-	$(".panel-header, .panel-body").eq(sgbcldNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(sgbcldNum).css("width","1000px");
-	$(".window-shadow").eq(sgbcldNum).css("margin-top","20px");
-	//$(".window-shadow").eq(sgbcldNum).css("margin-left",initWindowMarginLeft());
-	
-	$(".window,.window .window-body").eq(sgbcldNum).css("border-color","#ddd");
+	$(".window-shadow").eq(egbcljbsxzdNum).css("margin-top","40px");
+	$(".window,.window .window-body").css("border-color","#ddd");
 
-	$("#select_gbcl_dialog_div #cancel_but").css("left","30%");
-	$("#select_gbcl_dialog_div #cancel_but").css("position","absolute");
-	
-	$("#select_gbcl_dialog_div #save_but").css("left","45%");
-	$("#select_gbcl_dialog_div #save_but").css("position","absolute");
+	$("#edit_gbcl_jbsxz_dialog_div #cancel_but").css("left","30%");
+	$("#edit_gbcl_jbsxz_dialog_div #cancel_but").css("position","absolute");
+
+	$("#edit_gbcl_jbsxz_dialog_div #ok_but").css("left","45%");
+	$("#edit_gbcl_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	
-	initGBCLTab();
-	openSelectGBCLDialog(0);
+	openEditGBCLDialog(0);
 }
 
-function initGBCLTab(){
-	initGBCLCLLXCBB();
-	initGBCLSFZYCBB();
-	initGBCLSHZTCBB();
-	initGBCLSearchLB();
-	
-	gbclTab=$("#gbcl_tab").datagrid({
-		url:path+"main/queryCheLiangList",
-		toolbar:"#toolbar",
-		width:setFitWidthInParent("body","select_gbcl_div"),
-		singleSelect:true,
-		pagination:true,
-		pageSize:10,
-		//queryParams:{accountId:'${sessionScope.user.id}'},
-		columns:[[
-			{field:"cph",title:"车牌号",width:200},
-            {field:"ppxh",title:"品牌型号",width:200},
-			{field:"fdjhm",title:"发动机号码",width:200},
-			{field:"clsbdm",title:"车辆识别代号",width:200},
-			{field:"zcrq",title:"注册日期",width:200},
-			{field:"pfjd",title:"排放阶段",width:200,formatter:function(value){
-				var str;
-				switch (value) {
-				case 1:
-					str="国五燃油";
-					break;
-				case 2:
-					str="国五燃气";
-					break;
-				case 3:
-					str="国六燃油";
-					break;
-				case 4:
-					str="国六燃气";
-					break;
-				case 5:
-					str="电动";
-					break;
-				}
-				return str;
-			}},
-			{field:"fzrq",title:"发证日期",width:200},
-			{field:"sfzy",title:"是否在用",width:200,formatter:function(value){
-				return value?"是":"否";
-			}},
-			{field:"bz",title:"备注",width:200},
-			{field:"shzt",title:"状态",width:200,formatter:function(value){
-				var str;
-				switch (value) {
-				case 1:
-					str="待审核";
-					break;
-				case 2:
-					str="审核通过";
-					break;
-				case 3:
-					str="编辑中";
-					break;
-				}
-				return str;
-			}}
-	    ]],
-        onLoadSuccess:function(data){
-			if(data.total==0){
-				$(this).datagrid("appendRow",{cph:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"cph",colspan:10});
-				data.total=0;
-			}
-			
-			$(".panel-header .panel-title").css("color","#000");
-			$(".panel-header .panel-title").css("font-size","15px");
-			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
-
-			$(".datagrid-header td .datagrid-cell").each(function(){
-				$(this).find("span").eq(0).css("margin-left","11px");
-			});
-			$(".datagrid-body td .datagrid-cell").each(function(){
-				var html=$(this).html();
-				$(this).html("<span style=\"margin-left:11px;\">"+html+"</span>");
-			});
-			//reSizeCol();
+function initGBCLPFJDCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择排放阶段"});
+	data.push({"value":"1","text":"国五燃油"});
+	data.push({"value":"2","text":"国五燃气"});
+	data.push({"value":"3","text":"国六燃油"});
+	data.push({"value":"4","text":"国六燃气"});
+	data.push({"value":"5","text":"电动"});
+	gbclPfjdCBB=$("#gbclPfjd").combobox({
+		valueField:"value",
+		textField:"text",
+		data:data,
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.gbcl.pfjd}');
 		}
 	});
 }
+
+function initGBCLCLYSLXCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择车辆运输类型"});
+	data.push({"value":"1","text":"普货运输"});
+	data.push({"value":"2","text":"厂内运输"});
+	data.push({"value":"3","text":"危化品运输"});
+	gbclClyslxCBB=$("#gbclClyslx").combobox({
+		valueField:"value",
+		textField:"text",
+		data:data,
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.gbcl.clyslx}');
+		}
+	});
+}
+
+function initGBCLFZRQDB(){
+	gbsjDB=$('#gbclFzrq').datebox({
+		width:160,
+        required:false,
+        onChange:function(){
+        	$("#fzrq").val(gbsjDTB.datetimebox("getValue"));
+        }
+    });
+	if('${requestScope.gbcl.fzrq }'==null||'${requestScope.gbcl.fzrq }'=="")
+		gbsjDB.datetimebox('textbox').attr('placeholder', '请选择发证日期');
+	else
+		gbsjDB.datetimebox("setValue",'${requestScope.gbcl.fzrq }');
+}
+
+function initGBCLCLLXCBB(){
+	gbclCllxCBB=$("#gbclCllx").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.gbcl.cllx}');
+		}
+	});
+}
+
+function initGBCLSFZYCBB(){
+	gbclSfzyCBB=$("#gbclSfzy").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.gbcl.sfzy}'?1:0);
+		}
+	});
+}
+
+function initGBCLXXZTCBB(){
+	gbclXxztCBB=$("#gbclXxzt").combobox({
+		valueField:"value",
+		textField:"text",
+		data:[{"value":"","text":"请选择信息状态"},{"value":"1","text":"待审核"},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}],
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.gbcl.shzt}');
+		}
+	});
+}
+
+function openEditGBCLDialog(flag){
+	if(flag==1){
+		$("#edit_gbcl_bg_div").css("display","block");
+		$("#edit_gbcl_bg_div").css("z-index",showZIndex);
+	}
+	else{
+		$("#edit_gbcl_bg_div").css("display","none");
+		$("#edit_gbcl_bg_div").css("z-index","9016");
+	}
+	openEditGBCLJBSXZDialog(flag);
+}
+
+function openEditGBCLJBSXZDialog(flag){
+	if(flag==1){
+		editGBCLDialog.dialog("open");
+	}
+	else{
+		editGBCLDialog.dialog("close");
+	}
+}
+
+
 
 function initGBBQCBB(){
 	gbclGbbqCBB=$("#gbclGbbq_cbb").combobox({
@@ -1059,43 +1072,6 @@ function initDetailGLDDMZJBSXZDialog(){
 	openDetailGLDDMZDialog(0);
 }
 
-function initGBCLCLLXCBB(){
-	gbclCllxCBB=$("#gbclCllx").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"重型"}]
-	});
-}
-
-function initGBCLSFZYCBB(){
-	gbclSfzyCBB=$("#gbclSfzy").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择是否在用"},{"value":"1","text":"是"},{"value":"0","text":"否"}]
-	});
-}
-
-function initGBCLSHZTCBB(){
-	gbclShztCBB=$("#gbclShzt").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择审核状态"},{"value":"1","text":"待审核 "},{"value":"2","text":"审核通过"},{"value":"3","text":"编辑中"}]
-	});
-}
-
-function initGBCLSearchLB(){
-	$("#gbclSearch_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var cph=$("#select_gbcl_div #toolbar #cph").val();
-			var cllx=gbclCllxCBB.combobox("getValue");
-			var sfzy=gbclSfzyCBB.combobox("getValue");
-			var shzt=gbclShztCBB.combobox("getValue");
-			var bz=$("#select_gbcl_div #toolbar #bz").val();
-			gbclTab.datagrid("load",{cph:cph,cllx:cllx,sfzy:sfzy,shzt:shzt,bz:bz});
-		}
-	});
-}
 
 function loadGLDDMZTabData(rows){
 	var rowsLength=rows.length;
@@ -1270,18 +1246,6 @@ function editZongHeChaXun(){
 	});
 }
 
-function openSelectGBCLDialog(flag){
-	if(flag==1){
-		$("#select_gbcl_bg_div").css("display","block");
-		$("#select_gbcl_bg_div").css("z-index",showZIndex);
-		gbclDialog.dialog("open");
-	}
-	else{
-		$("#select_gbcl_bg_div").css("display","none");
-		$("#select_gbcl_bg_div").css("z-index","9016");
-		gbclDialog.dialog("close");
-	}
-}
 
 function saveGBCL(){
 	var row=gbclTab.datagrid("getSelected");
@@ -1423,6 +1387,7 @@ function setFitWidthInParent(parent,self){
 	case "glddmz_tab":
 		space=355;
 		break;
+	case "edit_gbcl_jbsxz_dialog_div":
 	case "select_gbcl_dialog_div":
 	case "select_glddpz_dialog_div":
 	case "detail_glddpz_jbsxz_dialog_div":
@@ -1447,32 +1412,162 @@ function initWindowMarginLeft(){
 </head>
 <body>
 
-<!-- 选择过磅车辆 start -->
-<div class="select_gbcl_bg_div" id="select_gbcl_bg_div">
-	<div class="select_gbcl_div" id="select_gbcl_div">
-		<div class="xzst_div">
-			<span class="xzst_span">选择实体</span>
-			<span class="close_span" onclick="openSelectGBCLDialog(0)">X</span>
+<!-- 修改过磅车辆start -->
+<div class="edit_gbcl_bg_div" id="edit_gbcl_bg_div">
+	<div class="edit_gbcl_div" id="edit_gbcl_div">
+		<div class="xgst_div">
+			<span class="xgst_span">修改实体</span>
+			<span class="close_span" onclick="openEditGBCLDialog(0)">X</span>
 		</div>
-		<div id="select_gbcl_dialog_div">
-			<div id="toolbar" style="height:32px;">
-				<span style="margin-left: 13px;">车牌号：</span>
-				<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
-				<span style="margin-left: 13px;">车辆类型：</span>
-				<input id="gbclCllx"/>
-				<span style="margin-left: 13px;">是否在用：</span>
-				<input id="gbclSfzy"/>
-				<span style="margin-left: 13px;">审核状态：</span>
-				<input id="gbclShzt"/>
-				<span style="margin-left: 13px;">备注：</span>
-				<input type="text" id="bz" placeholder="请输入备注" style="width: 120px;height: 25px;"/>
-				<a id="gbclSearch_but" style="margin-left: 13px;">查询</a>
+		<div class="edit_gbcl_dialog_div" id="edit_gbcl_dialog_div">
+			<div class="title_div">
+				<span class="title_span">综合查询-过磅车辆-修改</span>
 			</div>
-			<table id="gbcl_tab"></table>
+			<div id="edit_gbcl_jbsxz_dialog_div">
+				<input type="hidden" id="id"/>
+				<table>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						车牌号
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="cph" name="cph" placeholder="请输入车牌号" value="${requestScope.gbcl.cph }" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						发动机号码
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="fdjhm" name="fdjhm" placeholder="请输入发动机号码" value="${requestScope.gbcl.fdjhm }" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						车辆识别代号
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="clsbdh" name="clsbdh" placeholder="请输入车辆识别代号" value="${requestScope.gbcl.clsbdh }" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						注册日期
+					</td>
+					<td style="width:30%;">
+						<span>${requestScope.gbcl.zcrq }</span>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						排放阶段
+					</td>
+					<td style="width:30%;">
+						<input id="gbclPfjd"/>
+					</td>
+					<td align="right" style="width:15%;">
+						车辆运输类型
+					</td>
+					<td style="width:30%;">
+						<input id="gbclClyslx"/>
+						<input type="hidden" id="clyslx" name="clyslx" value="${requestScope.gbcl.clyslx }"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						品牌型号
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="ppxh" name="ppxh" placeholder="请输入品牌型号" value="${requestScope.gbcl.ppxh }" style="width: 150px;height:30px;"/>
+					</td>
+					<td align="right" style="width:15%;">
+						车主信息
+					</td>
+					<td style="width:30%;">
+						<input type="text" id="czxx" name="czxx" placeholder="请输入车主信息" value="${requestScope.gbcl.czxx }" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						发证日期
+					</td>
+					<td style="width:30%;">
+						<input id="gbclFzrq"/>
+						<input type="hidden" id="fzrq" name="fzrq" value="${requestScope.gbcl.fzrq }"/>
+						<span>${requestScope.gbcl.fzrq }</span>
+					</td>
+					<td align="right" style="width:15%;">
+						皮重
+					</td>
+					<td style="width:30%;">
+						<input type="number" id="pz" name="pz" placeholder="请输入皮重" value="${requestScope.gbcl.pz }" style="width: 150px;height:30px;"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						车辆类型
+					</td>
+					<td style="width:30%;">
+						<input id="gbclCllx"/>
+						<input type="hidden" id="cllx" name="cllx" value="${requestScope.gbcl.cllx }"/>
+					</td>
+					<td align="right" style="width:15%;">
+						照片
+					</td>
+					<td style="width:30%;">
+						<input type="file" name="zp_file"/>
+						<div>${requestScope.gbcl.zp }</div>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						行驶证
+					</td>
+					<td style="width:30%;">
+						<input type="file" name="xsz_file"/>
+						<div>${requestScope.gbcl.xsz }</div>
+					</td>
+					<td align="right" style="width:15%;">
+						随车清单
+					</td>
+					<td style="width:30%;">
+						<input type="file" name="scqd_file"/>
+						<div>${requestScope.gbcl.scqd }</div>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						排放阶段查询截图
+					</td>
+					<td style="width:30%;">
+						<input type="file" name="pfjdcxjt_file"/>
+						<div>${requestScope.gbcl.pfjdcxjt }</div>
+					</td>
+					<td align="right" style="width:15%;">
+						是否在用
+					</td>
+					<td style="width:30%;">
+						<input id="gbclSfzy"/>
+						<input type="hidden" id="cllx" name="cllx" value="${requestScope.gbcl.sfzy }"/>
+					</td>
+				  </tr>
+				  <tr style="border-bottom: #CAD9EA solid 1px;">
+					<td align="right" style="width:15%;">
+						信息状态
+					</td>
+					<td style="width:30%;">
+						<input id="gbclXxzt"/>
+						<input type="hidden" id="xxzt" name="xxzt" value="${requestScope.gbcl.shzt }"/>
+					</td>
+					<td align="right" style="width:15%;">
+						备注
+					</td>
+					<td style="width:30%;">
+						<textarea rows="3" cols="15" id="bz" name="bz">${requestScope.gbcl.bz }</textarea>
+					</td>
+				  </tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
-<!-- 选择过磅车辆 end -->
+<!--修改过磅车辆 end -->
 
 <!-- 选择关联订单皮重 start -->
 <div class="select_glddpz_bg_div" id="select_glddpz_bg_div">
@@ -1690,7 +1785,7 @@ function initWindowMarginLeft(){
 			</td>
 			<td style="width:30%;">
 				<input type="hidden" id="gbcl_hid" name="gbclId" value="${requestScope.gb.gbclId }"/>
-				<span id="gbclmc_span" style="cursor: pointer;" onclick="openSelectGBCLDialog(1)">${requestScope.gb.gbclId eq null?'请选择过磅车辆':requestScope.gb.cph }</span>
+				<span id="gbclmc_span" style="cursor: pointer;" onclick="openEditGBCLDialog(1)">${requestScope.gb.gbclId eq null?'请选择过磅车辆':requestScope.gb.cph }</span>
 			</td>
 			<td align="right" style="width:15%;">
 				过磅重量
