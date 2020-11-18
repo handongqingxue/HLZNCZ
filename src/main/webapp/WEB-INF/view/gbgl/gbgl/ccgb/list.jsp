@@ -121,7 +121,7 @@ function initTab1(){
             {field:"zp3",title:"照片3",width:200},
             {field:"gbsj",title:"过磅时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/gbgl/gbgl/rcgb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	var str="<a href=\"${pageContext.request.contextPath}/main/gbgl/gbgl/ccgb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/gbgl/gbgl/ccgb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
