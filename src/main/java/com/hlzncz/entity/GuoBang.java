@@ -8,6 +8,8 @@ public class GuoBang implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Integer RU_CHANG_BIAO_QIAN=1;//入厂标签
+	public static final Integer ZAI_ZHONG_BIAO_QIAN=4;//载重标签
 	private Integer id;//主键
 	public Integer getId() {
 		return id;

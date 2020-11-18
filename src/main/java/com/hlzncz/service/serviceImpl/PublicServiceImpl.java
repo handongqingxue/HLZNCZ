@@ -163,16 +163,16 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int queryGBGLGBGLZHCXForInt(String cph, String gbsjs, String gbsje) {
+	public int queryGBGLGBGLZHCXForInt(String cph, String gbbq, String gbsjs, String gbsje) {
 		// TODO Auto-generated method stub
-		return publicDao.queryGBGLGBGLZHCXForInt(cph,gbsjs,gbsje);
+		return publicDao.queryGBGLGBGLZHCXForInt(cph,gbbq,gbsjs,gbsje);
 	}
 
 	@Override
-	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbsjs, String gbsje, int page, int rows, String sort,
+	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbbq, String gbsjs, String gbsje, int page, int rows, String sort,
 			String order) {
 		// TODO Auto-generated method stub
-		return publicDao.queryGBGLGBGLZHCXList(cph, gbsjs, gbsje, (page-1)*rows, rows, sort, order);
+		return publicDao.queryGBGLGBGLZHCXList(cph, gbbq, gbsjs, gbsje, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

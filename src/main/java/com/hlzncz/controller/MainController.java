@@ -645,6 +645,63 @@ public class MainController {
 		return "gbgl/gbgl/zhcx/detail";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/zzgb/new")
+	public String goGbglGbglZzgbNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "gbgl/gbgl/zzgb/new";
+	}
+
+	@RequestMapping(value="/gbgl/gbgl/zzgb/edit")
+	public String goGbglGbglZzgbEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		GuoBang gb=publicService.selectGuoBangById(id);
+		request.setAttribute("gb", gb);
+
+		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		request.setAttribute("gbcl", gbcl);
+
+		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("pzdd", pzdd);
+
+		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("mzdd", mzdd);
+		
+		return "gbgl/gbgl/zzgb/edit";
+	}
+
+	@RequestMapping(value="/gbgl/gbgl/zzgb/list")
+	public String goGbglGbglZzgbList(HttpServletRequest request) {
+		
+		selectNav(request);
+		request.setAttribute("gbbq", GuoBang.ZAI_ZHONG_BIAO_QIAN);
+		
+		return "gbgl/gbgl/zzgb/list";
+	}
+
+	@RequestMapping(value="/gbgl/gbgl/zzgb/detail")
+	public String goGbglGbglZzgbDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		GuoBang gb=publicService.selectGuoBangById(id);
+		request.setAttribute("gb", gb);
+
+		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		request.setAttribute("gbcl", gbcl);
+		
+		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("pzdd", pzdd);
+
+		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("mzdd", mzdd);
+		
+		return "gbgl/gbgl/zzgb/detail";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
@@ -1774,13 +1831,13 @@ public class MainController {
 	 */
 	@RequestMapping(value="/queryGBGLGBGLZHCXList")
 	@ResponseBody
-	public Map<String, Object> queryGBGLGBGLZHCXList(String cph,String gbsjs,String gbsje,int page,int rows,String sort,String order) {
+	public Map<String, Object> queryGBGLGBGLZHCXList(String cph,String gbbq,String gbsjs,String gbsje,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = publicService.queryGBGLGBGLZHCXForInt(cph,gbsjs,gbsje);
-			List<DingDan> zhglList=publicService.queryGBGLGBGLZHCXList(cph, gbsjs, gbsje, page, rows, sort, order);
+			int count = publicService.queryGBGLGBGLZHCXForInt(cph,gbbq,gbsjs,gbsje);
+			List<DingDan> zhglList=publicService.queryGBGLGBGLZHCXList(cph, gbbq, gbsjs, gbsje, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", zhglList);

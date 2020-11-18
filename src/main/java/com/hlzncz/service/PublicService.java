@@ -49,9 +49,9 @@ public interface PublicService {
 
 	public int deleteGuoBang(String ids);
 
-	public int queryGBGLGBGLZHCXForInt(String cph, String gbsjs, String gbsje);
+	public int queryGBGLGBGLZHCXForInt(String cph, String gbbq, String gbsjs, String gbsje);
 
-	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbsjs, String gbsje, int page, int rows, String sort,
+	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbbq, String gbsjs, String gbsje, int page, int rows, String sort,
 			String order);
 
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();

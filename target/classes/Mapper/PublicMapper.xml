@@ -352,6 +352,9 @@
 		<if test="cph!=''&amp;cph!=null">
 			and cl.cph like CONCAT('%',#{cph},'%')
 		</if>
+		<if test="gbbq!=''&amp;gbbq!=null">
+			and gb.gbbq like CONCAT('%',#{gbbq},'%')
+		</if>
 		<if test="gbsjs!=''&amp;gbsjs!=null&amp;gbsje!=''&amp;gbsje!=null">
 			and gb.gbsj between #{gbsjs} and #{gbsje}
 		</if>
@@ -360,6 +363,9 @@
 		select gb.*,cl.cph from guo_bang gb,che_liang cl where gb.gbclId=cl.id
 		<if test="cph!=''&amp;cph!=null">
 			and cl.cph like CONCAT('%',#{cph},'%')
+		</if>
+		<if test="gbbq!=''&amp;gbbq!=null">
+			and gb.gbbq like CONCAT('%',#{gbbq},'%')
 		</if>
 		<if test="gbsjs!=''&amp;gbsjs!=null&amp;gbsje!=''&amp;gbsje!=null">
 			and gb.gbsj between #{gbsjs} and #{gbsje}

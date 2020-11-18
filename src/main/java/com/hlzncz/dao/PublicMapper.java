@@ -47,9 +47,9 @@ public interface PublicMapper {
 
 	public int deleteGuoBang(List<String> idList);
 
-	public int queryGBGLGBGLZHCXForInt(@Param("cph") String cph, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje);
+	public int queryGBGLGBGLZHCXForInt(@Param("cph") String cph, @Param("gbbq") String gbbq, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje);
 
-	public List<DingDan> queryGBGLGBGLZHCXList(@Param("cph") String cph, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+	public List<DingDan> queryGBGLGBGLZHCXList(@Param("cph") String cph, @Param("gbbq") String gbbq, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
 
