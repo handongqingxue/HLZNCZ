@@ -816,6 +816,43 @@ public class MainController {
 		return "gbgl/gbgl/rcgb/detail";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/ccgb/new")
+	public String goGbglGbglCcgbNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "gbgl/gbgl/ccgb/new";
+	}
+
+	@RequestMapping(value="/gbgl/gbgl/ccgb/edit")
+	public String goGbglGbglCcgbEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		GuoBang gb=publicService.selectGuoBangById(id);
+		request.setAttribute("gb", gb);
+
+		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		request.setAttribute("gbcl", gbcl);
+
+		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("pzdd", pzdd);
+
+		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		request.setAttribute("mzdd", mzdd);
+		
+		return "gbgl/gbgl/ccgb/edit";
+	}
+
+	@RequestMapping(value="/gbgl/gbgl/ccgb/list")
+	public String goGbglGbglCcgbList(HttpServletRequest request) {
+		
+		selectNav(request);
+		request.setAttribute("gbbq", GuoBang.CHU_CHANG_BIAO_QIAN);
+		
+		return "gbgl/gbgl/ccgb/list";
+	}
+
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
