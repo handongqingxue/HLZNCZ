@@ -128,6 +128,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int tiJiaoGuoBang(String wybms) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> wybmList = Arrays.asList(wybms.split(","));
+		count=publicDao.tiJiaoGuoBang(wybmList);
+		return count;
+	}
+
+	@Override
 	public int queryDDGLZHGLYCCLForInt(String ddh, String ddztId, String cph, String jhysrq, String clzt) {
 		// TODO Auto-generated method stub
 		List<DingDan> ycclList=publicDao.queryDDGLZHGLYCCLNotLimitList(ddh, ddztId, cph, jhysrq, clzt);

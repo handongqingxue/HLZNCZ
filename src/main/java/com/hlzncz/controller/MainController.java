@@ -589,6 +589,15 @@ public class MainController {
 		return "ddgl/ddtb/ddtb/detail";
 	}
 
+	@RequestMapping(value="/gbgl/gbgl/blgb/list")
+	public String goGbglGbglBlgbList(HttpServletRequest request) {
+		
+		selectNav(request);
+		request.setAttribute("gbbq", GuoBang.ZAI_ZHONG_BIAO_QIAN);
+		
+		return "gbgl/gbgl/blgb/list";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/zhcx/new")
 	public String goGbglGbglZhcxNew(HttpServletRequest request) {
 		
@@ -1823,6 +1832,26 @@ public class MainController {
 		}
 		
 		return jsonMap;
+	}
+
+	@RequestMapping(value="/tiJiaoGuoBang",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String tiJiaoGuoBang(String wybms) {
+		int count=publicService.tiJiaoGuoBang(wybms);
+		PlanResult plan=new PlanResult();
+		
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("提交过磅失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("提交过磅成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 	
 	@RequestMapping(value="/queryDDGLZHGLYCCLList")

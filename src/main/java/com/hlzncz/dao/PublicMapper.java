@@ -36,6 +36,8 @@ public interface PublicMapper {
 	public List<DingDan> queryDDGLZHGLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jcsjs") String jcsjs, 
 			@Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
+	public int tiJiaoGuoBang(List<String> wybmList);
+
 	public List<DingDan> queryDDGLZHGLYCCLNotLimitList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("clzt") String clzt);
 
 	public List<DingDan> queryDDGLZHGLYCCLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph,  

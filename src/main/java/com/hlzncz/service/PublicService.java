@@ -38,6 +38,8 @@ public interface PublicService {
 	public List<DingDan> queryDDGLZHGLList(String ddh, String ddztId, String cph, String jcsjs, String jcsje,
 			String jhysrq, String yss, String clzt, int page, int rows, String sort, String order);
 
+	public int tiJiaoGuoBang(String wybms);
+
 	public int queryDDGLZHGLYCCLForInt(String ddh, String ddztId, String cph, String jhysrq, String clzt);
 
 	public List<DingDan> queryDDGLZHGLYCCLList(String ddh, String ddztId, String cph, 

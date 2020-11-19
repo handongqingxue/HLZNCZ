@@ -230,6 +230,12 @@
 		</if>
 		limit #{rowNum},#{rows}
 	</select>
+	<update id="tiJiaoGuoBang">
+		update ding_dan set sjzl=0 where 1=1
+		<foreach collection="list" item="wybm" open=" and cast(wybm as char) in (" separator="," close=")">
+		#{wybm}
+		</foreach>
+	</update>
 	<select id="queryDDGLZHGLYCCLNotLimitList" resultType="com.hlzncz.entity.DingDan">
 		select distinct dd.ddh from ding_dan dd left join che_liang cl on dd.cyclId=cl.id left join yun_shu_shang yss on dd.yssId=yss.id left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id left join ding_dan_yi_chang ddyc on dd.wybm=ddyc.ddbm where 1=1
 		<if test="ddh!=''&amp;ddh!=null">
