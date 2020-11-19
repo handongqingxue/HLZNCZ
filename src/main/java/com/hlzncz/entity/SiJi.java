@@ -87,6 +87,12 @@ public class SiJi implements Serializable {
 	public void setZyzt(Boolean zyzt) {
 		this.zyzt = zyzt;
 	}
+	public Integer getGlyhId() {
+		return glyhId;
+	}
+	public void setGlyhId(Integer glyhId) {
+		this.glyhId = glyhId;
+	}
 	private String xm;//姓名
 	private String sjh;//手机号
 	private String zp;//照片
@@ -97,5 +103,6 @@ public class SiJi implements Serializable {
 	private String jzyxqz;//驾证有效期至
 	private Integer shzt;//审核状态 1.编辑中2.待审核3.审核通过
 	private Boolean zyzt;//在用状态
+	private Integer glyhId;
 
 }

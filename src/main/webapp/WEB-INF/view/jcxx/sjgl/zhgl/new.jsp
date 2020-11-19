@@ -25,12 +25,11 @@ var path='<%=basePath %>';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
+var glyhdNum=1;
 $(function(){
-	initNewDialog();
-	initZGZYXQZDB();
-	initJZYXQZDB();
-	initZYZTCBB();
-	initSHZTCBB();
+	initNewDialog();//0
+	
+	initGLYHDialog();//1.关联用户窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -39,10 +38,17 @@ function initDialogPosition(){
 	//基本属性组
 	var ndpw=$("body").find(".panel.window").eq(ndNum);
 	var ndws=$("body").find(".window-shadow").eq(ndNum);
+	
+	//关联用户
+	var glyhdpw=$("body").find(".panel.window").eq(glyhdNum);
+	var glyhdws=$("body").find(".window-shadow").eq(glyhdNum);
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
 	ccDiv.append(ndws);
+
+	ccDiv.append(glyhdpw);
+	ccDiv.append(glyhdws);
 }
 
 function initNewDialog(){
@@ -50,7 +56,7 @@ function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","new_div"),
-		height:431,
+		height:330,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -82,6 +88,11 @@ function initNewDialog(){
 	$("#new_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initZGZYXQZDB();
+	initJZYXQZDB();
+	initZYZTCBB();
+	initSHZTCBB();
 }
 
 function initZGZYXQZDB(){
@@ -134,6 +145,100 @@ function initSHZTCBB(){
 			$("#shzt").val($(this).combobox("getValue"));
 		}
 	});
+}
+
+function initGLYHDialog(){
+	dialogTop+=360;//230
+	glyhDialog=$("#glyh_div").dialog({
+		title:"关联用户",
+		width:setFitWidthInParent("body","glyh_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(glyhdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(glyhdNum).css("margin-top","20px");
+	$(".panel.window").eq(glyhdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(glyhdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(glyhdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(glyhdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(glyhdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(glyhdNum).css("width","1000px");
+	$(".window-shadow").eq(glyhdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(glyhdNum).css("border-color","#ddd");
+
+	initGLYHTab();
+}
+
+function initGLYHTab(){
+	glyhChooseLB=$("#glyh_div #choose_but").linkbutton({
+		iconCls:"icon-edit",
+		onClick:function(){
+			openSelectGLYHDialog(1);
+		}
+	});
+	
+	glyhTab=$("#glyh_tab").datagrid({
+		toolbar:"#glyh_toolbar",
+		width:setFitWidthInParent("body","glyh_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="关联用户";
+					break;
+				}
+				return str;
+			}},
+            {field:"sm",title:"实名",width:200,align:"center"},
+            {field:"zt",title:"状态",width:200,align:"center"},
+            {field:"tx",title:"头像",width:200,align:"center"},
+            {field:"nm",title:"昵称",width:200,align:"center"},
+            {field:"yhm",title:"用户名",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="<a onclick=\"editGLYHTabRow()\">编辑</a>"
+            	+"&nbsp;|&nbsp;<a onclick=\"deleteGLYHTabRow()\">删除</a>";
+            	//var str="<a onclick=\"deleteGLYHTabRow()\">删除</a>";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:7});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	loadGLYHTabData([]);
+}
+
+function loadGLYHTabData(rows){
+	var rowsLength=rows.length;
+	if(rowsLength>0)
+		glyhChooseLB.linkbutton("disable");
+	else
+		glyhChooseLB.linkbutton("enable");
+	var obj = {"total":rowsLength,"rows":rows};
+	glyhTab.datagrid('loadData',obj);
 }
 
 //重设列宽
@@ -269,6 +374,7 @@ function setFitWidthInParent(parent,self){
 	
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="glyhId" name="glyhId"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -346,6 +452,13 @@ function setFitWidthInParent(parent,self){
 		  </tr>
 		</table>
 	</form>
+	</div>
+	
+	<div id="glyh_div">
+		<div id="glyh_toolbar" style="height:32px;line-height:32px;">
+			<a id="choose_but" style="margin-left: 13px;">选择</a>
+		</div>
+		<table id="glyh_tab"></table>
 	</div>
 </div>
 </body>
