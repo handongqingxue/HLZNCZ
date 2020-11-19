@@ -1420,6 +1420,9 @@
 		</if> 
 		 limit ${param3},${param4}
 	</select>
+	<select id="selectYongHuById" resultType="com.hlzncz.entity.YongHu">
+		select * from yong_hu where id=#{id}
+	</select>
 	<select id="queryHaoMaForInt" resultType="java.lang.Integer">
 		select count(*) from hao_ma where 1=1
 		<if test="hm!=''&amp;hm!=null">

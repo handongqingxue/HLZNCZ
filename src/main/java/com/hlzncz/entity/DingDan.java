@@ -37,6 +37,10 @@ public class DingDan implements Serializable {
 	 * 待离厂
 	 */
 	public static final Integer DAI_LI_CHANG=12;
+	/**
+	 * 待装卸货
+	 */
+	public static final Integer DAI_ZHUANG_XIE_HUO=17;
 	private String wybm;//唯一编码
 	public String getWybm() {
 		return wybm;
@@ -197,7 +201,15 @@ public class DingDan implements Serializable {
 	public void setCysjId(Integer cysjId) {
 		this.cysjId = cysjId;
 	}
-	
+
+	public Integer getXdyhId() {
+		return xdyhId;
+	}
+
+	public void setXdyhId(Integer xdyhId) {
+		this.xdyhId = xdyhId;
+	}
+
 	public String getBz() {
 		return bz;
 	}
@@ -225,6 +237,7 @@ public class DingDan implements Serializable {
 	private Integer cyclId;//承运车辆id
 	private String cph;
 	private Integer cysjId;//承运司机id
+	private Integer xdyhId;
 	private String bz;//备注
 
 	public static void main(String[] args) {

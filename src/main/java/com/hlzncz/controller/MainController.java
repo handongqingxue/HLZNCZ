@@ -589,6 +589,36 @@ public class MainController {
 		return "ddgl/ddtb/ddtb/detail";
 	}
 
+	@RequestMapping(value="/zjzxh/zxhgl/dzxh/edit")
+	public String goZjzxhZxhglDzxhEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
+		request.setAttribute("xdyh", xdyh);
+		
+		return "zjzxh/zxhgl/dzxh/edit";
+	}
+
+	@RequestMapping(value="/zjzxh/zxhgl/dzxh/list")
+	public String goZjzxhZxhglDzxhList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("ddztId", DingDan.DAI_ZHUANG_XIE_HUO);
+		
+		return "zjzxh/zxhgl/dzxh/list";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/blgb/list")
 	public String goGbglGbglBlgbList(HttpServletRequest request) {
 		
@@ -1563,6 +1593,17 @@ public class MainController {
 		selectNav(request);
 		
 		return "xtgl/yhqx/yhgl/new";
+	}
+
+	@RequestMapping(value="/xtgl/yhqx/yhgl/edit")
+	public String goXtglYhqxYhglEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		YongHu yh=publicService.selectYongHuById(id);
+		request.setAttribute("yh", yh);
+		
+		return "xtgl/yhqx/yhgl/edit";
 	}
 	
 	@RequestMapping(value="/xtgl/yhqx/yhgl/list")

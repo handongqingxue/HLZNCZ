@@ -658,6 +658,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public YongHu selectYongHuById(String id) {
+		// TODO Auto-generated method stub
+		return publicDao.selectYongHuById(id);
+	}
+
+	@Override
 	public int queryHaoMaForInt(String hm, String pdh, Integer ztId) {
 		// TODO Auto-generated method stub
 		return publicDao.queryHaoMaForInt(hm,pdh,ztId);
