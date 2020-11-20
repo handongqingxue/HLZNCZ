@@ -629,6 +629,9 @@
 			<if test="zyzt!=null">
 				zyzt,
 			</if>
+			<if test="glyhId!=null">
+				glyhId,
+			</if>
 		</trim>
 		values
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -661,6 +664,9 @@
 			</if>
 			<if test="zyzt!=null">
 				#{zyzt},
+			</if>
+			<if test="glyhId!=null">
+				#{glyhId},
 			</if>
 		</trim>
 	</insert>

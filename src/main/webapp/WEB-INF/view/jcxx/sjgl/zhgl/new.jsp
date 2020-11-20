@@ -20,7 +20,7 @@
 	font-size: 18px;
 }
 
-.select_yss_bg_div{
+.select_glyh_bg_div{
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,.45);
@@ -28,23 +28,23 @@
 	z-index: 9016;
 	display:none;
 }
-.select_yss_div{
+.select_glyh_div{
 	width: 1050px;
 	height: 500px;
 	margin: 100px auto 0;
 	background-color: #fff;
 	border-radius:5px;
 }
-.select_yss_div .xzst_div{
+.select_glyh_div .xzst_div{
 	width: 100%;
 	height: 50px;
 	line-height: 50px;
 	border-bottom: #eee solid 1px;
 }
-.select_yss_div .xzst_span{
+.select_glyh_div .xzst_span{
 	margin-left: 30px;
 }
-.select_yss_div .close_span{
+.select_glyh_div .close_span{
 	float: right;margin-right: 30px;cursor: pointer;
 }
 </style>
@@ -55,7 +55,7 @@ var dialogLeft=20;
 var showZIndex=9999;
 var ndNum=0;
 var glyhdNum=1;
-var syssdNum=2;
+var sglyhdNum=2;
 $(function(){
 	initNewDialog();//0
 	
@@ -74,9 +74,9 @@ function initDialogPosition(){
 	var glyhdpw=$("body").find(".panel.window").eq(glyhdNum);
 	var glyhdws=$("body").find(".window-shadow").eq(glyhdNum);
 
-	//选择运输商
-	var syssdpw=$("body").find(".panel.window").eq(syssdNum);
-	var syssdws=$("body").find(".window-shadow").eq(syssdNum);
+	//选择关联用户
+	var sglyhdpw=$("body").find(".panel.window").eq(sglyhdNum);
+	var sglyhdws=$("body").find(".window-shadow").eq(sglyhdNum);
 
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ndpw);
@@ -85,9 +85,9 @@ function initDialogPosition(){
 	ccDiv.append(glyhdpw);
 	ccDiv.append(glyhdws);
 
-	var syssDiv=$("#select_yss_div");
-	syssDiv.append(syssdpw);
-	syssDiv.append(syssdws);
+	var sglyhDiv=$("#select_glyh_div");
+	sglyhDiv.append(sglyhdpw);
+	sglyhDiv.append(sglyhdws);
 }
 
 function initNewDialog(){
@@ -286,9 +286,9 @@ function initGLYHTab(){
 }
 
 function initSelectYSSDialog(){
-	selectYSSDialog=$("#select_yss_dialog_div").dialog({
+	selectYSSDialog=$("#select_glyh_dialog_div").dialog({
 		title:"关联用户列表",
-		width:setFitWidthInParent("#select_yss_div","select_yss_dialog_div"),
+		width:setFitWidthInParent("#select_glyh_div","select_glyh_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
 		height:400,
 		top:160,
@@ -297,51 +297,51 @@ function initSelectYSSDialog(){
         	   openSelectGLYHDialog(0);
            }},
            {text:"保存",id:"save_but",iconCls:"icon-save",handler:function(){
-        	   	saveSelectYSS();
+        	   	saveSelectGLYH();
            }}
         ]
 	});
 	
-	$(".panel.window").eq(syssdNum).css("width","983px");
-	$(".panel.window").eq(syssdNum).css("margin-top","20px");
-	$(".panel.window").eq(syssdNum).css("border-color","#ddd");
-	$(".panel.window .panel-title").eq(syssdNum).css("color","#000");
-	$(".panel.window .panel-title").eq(syssdNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(syssdNum).css("padding-left","10px");
+	$(".panel.window").eq(sglyhdNum).css("width","983px");
+	$(".panel.window").eq(sglyhdNum).css("margin-top","20px");
+	$(".panel.window").eq(sglyhdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sglyhdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sglyhdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sglyhdNum).css("padding-left","10px");
 	
-	$(".panel-header, .panel-body").eq(syssdNum).css("border-color","#ddd");
+	$(".panel-header, .panel-body").eq(sglyhdNum).css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(syssdNum).css("width","1000px");
-	$(".window-shadow").eq(syssdNum).css("margin-top","20px");
+	$(".window-shadow").eq(sglyhdNum).css("width","1000px");
+	$(".window-shadow").eq(sglyhdNum).css("margin-top","20px");
 	
-	$(".window,.window .window-body").eq(syssdNum).css("border-color","#ddd");
+	$(".window,.window .window-body").eq(sglyhdNum).css("border-color","#ddd");
 
-	$("#select_yss_dialog_div #cancel_but").css("left","30%");
-	$("#select_yss_dialog_div #cancel_but").css("position","absolute");
+	$("#select_glyh_dialog_div #cancel_but").css("left","30%");
+	$("#select_glyh_dialog_div #cancel_but").css("position","absolute");
 	
-	$("#select_yss_dialog_div #save_but").css("left","45%");
-	$("#select_yss_dialog_div #save_but").css("position","absolute");
+	$("#select_glyh_dialog_div #save_but").css("left","45%");
+	$("#select_glyh_dialog_div #save_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
-	initSelectYSSTab();
+	initSelectGLYHTab();
 	openSelectGLYHDialog(0);
 }
 
-function initSelectYSSTab(){
-	$("#select_yss_toolbar #search_but").linkbutton({
+function initSelectGLYHTab(){
+	$("#select_glyh_toolbar #search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var mc=$("#select_yss_toolbar #mc_inp").val();
-			selectYSSTab.datagrid("load",{mc:mc});
+			var mc=$("#select_glyh_toolbar #mc_inp").val();
+			selectGLYHTab.datagrid("load",{mc:mc});
 		}
 	});
 	
-	selectYSSTab=$("#select_yss_tab").datagrid({
+	selectGLYHTab=$("#select_glyh_tab").datagrid({
 		url:path+"main/queryYongHuList",
-		toolbar:"#select_yss_toolbar",
-		width:setFitWidthInParent("body","select_yss_tab"),
+		toolbar:"#select_glyh_toolbar",
+		width:setFitWidthInParent("body","select_glyh_tab"),
 		singleSelect:true,
 		pagination:true,
 		pageSize:10,
@@ -396,7 +396,7 @@ function loadGLYHTabData(rows){
 	glyhTab.datagrid('loadData',obj);
 }
 
-function loadYSSTabData(rows){
+function loadGLYHTabData(rows){
 	var rowsLength=rows.length;
 	if(rowsLength>0)
 		glyhChooseLB.linkbutton("disable");
@@ -406,31 +406,31 @@ function loadYSSTabData(rows){
 	glyhTab.datagrid('loadData',obj);
 }
 
-function saveSelectYSS(){
-	var row=selectYSSTab.datagrid("getSelected");
+function saveSelectGLYH(){
+	var row=selectGLYHTab.datagrid("getSelected");
 	if (row == null) {
 		$.messager.alert("提示","请选择要删除的信息！","warning");
 		return false;
 	}
 	var rows=[{gx:"1",sm:row.sm,zt:row.zt,tx:row.tx,nc:row.nc,yhm:row.yhm,id:row.id}];
-	loadYSSTabData(rows);
+	loadGLYHTabData(rows);
 	openSelectGLYHDialog(0);
 }
 
 function deleteGLYHTabRow(){
 	glyhTab.datagrid("deleteRow",0);
-	loadYSSTabData([]);
+	loadGLYHTabData([]);
 }
 
 function openSelectGLYHDialog(flag){
 	if(flag==1){
-		$("#select_yss_bg_div").css("display","block");
-		$("#select_yss_bg_div").css("z-index",showZIndex);
+		$("#select_glyh_bg_div").css("display","block");
+		$("#select_glyh_bg_div").css("z-index",showZIndex);
 		selectYSSDialog.dialog("open");
 	}
 	else{
-		$("#select_yss_bg_div").css("display","none");
-		$("#select_yss_bg_div").css("z-index","9016");
+		$("#select_glyh_bg_div").css("display","none");
+		$("#select_glyh_bg_div").css("z-index","9016");
 		selectYSSDialog.dialog("close");
 	}
 }
@@ -461,6 +461,9 @@ function checkNew(){
 }
 
 function newSiJi(){
+	var glyhId=glyhTab.datagrid("getData").rows[0].id;
+	$("#new_div #glyhId").val(glyhId);
+	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
@@ -564,19 +567,19 @@ function setFitWidthInParent(parent,self){
 <body>
 
 <!-- 选择关联用户 start -->
-<div class="select_yss_bg_div" id="select_yss_bg_div">
-	<div class="select_yss_div" id="select_yss_div">
+<div class="select_glyh_bg_div" id="select_glyh_bg_div">
+	<div class="select_glyh_div" id="select_glyh_div">
 		<div class="xzst_div">
 			<span class="xzst_span">选择实体</span>
 			<span class="close_span" onclick="openSelectGLYHDialog(0)">X</span>
 		</div>
-		<div id="select_yss_dialog_div">
-			<div id="select_yss_toolbar" style="height:32px;line-height:32px;">
+		<div id="select_glyh_dialog_div">
+			<div id="select_glyh_toolbar" style="height:32px;line-height:32px;">
 				<span style="margin-left: 13px;">名称：</span>
 				<input type="text" id="mc_inp" placeholder="请输入名称" style="width: 120px;height: 25px;"/>
 				<a id="search_but" style="margin-left: 13px;">查询</a>
 			</div>
-			<table id="select_yss_tab"></table>
+			<table id="select_glyh_tab"></table>
 		</div>
 	</div>
 </div>
