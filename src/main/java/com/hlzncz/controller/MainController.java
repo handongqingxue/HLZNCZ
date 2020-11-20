@@ -645,6 +645,16 @@ public class MainController {
 		return "zjzxh/zxhgl/dzxh/detail";
 	}
 
+	@RequestMapping(value="/zjzxh/zjgl/dzj/list")
+	public String goZjzxhZjglDzjList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		request.setAttribute("ddztId", DingDan.DAI_JIAN_YAN);
+		
+		return "zjzxh/zjgl/dzj/list";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/blgb/list")
 	public String goGbglGbglBlgbList(HttpServletRequest request) {
 		
