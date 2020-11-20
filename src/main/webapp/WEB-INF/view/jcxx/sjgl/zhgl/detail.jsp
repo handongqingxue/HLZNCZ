@@ -24,10 +24,15 @@
 var path='<%=basePath %>';
 var dialogTop=10;
 var dialogLeft=20;
+var showZIndex=9999;
 var ddNum=0;
+var glyhdNum=1;
+var sglyhdNum=2;
 $(function(){
-	initDetailDialog();
+	initDetailDialog();//0
 
+	initGLYHDialog();//1.关联用户窗口
+	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
@@ -36,9 +41,16 @@ function initDialogPosition(){
 	var ddpw=$("body").find(".panel.window").eq(ddNum);
 	var ddws=$("body").find(".window-shadow").eq(ddNum);
 
+	//关联用户
+	var glyhdpw=$("body").find(".panel.window").eq(glyhdNum);
+	var glyhdws=$("body").find(".window-shadow").eq(glyhdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(ddpw);
 	ccDiv.append(ddws);
+
+	ccDiv.append(glyhdpw);
+	ccDiv.append(glyhdws);
 }
 
 function initDetailDialog(){
@@ -46,7 +58,7 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","detail_div"),
-		height:431,
+		height:330,
 		top:dialogTop,
 		left:dialogLeft,
 	});
@@ -68,6 +80,116 @@ function initDetailDialog(){
 	//以下的是表格下面的面板
 	$(".window-shadow").eq(ddNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ddNum).css("border-color","#ddd");
+}
+
+function initGLYHDialog(){
+	dialogTop+=360;//230
+	glyhDialog=$("#glyh_div").dialog({
+		title:"关联用户",
+		width:setFitWidthInParent("body","glyh_div"),
+		//height:setFitHeightInParent(".left_nav_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(glyhdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(glyhdNum).css("margin-top","20px");
+	$(".panel.window").eq(glyhdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(glyhdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(glyhdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(glyhdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(glyhdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(glyhdNum).css("width","1000px");
+	$(".window-shadow").eq(glyhdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(glyhdNum).css("border-color","#ddd");
+
+	initGLYHTab();
+}
+
+function initGLYHTab(){
+	glyhTab=$("#glyh_tab").datagrid({
+		width:setFitWidthInParent("body","glyh_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="关联用户";
+					break;
+				}
+				return str;
+			}},
+            {field:"sm",title:"实名",width:200,align:"center"},
+            {field:"zt",title:"状态",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="新增";
+					break;
+				case "2":
+					str="正常使用";
+					break;
+				case "3":
+					str="废弃";
+					break;
+				case "4":
+					str="有误";
+					break;
+				}
+				return str;
+			}},
+            {field:"tx",title:"头像",width:200,align:"center"},
+            {field:"nc",title:"昵称",width:200,align:"center"},
+            {field:"yhm",title:"用户名",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:7});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	//var obj = {"total":2,"rows":[{mc:"mc",bz:"一"},{mc:"2",bz:"二"}]};
+	var rows;
+	if('${requestScope.glyh}'==""){
+		rows=[];
+	}
+	else{
+		var sm='${requestScope.glyh.sm}';
+		var zt='${requestScope.glyh.zt}';
+		var tx='${requestScope.glyh.tx}';
+		var nc='${requestScope.glyh.nc}';
+		var yhm='${requestScope.glyh.yhm}';
+		var id='${requestScope.glyh.id}';
+		rows=[{gx:"1",sm:sm,zt:zt,tx:tx,nc:nc,yhm:yhm,id:id}];
+	}
+	loadGLYHTabData(rows);
+}
+
+function loadGLYHTabData(rows){
+	var rowsLength=rows.length;
+	var obj = {"total":rowsLength,"rows":rows};
+	glyhTab.datagrid('loadData',obj);
 }
 
 function setFitWidthInParent(parent,self){
@@ -185,6 +307,10 @@ function setFitWidthInParent(parent,self){
 			</td>
 		  </tr>
 		</table>
+	</div>
+	
+	<div id="glyh_div">
+		<table id="glyh_tab"></table>
 	</div>
 </div>
 </body>

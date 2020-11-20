@@ -1213,6 +1213,9 @@ public class MainController {
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
+		YongHu glyh=publicService.selectYongHuById(String.valueOf(sj.getGlyhId()));
+		request.setAttribute("glyh", glyh);
+		
 		return "jcxx/sjgl/zhgl/edit";
 	}
 
@@ -1231,6 +1234,9 @@ public class MainController {
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
+
+		YongHu glyh=publicService.selectYongHuById(String.valueOf(sj.getGlyhId()));
+		request.setAttribute("glyh", glyh);
 		
 		return "jcxx/sjgl/zhgl/detail";
 	}

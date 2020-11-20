@@ -60,7 +60,7 @@ $(function(){
 	initNewDialog();//0
 	
 	initGLYHDialog();//1.关联用户窗口
-	initSelectYSSDialog();//2.选择关联用户窗口
+	initSelectGLYHDialog();//2.选择关联用户窗口
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -285,8 +285,8 @@ function initGLYHTab(){
 	loadGLYHTabData([]);
 }
 
-function initSelectYSSDialog(){
-	selectYSSDialog=$("#select_glyh_dialog_div").dialog({
+function initSelectGLYHDialog(){
+	selectGLYHDialog=$("#select_glyh_dialog_div").dialog({
 		title:"关联用户列表",
 		width:setFitWidthInParent("#select_glyh_div","select_glyh_dialog_div"),
 		//height:setFitHeightInParent(".left_nav_div"),
@@ -304,6 +304,7 @@ function initSelectYSSDialog(){
 	
 	$(".panel.window").eq(sglyhdNum).css("width","983px");
 	$(".panel.window").eq(sglyhdNum).css("margin-top","20px");
+	$(".panel.window").eq(sglyhdNum).css("margin-left","25px");
 	$(".panel.window").eq(sglyhdNum).css("border-color","#ddd");
 	$(".panel.window .panel-title").eq(sglyhdNum).css("color","#000");
 	$(".panel.window .panel-title").eq(sglyhdNum).css("font-size","15px");
@@ -314,6 +315,7 @@ function initSelectYSSDialog(){
 	//以下的是表格下面的面板
 	$(".window-shadow").eq(sglyhdNum).css("width","1000px");
 	$(".window-shadow").eq(sglyhdNum).css("margin-top","20px");
+	$(".window-shadow").eq(sglyhdNum).css("margin-left","25px");
 	
 	$(".window,.window .window-body").eq(sglyhdNum).css("border-color","#ddd");
 
@@ -396,16 +398,6 @@ function loadGLYHTabData(rows){
 	glyhTab.datagrid('loadData',obj);
 }
 
-function loadGLYHTabData(rows){
-	var rowsLength=rows.length;
-	if(rowsLength>0)
-		glyhChooseLB.linkbutton("disable");
-	else
-		glyhChooseLB.linkbutton("enable");
-	var obj = {"total":rowsLength,"rows":rows};
-	glyhTab.datagrid('loadData',obj);
-}
-
 function saveSelectGLYH(){
 	var row=selectGLYHTab.datagrid("getSelected");
 	if (row == null) {
@@ -426,12 +418,12 @@ function openSelectGLYHDialog(flag){
 	if(flag==1){
 		$("#select_glyh_bg_div").css("display","block");
 		$("#select_glyh_bg_div").css("z-index",showZIndex);
-		selectYSSDialog.dialog("open");
+		selectGLYHDialog.dialog("open");
 	}
 	else{
 		$("#select_glyh_bg_div").css("display","none");
 		$("#select_glyh_bg_div").css("z-index","9016");
-		selectYSSDialog.dialog("close");
+		selectGLYHDialog.dialog("close");
 	}
 }
 

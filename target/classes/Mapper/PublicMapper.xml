@@ -905,6 +905,9 @@
 			<if test="zyzt!=null">
 				zyzt=#{zyzt},
 			</if>
+			<if test="glyhId!=null">
+				glyhId=#{glyhId},
+			</if>
 		</trim>
 		 where id=#{id}
 	</update>
