@@ -605,6 +605,9 @@ public class MainController {
 		
 		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
 		request.setAttribute("xdyh", xdyh);
+
+		YongHu sjyh=publicService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
+		request.setAttribute("sjyh", sjyh);
 		
 		return "zjzxh/zxhgl/dzxh/edit";
 	}

@@ -29,6 +29,7 @@ var edNum=0;
 var cycldNum=1;
 var cysjdNum=2;
 var xdyhdNum=3;
+var sjyhdNum=4;
 $(function(){
 	initEditDialog();
 	
@@ -37,6 +38,8 @@ $(function(){
 	initCYSJDialog();//2.承运司机窗口
 
 	initXDYHDialog();//3.下单用户窗口
+
+	initSJYHDialog();//4.司机用户窗口
 	
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
@@ -58,6 +61,10 @@ function initDialogPosition(){
 	var xdyhdpw=$("body").find(".panel.window").eq(xdyhdNum);
 	var xdyhdws=$("body").find(".window-shadow").eq(xdyhdNum);
 
+	//司机用户
+	var sjyhdpw=$("body").find(".panel.window").eq(sjyhdNum);
+	var sjyhdws=$("body").find(".window-shadow").eq(sjyhdNum);
+
 	var ccDiv=$("#center_con_div");
 	ccDiv.append(edpw);
 	ccDiv.append(edws);
@@ -70,6 +77,9 @@ function initDialogPosition(){
 
 	ccDiv.append(xdyhdpw);
 	ccDiv.append(xdyhdws);
+
+	ccDiv.append(sjyhdpw);
+	ccDiv.append(sjyhdws);
 }
 
 function initEditDialog(){
@@ -410,6 +420,85 @@ function initXDYHTab(){
 	loadXDYHTabData(rows);
 }
 
+function initSJYHDialog(){
+	dialogTop+=230;//1380
+	xdyhDialog=$("#sjyh_div").dialog({
+		title:"司机用户",
+		width:setFitWidthInParent("body","sjyh_div"),
+		height:200,
+		top:dialogTop,
+		left:dialogLeft
+	});
+	
+	$(".panel.window").eq(sjyhdNum).css("width",(setFitWidthInParent("body","panel_window"))+"px");
+	$(".panel.window").eq(sjyhdNum).css("margin-top","20px");
+	$(".panel.window").eq(sjyhdNum).css("border-color","#ddd");
+	$(".panel.window .panel-title").eq(sjyhdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(sjyhdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(sjyhdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").eq(sjyhdNum).css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(sjyhdNum).css("width","1000px");
+	$(".window-shadow").eq(sjyhdNum).css("margin-top","20px");
+	
+	$(".window,.window .window-body").eq(sjyhdNum).css("border-color","#ddd");
+
+	initSJYHTab();
+}
+
+function initSJYHTab(){
+	sjyhTab=$("#sjyh_tab").datagrid({
+		width:setFitWidthInParent("body","sjyh_tab"),
+		singleSelect:true,
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"gx",title:"关系",width:200,align:"center",formatter:function(value,row){
+				var str;
+				switch (value) {
+				case "1":
+					str="订单司机用户";
+					break;
+				}
+				return str;
+			}},
+            {field:"sm",title:"实名",width:200,align:"center"},
+            {field:"yhm",title:"用户名",width:200,align:"center"},
+			{field:"id",title:"操作",width:200,align:"center",formatter:function(value,row){
+            	var str="";
+            	return str;
+            }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{gx:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"gx",colspan:4});
+				data.total=0;
+			}
+			
+			$(".panel-header .panel-title").css("color","#000");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+
+			//reSizeCol();
+		}
+	});
+	var rows;
+	if('${requestScope.sjyh}'==""){
+		rows=[];
+	}
+	else{
+		var sm='${requestScope.sjyh.sm}';
+		var yhm='${requestScope.sjyh.yhm}';
+		var id='${requestScope.sjyh.id}';
+		rows=[{gx:"1",sm:sm,yhm:yhm,id:id}];
+	}
+	loadSJYHTabData(rows);
+}
+
 function loadCYCLTabData(rows){
 	var rowsLength=rows.length;
 	var obj = {"total":rowsLength,"rows":rows};
@@ -426,6 +515,12 @@ function loadXDYHTabData(rows){
 	var rowsLength=rows.length;
 	var obj = {"total":rowsLength,"rows":rows};
 	xdyhTab.datagrid('loadData',obj);
+}
+
+function loadSJYHTabData(rows){
+	var rowsLength=rows.length;
+	var obj = {"total":rowsLength,"rows":rows};
+	sjyhTab.datagrid('loadData',obj);
 }
 
 function setFitWidthInParent(parent,self){
@@ -544,6 +639,10 @@ function setFitWidthInParent(parent,self){
 	
 	<div id="xdyh_div">
 		<table id="xdyh_tab"></table>
+	</div>
+	
+	<div id="sjyh_div">
+		<table id="sjyh_tab"></table>
 	</div>
 </div>
 </body>
