@@ -25,13 +25,13 @@ var path='<%=basePath %>';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
-var edNum=0;
+var ddNum=0;
 var cycldNum=1;
 var cysjdNum=2;
 var xdyhdNum=3;
 var sjyhdNum=4;
 $(function(){
-	initEditDialog();
+	initDetailDialog();//0
 	
 	initCYCLDialog();//1.承运车辆窗口
 	
@@ -46,8 +46,8 @@ $(function(){
 
 function initDialogPosition(){
 	//基本属性组
-	var edpw=$("body").find(".panel.window").eq(edNum);
-	var edws=$("body").find(".window-shadow").eq(edNum);
+	var ddpw=$("body").find(".panel.window").eq(ddNum);
+	var ddws=$("body").find(".window-shadow").eq(ddNum);
 
 	//承运车辆
 	var cycldpw=$("body").find(".panel.window").eq(cycldNum);
@@ -66,8 +66,8 @@ function initDialogPosition(){
 	var sjyhdws=$("body").find(".window-shadow").eq(sjyhdNum);
 
 	var ccDiv=$("#center_con_div");
-	ccDiv.append(edpw);
-	ccDiv.append(edws);
+	ccDiv.append(ddpw);
+	ccDiv.append(ddws);
 
 	ccDiv.append(cycldpw);
 	ccDiv.append(cycldws);
@@ -82,104 +82,36 @@ function initDialogPosition(){
 	ccDiv.append(sjyhdws);
 }
 
-function initEditDialog(){
+function initDetailDialog(){
 	dialogTop+=20;
-	$("#edit_div").dialog({
+	$("#detail_div").dialog({
 		title:"基本属性组",
-		width:setFitWidthInParent("body","edit_div"),
+		width:setFitWidthInParent("body","detail_div"),
 		height:325,
 		top:dialogTop,
-		left:dialogLeft,
-		buttons:[
-           {text:"已完成装卸",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkEdit();
-           }}
-        ]
+		left:dialogLeft
 	});
 
-	$("#edit_div table").css("width",(setFitWidthInParent("body","edit_div_table"))+"px");
-	$("#edit_div table").css("magin","-100px");
-	$("#edit_div table td").css("padding-left","50px");
-	$("#edit_div table td").css("padding-right","20px");
-	$("#edit_div table td").css("font-size","15px");
-	$("#edit_div table tr").css("height","45px");
+	$("#detail_div table").css("width",(setFitWidthInParent("body","detail_div_table"))+"px");
+	$("#detail_div table").css("magin","-100px");
+	$("#detail_div table td").css("padding-left","50px");
+	$("#detail_div table td").css("padding-right","20px");
+	$("#detail_div table td").css("font-size","15px");
+	$("#detail_div table tr").css("height","45px");
 
-	$(".panel.window").eq(edNum).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(edNum).css("color","#000");
-	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
+	$(".panel.window").eq(ddNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ddNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ddNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ddNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(edNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
+	$(".window-shadow").eq(ddNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ddNum).css("border-color","#ddd");
 
-	$("#edit_div #ok_but").css("left","40%");
-	$("#edit_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-
-	initEditDivLXLXCBB();
-	initEditDivBJSJDTB();
-	initEditDivZXZTCBB();
-	initEditDivJHYSRQDB();
-}
-
-function initEditDivLXLXCBB(){
-	edlxlxCBB=$("#edit_div #lxlx_cbb").combobox({
-		valueField:"value",
-		textField:"text",
-		data:[{"value":"","text":"请选择车辆类型"},{"value":"1","text":"送运"},{"value":"2","text":"取运"}],
-		onLoadSuccess:function(){
-			$(this).combobox("setValue",'${requestScope.dd.lxlx }');
-		},
-		onSelect:function(){
-			$("#lxlx").val($(this).combobox("getValue"));
-		}
-	});
-}
-
-function initEditDivBJSJDTB(){
-	edbjsjDTB=$("#edit_div #bjsj_dtb").datetimebox({
-        required:false,
-        disabled:true,
-        onSelect:function(){
-        	$("#edit_div #bjsj").val(edbjsjDTB.datetimebox("getValue"));
-        }
-	});
-	edbjsjDTB.datebox("setValue",'${requestScope.dd.bjsj }');
-}
-
-function initEditDivZXZTCBB(){
-	var data=[];
-	data.push({"value":"","text":"请选择执行状态"});
-	$.post(path+"main/queryDingDanZhuangTaiCBBList",
-		function(result){
-			var rows=result.rows;
-			for(var i=0;i<rows.length;i++){
-				data.push({"value":rows[i].id,"text":rows[i].mc});
-			}
-			dzxhDDZTCBB=$("#edit_div #zxzt_cbb").combobox({
-				valueField:"value",
-				textField:"text",
-				data:data,
-				onLoadSuccess:function(){
-					$(this).combobox("setValue",'${requestScope.dd.ddztId }');
-				}
-			});
-		}
-	,"json");
-}
-
-function initEditDivJHYSRQDB(){
-	edjhysrqDB=$("#edit_div #jhysrq_db").datebox({
-        required:false,
-        onSelect:function(){
-        	$("#edit_div #jhysrq").val(edjhysrqDB.datebox("getValue"));
-        }
-	});
-	edjhysrqDB.datebox("setValue",'${requestScope.dd.jhysrq }');
 }
 
 function initCYCLDialog(){
@@ -213,7 +145,6 @@ function initCYCLDialog(){
 
 function initCYCLTab(){
 	cyclTab=$("#cycl_tab").datagrid({
-		toolbar:"#cycl_toolbar",
 		width:setFitWidthInParent("body","cycl_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -291,7 +222,6 @@ function initCYSJDialog(){
 
 function initCYSJTab(){
 	cysjTab=$("#cysj_tab").datagrid({
-		toolbar:"#cysj_toolbar",
 		width:setFitWidthInParent("body","cysj_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -526,10 +456,10 @@ function loadSJYHTabData(rows){
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
-	case "edit_div":
+	case "detail_div":
 		space=340;
 		break;
-	case "edit_div_table":
+	case "detail_div_table":
 	case "panel_window":
 		space=355;
 		break;
@@ -538,15 +468,14 @@ function setFitWidthInParent(parent,self){
 	return width.substring(0,width.length-2)-space;
 }
 </script>
-<title>修改</title>
+<title>详情</title>
 </head>
 <body>
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">待装卸货-修改</div>
-
-	<div id="edit_div">
-	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
+	<div class="page_location_div">待装卸货-详情</div>
+	
+	<div id="detail_div">
 		<input type="hidden" id="wybm" name="wybm" value="${requestScope.dd.wybm }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -554,13 +483,13 @@ function setFitWidthInParent(parent,self){
 				订单号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="ddh" name="ddh" value="${requestScope.dd.ddh }" placeholder="请输入订单号" disabled="disabled" style="width: 180px;height:30px;"/>
+				<span>${requestScope.dd.ddh }</span>
 			</td>
 			<td align="right" style="width:15%;">
 				预装卸重量
 			</td>
 			<td style="width:30%;">
-				<input type="number" id="yzxzl" name="yzxzl" value="${requestScope.dd.yzxzl }" placeholder="请输入预装卸重量" style="width: 150px;height:30px;"/>
+				<span>${requestScope.dd.yzxzl }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -568,15 +497,18 @@ function setFitWidthInParent(parent,self){
 				流向类型
 			</td>
 			<td>
-				<input id="lxlx_cbb"/>
-				<input type="hidden" id="lxlx" name="lxlx" value="${requestScope.dd.lxlx }"/>
+				<c:if test="${requestScope.dd.lxlx eq 1 }">
+					送运
+				</c:if>
+				<c:if test="${requestScope.dd.lxlx eq 2 }">
+					取运
+				</c:if>
 			</td>
 			<td align="right">
 				编辑时间
 			</td>
 			<td>
-				<input id="bjsj_dtb"/>
-				<input type="hidden" id="bjsj" name="bjsj" value="${requestScope.dd.bjsj }"/>
+				<span>${requestScope.dd.bjsj }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -584,14 +516,13 @@ function setFitWidthInParent(parent,self){
 				执行状态
 			</td>
 			<td>
-				<input id="zxzt_cbb"/>
-				<input type="hidden" id="ddztId" name="ddztId" value="${requestScope.dd.ddztId }"/>
+				<span>${requestScope.dd.ddztmc }</span>
 			</td>
 			<td align="right">
 				实际重量
 			</td>
 			<td>
-				<input type="number" id="sjzl" value="${requestScope.dd.sjzl }" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
+				<span>${requestScope.dd.sjzl }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -599,14 +530,13 @@ function setFitWidthInParent(parent,self){
 				重量差额比
 			</td>
 			<td>
-				<input type="number" id="zlceb" value="${requestScope.dd.zlceb }" placeholder="无需输入" disabled="disabled" style="width: 150px;height:30px;"/>
+				<span>${requestScope.dd.zlceb }</span>
 			</td>
 			<td align="right">
 				计划运输日期
 			</td>
 			<td>
-				<input id="jhysrq_db"/>
-				<input type="hidden" id="jhysrq" name="jhysrq" value="${requestScope.dd.jhysrq }"/>
+				<span>${requestScope.dd.jhysrq }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -614,9 +544,7 @@ function setFitWidthInParent(parent,self){
 				二维码
 			</td>
 			<td>
-				<div>
-					${requestScope.dd.ewm }
-				</div>
+				<span>${requestScope.dd.ewm }</span>
 			</td>
 			<td align="right">
 				
@@ -626,7 +554,6 @@ function setFitWidthInParent(parent,self){
 			</td>
 		  </tr>
 		</table>
-	</form>
 	</div>
 	
 	<div id="cycl_div">

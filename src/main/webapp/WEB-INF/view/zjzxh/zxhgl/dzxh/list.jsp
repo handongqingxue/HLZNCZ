@@ -71,7 +71,7 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"ddztmc",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	var str="<a href=\"${pageContext.request.contextPath}/main/zjzxh/zxhgl/dzxh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/zjzxh/zxhgl/dzxh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
