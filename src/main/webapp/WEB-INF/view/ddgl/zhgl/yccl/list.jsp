@@ -97,7 +97,7 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"sjzl",title:"实际重量",width:200},
             {field:"zlceb",title:"重量差额比",width:200},
-            {field:"cksj",title:"出入库时间",width:200},
+            {field:"crksj",title:"出入库时间",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/yccl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/yccl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";

@@ -212,4 +212,6 @@ public interface PublicMapper {
 	public List<DingDanYiChang> selectDingDanYiChangByDdbm(@Param("ddbm") String ddbm);
 
 	public GuoBang selectGuoBangById(@Param("id") String id);
+
+	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(@Param("glddBm") String glddBm);
 }

@@ -105,7 +105,15 @@ public class DingDan implements Serializable {
 	public void setDdztmc(String ddztmc) {
 		this.ddztmc = ddztmc;
 	}
-	
+
+	public Integer getRkzt() {
+		return rkzt;
+	}
+
+	public void setRkzt(Integer rkzt) {
+		this.rkzt = rkzt;
+	}
+
 	public String getBjsj() {
 		return bjsj;
 	}
@@ -122,12 +130,12 @@ public class DingDan implements Serializable {
 		this.jhysrq = jhysrq;
 	}
 
-	public String getCksj() {
-		return cksj;
+	public String getCrksj() {
+		return crksj;
 	}
 
-	public void setCksj(String cksj) {
-		this.cksj = cksj;
+	public void setCrksj(String crksj) {
+		this.crksj = crksj;
 	}
 
 	public String getEwm() {
@@ -225,9 +233,10 @@ public class DingDan implements Serializable {
 	private Float zlceb;//重量差额比
 	private Integer ddztId;//订单状态id
 	private String ddztmc;//订单状态名称
+	private Integer rkzt;//入库状态  1.未入库 2.待入库 3.已入库 4.入库异常
 	private String bjsj;//编辑时间
 	private String jhysrq;//计划运输日期
-	private String cksj;//出库时间
+	private String crksj;//出入库时间
 	private String ewm;//二维码
 	private Integer yssId;//运输商id
 	private String yssmc;

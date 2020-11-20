@@ -217,4 +217,6 @@ public interface PublicService {
 	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm);
 
 	public GuoBang selectGuoBangById(String id);
+
+	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
 }

@@ -706,4 +706,10 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.selectGuoBangById(id);
 	}
 
+	@Override
+	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm) {
+		// TODO Auto-generated method stub
+		return publicDao.selectZhiJianBaoGaoByGlddBm(glddBm);
+	}
+
 }

@@ -645,6 +645,20 @@ public class MainController {
 		return "zjzxh/zxhgl/dzxh/detail";
 	}
 
+	@RequestMapping(value="/zjzxh/zjgl/dzj/edit")
+	public String goZjzxhZjglDzjEdit(HttpServletRequest request) {
+		
+		selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=publicService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
+		request.setAttribute("zjbg", zjbg);
+		
+		return "zjzxh/zjgl/dzj/edit";
+	}
+
 	@RequestMapping(value="/zjzxh/zjgl/dzj/list")
 	public String goZjzxhZjglDzjList(HttpServletRequest request) {
 		
