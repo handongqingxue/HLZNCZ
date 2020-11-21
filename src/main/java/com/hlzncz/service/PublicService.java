@@ -23,9 +23,7 @@ public interface PublicService {
 	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
 			String order);
 
-	public int tongGuoDingDanShenHe(String wybms);
-
-	public int tuiHuiDingDanShenHe(String wybms);
+	public int updateDingDanZT(Integer ddztId, String wybms);
 
 	public int queryDingDanShenHeForInt(String ddh, Integer ddztId);
 
@@ -221,4 +219,6 @@ public interface PublicService {
 	public GuoBang selectGuoBangById(String id);
 
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
+
+	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms);
 }

@@ -22,9 +22,9 @@ public interface PublicMapper {
 
 	public List<DingDan> queryWoYaoXiaDanList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
 
-	public int tongGuoDingDanShenHe(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
+	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
 
-	public int tuiHuiDingDanShenHe(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
+	public int updateZhiJianBaoGaoJLByGlddBms(@Param("jl") Integer jl, @Param("glddBmList") List<String> glddBmList);
 
 	public int queryDingDanShenHeForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
 

@@ -30,7 +30,7 @@ function initZJTGLB(){
 	$("#zjtg_but").linkbutton({
 		iconCls:"icon-ok",
 		onClick:function(){
-			//tongGuoByWybms();
+			tongGuoByWybms();
 		}
 	});
 }
@@ -132,7 +132,7 @@ function tongGuoByWybms() {
 			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/tongGuoDingDanShenHe",
+			$.post(path + "main/tongGuoZhiJian",
 				{wybms:wybms},
 				function(result){
 					if(result.status==1){

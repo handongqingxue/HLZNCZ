@@ -8,6 +8,8 @@ public class ZhiJianBaoGao implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Integer HE_GE=1;//合格
+	public static final Integer BU_HE_GE=2;//不合格
 	private Integer id;
 	public Integer getId() {
 		return id;

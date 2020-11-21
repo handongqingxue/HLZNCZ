@@ -174,16 +174,16 @@
 		</if>
 		 limit ${param3},${param4}
 	</select>
-	<update id="tongGuoDingDanShenHe">
+	<update id="updateDingDanZT">
 		update ding_dan set ddztId=#{ddztId}
 		<foreach collection="wybmList" item="wybm" open=" where cast(wybm as char) in (" separator="," close=")">
 		#{wybm}
 		</foreach>
 	</update>
-	<update id="tuiHuiDingDanShenHe">
-		update ding_dan set ddztId=#{ddztId}
-		<foreach collection="wybmList" item="wybm" open=" where cast(wybm as char) in (" separator="," close=")">
-		#{wybm}
+	<update id="updateZhiJianBaoGaoJLByGlddBms">
+		update zhi_jian_bao_gao set jl=#{jl}
+		<foreach collection="glddBmList" item="glddBm" open=" where cast(glddBm as char) in(" separator="," close=")">
+		#{glddBm}
 		</foreach>
 	</update>
 	<select id="queryDingDanShenHeForInt" resultType="java.lang.Integer">

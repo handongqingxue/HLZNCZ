@@ -83,20 +83,20 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int tongGuoDingDanShenHe(String wybms) {
+	public int updateDingDanZT(Integer ddztId, String wybms) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> wybmList = Arrays.asList(wybms.split(","));
-		count=publicDao.tongGuoDingDanShenHe(DingDan.YI_XIA_DAN,wybmList);
+		count=publicDao.updateDingDanZT(ddztId,wybmList);
 		return count;
 	}
 
 	@Override
-	public int tuiHuiDingDanShenHe(String wybms) {
+	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms) {
 		// TODO Auto-generated method stub
 		int count=0;
-		List<String> wybmList = Arrays.asList(wybms.split(","));
-		count=publicDao.tuiHuiDingDanShenHe(DingDan.BIAN_JI_ZHONG,wybmList);
+		List<String> glddBmList = Arrays.asList(glddBms.split(","));
+		count=publicDao.updateZhiJianBaoGaoJLByGlddBms(jl,glddBmList);
 		return count;
 	}
 
@@ -724,5 +724,4 @@ public class PublicServiceImpl implements PublicService {
 		// TODO Auto-generated method stub
 		return publicDao.selectZhiJianBaoGaoByGlddBm(glddBm);
 	}
-
 }

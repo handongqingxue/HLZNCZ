@@ -34,6 +34,10 @@ public class DingDan implements Serializable {
 	 */
 	public static final Integer DAI_JIAN_YAN=6;
 	/**
+	 * ´ıÒ»¼ìÉÏ°ñ
+	 */
+	public static final Integer DAI_YI_JIAN_SHANG_BANG=7;
+	/**
 	 * ´ıÀë³§
 	 */
 	public static final Integer DAI_LI_CHANG=12;
