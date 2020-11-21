@@ -1807,13 +1807,13 @@ public class MainController {
 		return json;
 	}
 
-	@RequestMapping(value="/editWoYaoXiaDan")
+	@RequestMapping(value="/editDingDan")
 	@ResponseBody
-	public Map<String, Object> editWoYaoXiaDan(DingDan dd) {
+	public Map<String, Object> editDingDan(DingDan dd) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.editWoYaoXiaDan(dd);
+		int count=publicService.editDingDan(dd);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "编辑订单成功！");
@@ -2467,6 +2467,50 @@ public class MainController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "编辑车辆信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editDaiZhiJian")
+	@ResponseBody
+	public Map<String, Object> editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg,
+			@RequestParam(value="ewm_file",required=false) MultipartFile ewm_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[4];
+			fileArr[0]=ewm_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								dd.setEwm(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=publicService.editDaiZhiJian(dd,zjbg);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑待质检成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑待质检失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

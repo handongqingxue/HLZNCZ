@@ -16,7 +16,7 @@ public interface PublicService {
 
 	public int deleteDingDan(String wybms);
 
-	public int editWoYaoXiaDan(DingDan dd);
+	public int editDingDan(DingDan dd);
 
 	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);
 
@@ -219,4 +219,6 @@ public interface PublicService {
 	public GuoBang selectGuoBangById(String id);
 
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
+
+	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg);
 }

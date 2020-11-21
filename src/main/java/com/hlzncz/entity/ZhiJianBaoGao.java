@@ -27,14 +27,14 @@ public class ZhiJianBaoGao implements Serializable {
 	public void setBjsj(String bjsj) {
 		this.bjsj = bjsj;
 	}
-	public Integer getGlddId() {
-		return glddId;
+	public String getGlddBm() {
+		return glddBm;
 	}
-	public void setGlddId(Integer glddId) {
-		this.glddId = glddId;
+	public void setGlddBm(String glddBm) {
+		this.glddBm = glddBm;
 	}
 	private Integer jl;//结论 1.合格 2.不合格
 	private String bjsj;//编辑时间
-	private Integer glddId;//关联订单id
+	private String glddBm;//关联订单编码
 
 }

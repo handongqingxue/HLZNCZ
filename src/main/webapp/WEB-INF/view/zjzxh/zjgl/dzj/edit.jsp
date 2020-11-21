@@ -239,7 +239,7 @@ function initEditDivZXZTCBB(){
 			for(var i=0;i<rows.length;i++){
 				data.push({"value":rows[i].id,"text":rows[i].mc});
 			}
-			ssddZXZTCBB=$("#edit_div #zxzt_cbb").combobox({
+			edzxztCBB=$("#edit_div #zxzt_cbb").combobox({
 				valueField:"value",
 				textField:"text",
 				data:data,
@@ -258,12 +258,16 @@ function initEditDivRKZTCBB(){
 	data.push({"value":"2","text":"待入库"});
 	data.push({"value":"3","text":"已入库"});
 	data.push({"value":"4","text":"入库异常"});
-	ssddRKZTCBB=$("#edit_div #rkzt_cbb").combobox({
+	edrkztCBB=$("#edit_div #rkzt_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:data,
 		onLoadSuccess:function(){
 			$(this).combobox("setValue",'${requestScope.dd.rkzt }');
+		},
+		onSelect:function(){
+			var rkzt=edrkztCBB.combobox("getValue");
+			$("#edit_div #rkzt").val(rkzt);
 		}
 	});
 }
@@ -281,7 +285,7 @@ function initEditDivJHYSRQDB(){
 function initEditDivCRKSJDB(){
 	edcrksjDB=$("#edit_div #crksj_db").datebox({
         required:false,
-        onSelect:function(){
+        onChange:function(){
         	$("#edit_div #crksj").val(edcrksjDB.datebox("getValue"));
         }
 	});
@@ -453,7 +457,10 @@ function initNewZJBGDivJLCBB(){
 	nzjbgdjlCBB=$("#nZjbgJl_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择结论"},{"value":"1","text":"合格"},{"value":"2","text":"不合格"}]
+		data:[{"value":"","text":"请选择结论"},{"value":"1","text":"合格"},{"value":"2","text":"不合格"}],
+		onSelect:function(){
+			$("#edit_div #jl").val(nzjbgdjlCBB.combobox("getValue"));
+		}
 	});
 }
 
@@ -519,7 +526,10 @@ function initEditZJBGDivJLCBB(){
 	ezjbgdjlCBB=$("#eZjbgJl_cbb").combobox({
 		valueField:"value",
 		textField:"text",
-		data:[{"value":"","text":"请选择结论"},{"value":"1","text":"合格"},{"value":"2","text":"不合格"}]
+		data:[{"value":"","text":"请选择结论"},{"value":"1","text":"合格"},{"value":"2","text":"不合格"}],
+		onSelect:function(){
+			$("#edit_div #jl").val(ezjbgdjlCBB.combobox("getValue"));
+		}
 	});
 }
 
@@ -605,6 +615,111 @@ function openEditZJBGJBSXZDialog(flag){
 	else{
 		editZJBGDialog.dialog("close");
 	}
+}
+
+function checkEdit(){
+	if(checkEditDivYZXZL()){
+		if(checkEditDivLXLX()){
+			if(checkEditDivZXZT()){
+				if(checkEditDivRKZT()){
+					if(checkEditDivJHYSRQ()){
+						if(checkEditDivCRKSJ()){
+							editDaiZhiJian();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function editDaiZhiJian(){
+	
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:path+"main/editDaiZhiJian",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
+}
+
+//验证预装卸重量
+function checkEditDivYZXZL(){
+	var yzxzl = $("#edit_div #yzxzl").val();
+	if(yzxzl==null||yzxzl==""){
+	  	alert("请输入预装卸重量");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证流向类型
+function checkEditDivLXLX(){
+	var lxlx=edlxlxCBB.combobox("getValue");
+	if(lxlx==null||lxlx==""){
+	  	alert("请选择流向类型");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证执行状态
+function checkEditDivZXZT(){
+	var zxzt=edzxztCBB.combobox("getValue");
+	if(zxzt==null||zxzt==""){
+	  	alert("请选择执行状态");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证入库状态
+function checkEditDivRKZT(){
+	var rkzt=edrkztCBB.combobox("getValue");
+	if(rkzt==null||rkzt==""){
+	  	alert("请选择入库状态");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证计划运输日期
+function checkEditDivJHYSRQ(){
+	var jhysrq = edjhysrqDB.datebox("getValue");
+	if(jhysrq==null||jhysrq==""){
+	  	alert("请选择计划运输日期");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证出入库时间
+function checkEditDivCRKSJ(){
+	var crksj = edcrksjDB.datebox("getValue");
+	if(crksj==null||crksj==""){
+	  	alert("请选择出入库时间");
+	  	return false;
+	}
+	else
+		return true;
 }
 
 function setFitWidthInParent(parent,self){
@@ -722,6 +837,8 @@ function setFitWidthInParent(parent,self){
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
 		<input type="hidden" id="wybm" name="wybm" value="${requestScope.dd.wybm }"/>
+		<input type="hidden" id="glddBm" name="glddBm" value="${requestScope.dd.wybm }"/>
+		<input type="hidden" id="jl" name="jl" value="${requestScope.zjbg.jl }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -774,7 +891,7 @@ function setFitWidthInParent(parent,self){
 				实际重量
 			</td>
 			<td>
-				<input type="number" id="sjzl" value="${requestScope.dd.sjzl }" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
+				<input type="number" id="sjzl" name="sjzl" value="${requestScope.dd.sjzl }" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
 				重量差额比

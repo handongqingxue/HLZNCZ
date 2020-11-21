@@ -2395,7 +2395,7 @@ function editWoYaoXiaDan(){
 	var cyclId=cyclTab.datagrid("getData").rows[0].id;
 	var cysjId=cysjTab.datagrid("getData").rows[0].id;
 	
-	$.post(path+"main/editWoYaoXiaDan",
+	$.post(path+"main/editDingDan",
 		{wybm:wybm,jhysrq:jhysrq,yzxzl:yzxzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId},
 		function(data){
 			if(data.message=="ok"){

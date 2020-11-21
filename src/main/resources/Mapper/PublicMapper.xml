@@ -110,17 +110,29 @@
 		#{wybm}
 		</foreach>
 	</delete>
-	<update id="editWoYaoXiaDan" parameterType="com.hlzncz.entity.DingDan">
+	<update id="editDingDan" parameterType="com.hlzncz.entity.DingDan">
 		update ding_dan set 
 		<trim suffixOverrides=",">
 			<if test="jhysrq!=null">
 				jhysrq=#{jhysrq},
+			</if>
+			<if test="crksj!=null">
+				crksj=#{crksj},
 			</if>
 			<if test="yzxzl!=null">
 				yzxzl=#{yzxzl},
 			</if>
 			<if test="lxlx!=null">
 				lxlx=#{lxlx},
+			</if>
+			<if test="ddztId!=null">
+				ddztId=#{ddztId},
+			</if>
+			<if test="rkzt!=null">
+				rkzt=#{rkzt},
+			</if>
+			<if test="sjzl!=null">
+				sjzl=#{sjzl},
 			</if>
 			<if test="yssId!=null">
 				yssId=#{yssId},
@@ -1361,6 +1373,37 @@
 			</if>
 		</trim>
 	</insert>
+	<insert id="newZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
+		insert into zhi_jian_bao_gao
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jl!=null">
+				jl,
+			</if>
+				bjsj,
+			<if test="glddBm!=null">
+				glddBm,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jl!=null">
+				#{jl},
+			</if>
+				now(),
+			<if test="glddBm!=null">
+				#{glddBm},
+			</if>
+		</trim>
+	</insert>
+	<update id="editZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
+		update zhi_jian_bao_gao set
+		<trim suffixOverrides=",">
+			<if test="jl!=null">
+				jl=#{jl},
+			</if>
+		</trim>
+		where glddBm=#{glddBm}
+	</update>
 	<update id="editDuiLie" parameterType="com.hlzncz.entity.DuiLie">
 		update dui_lie set 
 		<trim suffixOverrides=",">
