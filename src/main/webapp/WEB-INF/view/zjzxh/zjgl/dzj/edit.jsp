@@ -343,7 +343,7 @@ function initZJBGTab(){
 				var str;
 				switch (value) {
 				case "1":
-					str="关系运输商";
+					str="检验报告";
 					break;
 				}
 				return str;
@@ -736,19 +736,8 @@ function setFitWidthInParent(parent,self){
 	case "zjbg_tab":
 		space=355;
 		break;
-	case "select_yss_dialog_div":
-	case "edit_yss_jbsxz_dialog_div":
-	case "select_wlxx_dialog_div":
-	case "edit_wlxx_jbsxz_dialog_div":
-	case "select_fhdw_dialog_div":
 	case "new_zjbg_jbsxz_dialog_div":
-	case "select_shdw_dialog_div":
-	case "edit_shdw_jbsxz_dialog_div":
-	case "select_cycl_dialog_div":
-	case "edit_cycl_jbsxz_dialog_div":
-	case "select_cysj_dialog_div":
-	case "select_shdw_dialog_div":
-	case "select_cycl_dialog_div":
+	case "edit_zjbg_jbsxz_dialog_div":
 		space=50;
 		break;
 	}
@@ -867,7 +856,7 @@ function setFitWidthInParent(parent,self){
 			</td>
 			<td>
 				<input id="bjsj_dtb"/>
-				<input type="hidden" id="cllx" name="cllx" value="${requestScope.cl.cllx }"/>
+				<input type="hidden" id="bjsj" name="bjsj" value="${requestScope.dd.bjsj }"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">

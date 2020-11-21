@@ -291,6 +291,37 @@
 	<select id="queryDingDanZhuangTaiCBBList" resultType="com.hlzncz.entity.DingDanZhuangTai">
 		select * from ding_dan_zhuang_tai
 	</select>
+	<insert id="newZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
+		insert into zhi_jian_bao_gao
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jl!=null">
+				jl,
+			</if>
+				bjsj,
+			<if test="glddBm!=null">
+				glddBm,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jl!=null">
+				#{jl},
+			</if>
+				now(),
+			<if test="glddBm!=null">
+				#{glddBm},
+			</if>
+		</trim>
+	</insert>
+	<update id="editZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
+		update zhi_jian_bao_gao set
+		<trim suffixOverrides=",">
+			<if test="jl!=null">
+				jl=#{jl},
+			</if>
+		</trim>
+		where glddBm=#{glddBm}
+	</update>
 	<insert id="newGuoBang" parameterType="com.hlzncz.entity.GuoBang">
 		insert into guo_bang
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -1373,37 +1404,6 @@
 			</if>
 		</trim>
 	</insert>
-	<insert id="newZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
-		insert into zhi_jian_bao_gao
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="jl!=null">
-				jl,
-			</if>
-				bjsj,
-			<if test="glddBm!=null">
-				glddBm,
-			</if>
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="jl!=null">
-				#{jl},
-			</if>
-				now(),
-			<if test="glddBm!=null">
-				#{glddBm},
-			</if>
-		</trim>
-	</insert>
-	<update id="editZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
-		update zhi_jian_bao_gao set
-		<trim suffixOverrides=",">
-			<if test="jl!=null">
-				jl=#{jl},
-			</if>
-		</trim>
-		where glddBm=#{glddBm}
-	</update>
 	<update id="editDuiLie" parameterType="com.hlzncz.entity.DuiLie">
 		update dui_lie set 
 		<trim suffixOverrides=",">

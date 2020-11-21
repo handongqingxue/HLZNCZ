@@ -157,6 +157,19 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg) {
+		// TODO Auto-generated method stub
+		int flag=publicDao.editDingDan(dd);
+		if(publicDao.selectZhiJianBaoGaoByGlddBm(dd.getWybm())==null) {
+			flag=publicDao.newZhiJianBaoGao(zjbg);
+		}
+		else {
+			flag=publicDao.editZhiJianBaoGao(zjbg);
+		}
+		return flag;
+	}
+
+	@Override
 	public int newGuoBang(GuoBang gb) {
 		// TODO Auto-generated method stub
 		return publicDao.newGuoBang(gb);
@@ -710,19 +723,6 @@ public class PublicServiceImpl implements PublicService {
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm) {
 		// TODO Auto-generated method stub
 		return publicDao.selectZhiJianBaoGaoByGlddBm(glddBm);
-	}
-
-	@Override
-	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg) {
-		// TODO Auto-generated method stub
-		int flag=publicDao.editDingDan(dd);
-		if(publicDao.selectZhiJianBaoGaoByGlddBm(dd.getWybm())==null) {
-			flag=publicDao.newZhiJianBaoGao(zjbg);
-		}
-		else {
-			flag=publicDao.editZhiJianBaoGao(zjbg);
-		}
-		return flag;
 	}
 
 }
