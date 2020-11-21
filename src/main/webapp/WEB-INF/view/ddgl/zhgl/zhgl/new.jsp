@@ -2431,10 +2431,11 @@ function newDingDanZongHeGuanLi(){
 	var shdwId=shdwTab.datagrid("getData").rows[0].id;
 	var cyclId=cyclTab.datagrid("getData").rows[0].id;
 	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	var xdyhId='${sessionScope.yongHu.id}';
 	var bz=$("#new_div #bz").val();
 	
 	$.post(path+"main/newDingDanZongHeGuanLi",
-		{sjzl:sjzl,ddztId:ddztId,jhysrq:jhysrq,yzxzl:yzxzl,sjzl:sjzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,bz:bz},
+		{sjzl:sjzl,ddztId:ddztId,jhysrq:jhysrq,yzxzl:yzxzl,sjzl:sjzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,xdyhId:xdyhId,bz:bz},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);

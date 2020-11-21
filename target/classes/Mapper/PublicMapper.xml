@@ -53,6 +53,9 @@
 			<if test="cysjId!=null">
 				cysjId,
 			</if>
+			<if test="xdyhId!=null">
+				xdyhId,
+			</if>
 			<if test="bz!=null">
 				bz,
 			</if>
@@ -98,6 +101,9 @@
 			</if>
 			<if test="cysjId!=null">
 				#{cysjId},
+			</if>
+			<if test="xdyhId!=null">
+				#{xdyhId},
 			</if>
 			<if test="bz!=null">
 				#{bz},
@@ -240,6 +246,7 @@
 		<if test="yss!=''&amp;yss!=null">
 			and yss.mc like CONCAT('%',#{yss},'%')
 		</if>
+		order by dd.bjsj desc
 		limit #{rowNum},#{rows}
 	</select>
 	<update id="tiJiaoGuoBang">

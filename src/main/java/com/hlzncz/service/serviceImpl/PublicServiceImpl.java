@@ -1,6 +1,8 @@
 package com.hlzncz.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -95,11 +97,42 @@ public class PublicServiceImpl implements PublicService {
 	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms) {
 		// TODO Auto-generated method stub
 		int count=0;
-		List<String> glddBmList = Arrays.asList(glddBms.split(","));
-		count=publicDao.updateZhiJianBaoGaoJLByGlddBms(jl,glddBmList);
+		List<String> newGlddBmList = Arrays.asList(glddBms.split(","));
+		List<String> updateGlddBmList=new ArrayList<String>();
+		/*
+		//这种利用游标遍历的方法暂时不用
+		Iterator<String> glddBmIt = glddBmList.iterator();
+		while (glddBmIt.hasNext()) {
+			String glddBm = glddBmIt.next();
+			if(publicDao.selectZhiJianBaoGaoByGlddBm(glddBm)==null) {
+				ZhiJianBaoGao zjbg=new ZhiJianBaoGao();
+				zjbg.setJl(jl);
+				zjbg.setGlddBm(glddBm);
+				count+=publicDao.newZhiJianBaoGao(zjbg);
+			}
+			else {
+				//flag=publicDao.editZhiJianBaoGao(zjbg);
+				glddBmIt.remove();
+			}
+		}
+		*/
+		for (String glddBm : newGlddBmList) {
+			if(publicDao.selectZhiJianBaoGaoByGlddBm(glddBm)==null) {
+				ZhiJianBaoGao zjbg=new ZhiJianBaoGao();
+				zjbg.setJl(jl);
+				zjbg.setGlddBm(glddBm);
+				count+=publicDao.newZhiJianBaoGao(zjbg);
+			}
+			else {
+				updateGlddBmList.add(glddBm);
+			}
+		}
+		
+		count+=publicDao.updateZhiJianBaoGaoJLByGlddBms(jl,updateGlddBmList);
+		
 		return count;
 	}
-
+	
 	@Override
 	public int queryDingDanShenHeForInt(String ddh, Integer ddztId) {
 		// TODO Auto-generated method stub
