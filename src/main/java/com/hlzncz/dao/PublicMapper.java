@@ -43,6 +43,8 @@ public interface PublicMapper {
 	public List<DingDan> queryZJZXHZJGLZJBGList(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, 
 			@Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
+	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
+
 	public List<DingDan> queryDDGLZHGLYCCLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph,  
 			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
@@ -219,8 +221,6 @@ public interface PublicMapper {
 	public GuoBang selectGuoBangById(@Param("id") String id);
 
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(@Param("glddBm") String glddBm);
-
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
 
 	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg);
 }

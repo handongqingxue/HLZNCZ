@@ -57,12 +57,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		// TODO Auto-generated method stub
-		return publicDao.newZhiJianBaoGao(zjbg);
-	}
-
-	@Override
 	public int deleteDingDan(String wybms) {
 		// TODO Auto-generated method stub
 		int count=0;
@@ -219,6 +213,12 @@ public class PublicServiceImpl implements PublicService {
 			String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		// TODO Auto-generated method stub
+		return publicDao.newZhiJianBaoGao(zjbg);
 	}
 
 	@Override

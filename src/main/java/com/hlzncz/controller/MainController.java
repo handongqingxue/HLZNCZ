@@ -1817,24 +1817,6 @@ public class MainController {
 		return jsonMap;
 	}
 
-	@RequestMapping(value="/newZhiJianBaoGao")
-	@ResponseBody
-	public Map<String, Object> newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=publicService.newZhiJianBaoGao(zjbg);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建质检报告成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建质检报告失败！");
-		}
-		return jsonMap;
-	}
-
 	@RequestMapping(value="/deleteWoYaoXiaDan",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteWoYaoXiaDan(String wybms) {
@@ -2105,9 +2087,25 @@ public class MainController {
 		
 		return jsonMap;
 	}
-	
-	
 
+	@RequestMapping(value="/newZhiJianBaoGao")
+	@ResponseBody
+	public Map<String, Object> newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newZhiJianBaoGao(zjbg);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建质检报告成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建质检报告失败！");
+		}
+		return jsonMap;
+	}
+	
 	/**
 	 * 添加过磅信息
 	 * @param gb

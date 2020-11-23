@@ -52,6 +52,8 @@ public interface PublicService {
 	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
 			String sort, String order);
 
+	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
+
 	public int newGuoBang(GuoBang gb);
 
 	public int deleteGuoBang(String ids);
@@ -226,6 +228,4 @@ public interface PublicService {
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
 
 	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms);
-
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
 }
