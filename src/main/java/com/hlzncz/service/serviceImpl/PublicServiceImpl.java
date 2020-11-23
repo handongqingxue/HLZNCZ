@@ -85,15 +85,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int updateDingDanZT(Integer ddztId, String wybms) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> wybmList = Arrays.asList(wybms.split(","));
-		count=publicDao.updateDingDanZT(ddztId,wybmList);
-		return count;
-	}
-
-	@Override
 	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms) {
 		// TODO Auto-generated method stub
 		int count=0;
@@ -190,6 +181,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int updateDingDanZT(Integer ddztId, String wybms) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> wybmList = Arrays.asList(wybms.split(","));
+		count=publicDao.updateDingDanZT(ddztId,wybmList);
+		return count;
+	}
+
+	@Override
 	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg) {
 		// TODO Auto-generated method stub
 		int flag=publicDao.editDingDan(dd);
@@ -200,6 +200,19 @@ public class PublicServiceImpl implements PublicService {
 			flag=publicDao.editZhiJianBaoGao(zjbg);
 		}
 		return flag;
+	}
+
+	@Override
+	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph) {
+		// TODO Auto-generated method stub
+		return publicDao.queryZJZXHZJGLZJBGForInt(jl, ddh, ddztId, cph);
+	}
+
+	@Override
+	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
+			String sort, String order) {
+		// TODO Auto-generated method stub
+		return publicDao.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

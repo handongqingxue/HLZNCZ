@@ -35,8 +35,22 @@ public class ZhiJianBaoGao implements Serializable {
 	public void setGlddBm(String glddBm) {
 		this.glddBm = glddBm;
 	}
+	public String getDdh() {
+		return ddh;
+	}
+	public void setDdh(String ddh) {
+		this.ddh = ddh;
+	}
+	public String getDdztmc() {
+		return ddztmc;
+	}
+	public void setDdztmc(String ddztmc) {
+		this.ddztmc = ddztmc;
+	}
 	private Integer jl;//结论 1.合格 2.不合格
 	private String bjsj;//编辑时间
 	private String glddBm;//关联订单编码
+	private String ddh;//订单号
+	private String ddztmc;//订单状态名称
 
 }

@@ -7,30 +7,61 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
-var defaultDdztId='${requestScope.ddztId}';
 $(function(){
+	initZJJGCBB();
+	initDDZTCBB();
 	initSearchLB();
-	initZJTGLB();
+	initAddLB();
 	initOutputLB();
 	initTab1();
 });
+
+function initZJJGCBB(){
+	zjjgCBB=$("#zjjg").combobox({
+		valueField:"value",
+		textField:"text",
+		//multiple:true,
+		data:[{"value":"","text":"请选择质检结果"},{"value":"1","text":"合格"},{"value":"2","text":"不合格"}]
+	});
+}
+
+function initDDZTCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择订单状态"});
+	$.post(path+"main/queryDingDanZhuangTaiCBBList",
+		function(result){
+			var rows=result.rows;
+			for(var i=0;i<rows.length;i++){
+				data.push({"value":rows[i].id,"text":rows[i].mc});
+			}
+			ddztCBB=$("#ddzt").combobox({
+				valueField:"value",
+				textField:"text",
+				//multiple:true,
+				data:data
+			});
+		}
+	,"json");
+}
 
 function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
+			var jl=zjjgCBB.combobox("getValue");
 			var ddh=$("#toolbar #ddh").val();
+			var ddztId=ddztCBB.combobox("getValue");
 			var cph=$("#toolbar #cph").val();
-			tab1.datagrid("load",{ddh:ddh,cph:cph});
+			tab1.datagrid("load",{jl:jl,ddh:ddh,ddztId:ddztId,cph:cph});
 		}
 	});
 }
 
-function initZJTGLB(){
-	$("#zjtg_but").linkbutton({
-		iconCls:"icon-ok",
+function initAddLB(){
+	$("#add_but").linkbutton({
+		iconCls:"icon-add",
 		onClick:function(){
-			tongGuoByWybms();
+			location.href=path+"main/ddgl/zhgl/zhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -47,32 +78,28 @@ function initOutputLB(){
 
 function initTab1(){
 	tab1=$("#tab1").datagrid({
-		title:"待质检-列表",
-		url:path+"main/queryDDGLZHGLList",
+		title:"质检报告-列表",
+		url:path+"main/queryZJZXHZJGLZJBGList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
-		queryParams:{ddztId:defaultDdztId},
 		columns:[[
+            {field:"bjsj",title:"编辑时间",width:200},
 			{field:"ddh",title:"订单号",width:200},
-			{field:"cph",title:"车牌号",width:200},
-			{field:"yssmc",title:"运输商",width:200},
-            {field:"lxlx",title:"流向类型",width:200,formatter:function(value,row){
-            	var str;
-            	switch (value) {
+            {field:"ddztmc",title:"订单状态",width:200},
+			{field:"jl",title:"质检结果",width:200,formatter:function(value,row){
+				var str;
+				switch (value) {
 				case 1:
-					str="送运";
+					str="合格";
 					break;
 				case 2:
-					str="取运";
+					str="不合格";
 					break;
 				}
-            	return str;
-            }},
-            {field:"yzxzl",title:"预装卸重量",width:200},
-            {field:"jhysrq",title:"计划运输日期",width:200},
-            {field:"ddztmc",title:"订单状态",width:200},
+				return str;
+			}},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
@@ -81,8 +108,8 @@ function initTab1(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{ddh:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:8});
+				$(this).datagrid("appendRow",{bjsj:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"bjsj",colspan:5});
 				data.total=0;
 			}
 			
@@ -116,57 +143,28 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function tongGuoByWybms() {
-	var rows=tab1.datagrid("getSelections");
-	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要通过的信息！","warning");
-		return false;
-	}
-	
-	$.messager.confirm("提示","确定要通过吗？",function(r){
-		if(r){
-			var wybms = "";
-			for (var i = 0; i < rows.length; i++) {
-				wybms += "," + rows[i].wybm;
-			}
-			wybms=wybms.substring(1);
-			
-			$.ajaxSetup({async:false});
-			$.post(path + "main/tongGuoZhiJian",
-				{wybms:wybms},
-				function(result){
-					if(result.status==1){
-						alert(result.msg);
-						location.href = location.href;
-					}
-					else{
-						alert(result.msg);
-					}
-				}
-			,"json");
-			
-		}
-	});
-}
-
 function setFitWidthInParent(o){
 	var width=$(o).css("width");
 	return width.substring(0,width.length-2)-340;
 }
 </script>
-<title>待质检</title>
+<title>质检报告</title>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
 		<div id="toolbar" style="height:32px;">
+			<span style="margin-left: 13px;">质检结果：</span>
+			<input id="zjjg"/>
 			<span style="margin-left: 13px;">订单号：</span>
 			<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
+			<span style="margin-left: 13px;">订单状态：</span>
+			<input id="ddzt"/>
 			<span style="margin-left: 13px;">车牌号：</span>
 			<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
-			<a id="zjtg_but">质检通过</a>
+			<a id="add_but">添加</a>
 			<a id="output_but">导出</a>
 		</div>
 		<table id="tab1">

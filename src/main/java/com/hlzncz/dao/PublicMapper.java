@@ -22,8 +22,6 @@ public interface PublicMapper {
 
 	public List<DingDan> queryWoYaoXiaDanList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
 
-	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
-
 	public int updateZhiJianBaoGaoJLByGlddBms(@Param("jl") Integer jl, @Param("glddBmList") List<String> glddBmList);
 
 	public int queryDingDanShenHeForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
@@ -40,10 +38,17 @@ public interface PublicMapper {
 
 	public List<DingDan> queryDDGLZHGLYCCLNotLimitList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("clzt") String clzt);
 
+	public int queryZJZXHZJGLZJBGForInt(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph);
+
+	public List<DingDan> queryZJZXHZJGLZJBGList(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, 
+			@Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+
 	public List<DingDan> queryDDGLZHGLYCCLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph,  
 			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);
+
+	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
 
 	public int newGuoBang(GuoBang gb);
 

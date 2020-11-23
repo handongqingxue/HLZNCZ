@@ -23,8 +23,6 @@ public interface PublicService {
 	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
 			String order);
 
-	public int updateDingDanZT(Integer ddztId, String wybms);
-
 	public int queryDingDanShenHeForInt(String ddh, Integer ddztId);
 
 	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,
@@ -45,7 +43,14 @@ public interface PublicService {
 
 	public DingDan selectDingDanByWybm(String wybm);
 
+	public int updateDingDanZT(Integer ddztId, String wybms);
+
 	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg);
+
+	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph);
+
+	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
+			String sort, String order);
 
 	public int newGuoBang(GuoBang gb);
 

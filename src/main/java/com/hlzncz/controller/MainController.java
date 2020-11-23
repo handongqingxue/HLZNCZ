@@ -683,6 +683,14 @@ public class MainController {
 		return "zjzxh/zjgl/dzj/detail";
 	}
 
+	@RequestMapping(value="/zjzxh/zjgl/zjbg/list")
+	public String goZjzxhZjglZjbgList(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "zjzxh/zjgl/zjbg/list";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/blgb/list")
 	public String goGbglGbglBlgbList(HttpServletRequest request) {
 		
@@ -2050,6 +2058,29 @@ public class MainController {
 		}
 		return jsonMap;
 	}
+	
+	@RequestMapping(value="/queryZJZXHZJGLZJBGList")
+	@ResponseBody
+	public Map<String, Object> queryZJZXHZJGLZJBGList(String jl,String ddh,String ddztId,String cph,
+			int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = publicService.queryZJZXHZJGLZJBGForInt(jl,ddh,ddztId,cph);
+			List<DingDan> ycclList=publicService.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", ycclList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
+	}
+	
+	
 
 	/**
 	 * 添加过磅信息
