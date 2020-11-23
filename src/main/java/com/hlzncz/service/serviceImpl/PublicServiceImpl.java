@@ -57,6 +57,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		// TODO Auto-generated method stub
+		return publicDao.newZhiJianBaoGao(zjbg);
+	}
+
+	@Override
 	public int deleteDingDan(String wybms) {
 		// TODO Auto-generated method stub
 		int count=0;

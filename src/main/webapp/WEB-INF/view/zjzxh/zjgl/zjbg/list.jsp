@@ -61,7 +61,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/ddgl/zhgl/zhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=path+"main/zjzxh/zjgl/zjbg/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }

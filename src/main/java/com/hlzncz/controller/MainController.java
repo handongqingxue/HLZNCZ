@@ -683,6 +683,14 @@ public class MainController {
 		return "zjzxh/zjgl/dzj/detail";
 	}
 
+	@RequestMapping(value="/zjzxh/zjgl/zjbg/new")
+	public String goZjzxhZjglZjbgNew(HttpServletRequest request) {
+		
+		selectNav(request);
+		
+		return "zjzxh/zjgl/zjbg/new";
+	}
+
 	@RequestMapping(value="/zjzxh/zjgl/zjbg/list")
 	public String goZjzxhZjglZjbgList(HttpServletRequest request) {
 		
@@ -1805,6 +1813,24 @@ public class MainController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "创建订单失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newZhiJianBaoGao")
+	@ResponseBody
+	public Map<String, Object> newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.newZhiJianBaoGao(zjbg);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建质检报告成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建质检报告失败！");
 		}
 		return jsonMap;
 	}
