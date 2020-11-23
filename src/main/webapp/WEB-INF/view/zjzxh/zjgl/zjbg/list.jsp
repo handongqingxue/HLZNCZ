@@ -100,9 +100,9 @@ function initTab1(){
 				}
 				return str;
 			}},
-            {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            {field:"id",title:"操作",width:150,formatter:function(value,row){
+            	var str="<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/zjbg/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

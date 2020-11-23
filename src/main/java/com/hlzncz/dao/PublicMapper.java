@@ -223,4 +223,6 @@ public interface PublicMapper {
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(@Param("glddBm") String glddBm);
 
 	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg);
+
+	public ZhiJianBaoGao selectZhiJianBaoGaoById(@Param("id") String id);
 }

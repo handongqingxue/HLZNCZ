@@ -287,7 +287,7 @@
 		limit #{rowNum},#{rows}
 	</select>
 	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
-		select dd.*,ddzt.mc ddztmc from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id where dd.wybm=#{wybm}
+		select dd.*,ddzt.mc ddztmc,cl.cph from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id left join che_liang cl on dd.cyclId=cl.id where dd.wybm=#{wybm}
 	</select>
 	<select id="queryDingDanZhuangTaiCBBList" resultType="com.hlzncz.entity.DingDanZhuangTai">
 		select * from ding_dan_zhuang_tai
@@ -1230,6 +1230,9 @@
 	</select>
 	<select id="selectZhiJianBaoGaoByGlddBm" resultType="com.hlzncz.entity.ZhiJianBaoGao">
 		select * from zhi_jian_bao_gao where glddBm=#{glddBm}
+	</select>
+	<select id="selectZhiJianBaoGaoById" resultType="com.hlzncz.entity.ZhiJianBaoGao">
+		select * from zhi_jian_bao_gao where id=#{id}
 	</select>
 	<insert id="newKaPianShenLing" parameterType="com.hlzncz.entity.KaPianShenLing">
 		insert into ka_pian_shen_ling

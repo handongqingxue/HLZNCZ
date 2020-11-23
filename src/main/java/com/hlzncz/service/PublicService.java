@@ -228,4 +228,6 @@ public interface PublicService {
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
 
 	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms);
+
+	public ZhiJianBaoGao selectZhiJianBaoGaoById(String id);
 }
