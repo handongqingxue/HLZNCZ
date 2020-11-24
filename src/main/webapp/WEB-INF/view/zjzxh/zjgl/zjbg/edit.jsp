@@ -335,6 +335,41 @@ function initDetailGLDDJBSXZDialog(){
 	openDetailGLDDDialog(0);
 }
 
+function checkEdit(){
+	if(checkJL()){
+		editZhiJianBaoGao();
+	}
+}
+
+function editZhiJianBaoGao(){
+	var jl=jlCBB.combobox("getValue");
+	var glddBm=glddTab.datagrid("getData").rows[0].wybm;
+	
+	$.post(path+"main/editZhiJianBaoGao",
+		{jl:jl,glddBm:glddBm},
+		function(data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	,"json");
+}
+
+//验证结论
+function checkJL(){
+	var jl=jlCBB.combobox("getValue");
+	if(jl==null||jl==""){
+	  	alert("请选择结论");
+	  	return false;
+	}
+	else
+		return true;
+}
+
 function loadGLDDTabData(rows){
 	var rowsLength=rows.length;
 	var obj = {"total":rowsLength,"rows":rows};
@@ -536,7 +571,7 @@ function setFitWidthInParent(parent,self){
 				订单号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="ddh" placeholder="无需输入" disabled="disabled" style="width: 180px;height:30px;"/>
+				<input type="text" id="ddh" placeholder="无需输入" disabled="disabled" value="${requestScope.gldd.ddh }" style="width: 180px;height:30px;"/>
 			</td>
 			<td align="right" style="width:15%;">
 				执行状态

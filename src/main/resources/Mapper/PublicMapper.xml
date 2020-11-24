@@ -326,6 +326,7 @@
 			<if test="jl!=null">
 				jl=#{jl},
 			</if>
+				bjsj=now()
 		</trim>
 		where glddBm=#{glddBm}
 	</update>
@@ -358,6 +359,8 @@
 		<if test="cph!=''&amp;cph!=null">
 			and cl.cph like CONCAT('%',#{cph},'%')
 		</if>
+		order by zjbg.bjsj desc
+		limit #{rowNum},#{rows}
 	</select>
 	<insert id="newGuoBang" parameterType="com.hlzncz.entity.GuoBang">
 		insert into guo_bang

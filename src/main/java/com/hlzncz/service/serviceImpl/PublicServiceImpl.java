@@ -203,6 +203,18 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
+	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		// TODO Auto-generated method stub
+		return publicDao.newZhiJianBaoGao(zjbg);
+	}
+
+	@Override
+	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		// TODO Auto-generated method stub
+		return publicDao.editZhiJianBaoGao(zjbg);
+	}
+
+	@Override
 	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph) {
 		// TODO Auto-generated method stub
 		return publicDao.queryZJZXHZJGLZJBGForInt(jl, ddh, ddztId, cph);
@@ -213,12 +225,6 @@ public class PublicServiceImpl implements PublicService {
 			String sort, String order) {
 		// TODO Auto-generated method stub
 		return publicDao.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		// TODO Auto-generated method stub
-		return publicDao.newZhiJianBaoGao(zjbg);
 	}
 
 	@Override

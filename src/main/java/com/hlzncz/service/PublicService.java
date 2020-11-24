@@ -47,12 +47,16 @@ public interface PublicService {
 
 	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg);
 
+	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
+
+	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg);
+
 	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph);
 
 	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
 			String sort, String order);
 
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
+	public ZhiJianBaoGao selectZhiJianBaoGaoById(String id);
 
 	public int newGuoBang(GuoBang gb);
 
@@ -228,6 +232,4 @@ public interface PublicService {
 	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
 
 	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms);
-
-	public ZhiJianBaoGao selectZhiJianBaoGaoById(String id);
 }

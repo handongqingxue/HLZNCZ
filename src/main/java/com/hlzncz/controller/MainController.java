@@ -2133,6 +2133,24 @@ public class MainController {
 		}
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/editZhiJianBaoGao")
+	@ResponseBody
+	public Map<String, Object> editZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=publicService.editZhiJianBaoGao(zjbg);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "修改质检报告成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "修改质检报告失败！");
+		}
+		return jsonMap;
+	}
 	
 	/**
 	 * 添加过磅信息
