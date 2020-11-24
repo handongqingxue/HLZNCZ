@@ -713,6 +713,20 @@ public class MainController {
 		return "zjzxh/zjgl/zjbg/list";
 	}
 
+	@RequestMapping(value="/zjzxh/zjgl/zjbg/detail")
+	public String goZjzxhZjglZjbgDetail(HttpServletRequest request) {
+		
+		selectNav(request);
+		String id = request.getParameter("id");
+		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoById(id);
+		request.setAttribute("zjbg", zjbg);
+
+		DingDan gldd=publicService.selectDingDanByWybm(zjbg.getGlddBm());
+		request.setAttribute("gldd", gldd);
+		
+		return "zjzxh/zjgl/zjbg/detail";
+	}
+
 	@RequestMapping(value="/gbgl/gbgl/blgb/list")
 	public String goGbglGbglBlgbList(HttpServletRequest request) {
 		
