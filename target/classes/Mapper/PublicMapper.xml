@@ -286,9 +286,6 @@
 		</if>
 		limit #{rowNum},#{rows}
 	</select>
-	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
-		select dd.*,ddzt.mc ddztmc,cl.cph from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id left join che_liang cl on dd.cyclId=cl.id where dd.wybm=#{wybm}
-	</select>
 	<select id="queryDingDanZhuangTaiCBBList" resultType="com.hlzncz.entity.DingDanZhuangTai">
 		select * from ding_dan_zhuang_tai
 	</select>
@@ -513,59 +510,6 @@
 	</select>
 	<select id="selectWuZiLeiXingById" resultType="com.hlzncz.entity.WuZiLeiXing">
 		select * from wu_zi_lei_xing where id=#{0}
-	</select>
-	<insert id="newWuZi" parameterType="com.hlzncz.entity.WuZi">
-		insert into wu_zi
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				mc,
-			</if>
-				bjsj,
-			<if test="wzlxId!=null">
-				wzlxId,
-			</if>
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				#{mc},
-			</if>
-				now(),
-			<if test="wzlxId!=null">
-				#{wzlxId},
-			</if>
-		</trim>
-	</insert>
-	<delete id="deleteWuZi">
-		delete from wu_zi where 1=1
-		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
-		#{id}
-		</foreach>
-	</delete>
-	<update id="editWuZi" parameterType="com.hlzncz.entity.WuZi">
-		update wu_zi set mc=#{mc},bjsj=now(),wzlxId=#{wzlxId} where id=#{id}
-	</update>
-	<select id="queryWuZiForInt" resultType="java.lang.Integer">
-		select count(*) from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
-		<if test="mc!=''&amp;mc!=null">
-			and wz.mc like CONCAT('%',#{mc},'%')
-		</if> 
-		<if test="wzlxmc!=''&amp;wzlxmc!=null">
-			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
-		</if> 
-	</select>
-	<select id="queryWuZiList" resultType="com.hlzncz.entity.WuZi">
-		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi_lei_xing wzlx,wu_zi wz where wzlx.id=wz.wzlxId
-		<if test="mc!=''&amp;mc!=null">
-			and wz.mc like CONCAT('%',#{mc},'%')
-		</if> 
-		<if test="wzlxmc!=''&amp;wzlxmc!=null">
-			and wzlx.mc like CONCAT('%',#{wzlxmc},'%')
-		</if> 
-		limit ${param3},${param4}
-	</select>
-	<select id="selectWuZiById" resultType="com.hlzncz.entity.WuZi">
-		select wz.id,wz.mc,wzlx.mc wzlxmc,wz.bjsj from wu_zi wz,wu_zi_lei_xing wzlx where wz.wzlxId=wzlx.id and wz.id=#{0}
 	</select>
 	<insert id="newCheLiang" parameterType="com.hlzncz.entity.CheLiang">
 		insert into che_liang
@@ -1072,53 +1016,6 @@
 	<select id="selectSiJiById" resultType="com.hlzncz.entity.SiJi">
 		select * from si_ji where id=#{0}
 	</select>
-	<insert id="newFaHuoDanWei" parameterType="com.hlzncz.entity.FaHuoDanWei">
-		insert into fa_huo_dan_wei
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="dwmc!=null">
-				dwmc,
-			</if>
-				bjsj
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="dwmc!=null">
-				#{dwmc},
-			</if>
-				now()
-		</trim>
-	</insert>
-	<delete id="deleteFaHuoDanWei">
-		delete from fa_huo_dan_wei where 1=1
-		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
-		#{id}
-		</foreach>
-	</delete>
-	<update id="editFaHuoDanWei" parameterType="com.hlzncz.entity.FaHuoDanWei">
-		update fa_huo_dan_wei set 
-		<trim suffixOverrides=",">
-			<if test="dwmc!=null">
-				dwmc=#{dwmc},
-			</if>
-				bjsj=now()
-		</trim>
-		 where id=#{id}
-	</update>
-	<select id="queryFaHuoDanWeiForInt" resultType="java.lang.Integer">
-		select count(*) from fa_huo_dan_wei where 1=1
-		<if test="dwmc!=''&amp;dwmc!=null">
-			and dwmc like CONCAT('%',#{dwmc},'%')
-		</if> 
-	</select>
-	<select id="queryFaHuoDanWeiList" resultType="com.hlzncz.entity.FaHuoDanWei">
-		select * from fa_huo_dan_wei where 1=1
-		<if test="dwmc!=''&amp;dwmc!=null">
-			and dwmc like CONCAT('%',#{dwmc},'%')
-		</if> 
-	</select>
-	<select id="selectFaHuoDanWeiById" resultType="com.hlzncz.entity.FaHuoDanWei">
-		select * from fa_huo_dan_wei where id=#{0}
-	</select>
 	<insert id="newShouHuoDanWei" parameterType="com.hlzncz.entity.ShouHuoDanWei">
 		insert into shou_huo_dan_wei
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -1177,53 +1074,6 @@
 	</select>
 	<select id="selectShouHuoDanWeiById" resultType="com.hlzncz.entity.ShouHuoDanWei">
 		select * from shou_huo_dan_wei where id=#{0}
-	</select>
-	<insert id="newYunShuShang" parameterType="com.hlzncz.entity.YunShuShang">
-		insert into yun_shu_shang
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				mc,
-			</if>
-				bjsj
-		</trim>
-		values
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="mc!=null">
-				#{mc},
-			</if>
-				now()
-		</trim>
-	</insert>
-	<delete id="deleteYuShuShang">
-		delete from yun_shu_shang where 1=1
-		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
-		#{id}
-		</foreach>
-	</delete>
-	<update id="editYunShuShang" parameterType="com.hlzncz.entity.YunShuShang">
-		update yun_shu_shang set 
-		<trim suffixOverrides=",">
-			<if test="mc!=null">
-				mc=#{mc},
-			</if>
-				bjsj=now()
-		</trim>
-		 where id=#{id}
-	</update>
-	<select id="queryYunShuShangForInt" resultType="java.lang.Integer">
-		select count(*) from yun_shu_shang where 1=1
-		<if test="mc!=''&amp;mc!=null">
-			and mc like CONCAT('%',#{mc},'%')
-		</if> 
-	</select>
-	<select id="queryYunShuShangList" resultType="com.hlzncz.entity.YunShuShang">
-		select * from yun_shu_shang where 1=1
-		<if test="mc!=''&amp;mc!=null">
-			and mc like CONCAT('%',#{mc},'%')
-		</if> 
-	</select>
-	<select id="selectYunShuShangById" resultType="com.hlzncz.entity.YunShuShang">
-		select * from yun_shu_shang where id=#{0}
 	</select>
 	<select id="selectDingDanYiChangByDdbm" resultType="com.hlzncz.entity.DingDanYiChang">
 		select * from ding_dan_yi_chang where ddbm=#{ddbm}

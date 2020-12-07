@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.DingDanMapper">
+	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
+		select dd.*,ddzt.mc ddztmc,cl.cph from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id left join che_liang cl on dd.cyclId=cl.id where dd.wybm=#{wybm}
+	</select>
+</mapper>

@@ -6,8 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.hlzncz.dao.PublicMapper;
 import com.hlzncz.entity.*;
@@ -18,15 +21,26 @@ public class PublicServiceImpl implements PublicService {
 	
 	@Autowired
 	private PublicMapper publicDao;
+	
+	public void selectNav(HttpServletRequest request) {
+		
+		List<CaiDan> leftNavList = publicDao.selectParCaiDan();
+		request.setAttribute("leftNavList", leftNavList);
 
-	public List<CaiDan> selectParCaiDan() {
-		// TODO Auto-generated method stub
-		return publicDao.selectParCaiDan();
-	}
-
-	public List<CaiDan> selectChildCaiDan(Integer parId) {
-		// TODO Auto-generated method stub
-		return publicDao.selectChildCaiDan(parId);
+		String fnid = request.getParameter("fnid");
+		Integer parId = null;
+		if(StringUtils.isEmpty(fnid)) {
+			parId = leftNavList.get(0).getId();
+		}
+		else {
+			parId=Integer.parseInt(fnid);
+		}
+		List<CaiDan> topNavList = publicDao.selectChildCaiDan(parId);
+		for (CaiDan caiDan : topNavList) {
+			List<CaiDan> childList = publicDao.selectChildCaiDan(caiDan.getId());
+			caiDan.setChildList(childList);
+		}
+		request.setAttribute("topNavList", topNavList);
 	}
 
 	@Override
@@ -175,12 +189,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public DingDan selectDingDanByWybm(String wybm) {
-		// TODO Auto-generated method stub
-		return publicDao.selectDingDanByWybm(wybm);
-	}
-
-	@Override
 	public int updateDingDanZT(Integer ddztId, String wybms) {
 		// TODO Auto-generated method stub
 		int count=0;
@@ -298,45 +306,6 @@ public class PublicServiceImpl implements PublicService {
 	public WuZiLeiXing selectWuZiLeiXingById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectWuZiLeiXingById(id);
-	}
-
-	@Override
-	public int newWuZi(WuZi wz) {
-		// TODO Auto-generated method stub
-		return publicDao.newWuZi(wz);
-	}
-
-	@Override
-	public int deleteWuZi(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count=publicDao.deleteWuZi(idList);
-		return count;
-	}
-
-	@Override
-	public int editWuZi(WuZi wz) {
-		// TODO Auto-generated method stub
-		return publicDao.editWuZi(wz);
-	}
-
-	@Override
-	public int queryWuZiForInt(String mc, String wzlxmc) {
-		// TODO Auto-generated method stub
-		return publicDao.queryWuZiForInt(mc,wzlxmc);
-	}
-
-	@Override
-	public List<WuZi> queryWuZiList(String mc, String wzlxmc, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryWuZiList(mc, wzlxmc, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public WuZi selectWuZiById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectWuZiById(id);
 	}
 
 	@Override
@@ -458,45 +427,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newFaHuoDanWei(FaHuoDanWei fhdw) {
-		// TODO Auto-generated method stub
-		return publicDao.newFaHuoDanWei(fhdw);
-	}
-
-	@Override
-	public int deleteFaHuoDanWei(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteFaHuoDanWei(idList);
-		return count;
-	}
-
-	@Override
-	public int editFaHuoDanWei(FaHuoDanWei fhdw) {
-		// TODO Auto-generated method stub
-		return publicDao.editFaHuoDanWei(fhdw);
-	}
-
-	@Override
-	public int queryFaHuoDanWeiForInt(String dwmc) {
-		// TODO Auto-generated method stub
-		return publicDao.queryFaHuoDanWeiForInt(dwmc);
-	}
-
-	@Override
-	public List<FaHuoDanWei> queryFaHuoDanWeiList(String dwmc, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryFaHuoDanWeiList(dwmc, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public FaHuoDanWei selectFaHuoDanWeiById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectFaHuoDanWeiById(id);
-	}
-
-	@Override
 	public int newShouHuoDanWei(ShouHuoDanWei shdw) {
 		// TODO Auto-generated method stub
 		return publicDao.newShouHuoDanWei(shdw);
@@ -527,45 +457,6 @@ public class PublicServiceImpl implements PublicService {
 	public ShouHuoDanWei selectShouHuoDanWeiById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectShouHuoDanWeiById(id);
-	}
-
-	@Override
-	public int newYunShuShang(YunShuShang yss) {
-		// TODO Auto-generated method stub
-		return publicDao.newYunShuShang(yss);
-	}
-
-	@Override
-	public int deleteYuShuShang(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteYuShuShang(idList);
-		return count;
-	}
-
-	@Override
-	public int editYunShuShang(YunShuShang yss) {
-		// TODO Auto-generated method stub
-		return publicDao.editYunShuShang(yss);
-	}
-
-	@Override
-	public int queryYunShuShangForInt(String mc) {
-		// TODO Auto-generated method stub
-		return publicDao.queryYunShuShangForInt(mc);
-	}
-
-	@Override
-	public List<YunShuShang> queryYunShuShangList(String mc, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryYunShuShangList(mc, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public YunShuShang selectYunShuShangById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectYunShuShangById(id);
 	}
 
 	@Override

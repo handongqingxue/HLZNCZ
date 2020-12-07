@@ -2,13 +2,13 @@ package com.hlzncz.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.hlzncz.entity.*;
 
 public interface PublicService {
 
-	public List<CaiDan> selectParCaiDan();
-
-	public List<CaiDan> selectChildCaiDan(Integer parId);
+	public void selectNav(HttpServletRequest request);
 
 	public int newDingDanZongHeGuanLi(DingDan dd);
 
@@ -40,8 +40,6 @@ public interface PublicService {
 
 	public List<DingDan> queryDDGLZHGLYCCLList(String ddh, String ddztId, String cph, 
 			String jhysrq, String clzt, int page, int rows, String sort, String order);
-
-	public DingDan selectDingDanByWybm(String wybm);
 
 	public int updateDingDanZT(Integer ddztId, String wybms);
 
@@ -81,18 +79,6 @@ public interface PublicService {
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
-	public int newWuZi(WuZi wz);
-
-	public int deleteWuZi(String ids);
-
-	public int editWuZi(WuZi wz);
-
-	public int queryWuZiForInt(String mc, String wzlxmc);
-
-	public List<WuZi> queryWuZiList(String mc, String wzlxmc, int page, int rows, String sort, String order);
-
-	public WuZi selectWuZiById(String id);
-
 	public int newCheLiang(CheLiang cl);
 
 	public int deleteCheLiang(String ids);
@@ -127,18 +113,6 @@ public interface PublicService {
 
 	public SiJi selectSiJiById(String id);
 
-	public int newFaHuoDanWei(FaHuoDanWei fhdw);
-
-	public int deleteFaHuoDanWei(String ids);
-
-	public int editFaHuoDanWei(FaHuoDanWei fhdw);
-
-	public int queryFaHuoDanWeiForInt(String dwmc);
-
-	public List<FaHuoDanWei> queryFaHuoDanWeiList(String dwmc, int page, int rows, String sort, String order);
-
-	public FaHuoDanWei selectFaHuoDanWeiById(String id);
-
 	public int newShouHuoDanWei(ShouHuoDanWei shdw);
 	
 	public int deleteShouHuoDanWei(String ids);
@@ -148,18 +122,6 @@ public interface PublicService {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order);
 
 	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
-
-	public int newYunShuShang(YunShuShang yss);
-
-	public int deleteYuShuShang(String ids);
-
-	public int editYunShuShang(YunShuShang yss);
-
-	public int queryYunShuShangForInt(String mc);
-
-	public List<YunShuShang> queryYunShuShangList(String mc, int page, int rows, String sort, String order);
-
-	public YunShuShang selectYunShuShangById(String id);
 
 	public int newCangKu(CangKu ck);
 

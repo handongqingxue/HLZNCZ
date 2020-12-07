@@ -48,8 +48,6 @@ public interface PublicMapper {
 	public List<DingDan> queryDDGLZHGLYCCLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph,  
 			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
-	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);
-
 	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
 
 	public int newGuoBang(GuoBang gb);
@@ -73,18 +71,6 @@ public interface PublicMapper {
 	public List<WuZiLeiXing> queryWuZiLeiXingList(@Param("mc") String mc, int i, int rows, String sort, String order);
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
-
-	public int newWuZi(WuZi wz);
-
-	public int deleteWuZi(List<String> idList);
-
-	public int editWuZi(WuZi wz);
-
-	public int queryWuZiForInt(@Param("mc") String mc, @Param("wzlxmc") String wzlxmc);
-
-	public List<WuZi> queryWuZiList(@Param("mc") String mc, @Param("wzlxmc") String wzlxmc, int i, int rows, String sort, String order);
-
-	public WuZi selectWuZiById(String id);
 
 	public int newCheLiang(CheLiang cl);
 
@@ -120,18 +106,6 @@ public interface PublicMapper {
 
 	public SiJi selectSiJiById(String id);
 
-	public int newFaHuoDanWei(FaHuoDanWei fhdw);
-
-	public int deleteFaHuoDanWei(List<String> idList);
-
-	public int editFaHuoDanWei(FaHuoDanWei fhdw);
-
-	public int queryFaHuoDanWeiForInt(@Param("dwmc") String dwmc);
-
-	public List<FaHuoDanWei> queryFaHuoDanWeiList(@Param("dwmc") String dwmc, int i, int rows, String sort, String order);
-
-	public FaHuoDanWei selectFaHuoDanWeiById(String id);
-
 	public int newShouHuoDanWei(ShouHuoDanWei shdw);
 
 	public int deleteShouHuoDanWei(List<String> idList);
@@ -141,18 +115,6 @@ public interface PublicMapper {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, @Param("ywdl") Boolean ywdl, int i, int rows, String sort, String order);
 
 	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
-
-	public int newYunShuShang(YunShuShang yss);
-
-	public int deleteYuShuShang(List<String> idList);
-
-	public int editYunShuShang(YunShuShang yss);
-
-	public int queryYunShuShangForInt(@Param("mc") String mc);
-
-	public List<YunShuShang> queryYunShuShangList(@Param("mc") String mc, int i, int rows, String sort, String order);
-
-	public YunShuShang selectYunShuShangById(String id);
 
 	public int newCangKu(CangKu ck);
 

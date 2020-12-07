@@ -13,22 +13,19 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hlzncz.entity.*;
+import com.hlzncz.service.*;
+import com.hlzncz.util.FileUploadUtils;
 import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-import com.hlzncz.util.FileUploadUtils;
-import com.hlzncz.entity.*;
-import com.hlzncz.service.PublicService;
 
 /*
  * 订单流程：
@@ -46,6 +43,14 @@ public class MainController {
 
 	@Autowired
 	private PublicService publicService;
+	@Autowired
+	private DingDanService dingDanService;
+	@Autowired
+	private YunShuShangService yunShuShangService;
+	@Autowired
+	private WuZiService wuZiService;
+	@Autowired
+	private FaHuoDanWeiService faHuoDanWeiService;
 	
 	@RequestMapping(value="/goLogin")
 	public String goLogin() {
@@ -56,681 +61,15 @@ public class MainController {
 	@RequestMapping(value="/goIndex")
 	public String goIndex(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "index";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/wyxd/new")
-	public String goDdglWdddWyxdNew(HttpServletRequest request) {
-
-		selectNav(request);
-		
-		return "ddgl/wddd/wyxd/new";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/wyxd/edit")
-	public String goDdglWdddWyxdEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		String wybm = request.getParameter("wybm");
-		DingDan wyxd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("wyxd", wyxd);
-		
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(wyxd.getYssId()));
-		request.setAttribute("yss", yss);
-		
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(wyxd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(wyxd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/wddd/wyxd/edit";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/wyxd/list")
-	public String goDdglWdddWyxdList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "ddgl/wddd/wyxd/list";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/wyxd/detail")
-	public String goDdglWdddWyxdDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		String wybm = request.getParameter("wybm");
-		DingDan wyxd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("wyxd", wyxd);
-		
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(wyxd.getYssId()));
-		request.setAttribute("yss", yss);
-		
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(wyxd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(wyxd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/wddd/wyxd/detail";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/dsh/list")
-	public String goDdglWdddDshList(HttpServletRequest request) {
-		
-		selectNav(request);
-
-		request.setAttribute("ddztId", DingDan.DAI_SHEN_HE);
-		
-		return "ddgl/wddd/dsh/list";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/dsh/detail")
-	public String goDdglWdddDshDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		String wybm = request.getParameter("wybm");
-		DingDan dsh=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dsh", dsh);
-		
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dsh.getYssId()));
-		request.setAttribute("yss", yss);
-		
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dsh.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dsh.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dsh.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dsh.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dsh.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/wddd/dsh/detail";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/wddd/list")
-	public String goDdglWdddWdddList(HttpServletRequest request) {
-		
-		selectNav(request);
-
-		return "ddgl/wddd/wddd/list";
-	}
-
-	@RequestMapping(value="/ddgl/wddd/wddd/detail")
-	public String goDdglWdddWdddDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		String wybm = request.getParameter("wybm");
-		DingDan wddd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("wddd", wddd);
-		
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(wddd.getYssId()));
-		request.setAttribute("yss", yss);
-		
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(wddd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(wddd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wddd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wddd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(wddd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/wddd/wddd/detail";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/ddsh/edit")
-	public String goDdglZhglDdshEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-		
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/ddsh/edit";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/ddsh/new")
-	public String goDdglZhglDdshNew(HttpServletRequest request) {
-
-		selectNav(request);
-		
-		return "ddgl/zhgl/ddsh/new";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/ddsh/list")
-	public String goDdglZhglDdshList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		request.setAttribute("zxztId", DingDan.DAI_SHEN_HE);
-		
-		return "ddgl/zhgl/ddsh/list";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/ddsh/detail")
-	public String goDdglZhglDdshDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/ddsh/detail";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zjpd/edit")
-	public String goDdglZhglZjpdEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-
-		String wybm = request.getParameter("wybm");
-		DingDan zjpd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("zjpd", zjpd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(zjpd.getYssId()));
-		request.setAttribute("yss", yss);
-		
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(zjpd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(zjpd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/zjpd/edit";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zjpd/list")
-	public String goDdglZhglZjpdList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		request.setAttribute("ddztId", DingDan.YI_XIA_DAN);
-		
-		return "ddgl/zhgl/zjpd/list";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zjpd/detail")
-	public String goDdglZhglZjpdDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan zjpd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("zjpd", zjpd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(zjpd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(zjpd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(zjpd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/zjpd/detail";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zhgl/new")
-	public String goDdglZhglZhglNew(HttpServletRequest request) {
-
-		selectNav(request);
-		
-		return "ddgl/zhgl/zhgl/new";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zhgl/edit")
-	public String goDdglZhglZhglEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/zhgl/edit";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zhgl/list")
-	public String goDdglZhglZhglList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "ddgl/zhgl/zhgl/list";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/zhgl/detail")
-	public String goDdglZhglZhglDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/zhgl/detail";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/yccl/edit")
-	public String goDdglZhglYcclEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		List<DingDanYiChang> ycxxList=publicService.selectDingDanYiChangByDdbm(wybm);
-		JSONArray ycxxJA = JSONArray.fromObject(ycxxList);
-		request.setAttribute("ycxxJAStr", ycxxJA.toString());
-		
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/yccl/edit";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/yccl/list")
-	public String goDdglZhglYcclList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		request.setAttribute("clzt", DingDanYiChang.DAI_CHU_LI);
-		
-		return "ddgl/zhgl/yccl/list";
-	}
-
-	@RequestMapping(value="/ddgl/zhgl/yccl/detail")
-	public String goDdglZhglYcclDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		List<DingDanYiChang> ycxxList=publicService.selectDingDanYiChangByDdbm(wybm);
-		JSONArray ycxxJA = JSONArray.fromObject(ycxxList);
-		request.setAttribute("ycxxJAStr", ycxxJA.toString());
-		
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/zhgl/yccl/detail";
-	}
-
-	@RequestMapping(value="/ddgl/ddtb/ddtb/new")
-	public String goDdglDdtbDdtbNew(HttpServletRequest request) {
-
-		selectNav(request);
-		
-		return "ddgl/ddtb/ddtb/new";
-	}
-
-	@RequestMapping(value="/ddgl/ddtb/ddtb/edit")
-	public String goDdglDdtbDdtbEdit(HttpServletRequest request) {
-
-		selectNav(request);
-		
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi yswl=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("yswl", yswl);
-
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/ddtb/ddtb/edit";
-	}
-
-	@RequestMapping(value="/ddgl/ddtb/ddtb/list")
-	public String goDdglDdtbDdtbList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		request.setAttribute("zxztId", DingDan.YI_WAN_CHENG+","+DingDan.DAI_JIAN_YAN+","+DingDan.DAI_LI_CHANG);
-		
-		return "ddgl/ddtb/ddtb/list";
-	}
-
-	@RequestMapping(value="/ddgl/ddtb/ddtb/detail")
-	public String goDdglDdtbDdtbDetail(HttpServletRequest request) {
-
-		selectNav(request);
-
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		YunShuShang yss=publicService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi yswl=publicService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("yswl", yswl);
-
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return "ddgl/ddtb/ddtb/detail";
-	}
-
-	@RequestMapping(value="/zjzxh/zxhgl/dzxh/edit")
-	public String goZjzxhZxhglDzxhEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
-		request.setAttribute("xdyh", xdyh);
-
-		YongHu sjyh=publicService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
-		request.setAttribute("sjyh", sjyh);
-		
-		return "zjzxh/zxhgl/dzxh/edit";
-	}
-
-	@RequestMapping(value="/zjzxh/zxhgl/dzxh/list")
-	public String goZjzxhZxhglDzxhList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		request.setAttribute("ddztId", DingDan.DAI_ZHUANG_XIE_HUO);
-		
-		return "zjzxh/zxhgl/dzxh/list";
-	}
-
-	@RequestMapping(value="/zjzxh/zxhgl/dzxh/detail")
-	public String goZjzxhZxhglDzxhDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
-		request.setAttribute("xdyh", xdyh);
-
-		YongHu sjyh=publicService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
-		request.setAttribute("sjyh", sjyh);
-		
-		return "zjzxh/zxhgl/dzxh/detail";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/dzj/edit")
-	public String goZjzxhZjglDzjEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
-		request.setAttribute("zjbg", zjbg);
-		
-		return "zjzxh/zjgl/dzj/edit";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/dzj/list")
-	public String goZjzxhZjglDzjList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		request.setAttribute("ddztId", DingDan.DAI_JIAN_YAN);
-		
-		return "zjzxh/zjgl/dzj/list";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/dzj/detail")
-	public String goZjzxhZjglDzjDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=publicService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
-		request.setAttribute("zjbg", zjbg);
-		
-		return "zjzxh/zjgl/dzj/detail";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/zjbg/new")
-	public String goZjzxhZjglZjbgNew(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "zjzxh/zjgl/zjbg/new";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/zjbg/edit")
-	public String goZjzxhZjglZjbgEdit(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoById(id);
-		request.setAttribute("zjbg", zjbg);
-
-		DingDan gldd=publicService.selectDingDanByWybm(zjbg.getGlddBm());
-		request.setAttribute("gldd", gldd);
-		
-		return "zjzxh/zjgl/zjbg/edit";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/zjbg/list")
-	public String goZjzxhZjglZjbgList(HttpServletRequest request) {
-		
-		selectNav(request);
-		
-		return "zjzxh/zjgl/zjbg/list";
-	}
-
-	@RequestMapping(value="/zjzxh/zjgl/zjbg/detail")
-	public String goZjzxhZjglZjbgDetail(HttpServletRequest request) {
-		
-		selectNav(request);
-		String id = request.getParameter("id");
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoById(id);
-		request.setAttribute("zjbg", zjbg);
-
-		DingDan gldd=publicService.selectDingDanByWybm(zjbg.getGlddBm());
-		request.setAttribute("gldd", gldd);
-		
-		return "zjzxh/zjgl/zjbg/detail";
 	}
 
 	@RequestMapping(value="/gbgl/gbgl/blgb/list")
 	public String goGbglGbglBlgbList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.ZAI_ZHONG_BIAO_QIAN);
 		
 		return "gbgl/gbgl/blgb/list";
@@ -739,7 +78,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zhcx/new")
 	public String goGbglGbglZhcxNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "gbgl/gbgl/zhcx/new";
 	}
@@ -747,7 +86,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zhcx/edit")
 	public String goGbglGbglZhcxEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -755,10 +94,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/zhcx/edit";
@@ -767,7 +106,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zhcx/list")
 	public String goGbglGbglZhcxList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "gbgl/gbgl/zhcx/list";
 	}
@@ -775,7 +114,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zhcx/detail")
 	public String goGbglGbglZhcxDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -783,10 +122,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/zhcx/detail";
@@ -795,7 +134,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zzgb/new")
 	public String goGbglGbglZzgbNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "gbgl/gbgl/zzgb/new";
 	}
@@ -803,7 +142,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zzgb/edit")
 	public String goGbglGbglZzgbEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -811,10 +150,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/zzgb/edit";
@@ -823,7 +162,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zzgb/list")
 	public String goGbglGbglZzgbList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.ZAI_ZHONG_BIAO_QIAN);
 		
 		return "gbgl/gbgl/zzgb/list";
@@ -832,7 +171,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/zzgb/detail")
 	public String goGbglGbglZzgbDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -840,10 +179,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/zzgb/detail";
@@ -852,7 +191,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/pzgb/new")
 	public String goGbglGbglPzgbNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "gbgl/gbgl/pzgb/new";
 	}
@@ -860,7 +199,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/pzgb/edit")
 	public String goGbglGbglPzgbEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -868,10 +207,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/pzgb/edit";
@@ -880,7 +219,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/pzgb/list")
 	public String goGbglGbglPzgbList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.PI_ZHONG_BIAO_QIAN);
 		
 		return "gbgl/gbgl/pzgb/list";
@@ -889,7 +228,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/pzgb/detail")
 	public String goGbglGbglPzgbDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -897,10 +236,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/pzgb/detail";
@@ -909,7 +248,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/rcgb/new")
 	public String goGbglGbglRcgbNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "gbgl/gbgl/rcgb/new";
 	}
@@ -917,7 +256,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/rcgb/edit")
 	public String goGbglGbglRcgbEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -925,10 +264,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/rcgb/edit";
@@ -937,7 +276,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/rcgb/list")
 	public String goGbglGbglRcgbList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.RU_CHANG_BIAO_QIAN);
 		
 		return "gbgl/gbgl/rcgb/list";
@@ -946,7 +285,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/rcgb/detail")
 	public String goGbglGbglRcgbDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -954,10 +293,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/rcgb/detail";
@@ -966,7 +305,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/ccgb/new")
 	public String goGbglGbglCcgbNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "gbgl/gbgl/ccgb/new";
 	}
@@ -974,7 +313,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/ccgb/edit")
 	public String goGbglGbglCcgbEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -982,10 +321,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/ccgb/edit";
@@ -994,7 +333,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/ccgb/list")
 	public String goGbglGbglCcgbList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.CHU_CHANG_BIAO_QIAN);
 		
 		return "gbgl/gbgl/ccgb/list";
@@ -1003,7 +342,7 @@ public class MainController {
 	@RequestMapping(value="/gbgl/gbgl/ccgb/detail")
 	public String goGbglGbglCcgbDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
@@ -1011,10 +350,10 @@ public class MainController {
 		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
-		DingDan pzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("pzdd", pzdd);
 
-		DingDan mzdd=publicService.selectDingDanByWybm(gb.getPzddbm());
+		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
 		return "gbgl/gbgl/ccgb/detail";
@@ -1023,7 +362,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/wzgl/wzlx/new";
 	}
@@ -1031,7 +370,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzlx/edit")
 	public String goWzlxEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		WuZiLeiXing wzlx=publicService.selectWuZiLeiXingById(id);
 		request.setAttribute("wzlx", wzlx);
@@ -1042,7 +381,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzlx/list")
 	public String goWzlxList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/wzgl/wzlx/list";
 	}
@@ -1050,7 +389,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzlx/detail")
 	public String goWzlxDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		WuZiLeiXing wzlx=publicService.selectWuZiLeiXingById(id);
 		request.setAttribute("wzlx", wzlx);
@@ -1061,7 +400,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzgl/new")
 	public String goWzglNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/wzgl/wzgl/new";
 	}
@@ -1069,9 +408,9 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzgl/edit")
 	public String goWzglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		WuZi wz=publicService.selectWuZiById(id);
+		WuZi wz=wuZiService.selectWuZiById(id);
 		request.setAttribute("wz", wz);
 		
 		return "jcxx/wzgl/wzgl/edit";
@@ -1080,7 +419,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzgl/list")
 	public String goWzglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/wzgl/wzgl/list";
 	}
@@ -1088,9 +427,9 @@ public class MainController {
 	@RequestMapping(value="/jcxx/wzgl/wzgl/detail")
 	public String goWzglDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		WuZi wz=publicService.selectWuZiById(id);
+		WuZi wz=wuZiService.selectWuZiById(id);
 		request.setAttribute("wz", wz);
 		
 		return "jcxx/wzgl/wzgl/detail";
@@ -1099,7 +438,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/xzcl/new")
 	public String goJcxxClglXzclNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/clgl/xzcl/new";
 	}
@@ -1107,7 +446,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/xzcl/edit")
 	public String goJcxxClglXzclEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
@@ -1118,7 +457,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/xzcl/list")
 	public String goJcxxClglXzclList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 
 		request.setAttribute("shzt", CheLiang.BIAN_JI_ZHONG);
 		
@@ -1128,7 +467,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/xzcl/detail")
 	public String goJcxxClglXzclDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
@@ -1139,7 +478,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/clsh/new")
 	public String goJcxxClglClshNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/clgl/clsh/new";
 	}
@@ -1147,7 +486,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/clsh/edit")
 	public String goJcxxClglClshEdit(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
@@ -1159,7 +498,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/clsh/list")
 	public String goJcxxClglClshList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 
 		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE);
 		
@@ -1169,7 +508,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/clsh/detail")
 	public String goJcxxClglClshDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
@@ -1180,7 +519,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/clcx/new")
 	public String goJcxxClglClcxNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/clgl/clcx/new";
 	}
@@ -1188,7 +527,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/clcx/list")
 	public String goJcxxClglClcxList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 
 		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE+","+CheLiang.SHEN_HE_TONG_GUO);
 		
@@ -1198,7 +537,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/zhgl/new")
 	public String goJcxxClglZhglNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/clgl/zhgl/new";
 	}
@@ -1206,7 +545,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/zhgl/edit")
 	public String goJcxxClglZhglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
@@ -1217,7 +556,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/zhgl/list")
 	public String goJcxxClglZhglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/clgl/zhgl/list";
 	}
@@ -1225,7 +564,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/clgl/zhgl/detail")
 	public String goJcxxClglZhglDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CheLiang cl=publicService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
@@ -1236,7 +575,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/tjsj/new")
 	public String goJcxxSjglTjsjNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/sjgl/tjsj/new";
 	}
@@ -1244,7 +583,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/tjsj/edit")
 	public String goJcxxSjglTjsjEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
@@ -1255,7 +594,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/tjsj/list")
 	public String goJcxxSjglTjsjList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 
 		request.setAttribute("shzt", SiJi.BIAN_JI_ZHONG);
 		
@@ -1265,7 +604,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/tjsj/detail")
 	public String goJcxxSjglTjsjDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
@@ -1276,7 +615,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/xxsh/edit")
 	public String goJcxxSjglXxshEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
@@ -1287,7 +626,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/xxsh/list")
 	public String goJcxxSjglXxshList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 
 		request.setAttribute("shzt", SiJi.DAI_SHEN_HE);
 		
@@ -1297,7 +636,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/xxsh/detail")
 	public String goJcxxSjglXxshDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
@@ -1308,7 +647,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/zhgl/new")
 	public String goJcxxSjglZhglNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/sjgl/zhgl/new";
 	}
@@ -1316,7 +655,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/zhgl/edit")
 	public String goJcxxSjglZhglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
@@ -1330,7 +669,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/zhgl/list")
 	public String goJcxxSjglZhglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/sjgl/zhgl/list";
 	}
@@ -1338,7 +677,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/sjgl/zhgl/detail")
 	public String goJcxxSjglZhglDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=publicService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
@@ -1352,7 +691,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/fhdw/new")
 	public String goFhdwNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/dwgl/fhdw/new";
 	}
@@ -1360,9 +699,9 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/fhdw/edit")
 	public String goFhdwEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(id);
+		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(id);
 		request.setAttribute("fhdw", fhdw);
 		
 		return "jcxx/dwgl/fhdw/edit";
@@ -1371,7 +710,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/fhdw/list")
 	public String goFhdwList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/dwgl/fhdw/list";
 	}
@@ -1379,9 +718,9 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/fhdw/detail")
 	public String goFhdwDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(id);
+		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(id);
 		request.setAttribute("fhdw", fhdw);
 		
 		return "jcxx/dwgl/fhdw/detail";
@@ -1390,7 +729,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/dlshdw/edit")
 	public String goJcxxDwglDlshdwEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
 		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
@@ -1405,7 +744,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/dlshdw/list")
 	public String goJcxxDwglDlshdwList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		request.setAttribute("ywdl", ShouHuoDanWei.YOU_DUI_LIE);
 		
@@ -1415,7 +754,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/dlshdw/detail")
 	public String goJcxxDwglDlshdwDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
 		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
@@ -1430,7 +769,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/wdlshdw/edit")
 	public String goJcxxDwglWdlshdwEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
 		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
@@ -1442,7 +781,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/wdlshdw/list")
 	public String goJcxxDwglWdlshdwList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		request.setAttribute("ywdl", ShouHuoDanWei.WU_DUI_LIE);
 		
@@ -1452,7 +791,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/wdlshdw/detail")
 	public String goJcxxDwglWdlshdwDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
 		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
@@ -1464,7 +803,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/qbshdw/new")
 	public String goJcxxDwglQbshdwNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/dwgl/qbshdw/new";
 	}
@@ -1472,7 +811,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/qbshdw/edit")
 	public String goJcxxDwglQbshdwEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
@@ -1486,7 +825,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/qbshdw/list")
 	public String goJcxxDwglQbshdwList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/dwgl/qbshdw/list";
 	}
@@ -1494,7 +833,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/qbshdw/detail")
 	public String goJcxxDwglQbshdwDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
@@ -1508,7 +847,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/yss/new")
 	public String goYssNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/dwgl/yss/new";
 	}
@@ -1516,9 +855,9 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/yss/edit")
 	public String goYssEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		YunShuShang yss=publicService.selectYunShuShangById(id);
+		YunShuShang yss=yunShuShangService.selectYunShuShangById(id);
 		request.setAttribute("yss", yss);
 		
 		return "jcxx/dwgl/yss/edit";
@@ -1527,7 +866,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/yss/list")
 	public String goYssList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/dwgl/yss/list";
 	}
@@ -1535,9 +874,9 @@ public class MainController {
 	@RequestMapping(value="/jcxx/dwgl/yss/detail")
 	public String goYssDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		YunShuShang yss=publicService.selectYunShuShangById(id);
+		YunShuShang yss=yunShuShangService.selectYunShuShangById(id);
 		request.setAttribute("yss", yss);
 		
 		return "jcxx/dwgl/yss/detail";
@@ -1546,7 +885,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/ckgl/ckgl/new")
 	public String goCkglNew(HttpServletRequest request) {
 
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/ckgl/ckgl/new";
 	}
@@ -1554,7 +893,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/ckgl/ckgl/edit")
 	public String goCkglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CangKu ck=publicService.selectCangKuById(id);
 		request.setAttribute("ck", ck);
@@ -1565,7 +904,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/ckgl/ckgl/list")
 	public String goCkglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/ckgl/ckgl/list";
 	}
@@ -1573,7 +912,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/ckgl/ckgl/detail")
 	public String goCkglDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		CangKu ck=publicService.selectCangKuById(id);
 		request.setAttribute("ck", ck);
@@ -1584,7 +923,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpsl/new")
 	public String goKpslNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/kpgl/kpsl/new";
 	}
@@ -1592,7 +931,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpsl/edit")
 	public String goKpslEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		KaPianShenLing kpsl=publicService.selectKaPianShenLingById(id);
 		request.setAttribute("kpsl", kpsl);
@@ -1603,7 +942,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpsl/list")
 	public String goKpslList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/kpgl/kpsl/list";
 	}
@@ -1611,7 +950,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpsl/detail")
 	public String goKpslDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		KaPianShenLing kpsl=publicService.selectKaPianShenLingById(id);
 		request.setAttribute("kpsl", kpsl);
@@ -1622,7 +961,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpwh/new")
 	public String goKpwhNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/kpgl/kpwh/new";
 	}
@@ -1630,7 +969,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpwh/edit")
 	public String goKpwhEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		KaPianWeiHu kpwh=publicService.selectKaPianWeiHuById(id);
 		request.setAttribute("kpwh", kpwh);
@@ -1641,7 +980,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpwh/list")
 	public String goKpwhList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/kpgl/kpwh/list";
 	}
@@ -1649,7 +988,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/kpgl/kpwh/detail")
 	public String goKpwhDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		KaPianWeiHu kpwh=publicService.selectKaPianWeiHuById(id);
 		request.setAttribute("kpwh", kpwh);
@@ -1660,7 +999,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/jhpz/dlgl/new")
 	public String goJcxxJhpzDlglNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/jhpz/dlgl/new";
 	}
@@ -1668,7 +1007,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/jhpz/dlgl/edit")
 	public String goJcxxJhpzDlglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
@@ -1682,7 +1021,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/jhpz/dlgl/list")
 	public String goJcxxJhpzDlglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jcxx/jhpz/dlgl/list";
 	}
@@ -1690,7 +1029,7 @@ public class MainController {
 	@RequestMapping(value="/jcxx/jhpz/dlgl/detail")
 	public String goJcxxJhpzDlglDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
@@ -1704,7 +1043,7 @@ public class MainController {
 	@RequestMapping(value="/xtgl/yhqx/yhgl/new")
 	public String goXtglYhqxYhglNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "xtgl/yhqx/yhgl/new";
 	}
@@ -1712,7 +1051,7 @@ public class MainController {
 	@RequestMapping(value="/xtgl/yhqx/yhgl/edit")
 	public String goXtglYhqxYhglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		YongHu yh=publicService.selectYongHuById(id);
 		request.setAttribute("yh", yh);
@@ -1723,7 +1062,7 @@ public class MainController {
 	@RequestMapping(value="/xtgl/yhqx/yhgl/list")
 	public String goXtglYhqxYhglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "xtgl/yhqx/yhgl/list";
 	}
@@ -1731,7 +1070,7 @@ public class MainController {
 	@RequestMapping(value="/jhxt/jhxx/hmcx/new")
 	public String goHmcxNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jhxt/jhxx/hmcx/new";
 	}
@@ -1739,7 +1078,7 @@ public class MainController {
 	@RequestMapping(value="/jhxt/jhxx/hmcx/list")
 	public String goHmcxList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jhxt/jhxx/hmcx/list";
 	}
@@ -1747,7 +1086,7 @@ public class MainController {
 	@RequestMapping(value="/jhxt/pzgl/dlgl/new")
 	public String goJhxtPzglDlglNew(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jhxt/pzgl/dlgl/new";
 	}
@@ -1755,7 +1094,7 @@ public class MainController {
 	@RequestMapping(value="/jhxt/pzgl/dlgl/edit")
 	public String goJhxtPzglDlglEdit(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
@@ -1769,7 +1108,7 @@ public class MainController {
 	@RequestMapping(value="/jhxt/pzgl/dlgl/list")
 	public String goJhxtPzglDlglList(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		
 		return "jhxt/pzgl/dlgl/list";
 	}
@@ -1777,7 +1116,7 @@ public class MainController {
 	@RequestMapping(value="/jhxt/pzgl/dlgl/detail")
 	public String goJhxtPzglDlglDetail(HttpServletRequest request) {
 		
-		selectNav(request);
+		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
@@ -1786,27 +1125,6 @@ public class MainController {
 		request.setAttribute("shdw", shdw);
 		
 		return "jhxt/pzgl/dlgl/detail";
-	}
-	
-	private void selectNav(HttpServletRequest request) {
-		
-		List<CaiDan> leftNavList = publicService.selectParCaiDan();
-		request.setAttribute("leftNavList", leftNavList);
-
-		String fnid = request.getParameter("fnid");
-		Integer parId = null;
-		if(StringUtils.isEmpty(fnid)) {
-			parId = leftNavList.get(0).getId();
-		}
-		else {
-			parId=Integer.parseInt(fnid);
-		}
-		List<CaiDan> topNavList = publicService.selectChildCaiDan(parId);
-		for (CaiDan caiDan : topNavList) {
-			List<CaiDan> childList = publicService.selectChildCaiDan(caiDan.getId());
-			caiDan.setChildList(childList);
-		}
-		request.setAttribute("topNavList", topNavList);
 	}
 
 	@RequestMapping(value="/newDingDanZongHeGuanLi")
@@ -2425,7 +1743,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newWuZi(wz);
+		int count=wuZiService.newWuZi(wz);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建物资成功！");
@@ -2441,7 +1759,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteWuZi(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteWuZi(ids);
+		int count=wuZiService.deleteWuZi(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -2463,7 +1781,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.editWuZi(wz);
+		int count=wuZiService.editWuZi(wz);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "编辑物资成功！");
@@ -2481,8 +1799,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryWuZiForInt(mc,wzlxmc);
-		List<WuZi> wzList=publicService.queryWuZiList(mc, wzlxmc, page, rows, sort, order);
+		int count = wuZiService.queryWuZiForInt(mc,wzlxmc);
+		List<WuZi> wzList=wuZiService.queryWuZiList(mc, wzlxmc, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", wzList);
@@ -2911,7 +2229,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newFaHuoDanWei(fhdw);
+		int count=faHuoDanWeiService.newFaHuoDanWei(fhdw);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建发货单位成功！");
@@ -2927,7 +2245,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteFaHuoDanWei(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteFaHuoDanWei(ids);
+		int count=faHuoDanWeiService.deleteFaHuoDanWei(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -2949,7 +2267,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.editFaHuoDanWei(fhdw);
+		int count=faHuoDanWeiService.editFaHuoDanWei(fhdw);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "编辑发货单位成功！");
@@ -2967,8 +2285,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryFaHuoDanWeiForInt(dwmc);
-		List<FaHuoDanWei> fhdwList=publicService.queryFaHuoDanWeiList(dwmc, page, rows, sort, order);
+		int count = faHuoDanWeiService.queryFaHuoDanWeiForInt(dwmc);
+		List<FaHuoDanWei> fhdwList=faHuoDanWeiService.queryFaHuoDanWeiList(dwmc, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", fhdwList);
@@ -3035,7 +2353,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newYunShuShang(yss);
+		int count=yunShuShangService.newYunShuShang(yss);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建运输商成功！");
@@ -3053,8 +2371,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryYunShuShangForInt(mc);
-		List<YunShuShang> yssList=publicService.queryYunShuShangList(mc, page, rows, sort, order);
+		int count = yunShuShangService.queryYunShuShangForInt(mc);
+		List<YunShuShang> yssList=yunShuShangService.queryYunShuShangList(mc, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", yssList);
@@ -3104,7 +2422,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteYuShuShang(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteYuShuShang(ids);
+		int count=yunShuShangService.deleteYuShuShang(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -3162,7 +2480,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.editYunShuShang(yss);
+		int count=yunShuShangService.editYunShuShang(yss);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "编辑运输商成功！");
@@ -3441,7 +2759,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		YunShuShang yss=publicService.selectYunShuShangById(id);
+		YunShuShang yss=yunShuShangService.selectYunShuShangById(id);
 
 		jsonMap.put("yss", yss);
 		
@@ -3454,7 +2772,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		WuZi wz=publicService.selectWuZiById(id);
+		WuZi wz=wuZiService.selectWuZiById(id);
 
 		jsonMap.put("wz", wz);
 		
@@ -3467,7 +2785,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		FaHuoDanWei fhdw=publicService.selectFaHuoDanWeiById(id);
+		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(id);
 
 		jsonMap.put("fhdw", fhdw);
 		

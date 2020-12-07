@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.FaHuoDanWeiMapper">
+	<insert id="newFaHuoDanWei" parameterType="com.hlzncz.entity.FaHuoDanWei">
+		insert into fa_huo_dan_wei
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				dwmc,
+			</if>
+				bjsj
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				#{dwmc},
+			</if>
+				now()
+		</trim>
+	</insert>
+	<delete id="deleteFaHuoDanWei">
+		delete from fa_huo_dan_wei where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editFaHuoDanWei" parameterType="com.hlzncz.entity.FaHuoDanWei">
+		update fa_huo_dan_wei set 
+		<trim suffixOverrides=",">
+			<if test="dwmc!=null">
+				dwmc=#{dwmc},
+			</if>
+				bjsj=now()
+		</trim>
+		 where id=#{id}
+	</update>
+	<select id="queryFaHuoDanWeiForInt" resultType="java.lang.Integer">
+		select count(*) from fa_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+	</select>
+	<select id="queryFaHuoDanWeiList" resultType="com.hlzncz.entity.FaHuoDanWei">
+		select * from fa_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+	</select>
+	<select id="selectFaHuoDanWeiById" resultType="com.hlzncz.entity.FaHuoDanWei">
+		select * from fa_huo_dan_wei where id=#{0}
+	</select>
+</mapper>
