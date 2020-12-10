@@ -17,14 +17,6 @@ public interface PublicMapper {
 	public List<DingDan> queryZJZXHZJGLZJBGList(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, 
 			@Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
-	public int newGuoBang(GuoBang gb);
-
-	public int deleteGuoBang(List<String> idList);
-
-	public int queryGBGLGBGLZHCXForInt(@Param("cph") String cph, @Param("gbbq") String gbbq, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje);
-
-	public List<DingDan> queryGBGLGBGLZHCXList(@Param("cph") String cph, @Param("gbbq") String gbbq, @Param("gbsjs") String gbsjs, @Param("gbsje") String gbsje, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
-
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
 
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);
@@ -96,6 +88,4 @@ public interface PublicMapper {
 	public List<JueSe> queryJueSeByIds(@Param("ids") String ids);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(@Param("ids") String ids);
-
-	public GuoBang selectGuoBangById(@Param("id") String id);
 }

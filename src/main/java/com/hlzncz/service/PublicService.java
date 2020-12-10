@@ -15,15 +15,6 @@ public interface PublicService {
 	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
 			String sort, String order);
 
-	public int newGuoBang(GuoBang gb);
-
-	public int deleteGuoBang(String ids);
-
-	public int queryGBGLGBGLZHCXForInt(String cph, String gbbq, String gbsjs, String gbsje);
-
-	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbbq, String gbsjs, String gbsje, int page, int rows, String sort,
-			String order);
-
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList();
 
 	public int newWuZiLeiXing(WuZiLeiXing wzlx);
@@ -37,8 +28,6 @@ public interface PublicService {
 	public List<WuZiLeiXing> queryWuZiLeiXingList(String mc, int page, int rows, String sort, String order);
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
-
-	public int editGuoBang(GuoBang gb);
 
 	public int newCangKu(CangKu ck);
 
@@ -97,6 +86,4 @@ public interface PublicService {
 	public List<JueSe> queryJueSeByIds(String ids);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids);
-
-	public GuoBang selectGuoBangById(String id);
 }

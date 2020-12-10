@@ -72,7 +72,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"入厂过磅-列表",
-		url:path+"main/queryGBGLGBGLZHCXList",
+		url:path+"main/gbgl/queryGBGLGBGLZHCXList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		queryParams:{gbbq:defaultGbbq},

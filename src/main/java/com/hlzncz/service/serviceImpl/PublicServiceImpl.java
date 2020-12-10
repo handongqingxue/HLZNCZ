@@ -57,34 +57,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newGuoBang(GuoBang gb) {
-		// TODO Auto-generated method stub
-		return publicDao.newGuoBang(gb);
-	}
-
-	@Override
-	public int deleteGuoBang(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count=publicDao.deleteGuoBang(idList);
-		return count;
-	}
-
-	@Override
-	public int queryGBGLGBGLZHCXForInt(String cph, String gbbq, String gbsjs, String gbsje) {
-		// TODO Auto-generated method stub
-		return publicDao.queryGBGLGBGLZHCXForInt(cph,gbbq,gbsjs,gbsje);
-	}
-
-	@Override
-	public List<DingDan> queryGBGLGBGLZHCXList(String cph, String gbbq, String gbsjs, String gbsje, int page, int rows, String sort,
-			String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryGBGLGBGLZHCXList(cph, gbbq, gbsjs, gbsje, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
 	public List<DingDanZhuangTai> queryDingDanZhuangTaiCBBList() {
 		// TODO Auto-generated method stub
 		return publicDao.queryDingDanZhuangTaiCBBList();
@@ -127,12 +99,6 @@ public class PublicServiceImpl implements PublicService {
 	public WuZiLeiXing selectWuZiLeiXingById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectWuZiLeiXingById(id);
-	}
-
-	@Override
-	public int editGuoBang(GuoBang gb) {
-		// TODO Auto-generated method stub
-		return publicDao.editGuoBang(gb);
 	}
 
 	@Override
@@ -312,11 +278,5 @@ public class PublicServiceImpl implements PublicService {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids) {
 		// TODO Auto-generated method stub
 		return publicDao.queryShouHuoDanWeiByIds(ids);
-	}
-
-	@Override
-	public GuoBang selectGuoBangById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectGuoBangById(id);
 	}
 }

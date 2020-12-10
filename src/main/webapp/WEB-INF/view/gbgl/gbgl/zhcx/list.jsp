@@ -71,7 +71,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"综合查询-列表",
-		url:path+"main/queryGBGLGBGLZHCXList",
+		url:path+"main/gbgl/queryGBGLGBGLZHCXList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -177,7 +177,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteGuoBang",
+			$.post(path + "main/gbgl/deleteGuoBang",
 				{ids:ids},
 				function(result){
 					if(result.status==1){
