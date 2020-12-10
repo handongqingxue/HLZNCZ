@@ -46,6 +46,8 @@ public class MainController {
 	@Autowired
 	private DingDanService dingDanService;
 	@Autowired
+	private ZhiJianBaoGaoService zhiJianBaoGaoService;
+	@Autowired
 	private YunShuShangService yunShuShangService;
 	@Autowired
 	private WuZiService wuZiService;
@@ -57,6 +59,8 @@ public class MainController {
 	private CheLiangService cheLiangService;
 	@Autowired
 	private SiJiService siJiService;
+	@Autowired
+	private YongHuService yongHuService;
 	
 	@RequestMapping(value="/goLogin")
 	public String goLogin() {
@@ -666,7 +670,7 @@ public class MainController {
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		YongHu glyh=publicService.selectYongHuById(String.valueOf(sj.getGlyhId()));
+		YongHu glyh=yongHuService.selectYongHuById(String.valueOf(sj.getGlyhId()));
 		request.setAttribute("glyh", glyh);
 		
 		return "jcxx/sjgl/zhgl/edit";
@@ -688,7 +692,7 @@ public class MainController {
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 
-		YongHu glyh=publicService.selectYongHuById(String.valueOf(sj.getGlyhId()));
+		YongHu glyh=yongHuService.selectYongHuById(String.valueOf(sj.getGlyhId()));
 		request.setAttribute("glyh", glyh);
 		
 		return "jcxx/sjgl/zhgl/detail";
@@ -1059,7 +1063,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		YongHu yh=publicService.selectYongHuById(id);
+		YongHu yh=yongHuService.selectYongHuById(id);
 		request.setAttribute("yh", yh);
 		
 		return "xtgl/yhqx/yhgl/edit";
@@ -1139,7 +1143,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newDingDanZongHeGuanLi(dd);
+		int count=dingDanService.newDingDanZongHeGuanLi(dd);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建订单成功！");
@@ -1157,7 +1161,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newWoYaoXiaDan(dd);
+		int count=dingDanService.newWoYaoXiaDan(dd);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建订单成功！");
@@ -1173,7 +1177,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteWoYaoXiaDan(String wybms) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteDingDan(wybms);
+		int count=dingDanService.deleteDingDan(wybms);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -1195,7 +1199,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.editDingDan(dd);
+		int count=dingDanService.editDingDan(dd);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "编辑订单成功！");
@@ -1213,8 +1217,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryWoYaoXiaDanForInt(ddh,ddztId);
-		List<DingDan> wyxdList=publicService.queryWoYaoXiaDanList(ddh, ddztId, page, rows, sort, order);
+		int count = dingDanService.queryWoYaoXiaDanForInt(ddh,ddztId);
+		List<DingDan> wyxdList=dingDanService.queryWoYaoXiaDanList(ddh, ddztId, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", wyxdList);
@@ -1226,7 +1230,7 @@ public class MainController {
 	@ResponseBody
 	public String tongGuoDingDanShenHe(String wybms) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.updateDingDanZT(DingDan.YI_XIA_DAN,wybms);
+		int count=dingDanService.updateDingDanZT(DingDan.YI_XIA_DAN,wybms);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -1246,7 +1250,7 @@ public class MainController {
 	@ResponseBody
 	public String tuiHuiDingDanShenHe(String wybms) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.updateDingDanZT(DingDan.BIAN_JI_ZHONG,wybms);
+		int count=dingDanService.updateDingDanZT(DingDan.BIAN_JI_ZHONG,wybms);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -1268,8 +1272,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryDingDanShenHeForInt(ddh,ddztId);
-		List<DingDan> ddshList=publicService.queryDingDanShenHeList(ddh, ddztId, page, rows, sort, order);
+		int count = dingDanService.queryDingDanShenHeForInt(ddh,ddztId);
+		List<DingDan> ddshList=dingDanService.queryDingDanShenHeList(ddh, ddztId, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", ddshList);
@@ -1300,8 +1304,8 @@ public class MainController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = publicService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
-			List<DingDan> zhglList=publicService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss,clzt, page, rows, sort, order);
+			int count = dingDanService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
+			List<DingDan> zhglList=dingDanService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss,clzt, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", zhglList);
@@ -1316,7 +1320,7 @@ public class MainController {
 	@RequestMapping(value="/tiJiaoGuoBang",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String tiJiaoGuoBang(String wybms) {
-		int count=publicService.tiJiaoGuoBang(wybms);
+		int count=dingDanService.tiJiaoGuoBang(wybms);
 		PlanResult plan=new PlanResult();
 		
 		String json;
@@ -1341,8 +1345,8 @@ public class MainController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = publicService.queryDDGLZHGLYCCLForInt(ddh,ddztId,cph,jhysrq,clzt);
-			List<DingDan> ycclList=publicService.queryDDGLZHGLYCCLList(ddh, ddztId,cph,jhysrq,clzt, page, rows, sort, order);
+			int count = dingDanService.queryDDGLZHGLYCCLForInt(ddh,ddztId,cph,jhysrq,clzt);
+			List<DingDan> ycclList=dingDanService.queryDDGLZHGLYCCLList(ddh, ddztId,cph,jhysrq,clzt, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", ycclList);
@@ -1357,8 +1361,8 @@ public class MainController {
 	@RequestMapping(value="/tongGuoZhiJian",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String tongGuoZhiJian(String wybms) {
-		int count=publicService.updateDingDanZT(DingDan.DAI_YI_JIAN_SHANG_BANG, wybms);
-		publicService.updateZhiJianBaoGaoJLByGlddBms(ZhiJianBaoGao.HE_GE, wybms);
+		int count=dingDanService.updateDingDanZT(DingDan.DAI_YI_JIAN_SHANG_BANG, wybms);
+		zhiJianBaoGaoService.updateZhiJianBaoGaoJLByGlddBms(ZhiJianBaoGao.HE_GE, wybms);
 		PlanResult plan=new PlanResult();
 
 		String json;
@@ -1403,7 +1407,7 @@ public class MainController {
 				}
 			}
 			
-			int count=publicService.editDaiZhiJian(dd,zjbg);
+			int count=zhiJianBaoGaoService.editDaiZhiJian(dd,zjbg);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "编辑待质检成功！");
@@ -1446,7 +1450,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newZhiJianBaoGao(zjbg);
+		int count=zhiJianBaoGaoService.newZhiJianBaoGao(zjbg);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建质检报告成功！");
@@ -1464,7 +1468,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.editZhiJianBaoGao(zjbg);
+		int count=zhiJianBaoGaoService.editZhiJianBaoGao(zjbg);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "修改质检报告成功！");
@@ -2078,7 +2082,7 @@ public class MainController {
 				}
 			}
 			
-			int count=publicService.newYongHu(yh);
+			int count=yongHuService.newYongHu(yh);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "创建用户信息成功！");
@@ -2118,7 +2122,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteYongHu(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteYongHu(ids);
+		int count=yongHuService.deleteYongHu(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -2694,8 +2698,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryYongHuForInt(yhm, zt);
-		List<YongHu> yhList=publicService.queryYongHuList(yhm, zt, page, rows, sort, order);
+		int count = yongHuService.queryYongHuForInt(yhm, zt);
+		List<YongHu> yhList=yongHuService.queryYongHuList(yhm, zt, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", yhList);

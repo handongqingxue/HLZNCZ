@@ -33,6 +33,8 @@ public class DDGLController {
 	private CheLiangService cheLiangService;
 	@Autowired
 	private SiJiService siJiService;
+	@Autowired
+	private DingDanYiChangService dingDanYiChangService;
 	private static final String moduleName="ddgl";
 
 	@RequestMapping(value="/wddd/wyxd/new")
@@ -417,7 +419,7 @@ public class DDGLController {
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
-		List<DingDanYiChang> ycxxList=publicService.selectDingDanYiChangByDdbm(wybm);
+		List<DingDanYiChang> ycxxList=dingDanYiChangService.selectDingDanYiChangByDdbm(wybm);
 		JSONArray ycxxJA = JSONArray.fromObject(ycxxList);
 		request.setAttribute("ycxxJAStr", ycxxJA.toString());
 		
@@ -460,7 +462,7 @@ public class DDGLController {
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
-		List<DingDanYiChang> ycxxList=publicService.selectDingDanYiChangByDdbm(wybm);
+		List<DingDanYiChang> ycxxList=dingDanYiChangService.selectDingDanYiChangByDdbm(wybm);
 		JSONArray ycxxJA = JSONArray.fromObject(ycxxList);
 		request.setAttribute("ycxxJAStr", ycxxJA.toString());
 		

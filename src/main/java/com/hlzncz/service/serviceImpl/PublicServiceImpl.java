@@ -44,185 +44,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newDingDanZongHeGuanLi(DingDan dd) {
-		// TODO Auto-generated method stub
-		String wybm = "";
-        Random random = new Random();
-        for (int i = 0; i < 18; i++) {
-        	wybm += String.valueOf(random.nextInt(10));
-        }
-        dd.setWybm(wybm);
-        dd.setDdh("DD"+wybm);
-		return publicDao.newWoYaoXiaDan(dd);
-	}
-
-	@Override
-	public int newWoYaoXiaDan(DingDan dd) {
-		// TODO Auto-generated method stub
-		String wybm = "";
-        Random random = new Random();
-        for (int i = 0; i < 18; i++) {
-        	wybm += String.valueOf(random.nextInt(10));
-        }
-        dd.setWybm(wybm);
-        dd.setDdh("DD"+wybm);
-        dd.setDdztId(DingDan.DAI_SHEN_HE);
-		return publicDao.newWoYaoXiaDan(dd);
-	}
-
-	@Override
-	public int deleteDingDan(String wybms) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> wybmList = Arrays.asList(wybms.split(","));
-		count=publicDao.deleteDingDan(wybmList);
-		return count;
-	}
-
-	@Override
-	public int editDingDan(DingDan dd) {
-		// TODO Auto-generated method stub
-		return publicDao.editDingDan(dd);
-	}
-
-	@Override
-	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId) {
-		// TODO Auto-generated method stub
-		return publicDao.queryWoYaoXiaDanForInt(ddh,ddztId);
-	}
-
-	@Override
-	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
-			String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryWoYaoXiaDanList(ddh, ddztId, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> newGlddBmList = Arrays.asList(glddBms.split(","));
-		List<String> updateGlddBmList=new ArrayList<String>();
-		/*
-		//这种利用游标遍历的方法暂时不用
-		Iterator<String> glddBmIt = glddBmList.iterator();
-		while (glddBmIt.hasNext()) {
-			String glddBm = glddBmIt.next();
-			if(publicDao.selectZhiJianBaoGaoByGlddBm(glddBm)==null) {
-				ZhiJianBaoGao zjbg=new ZhiJianBaoGao();
-				zjbg.setJl(jl);
-				zjbg.setGlddBm(glddBm);
-				count+=publicDao.newZhiJianBaoGao(zjbg);
-			}
-			else {
-				//flag=publicDao.editZhiJianBaoGao(zjbg);
-				glddBmIt.remove();
-			}
-		}
-		*/
-		for (String glddBm : newGlddBmList) {
-			if(publicDao.selectZhiJianBaoGaoByGlddBm(glddBm)==null) {
-				ZhiJianBaoGao zjbg=new ZhiJianBaoGao();
-				zjbg.setJl(jl);
-				zjbg.setGlddBm(glddBm);
-				count+=publicDao.newZhiJianBaoGao(zjbg);
-			}
-			else {
-				updateGlddBmList.add(glddBm);
-			}
-		}
-		
-		count+=publicDao.updateZhiJianBaoGaoJLByGlddBms(jl,updateGlddBmList);
-		
-		return count;
-	}
-	
-	@Override
-	public int queryDingDanShenHeForInt(String ddh, Integer ddztId) {
-		// TODO Auto-generated method stub
-		return publicDao.queryDingDanShenHeForInt(ddh,ddztId);
-	}
-
-	@Override
-	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,
-			String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryDingDanShenHeList(ddh, ddztId, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public int queryDDGLZHGLForInt(String ddh, String ddztId, String cph, String jcsjs, String jcsje, String jhysrq,
-			String yss) {
-		// TODO Auto-generated method stub
-		return publicDao.queryDDGLZHGLForInt(ddh, ddztId, cph, jcsjs, jcsje, jhysrq, yss);
-	}
-
-	@Override
-	public List<DingDan> queryDDGLZHGLList(String ddh, String ddztId, String cph, String jcsjs, String jcsje,
-			String jhysrq, String yss, String clzt, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryDDGLZHGLList(ddh, ddztId, cph, jcsjs, jcsje, jhysrq, yss, clzt, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public int tiJiaoGuoBang(String wybms) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> wybmList = Arrays.asList(wybms.split(","));
-		count=publicDao.tiJiaoGuoBang(wybmList);
-		return count;
-	}
-
-	@Override
-	public int queryDDGLZHGLYCCLForInt(String ddh, String ddztId, String cph, String jhysrq, String clzt) {
-		// TODO Auto-generated method stub
-		List<DingDan> ycclList=publicDao.queryDDGLZHGLYCCLNotLimitList(ddh, ddztId, cph, jhysrq, clzt);
-		return ycclList.size();
-	}
-
-	@Override
-	public List<DingDan> queryDDGLZHGLYCCLList(String ddh, String ddztId, String cph, 
-			String jhysrq, String clzt, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryDDGLZHGLYCCLList(ddh, ddztId, cph, jhysrq, clzt, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public int updateDingDanZT(Integer ddztId, String wybms) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> wybmList = Arrays.asList(wybms.split(","));
-		count=publicDao.updateDingDanZT(ddztId,wybmList);
-		return count;
-	}
-
-	@Override
-	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg) {
-		// TODO Auto-generated method stub
-		int flag=publicDao.editDingDan(dd);
-		if(publicDao.selectZhiJianBaoGaoByGlddBm(dd.getWybm())==null) {
-			flag=publicDao.newZhiJianBaoGao(zjbg);
-		}
-		else {
-			flag=publicDao.editZhiJianBaoGao(zjbg);
-		}
-		return flag;
-	}
-
-	@Override
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		// TODO Auto-generated method stub
-		return publicDao.newZhiJianBaoGao(zjbg);
-	}
-
-	@Override
-	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		// TODO Auto-generated method stub
-		return publicDao.editZhiJianBaoGao(zjbg);
-	}
-
-	@Override
 	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph) {
 		// TODO Auto-generated method stub
 		return publicDao.queryZJZXHZJGLZJBGForInt(jl, ddh, ddztId, cph);
@@ -312,21 +133,6 @@ public class PublicServiceImpl implements PublicService {
 	public int editGuoBang(GuoBang gb) {
 		// TODO Auto-generated method stub
 		return publicDao.editGuoBang(gb);
-	}
-
-	@Override
-	public int newYongHu(YongHu yh) {
-		// TODO Auto-generated method stub
-		return publicDao.newYongHu(yh);
-	}
-
-	@Override
-	public int deleteYongHu(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteYongHu(idList);
-		return count;
 	}
 
 	@Override
@@ -478,24 +284,6 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int queryYongHuForInt(String yhm, Integer zt) {
-		// TODO Auto-generated method stub
-		return publicDao.queryYongHuForInt(yhm,zt);
-	}
-
-	@Override
-	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryYongHuList(yhm, zt, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public YongHu selectYongHuById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectYongHuById(id);
-	}
-
-	@Override
 	public int queryHaoMaForInt(String hm, String pdh, Integer ztId) {
 		// TODO Auto-generated method stub
 		return publicDao.queryHaoMaForInt(hm,pdh,ztId);
@@ -527,26 +315,8 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm) {
-		// TODO Auto-generated method stub
-		return publicDao.selectDingDanYiChangByDdbm(wybm);
-	}
-
-	@Override
 	public GuoBang selectGuoBangById(String id) {
 		// TODO Auto-generated method stub
 		return publicDao.selectGuoBangById(id);
-	}
-
-	@Override
-	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm) {
-		// TODO Auto-generated method stub
-		return publicDao.selectZhiJianBaoGaoByGlddBm(glddBm);
-	}
-
-	@Override
-	public ZhiJianBaoGao selectZhiJianBaoGaoById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectZhiJianBaoGaoById(id);
 	}
 }

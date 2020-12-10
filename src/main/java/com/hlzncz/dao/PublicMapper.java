@@ -12,43 +12,10 @@ public interface PublicMapper {
 
 	public List<CaiDan> selectChildCaiDan(Integer parId);
 
-	public int newWoYaoXiaDan(DingDan dd);
-
-	public int deleteDingDan(List<String> wybmList);
-
-	public int editDingDan(DingDan dd);
-
-	public int queryWoYaoXiaDanForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
-
-	public List<DingDan> queryWoYaoXiaDanList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
-
-	public int updateZhiJianBaoGaoJLByGlddBms(@Param("jl") Integer jl, @Param("glddBmList") List<String> glddBmList);
-
-	public int queryDingDanShenHeForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
-
-	public List<DingDan> queryDingDanShenHeList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
-
-	public int queryDDGLZHGLForInt(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jcsjs") String jcsjs, 
-			@Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss);
-
-	public List<DingDan> queryDDGLZHGLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jcsjs") String jcsjs, 
-			@Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
-
-	public int tiJiaoGuoBang(List<String> wybmList);
-
-	public List<DingDan> queryDDGLZHGLYCCLNotLimitList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("clzt") String clzt);
-
 	public int queryZJZXHZJGLZJBGForInt(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph);
 
 	public List<DingDan> queryZJZXHZJGLZJBGList(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, 
 			@Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
-
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
-
-	public List<DingDan> queryDDGLZHGLYCCLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph,  
-			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
-
-	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
 
 	public int newGuoBang(GuoBang gb);
 
@@ -73,10 +40,6 @@ public interface PublicMapper {
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
 	public int editGuoBang(GuoBang gb);
-
-	public int newYongHu(YongHu yh);
-
-	public int deleteYongHu(List<String> idList);
 
 	public int newCangKu(CangKu ck);
 
@@ -124,12 +87,6 @@ public interface PublicMapper {
 
 	public DuiLie selectDuiLieById(@Param("id") String id);
 
-	public int queryYongHuForInt(@Param("yhm") String yhm, @Param("zt") Integer zt);
-
-	public List<YongHu> queryYongHuList(@Param("yhm") String yhm, @Param("zt") Integer zt, int i, int rows, String sort, String order);
-
-	public YongHu selectYongHuById(@Param("id") String id);
-
 	public int queryHaoMaForInt(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId);
 
 	public List<HaoMa> queryHaoMaList(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId, int i, int rows, String sort, String order);
@@ -140,13 +97,5 @@ public interface PublicMapper {
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(@Param("ids") String ids);
 
-	public List<DingDanYiChang> selectDingDanYiChangByDdbm(@Param("ddbm") String ddbm);
-
 	public GuoBang selectGuoBangById(@Param("id") String id);
-
-	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(@Param("glddBm") String glddBm);
-
-	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg);
-
-	public ZhiJianBaoGao selectZhiJianBaoGaoById(@Param("id") String id);
 }

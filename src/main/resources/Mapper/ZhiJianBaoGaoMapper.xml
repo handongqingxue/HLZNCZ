@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.ZhiJianBaoGaoMapper">
+	<insert id="newZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
+		insert into zhi_jian_bao_gao
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jl!=null">
+				jl,
+			</if>
+				bjsj,
+			<if test="glddBm!=null">
+				glddBm,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jl!=null">
+				#{jl},
+			</if>
+				now(),
+			<if test="glddBm!=null">
+				#{glddBm},
+			</if>
+		</trim>
+	</insert>
+	<update id="editZhiJianBaoGao" parameterType="com.hlzncz.entity.ZhiJianBaoGao">
+		update zhi_jian_bao_gao set
+		<trim suffixOverrides=",">
+			<if test="jl!=null">
+				jl=#{jl},
+			</if>
+				bjsj=now()
+		</trim>
+		where glddBm=#{glddBm}
+	</update>
+	<select id="selectZhiJianBaoGaoByGlddBm" resultType="com.hlzncz.entity.ZhiJianBaoGao">
+		select * from zhi_jian_bao_gao where glddBm=#{glddBm}
+	</select>
+	<select id="selectZhiJianBaoGaoById" resultType="com.hlzncz.entity.ZhiJianBaoGao">
+		select * from zhi_jian_bao_gao where id=#{id}
+	</select>
+	<update id="updateZhiJianBaoGaoJLByGlddBms">
+		update zhi_jian_bao_gao set jl=#{jl}
+		<foreach collection="glddBmList" item="glddBm" open=" where cast(glddBm as char) in(" separator="," close=")">
+		#{glddBm}
+		</foreach>
+	</update>
+</mapper>

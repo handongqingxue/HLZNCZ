@@ -21,6 +21,10 @@ public class ZJZXHController {
 	private CheLiangService cheLiangService;
 	@Autowired
 	private SiJiService siJiService;
+	@Autowired
+	private YongHuService yongHuService;
+	@Autowired
+	private ZhiJianBaoGaoService zhiJianBaoGaoService;
 	private static final String moduleName="zjzxh";
 
 	@RequestMapping(value="/zxhgl/dzxh/edit")
@@ -37,10 +41,10 @@ public class ZJZXHController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
+		YongHu xdyh=yongHuService.selectYongHuById(String.valueOf(dd.getXdyhId()));
 		request.setAttribute("xdyh", xdyh);
 
-		YongHu sjyh=publicService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
+		YongHu sjyh=yongHuService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
 		request.setAttribute("sjyh", sjyh);
 		
 		return moduleName+"/zxhgl/dzxh/edit";
@@ -70,10 +74,10 @@ public class ZJZXHController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
+		YongHu xdyh=yongHuService.selectYongHuById(String.valueOf(dd.getXdyhId()));
 		request.setAttribute("xdyh", xdyh);
 
-		YongHu sjyh=publicService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
+		YongHu sjyh=yongHuService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
 		request.setAttribute("sjyh", sjyh);
 		
 		return moduleName+"/zxhgl/dzxh/detail";
@@ -87,7 +91,7 @@ public class ZJZXHController {
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
+		ZhiJianBaoGao zjbg=zhiJianBaoGaoService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
 		request.setAttribute("zjbg", zjbg);
 		
 		return moduleName+"/zjgl/dzj/edit";
@@ -111,7 +115,7 @@ public class ZJZXHController {
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
+		ZhiJianBaoGao zjbg=zhiJianBaoGaoService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
 		request.setAttribute("zjbg", zjbg);
 		
 		return moduleName+"/zjgl/dzj/detail";
@@ -130,7 +134,7 @@ public class ZJZXHController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoById(id);
+		ZhiJianBaoGao zjbg=zhiJianBaoGaoService.selectZhiJianBaoGaoById(id);
 		request.setAttribute("zjbg", zjbg);
 
 		DingDan gldd=dingDanService.selectDingDanByWybm(zjbg.getGlddBm());
@@ -152,7 +156,7 @@ public class ZJZXHController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		ZhiJianBaoGao zjbg=publicService.selectZhiJianBaoGaoById(id);
+		ZhiJianBaoGao zjbg=zhiJianBaoGaoService.selectZhiJianBaoGaoById(id);
 		request.setAttribute("zjbg", zjbg);
 
 		DingDan gldd=dingDanService.selectDingDanByWybm(zjbg.getGlddBm());

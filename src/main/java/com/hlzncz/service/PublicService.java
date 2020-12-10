@@ -10,51 +10,10 @@ public interface PublicService {
 
 	public void selectNav(HttpServletRequest request);
 
-	public int newDingDanZongHeGuanLi(DingDan dd);
-
-	public int newWoYaoXiaDan(DingDan dd);
-
-	public int deleteDingDan(String wybms);
-
-	public int editDingDan(DingDan dd);
-
-	public int queryWoYaoXiaDanForInt(String ddh, Integer ddztId);
-
-	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
-			String order);
-
-	public int queryDingDanShenHeForInt(String ddh, Integer ddztId);
-
-	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,
-			String order);
-
-	public int queryDDGLZHGLForInt(String ddh, String ddztId, String cph, String jcsjs, String jcsje, String jhysrq,
-			String yss);
-
-	public List<DingDan> queryDDGLZHGLList(String ddh, String ddztId, String cph, String jcsjs, String jcsje,
-			String jhysrq, String yss, String clzt, int page, int rows, String sort, String order);
-
-	public int tiJiaoGuoBang(String wybms);
-
-	public int queryDDGLZHGLYCCLForInt(String ddh, String ddztId, String cph, String jhysrq, String clzt);
-
-	public List<DingDan> queryDDGLZHGLYCCLList(String ddh, String ddztId, String cph, 
-			String jhysrq, String clzt, int page, int rows, String sort, String order);
-
-	public int updateDingDanZT(Integer ddztId, String wybms);
-
-	public int editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg);
-
-	public int newZhiJianBaoGao(ZhiJianBaoGao zjbg);
-
-	public int editZhiJianBaoGao(ZhiJianBaoGao zjbg);
-
 	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph);
 
 	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
 			String sort, String order);
-
-	public ZhiJianBaoGao selectZhiJianBaoGaoById(String id);
 
 	public int newGuoBang(GuoBang gb);
 
@@ -80,10 +39,6 @@ public interface PublicService {
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
 	public int editGuoBang(GuoBang gb);
-
-	public int newYongHu(YongHu yh);
-
-	public int deleteYongHu(String ids);
 
 	public int newCangKu(CangKu ck);
 
@@ -132,12 +87,6 @@ public interface PublicService {
 
 	public DuiLie selectDuiLieById(String id);
 
-	public int queryYongHuForInt(String yhm, Integer zt);
-
-	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order);
-
-	public YongHu selectYongHuById(String id);
-
 	public int queryHaoMaForInt(String hm, String pdh, Integer ztId);
 
 	public List<HaoMa> queryHaoMaList(String hm, String pdh, Integer ztId, int page, int rows, String sort,
@@ -149,11 +98,5 @@ public interface PublicService {
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids);
 
-	public List<DingDanYiChang> selectDingDanYiChangByDdbm(String wybm);
-
 	public GuoBang selectGuoBangById(String id);
-
-	public ZhiJianBaoGao selectZhiJianBaoGaoByGlddBm(String glddBm);
-
-	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms);
 }
