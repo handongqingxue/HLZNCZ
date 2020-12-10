@@ -40,7 +40,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"全部收货单位-列表",
-		url:path+"main/queryShouHuoDanWeiList",
+		url:path+"main/jcxx/queryShouHuoDanWeiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

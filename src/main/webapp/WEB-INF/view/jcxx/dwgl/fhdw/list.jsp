@@ -46,7 +46,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"发货单位-列表",
-		url:path+"main/queryFaHuoDanWeiList",
+		url:path+"main/jcxx/queryFaHuoDanWeiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

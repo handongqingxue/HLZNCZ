@@ -46,7 +46,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"卡片维护-列表",
-		url:path+"main/queryKaPianWeiHuList",
+		url:path+"main/jcxx/queryKaPianWeiHuList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

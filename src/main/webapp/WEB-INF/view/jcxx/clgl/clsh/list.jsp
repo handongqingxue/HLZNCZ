@@ -67,7 +67,7 @@ function initTuiHuiLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"车辆审核-列表",
-		url:path+"main/queryCheLiangList",
+		url:path+"main/jcxx/queryCheLiangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

@@ -40,7 +40,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"物资类型-列表",
-		url:path+"main/queryWuZiLeiXingList",
+		url:path+"main/jcxx/queryWuZiLeiXingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

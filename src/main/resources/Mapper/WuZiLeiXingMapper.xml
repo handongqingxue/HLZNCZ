@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.WuZiLeiXingMapper">
+	<insert id="newWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
+		insert into wu_zi_lei_xing
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+				bjsj,
+			<if test="px!=null">
+				px,
+			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+				now(),
+			<if test="px!=null">
+				#{px},
+			</if>
+			<if test="bz!=null">
+				#{bz},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteWuZiLeiXing">
+		delete from wu_zi_lei_xing where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editWuZiLeiXing" parameterType="com.hlzncz.entity.WuZiLeiXing">
+		update wu_zi_lei_xing set mc=#{mc},bjsj=#{bjsj},px=#{px},bz=#{bz},bjsj=now() where id=#{id}
+	</update>
+	<select id="queryWuZiLeiXingForInt" resultType="java.lang.Integer">
+		select count(*) from wu_zi_lei_xing where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if> 
+	</select>
+	<select id="queryWuZiLeiXingList" resultType="com.hlzncz.entity.WuZiLeiXing">
+		select * from wu_zi_lei_xing where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if>
+		 limit ${param2},${param3}
+	</select>
+	<select id="selectWuZiLeiXingById" resultType="com.hlzncz.entity.WuZiLeiXing">
+		select * from wu_zi_lei_xing where id=#{0}
+	</select>
+</mapper>

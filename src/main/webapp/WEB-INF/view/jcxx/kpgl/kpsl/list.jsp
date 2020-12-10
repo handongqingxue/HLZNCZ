@@ -41,7 +41,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"卡片申领-列表",
-		url:path+"main/queryKaPianShenLingList",
+		url:path+"main/jcxx/queryKaPianShenLingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

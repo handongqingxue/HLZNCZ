@@ -46,7 +46,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"运输商-列表",
-		url:path+"main/queryYunShuShangList",
+		url:path+"main/jcxx/queryYunShuShangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

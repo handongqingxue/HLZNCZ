@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.DuiLieMapper">
+	<insert id="newDuiLie" parameterType="com.hlzncz.entity.DuiLie">
+		insert into dui_lie
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				mc,
+			</if>
+			<if test="dm!=null">
+				dm,
+			</if>
+			<if test="jhxs!=null">
+				jhxs,
+			</if>
+			<if test="jhyz!=null">
+				jhyz,
+			</if>
+			<if test="zt!=null">
+				zt,
+			</if>
+			<if test="shdwId!=null">
+				shdwId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mc!=null">
+				#{mc},
+			</if>
+			<if test="dm!=null">
+				#{dm},
+			</if>
+			<if test="jhxs!=null">
+				#{jhxs},
+			</if>
+			<if test="jhyz!=null">
+				#{jhyz},
+			</if>
+			<if test="zt!=null">
+				#{zt},
+			</if>
+			<if test="shdwId!=null">
+				#{shdwId},
+			</if>
+		</trim>
+	</insert>
+	<update id="editDuiLie" parameterType="com.hlzncz.entity.DuiLie">
+		update dui_lie set 
+		<trim suffixOverrides=",">
+			<if test="mc!=null">
+				mc=#{mc},
+			</if>
+			<if test="dm!=null">
+				dm=#{dm},
+			</if>
+			<if test="jhxs!=null">
+				jhxs=#{jhxs},
+			</if>
+			<if test="jhyz!=null">
+				jhyz=#{jhyz},
+			</if>
+			<if test="zt!=null">
+				zt=#{zt},
+			</if>
+			<if test="shdwId!=null">
+				shdwId=#{shdwId},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+	<select id="queryDuiLieForInt" resultType="java.lang.Integer">
+		select count(*) from dui_lie where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if> 
+		<if test="dm!=''&amp;dm!=null">
+			and dm like CONCAT('%',#{dm},'%')
+		</if> 
+		<if test="zt!=''&amp;zt!=null">
+			and zt=#{zt}
+		</if> 
+	</select>
+	<select id="queryDuiLieList" resultType="com.hlzncz.entity.DuiLie">
+		select * from dui_lie where 1=1
+		<if test="mc!=''&amp;mc!=null">
+			and mc like CONCAT('%',#{mc},'%')
+		</if>
+		<if test="dm!=''&amp;dm!=null">
+			and dm like CONCAT('%',#{dm},'%')
+		</if>
+		<if test="zt!=''&amp;zt!=null">
+			and zt like CONCAT('%',#{zt},'%')
+		</if>
+		 limit ${param4},${param5}
+	</select>
+	<select id="selectDuiLieById" resultType="com.hlzncz.entity.DuiLie">
+		select * from dui_lie where id=#{id}
+	</select>
+</mapper>

@@ -46,7 +46,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"仓库管理-列表",
-		url:path+"main/queryCangKuList",
+		url:path+"main/jcxx/queryCangKuList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

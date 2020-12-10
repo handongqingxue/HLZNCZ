@@ -41,7 +41,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"无队列收货单位-列表",
-		url:path+"main/queryShouHuoDanWeiList",
+		url:path+"main/jcxx/queryShouHuoDanWeiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

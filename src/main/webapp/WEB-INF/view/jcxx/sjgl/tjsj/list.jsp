@@ -48,7 +48,7 @@ function initRemoveLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"添加司机-列表",
-		url:path+"main/querySiJiList",
+		url:path+"main/jcxx/querySiJiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

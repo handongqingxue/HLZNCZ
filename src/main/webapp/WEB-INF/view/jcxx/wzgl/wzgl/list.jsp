@@ -41,7 +41,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"物资管理-列表",
-		url:path+"main/queryWuZiList",
+		url:path+"main/jcxx/queryWuZiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

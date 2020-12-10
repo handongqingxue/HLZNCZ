@@ -48,7 +48,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"综合管理-列表",
-		url:path+"main/querySiJiList",
+		url:path+"main/jcxx/querySiJiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
