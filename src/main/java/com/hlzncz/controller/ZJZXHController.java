@@ -17,6 +17,10 @@ public class ZJZXHController {
 	private PublicService publicService;
 	@Autowired
 	private DingDanService dingDanService;
+	@Autowired
+	private CheLiangService cheLiangService;
+	@Autowired
+	private SiJiService siJiService;
 	private static final String moduleName="zjzxh";
 
 	@RequestMapping(value="/zxhgl/dzxh/edit")
@@ -27,10 +31,10 @@ public class ZJZXHController {
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));
@@ -60,10 +64,10 @@ public class ZJZXHController {
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		YongHu xdyh=publicService.selectYongHuById(String.valueOf(dd.getXdyhId()));

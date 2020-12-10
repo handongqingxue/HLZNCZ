@@ -309,63 +309,9 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int newCheLiang(CheLiang cl) {
-		// TODO Auto-generated method stub
-		return publicDao.newCheLiang(cl);
-	}
-
-	@Override
-	public int deleteCheLiang(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteCheLiang(idList);
-		return count;
-	}
-
-	@Override
-	public int shenHeCheLiang(String ids,String flag) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.shenHeCheLiang(idList,flag);
-		return count;
-	}
-
-	@Override
-	public int editCheLiang(CheLiang cl) {
-		// TODO Auto-generated method stub
-		return publicDao.editCheLiang(cl);
-	}
-
-	@Override
 	public int editGuoBang(GuoBang gb) {
 		// TODO Auto-generated method stub
 		return publicDao.editGuoBang(gb);
-	}
-
-	@Override
-	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz) {
-		// TODO Auto-generated method stub
-		return publicDao.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shzt,bz);
-	}
-
-	@Override
-	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryCheLiangList(cph, cllx, sfzy, pfjd, shzt, bz, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public CheLiang selectCheLiangById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectCheLiangById(id);
-	}
-
-	@Override
-	public int newSiJi(SiJi sj) {
-		// TODO Auto-generated method stub
-		return publicDao.newSiJi(sj);
 	}
 
 	@Override
@@ -375,88 +321,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int deleteSiJi(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteSiJi(idList);
-		return count;
-	}
-
-	@Override
 	public int deleteYongHu(String ids) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> idList = Arrays.asList(ids.split(","));
 		count = publicDao.deleteYongHu(idList);
 		return count;
-	}
-
-	@Override
-	public int shenHeSiJi(String ids, String flag) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.shenHeSiJi(idList,flag);
-		return count;
-	}
-
-	@Override
-	public int editSiJi(SiJi sj) {
-		// TODO Auto-generated method stub
-		return publicDao.editSiJi(sj);
-	}
-
-	@Override
-	public int querySiJiForInt(String xm, String sfz, Integer zyzt,String shzt) {
-		// TODO Auto-generated method stub
-		return publicDao.querySiJiForInt(xm,sfz,zyzt,shzt);
-	}
-
-	@Override
-	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, String shzt, int page, int rows, String sort,
-			String order) {
-		// TODO Auto-generated method stub
-		return publicDao.querySiJiList(xm, sfz, zyzt, shzt, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public SiJi selectSiJiById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectSiJiById(id);
-	}
-
-	@Override
-	public int newShouHuoDanWei(ShouHuoDanWei shdw) {
-		// TODO Auto-generated method stub
-		return publicDao.newShouHuoDanWei(shdw);
-	}
-
-	@Override
-	public int deleteShouHuoDanWei(String ids) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> idList = Arrays.asList(ids.split(","));
-		count = publicDao.deleteShouHuoDanWei(idList);
-		return count;
-	}
-
-	@Override
-	public int queryShouHuoDanWeiForInt(String dwmc,Boolean ywdl) {
-		// TODO Auto-generated method stub
-		return publicDao.queryShouHuoDanWeiForInt(dwmc,ywdl);
-	}
-
-	@Override
-	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order) {
-		// TODO Auto-generated method stub
-		return publicDao.queryShouHuoDanWeiList(dwmc, ywdl, (page-1)*rows, rows, sort, order);
-	}
-
-	@Override
-	public ShouHuoDanWei selectShouHuoDanWeiById(String id) {
-		// TODO Auto-generated method stub
-		return publicDao.selectShouHuoDanWeiById(id);
 	}
 
 	@Override

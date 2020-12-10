@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.ShouHuoDanWeiMapper">
+	<insert id="newShouHuoDanWei" parameterType="com.hlzncz.entity.ShouHuoDanWei">
+		insert into shou_huo_dan_wei
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				dwmc,
+			</if>
+				bjsj,
+			<if test="dlId!=null">
+				dlId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dwmc!=null">
+				#{dwmc},
+			</if>
+				now(),
+			<if test="dlId!=null">
+				#{dlId},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteShouHuoDanWei">
+		delete from shou_huo_dan_wei where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<select id="queryShouHuoDanWeiForInt" resultType="java.lang.Integer">
+		select count(*) from shou_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+		<if test="ywdl!=null">
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@YOU_DUI_LIE">
+				and dlId is not null
+			</if>
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@WU_DUI_LIE">
+				and dlId is null
+			</if>
+		</if> 
+	</select>
+	<select id="queryShouHuoDanWeiList" resultType="com.hlzncz.entity.ShouHuoDanWei">
+		select * from shou_huo_dan_wei where 1=1
+		<if test="dwmc!=''&amp;dwmc!=null">
+			and dwmc like CONCAT('%',#{dwmc},'%')
+		</if> 
+		<if test="ywdl!=null">
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@YOU_DUI_LIE">
+				and dlId is not null
+			</if>
+			<if test="ywdl==@com.hlzncz.entity.ShouHuoDanWei@WU_DUI_LIE">
+				and dlId is null
+			</if>
+		</if> 
+	</select>
+	<select id="selectShouHuoDanWeiById" resultType="com.hlzncz.entity.ShouHuoDanWei">
+		select * from shou_huo_dan_wei where id=#{0}
+	</select>
+</mapper>

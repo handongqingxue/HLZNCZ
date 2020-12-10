@@ -79,49 +79,11 @@ public interface PublicService {
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
-	public int newCheLiang(CheLiang cl);
-
-	public int deleteCheLiang(String ids);
-
-	public int shenHeCheLiang(String ids,String flag);
-
-	public int editCheLiang(CheLiang cl);
-
 	public int editGuoBang(GuoBang gb);
-
-	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz);
-
-	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz, int page, int rows, String sort, String order);
-
-	public CheLiang selectCheLiangById(String id);
-
-	public int newSiJi(SiJi sj);
 
 	public int newYongHu(YongHu yh);
 
-	public int deleteSiJi(String ids);
-
 	public int deleteYongHu(String ids);
-
-	public int shenHeSiJi(String ids, String flag);
-
-	public int editSiJi(SiJi sj);
-
-	public int querySiJiForInt(String xm, String sfz, Integer zyzt,String shzt);
-
-	public List<SiJi> querySiJiList(String xm, String sfz, Integer zyzt, String shzt, int page, int rows, String sort, String order);
-
-	public SiJi selectSiJiById(String id);
-
-	public int newShouHuoDanWei(ShouHuoDanWei shdw);
-	
-	public int deleteShouHuoDanWei(String ids);
-
-	public int queryShouHuoDanWeiForInt(String dwmc,Boolean ywdl);
-
-	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order);
-
-	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
 
 	public int newCangKu(CangKu ck);
 

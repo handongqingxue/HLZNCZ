@@ -27,6 +27,12 @@ public class DDGLController {
 	private WuZiService wuZiService;
 	@Autowired
 	private FaHuoDanWeiService faHuoDanWeiService;
+	@Autowired
+	private ShouHuoDanWeiService shouHuoDanWeiService;
+	@Autowired
+	private CheLiangService cheLiangService;
+	@Autowired
+	private SiJiService siJiService;
 	private static final String moduleName="ddgl";
 
 	@RequestMapping(value="/wddd/wyxd/new")
@@ -55,13 +61,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(wyxd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/wddd/wyxd/edit";
@@ -93,13 +99,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(wyxd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(wyxd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(wyxd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/wddd/wyxd/detail";
@@ -133,13 +139,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dsh.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dsh.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dsh.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dsh.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dsh.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dsh.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dsh.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/wddd/dsh/detail";
@@ -171,13 +177,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(wddd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(wddd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(wddd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(wddd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(wddd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(wddd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wddd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/wddd/wddd/detail";
@@ -201,13 +207,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/ddsh/edit";
@@ -248,13 +254,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/ddsh/detail";
@@ -278,13 +284,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(zjpd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/zjpd/edit";
@@ -317,13 +323,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(zjpd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(zjpd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(zjpd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/zjpd/detail";
@@ -354,13 +360,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/zhgl/edit";
@@ -391,13 +397,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/zhgl/detail";
@@ -424,13 +430,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/zhgl/yccl/edit";
@@ -467,13 +473,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 		
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return "ddgl/zhgl/yccl/detail";
@@ -505,13 +511,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/ddtb/ddtb/edit";
@@ -545,13 +551,13 @@ public class DDGLController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
 		request.setAttribute("fhdw", fhdw);
 
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
 		request.setAttribute("shdw", shdw);
 
-		CheLiang cycl=publicService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
 		request.setAttribute("cycl", cycl);
 
-		SiJi cysj=publicService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/ddtb/ddtb/detail";

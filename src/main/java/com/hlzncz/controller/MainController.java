@@ -51,6 +51,12 @@ public class MainController {
 	private WuZiService wuZiService;
 	@Autowired
 	private FaHuoDanWeiService faHuoDanWeiService;
+	@Autowired
+	private ShouHuoDanWeiService shouHuoDanWeiService;
+	@Autowired
+	private CheLiangService cheLiangService;
+	@Autowired
+	private SiJiService siJiService;
 	
 	@RequestMapping(value="/goLogin")
 	public String goLogin() {
@@ -91,7 +97,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -119,7 +125,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -147,7 +153,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -176,7 +182,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -204,7 +210,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -233,7 +239,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -261,7 +267,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -290,7 +296,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -318,7 +324,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -347,7 +353,7 @@ public class MainController {
 		GuoBang gb=publicService.selectGuoBangById(id);
 		request.setAttribute("gb", gb);
 
-		CheLiang gbcl = publicService.selectCheLiangById(String.valueOf(gb.getGbclId()));
+		CheLiang gbcl = cheLiangService.selectCheLiangById(String.valueOf(gb.getGbclId()));
 		request.setAttribute("gbcl", gbcl);
 		
 		DingDan pzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
@@ -448,7 +454,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/xzcl/edit";
@@ -469,7 +475,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/xzcl/detail";
@@ -489,7 +495,7 @@ public class MainController {
 		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/clsh/edit";
@@ -510,7 +516,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/clsh/detail";
@@ -547,7 +553,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/zhgl/edit";
@@ -566,7 +572,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
 		return "jcxx/clgl/zhgl/detail";
@@ -585,7 +591,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
 		return "jcxx/sjgl/tjsj/edit";
@@ -606,7 +612,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
 		return "jcxx/sjgl/tjsj/detail";
@@ -617,7 +623,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
 		return "jcxx/sjgl/xxsh/edit";
@@ -638,7 +644,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
 		return "jcxx/sjgl/xxsh/detail";
@@ -657,7 +663,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
 		YongHu glyh=publicService.selectYongHuById(String.valueOf(sj.getGlyhId()));
@@ -679,7 +685,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 
 		YongHu glyh=publicService.selectYongHuById(String.valueOf(sj.getGlyhId()));
@@ -732,7 +738,7 @@ public class MainController {
 		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 
 		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
@@ -757,7 +763,7 @@ public class MainController {
 		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 
 		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
@@ -772,7 +778,7 @@ public class MainController {
 		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 		
 		return "jcxx/dwgl/wdlshdw/edit";
@@ -794,7 +800,7 @@ public class MainController {
 		publicService.selectNav(request);
 		
 		String id = request.getParameter("id");
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 		
 		return "jcxx/dwgl/wdlshdw/detail";
@@ -813,7 +819,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 
 		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
@@ -835,7 +841,7 @@ public class MainController {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 
 		DuiLie ssdl=publicService.selectDuiLieById(String.valueOf(shdw.getDlId()));
@@ -1012,7 +1018,7 @@ public class MainController {
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
 
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
 		return "jcxx/jhpz/dlgl/edit";
@@ -1034,7 +1040,7 @@ public class MainController {
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
 
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
 		return "jcxx/jhpz/dlgl/detail";
@@ -1099,7 +1105,7 @@ public class MainController {
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
 
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
 		return "jhxt/pzgl/dlgl/edit";
@@ -1121,7 +1127,7 @@ public class MainController {
 		DuiLie dl=publicService.selectDuiLieById(id);
 		request.setAttribute("dl", dl);
 
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
 		return "jhxt/pzgl/dlgl/detail";
@@ -1852,7 +1858,7 @@ public class MainController {
 				}
 			}
 			
-			int count=publicService.newCheLiang(cl);
+			int count=cheLiangService.newCheLiang(cl);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "创建车辆信息成功！");
@@ -1872,7 +1878,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteCheLiang(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteCheLiang(ids);
+		int count=cheLiangService.deleteCheLiang(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -1892,7 +1898,7 @@ public class MainController {
 	@ResponseBody
 	public String shenHeCheLiang(String ids, String flag) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.shenHeCheLiang(ids,flag);
+		int count=cheLiangService.shenHeCheLiang(ids,flag);
 		PlanResult plan=new PlanResult();
 		String tsStr=null;
 		if("sh".equals(flag))
@@ -1957,7 +1963,7 @@ public class MainController {
 				}
 			}
 			
-			int count=publicService.editCheLiang(cl);
+			int count=cheLiangService.editCheLiang(cl);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "编辑车辆信息成功！");
@@ -1979,8 +1985,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shzt,bz);
-		List<CheLiang> clList=publicService.queryCheLiangList(cph, cllx, sfzy, pfjd, shzt, bz, page, rows, sort, order);
+		int count = cheLiangService.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shzt,bz);
+		List<CheLiang> clList=cheLiangService.queryCheLiangList(cph, cllx, sfzy, pfjd, shzt, bz, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", clList);
@@ -2027,7 +2033,7 @@ public class MainController {
 				}
 			}
 			
-			int count=publicService.newSiJi(sj);
+			int count=siJiService.newSiJi(sj);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "创建司机信息成功！");
@@ -2092,7 +2098,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteSiJi(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteSiJi(ids);
+		int count=siJiService.deleteSiJi(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -2132,7 +2138,7 @@ public class MainController {
 	@ResponseBody
 	public String shenHeSiJi(String ids, String flag) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.shenHeSiJi(ids,flag);
+		int count=siJiService.shenHeSiJi(ids,flag);
 		PlanResult plan=new PlanResult();
 		String tsStr=null;
 		if("sh".equals(flag))
@@ -2192,7 +2198,7 @@ public class MainController {
 				}
 			}
 			
-			int count=publicService.editSiJi(sj);
+			int count=siJiService.editSiJi(sj);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "编辑司机信息成功！");
@@ -2214,8 +2220,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.querySiJiForInt(xm,sfz,zyzt,shzt);
-		List<SiJi> sjList=publicService.querySiJiList(xm,sfz,zyzt, shzt, page, rows, sort, order);
+		int count = siJiService.querySiJiForInt(xm,sfz,zyzt,shzt);
+		List<SiJi> sjList=siJiService.querySiJiList(xm,sfz,zyzt, shzt, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", sjList);
@@ -2300,7 +2306,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count=publicService.newShouHuoDanWei(shdw);
+		int count=shouHuoDanWeiService.newShouHuoDanWei(shdw);
 		if(count>0) {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "创建收货单位成功！");
@@ -2316,7 +2322,7 @@ public class MainController {
 	@ResponseBody
 	public String deleteShouHuoDanWei(String ids) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=publicService.deleteShouHuoDanWei(ids);
+		int count=shouHuoDanWeiService.deleteShouHuoDanWei(ids);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -2338,8 +2344,8 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = publicService.queryShouHuoDanWeiForInt(dwmc,ywdl);
-		List<ShouHuoDanWei> shdwList=publicService.queryShouHuoDanWeiList(dwmc, ywdl, page, rows, sort, order);
+		int count = shouHuoDanWeiService.queryShouHuoDanWeiForInt(dwmc,ywdl);
+		List<ShouHuoDanWei> shdwList=shouHuoDanWeiService.queryShouHuoDanWeiList(dwmc, ywdl, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", shdwList);
@@ -2798,7 +2804,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		ShouHuoDanWei shdw=publicService.selectShouHuoDanWeiById(id);
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 
 		jsonMap.put("shdw", shdw);
 		
@@ -2811,7 +2817,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		CheLiang cl=publicService.selectCheLiangById(id);
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
 
 		jsonMap.put("cl", cl);
 		
@@ -2824,7 +2830,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		SiJi sj=publicService.selectSiJiById(id);
+		SiJi sj=siJiService.selectSiJiById(id);
 
 		jsonMap.put("sj", sj);
 		

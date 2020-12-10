@@ -72,49 +72,11 @@ public interface PublicMapper {
 
 	public WuZiLeiXing selectWuZiLeiXingById(String id);
 
-	public int newCheLiang(CheLiang cl);
-
-	public int deleteCheLiang(List<String> idList);
-
-	public int shenHeCheLiang(@Param("idList") List<String> idList, @Param("flag") String flag);
-
-	public int editCheLiang(CheLiang cl);
-
 	public int editGuoBang(GuoBang gb);
-
-	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shzt") String shzt, @Param("bz") String bz);
-
-	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shzt") String shzt, @Param("bz") String bz, int i, int rows, String sort, String order);
-
-	public CheLiang selectCheLiangById(String id);
-
-	public int newSiJi(SiJi sj);
 
 	public int newYongHu(YongHu yh);
 
-	public int deleteSiJi(List<String> idList);
-
 	public int deleteYongHu(List<String> idList);
-
-	public int shenHeSiJi(@Param("idList") List<String> idList, @Param("flag") String flag);
-
-	public int editSiJi(SiJi sj);
-
-	public int querySiJiForInt(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt, @Param("shzt") String shzt);
-
-	public List<SiJi> querySiJiList(@Param("xm") String xm, @Param("sfz") String sfz, @Param("zyzt") Integer zyzt, @Param("shzt") String shzt, int i, int rows, String sort, String order);
-
-	public SiJi selectSiJiById(String id);
-
-	public int newShouHuoDanWei(ShouHuoDanWei shdw);
-
-	public int deleteShouHuoDanWei(List<String> idList);
-
-	public int queryShouHuoDanWeiForInt(@Param("dwmc") String dwmc,@Param("ywdl") Boolean ywdl);
-
-	public List<ShouHuoDanWei> queryShouHuoDanWeiList(@Param("dwmc") String dwmc, @Param("ywdl") Boolean ywdl, int i, int rows, String sort, String order);
-
-	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
 
 	public int newCangKu(CangKu ck);
 

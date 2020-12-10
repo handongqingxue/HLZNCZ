@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.SiJiMapper">
+	<insert id="newSiJi" parameterType="com.hlzncz.entity.SiJi">
+		insert into si_ji
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="xm!=null">
+				xm,
+			</if>
+			<if test="sjh!=null">
+				sjh,
+			</if>
+			<if test="zp!=null">
+				zp,
+			</if>
+			<if test="sfz!=null">
+				sfz,
+			</if>
+			<if test="zgzs!=null">
+				zgzs,
+			</if>
+			<if test="zgzyxqz!=null">
+				zgzyxqz,
+			</if>
+			<if test="jz!=null">
+				jz,
+			</if>
+			<if test="jzyxqz!=null">
+				jzyxqz,
+			</if>
+			<if test="shzt!=null">
+				shzt,
+			</if>
+			<if test="zyzt!=null">
+				zyzt,
+			</if>
+			<if test="glyhId!=null">
+				glyhId,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="xm!=null">
+				#{xm},
+			</if>
+			<if test="sjh!=null">
+				#{sjh},
+			</if>
+			<if test="zp!=null">
+				#{zp},
+			</if>
+			<if test="sfz!=null">
+				#{sfz},
+			</if>
+			<if test="zgzs!=null">
+				#{zgzs},
+			</if>
+			<if test="zgzyxqz!=null">
+				#{zgzyxqz},
+			</if>
+			<if test="jz!=null">
+				#{jz},
+			</if>
+			<if test="jzyxqz!=null">
+				#{jzyxqz},
+			</if>
+			<if test="shzt!=null">
+				#{shzt},
+			</if>
+			<if test="zyzt!=null">
+				#{zyzt},
+			</if>
+			<if test="glyhId!=null">
+				#{glyhId},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteSiJi">
+		delete from si_ji where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in(" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
+	<update id="editSiJi" parameterType="com.hlzncz.entity.SiJi">
+		update si_ji set 
+		<trim suffixOverrides=",">
+			<if test="xm!=null">
+				xm=#{xm},
+			</if>
+			<if test="sjh!=null">
+				sjh=#{sjh},
+			</if>
+			<if test="zp!=null">
+				zp=#{zp},
+			</if>
+			<if test="sfz!=null">
+				sfz=#{sfz},
+			</if>
+			<if test="zgzs!=null">
+				zgzs=#{zgzs},
+			</if>
+			<if test="zgzyxqz!=null">
+				zgzyxqz=#{zgzyxqz},
+			</if>
+			<if test="jz!=null">
+				jz=#{jz},
+			</if>
+			<if test="jzyxqz!=null">
+				jzyxqz=#{jzyxqz},
+			</if>
+			<if test="shzt!=null">
+				shzt=#{shzt},
+			</if>
+			<if test="zyzt!=null">
+				zyzt=#{zyzt},
+			</if>
+			<if test="glyhId!=null">
+				glyhId=#{glyhId},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
+	<select id="querySiJiForInt" resultType="java.lang.Integer">
+		select count(*) from si_ji where 1=1
+		<if test="xm!=''&amp;xm!=null">
+			and xm like CONCAT('%',#{xm},'%')
+		</if> 
+		<if test="sfz!=''&amp;sfz!=null">
+			and sfz like CONCAT('%',#{sfz},'%')
+		</if> 
+		<if test="zyzt!=''&amp;zyzt!=null">
+			and zyzt=#{zyzt}
+		</if> 
+		<if test="shzt!=''&amp;shzt!=null">
+			and shzt in(#{shzt})
+		</if>
+	</select>
+	<select id="querySiJiList" resultType="com.hlzncz.entity.SiJi">
+		select * from si_ji where 1=1
+		<if test="xm!=''&amp;xm!=null">
+			and xm like CONCAT('%',#{xm},'%')
+		</if> 
+		<if test="sfz!=''&amp;sfz!=null">
+			and sfz like CONCAT('%',#{sfz},'%')
+		</if> 
+		<if test="zyzt!=''&amp;zyzt!=null">
+			and zyzt=#{zyzt}
+		</if> 
+		<if test="shzt!=''&amp;shzt!=null">
+			and shzt in(#{shzt})
+		</if>
+	</select>
+	<select id="selectSiJiById" resultType="com.hlzncz.entity.SiJi">
+		select * from si_ji where id=#{0}
+	</select>
+	<update id="shenHeSiJi">
+		update si_ji set 
+		<if test="flag=='sh'">
+			zyzt=1,shzt=3
+		</if>
+		<if test="flag=='th'">
+			zyzt=0,shzt=1
+		</if>
+		where 1=1
+		<foreach collection="idList" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
+</mapper>
