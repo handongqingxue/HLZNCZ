@@ -1,5 +1,7 @@
 package com.hlzncz.service;
 
+import java.util.List;
+
 import com.hlzncz.entity.*;
 
 public interface ZhiJianBaoGaoService {
@@ -15,4 +17,9 @@ public interface ZhiJianBaoGaoService {
 	public ZhiJianBaoGao selectZhiJianBaoGaoById(String id);
 
 	public int updateZhiJianBaoGaoJLByGlddBms(Integer jl, String glddBms);
+
+	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph);
+
+	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
+			String sort, String order);
 }

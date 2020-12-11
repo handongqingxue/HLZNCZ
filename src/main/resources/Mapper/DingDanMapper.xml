@@ -3,6 +3,157 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlzncz.dao.DingDanMapper">
+	<insert id="newWoYaoXiaDan" parameterType="com.hlzncz.entity.DingDan">
+		insert into ding_dan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="wybm!=null">
+				wybm,
+			</if>
+			<if test="ddh!=null">
+				ddh,
+			</if>
+			<if test="ddztId!=null">
+				ddztId,
+			</if>
+				bjsj,
+			<if test="jhysrq!=null">
+				jhysrq,
+			</if>
+			<if test="yzxzl!=null">
+				yzxzl,
+			</if>
+			<if test="sjzl!=null">
+				sjzl,
+			</if>
+			<if test="lxlx!=null">
+				lxlx,
+			</if>
+			<if test="yssId!=null">
+				yssId,
+			</if>
+			<if test="wlxxId!=null">
+				wlxxId,
+			</if>
+			<if test="fhdwId!=null">
+				fhdwId,
+			</if>
+			<if test="shdwId!=null">
+				shdwId,
+			</if>
+			<if test="cyclId!=null">
+				cyclId,
+			</if>
+			<if test="cysjId!=null">
+				cysjId,
+			</if>
+			<if test="xdyhId!=null">
+				xdyhId,
+			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="wybm!=null">
+				#{wybm},
+			</if>
+			<if test="ddh!=null">
+				#{ddh},
+			</if>
+			<if test="ddztId!=null">
+				#{ddztId},
+			</if>
+				now(),
+			<if test="jhysrq!=null">
+				#{jhysrq},
+			</if>
+			<if test="yzxzl!=null">
+				#{yzxzl},
+			</if>
+			<if test="sjzl!=null">
+				#{sjzl},
+			</if>
+			<if test="lxlx!=null">
+				#{lxlx},
+			</if>
+			<if test="yssId!=null">
+				#{yssId},
+			</if>
+			<if test="wlxxId!=null">
+				#{wlxxId},
+			</if>
+			<if test="fhdwId!=null">
+				#{fhdwId},
+			</if>
+			<if test="shdwId!=null">
+				#{shdwId},
+			</if>
+			<if test="cyclId!=null">
+				#{cyclId},
+			</if>
+			<if test="cysjId!=null">
+				#{cysjId},
+			</if>
+			<if test="xdyhId!=null">
+				#{xdyhId},
+			</if>
+			<if test="bz!=null">
+				#{bz},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteDingDan">
+		delete from ding_dan where 1=1
+		<foreach collection="list" item="wybm" open=" and cast(wybm as char) in (" separator="," close=")">
+		#{wybm}
+		</foreach>
+	</delete>
+	<update id="editDingDan" parameterType="com.hlzncz.entity.DingDan">
+		update ding_dan set 
+		<trim suffixOverrides=",">
+			<if test="jhysrq!=null">
+				jhysrq=#{jhysrq},
+			</if>
+			<if test="crksj!=null">
+				crksj=#{crksj},
+			</if>
+			<if test="yzxzl!=null">
+				yzxzl=#{yzxzl},
+			</if>
+			<if test="lxlx!=null">
+				lxlx=#{lxlx},
+			</if>
+			<if test="ddztId!=null">
+				ddztId=#{ddztId},
+			</if>
+			<if test="rkzt!=null">
+				rkzt=#{rkzt},
+			</if>
+			<if test="sjzl!=null">
+				sjzl=#{sjzl},
+			</if>
+			<if test="yssId!=null">
+				yssId=#{yssId},
+			</if>
+			<if test="wlxxId!=null">
+				wlxxId=#{wlxxId},
+			</if>
+			<if test="fhdwId!=null">
+				fhdwId=#{fhdwId},
+			</if>
+			<if test="shdwId!=null">
+				shdwId=#{shdwId},
+			</if>
+			<if test="cyclId!=null">
+				cyclId=#{cyclId},
+			</if>
+			<if test="cysjId!=null">
+				cysjId=#{cysjId},
+			</if>
+		</trim>
+		where wybm=#{wybm}
+	</update>
 	<select id="selectDingDanByWybm" resultType="com.hlzncz.entity.DingDan">
 		select dd.*,ddzt.mc ddztmc,cl.cph from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id left join che_liang cl on dd.cyclId=cl.id where dd.wybm=#{wybm}
 	</select>

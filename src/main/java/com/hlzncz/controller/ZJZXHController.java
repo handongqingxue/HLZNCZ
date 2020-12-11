@@ -1,13 +1,23 @@
 package com.hlzncz.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hlzncz.entity.*;
 import com.hlzncz.service.*;
+import com.hlzncz.util.FileUploadUtils;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/main/zjzxh")
@@ -163,5 +173,106 @@ public class ZJZXHController {
 		request.setAttribute("gldd", gldd);
 		
 		return moduleName+"/zjgl/zjbg/detail";
+	}
+	
+	@RequestMapping(value="/queryZJZXHZJGLZJBGList")
+	@ResponseBody
+	public Map<String, Object> queryZJZXHZJGLZJBGList(String jl,String ddh,String ddztId,String cph,
+			int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = zhiJianBaoGaoService.queryZJZXHZJGLZJBGForInt(jl,ddh,ddztId,cph);
+			List<DingDan> ycclList=zhiJianBaoGaoService.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", ycclList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newZhiJianBaoGao")
+	@ResponseBody
+	public Map<String, Object> newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=zhiJianBaoGaoService.newZhiJianBaoGao(zjbg);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建质检报告成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建质检报告失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editZhiJianBaoGao")
+	@ResponseBody
+	public Map<String, Object> editZhiJianBaoGao(ZhiJianBaoGao zjbg) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=zhiJianBaoGaoService.editZhiJianBaoGao(zjbg);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "修改质检报告成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "修改质检报告失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editDaiZhiJian")
+	@ResponseBody
+	public Map<String, Object> editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg,
+			@RequestParam(value="ewm_file",required=false) MultipartFile ewm_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[4];
+			fileArr[0]=ewm_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								dd.setEwm(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=zhiJianBaoGaoService.editDaiZhiJian(dd,zjbg);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑待质检成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑待质检失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
 	}
 }

@@ -50,13 +50,15 @@ public class MainController {
 	@Autowired
 	private WuZiService wuZiService;
 	@Autowired
-	private ShouHuoDanWeiService shouHuoDanWeiService;
-	@Autowired
 	private CheLiangService cheLiangService;
 	@Autowired
-	private YongHuService yongHuService;
+	private HaoMaZhuangTaiService haoMaZhuangTaiService;
 	@Autowired
-	private DuiLieService duiLieService;
+	private ShouHuoDanWeiService shouHuoDanWeiService;
+	@Autowired
+	private JueSeService jueSeService;
+	@Autowired
+	private DingDanZhuangTaiService dingDanZhuangTaiService;
 	
 	@RequestMapping(value="/goLogin")
 	public String goLogin() {
@@ -70,273 +72,6 @@ public class MainController {
 		publicService.selectNav(request);
 		
 		return "index";
-	}
-
-	@RequestMapping(value="/xtgl/yhqx/yhgl/new")
-	public String goXtglYhqxYhglNew(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		
-		return "xtgl/yhqx/yhgl/new";
-	}
-
-	@RequestMapping(value="/xtgl/yhqx/yhgl/edit")
-	public String goXtglYhqxYhglEdit(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		String id = request.getParameter("id");
-		YongHu yh=yongHuService.selectYongHuById(id);
-		request.setAttribute("yh", yh);
-		
-		return "xtgl/yhqx/yhgl/edit";
-	}
-	
-	@RequestMapping(value="/xtgl/yhqx/yhgl/list")
-	public String goXtglYhqxYhglList(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		
-		return "xtgl/yhqx/yhgl/list";
-	}
-
-	@RequestMapping(value="/jhxt/jhxx/hmcx/new")
-	public String goHmcxNew(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		
-		return "jhxt/jhxx/hmcx/new";
-	}
-
-	@RequestMapping(value="/jhxt/jhxx/hmcx/list")
-	public String goHmcxList(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		
-		return "jhxt/jhxx/hmcx/list";
-	}
-	
-	@RequestMapping(value="/jhxt/pzgl/dlgl/new")
-	public String goJhxtPzglDlglNew(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		
-		return "jhxt/pzgl/dlgl/new";
-	}
-
-	@RequestMapping(value="/jhxt/pzgl/dlgl/edit")
-	public String goJhxtPzglDlglEdit(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		String id = request.getParameter("id");
-		DuiLie dl=duiLieService.selectDuiLieById(id);
-		request.setAttribute("dl", dl);
-
-		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		return "jhxt/pzgl/dlgl/edit";
-	}
-
-	@RequestMapping(value="/jhxt/pzgl/dlgl/list")
-	public String goJhxtPzglDlglList(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		
-		return "jhxt/pzgl/dlgl/list";
-	}
-
-	@RequestMapping(value="/jhxt/pzgl/dlgl/detail")
-	public String goJhxtPzglDlglDetail(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		String id = request.getParameter("id");
-		DuiLie dl=duiLieService.selectDuiLieById(id);
-		request.setAttribute("dl", dl);
-
-		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
-		request.setAttribute("shdw", shdw);
-		
-		return "jhxt/pzgl/dlgl/detail";
-	}
-
-	@RequestMapping(value="/newDingDanZongHeGuanLi")
-	@ResponseBody
-	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=dingDanService.newDingDanZongHeGuanLi(dd);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建订单成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建订单失败！");
-		}
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/newWoYaoXiaDan")
-	@ResponseBody
-	public Map<String, Object> newWoYaoXiaDan(DingDan dd) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=dingDanService.newWoYaoXiaDan(dd);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建订单成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建订单失败！");
-		}
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/deleteWoYaoXiaDan",produces="plain/text; charset=UTF-8")
-	@ResponseBody
-	public String deleteWoYaoXiaDan(String wybms) {
-		//TODO 针对分类的动态进行实时调整更新
-		int count=dingDanService.deleteDingDan(wybms);
-		PlanResult plan=new PlanResult();
-		String json;
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("删除我要下单失败");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("删除我要下单成功");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-
-	@RequestMapping(value="/editDingDan")
-	@ResponseBody
-	public Map<String, Object> editDingDan(DingDan dd) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=dingDanService.editDingDan(dd);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "编辑订单成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "编辑订单失败！");
-		}
-		return jsonMap;
-	}
-	
-	@RequestMapping(value="/queryWoYaoXiaDanList")
-	@ResponseBody
-	public Map<String, Object> queryWoYaoXiaDanList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count = dingDanService.queryWoYaoXiaDanForInt(ddh,ddztId);
-		List<DingDan> wyxdList=dingDanService.queryWoYaoXiaDanList(ddh, ddztId, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", wyxdList);
-		
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/tongGuoDingDanShenHe",produces="plain/text; charset=UTF-8")
-	@ResponseBody
-	public String tongGuoDingDanShenHe(String wybms) {
-		//TODO 针对分类的动态进行实时调整更新
-		int count=dingDanService.updateDingDanZT(DingDan.YI_XIA_DAN,wybms);
-		PlanResult plan=new PlanResult();
-		String json;
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("通过订单审核失败");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("通过订单审核成功");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-
-	@RequestMapping(value="/tuiHuiDingDanShenHe",produces="plain/text; charset=UTF-8")
-	@ResponseBody
-	public String tuiHuiDingDanShenHe(String wybms) {
-		//TODO 针对分类的动态进行实时调整更新
-		int count=dingDanService.updateDingDanZT(DingDan.BIAN_JI_ZHONG,wybms);
-		PlanResult plan=new PlanResult();
-		String json;
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("退回订单审核失败");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("退回订单审核成功");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-
-	@RequestMapping(value="/queryDingDanShenHeList")
-	@ResponseBody
-	public Map<String, Object> queryDingDanShenHeList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count = dingDanService.queryDingDanShenHeForInt(ddh,ddztId);
-		List<DingDan> ddshList=dingDanService.queryDingDanShenHeList(ddh, ddztId, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", ddshList);
-		
-		return jsonMap;
-	}
-
-	/**
-	 * 订单管理-综合管理查询
-	 * @param ddh
-	 * @param ddztId
-	 * @param cph
-	 * @param jcsjs
-	 * @param jcsje
-	 * @param jhysrq
-	 * @param yss
-	 * @param page
-	 * @param rows
-	 * @param sort
-	 * @param order
-	 * @return
-	 */
-	@RequestMapping(value="/queryDDGLZHGLList")
-	@ResponseBody
-	public Map<String, Object> queryDDGLZHGLList(String ddh,String ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,String clzt,
-			int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		try {
-			int count = dingDanService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
-			List<DingDan> zhglList=dingDanService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss,clzt, page, rows, sort, order);
-			
-			jsonMap.put("total", count);
-			jsonMap.put("rows", zhglList);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return jsonMap;
 	}
 
 	@RequestMapping(value="/tiJiaoGuoBang",produces="plain/text; charset=UTF-8")
@@ -357,27 +92,6 @@ public class MainController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
-	}
-	
-	@RequestMapping(value="/queryDDGLZHGLYCCLList")
-	@ResponseBody
-	public Map<String, Object> queryDDGLZHGLYCCLList(String ddh,String ddztId,String cph,String jhysrq,String clzt,
-			int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		try {
-			int count = dingDanService.queryDDGLZHGLYCCLForInt(ddh,ddztId,cph,jhysrq,clzt);
-			List<DingDan> ycclList=dingDanService.queryDDGLZHGLYCCLList(ddh, ddztId,cph,jhysrq,clzt, page, rows, sort, order);
-			
-			jsonMap.put("total", count);
-			jsonMap.put("rows", ycclList);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return jsonMap;
 	}
 
 	@RequestMapping(value="/tongGuoZhiJian",produces="plain/text; charset=UTF-8")
@@ -401,211 +115,15 @@ public class MainController {
 		return json;
 	}
 
-	@RequestMapping(value="/editDaiZhiJian")
-	@ResponseBody
-	public Map<String, Object> editDaiZhiJian(DingDan dd, ZhiJianBaoGao zjbg,
-			@RequestParam(value="ewm_file",required=false) MultipartFile ewm_file,
-			HttpServletRequest request) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		try {
-			MultipartFile[] fileArr=new MultipartFile[4];
-			fileArr[0]=ewm_file;
-			for (int i = 0; i < fileArr.length; i++) {
-				String jsonStr = null;
-				if(fileArr[i]!=null) {
-					if(fileArr[i].getSize()>0) {
-						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
-						JSONObject fileJson = JSONObject.fromObject(jsonStr);
-						if("成功".equals(fileJson.get("msg"))) {
-							JSONObject dataJO = (JSONObject)fileJson.get("data");
-							switch (i) {
-							case 0:
-								dd.setEwm(dataJO.get("src").toString());
-								break;
-							}
-						}
-					}
-				}
-			}
-			
-			int count=zhiJianBaoGaoService.editDaiZhiJian(dd,zjbg);
-			if(count>0) {
-				jsonMap.put("message", "ok");
-				jsonMap.put("info", "编辑待质检成功！");
-			}
-			else {
-				jsonMap.put("message", "no");
-				jsonMap.put("info", "编辑待质检失败！");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return jsonMap;
-	}
-	
-	@RequestMapping(value="/queryZJZXHZJGLZJBGList")
-	@ResponseBody
-	public Map<String, Object> queryZJZXHZJGLZJBGList(String jl,String ddh,String ddztId,String cph,
-			int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		try {
-			int count = publicService.queryZJZXHZJGLZJBGForInt(jl,ddh,ddztId,cph);
-			List<DingDan> ycclList=publicService.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, page, rows, sort, order);
-			
-			jsonMap.put("total", count);
-			jsonMap.put("rows", ycclList);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/newZhiJianBaoGao")
-	@ResponseBody
-	public Map<String, Object> newZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=zhiJianBaoGaoService.newZhiJianBaoGao(zjbg);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建质检报告成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建质检报告失败！");
-		}
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/editZhiJianBaoGao")
-	@ResponseBody
-	public Map<String, Object> editZhiJianBaoGao(ZhiJianBaoGao zjbg) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=zhiJianBaoGaoService.editZhiJianBaoGao(zjbg);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "修改质检报告成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "修改质检报告失败！");
-		}
-		return jsonMap;
-	}
-
 	@RequestMapping(value="/queryDingDanZhuangTaiCBBList")
 	@ResponseBody
 	public Map<String, Object> queryDingDanZhuangTaiCBBList() {
 
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		List<DingDanZhuangTai> ddztList=publicService.queryDingDanZhuangTaiCBBList();
+		List<DingDanZhuangTai> ddztList=dingDanZhuangTaiService.queryDingDanZhuangTaiCBBList();
 		
 		jsonMap.put("rows", ddztList);
-		
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/newYongHu")
-	@ResponseBody
-	public Map<String, Object> newYongHu(YongHu yh,
-			@RequestParam(value="tx_file",required=false) MultipartFile tx_file,
-			HttpServletRequest request) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		try {
-			MultipartFile[] fileArr=new MultipartFile[3];
-			fileArr[0]=tx_file;
-			for (int i = 0; i < fileArr.length; i++) {
-				String jsonStr = null;
-				if(fileArr[i]!=null) {
-					if(fileArr[i].getSize()>0) {
-						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
-						JSONObject fileJson = JSONObject.fromObject(jsonStr);
-						if("成功".equals(fileJson.get("msg"))) {
-							JSONObject dataJO = (JSONObject)fileJson.get("data");
-							switch (i) {
-							case 0:
-								yh.setTx(dataJO.get("src").toString());
-								break;
-							}
-						}
-					}
-				}
-			}
-			
-			int count=yongHuService.newYongHu(yh);
-			if(count>0) {
-				jsonMap.put("message", "ok");
-				jsonMap.put("info", "创建用户信息成功！");
-			}
-			else {
-				jsonMap.put("message", "no");
-				jsonMap.put("info", "创建用户信息失败！");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/deleteYongHu",produces="plain/text; charset=UTF-8")
-	@ResponseBody
-	public String deleteYongHu(String ids) {
-		//TODO 针对分类的动态进行实时调整更新
-		int count=yongHuService.deleteYongHu(ids);
-		PlanResult plan=new PlanResult();
-		String json;
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("删除用户信息失败");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("删除用户信息成功");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-
-	@RequestMapping(value="/queryYongHuList")
-	@ResponseBody
-	public Map<String, Object> queryYongHuList(String yhm,Integer zt,int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count = yongHuService.queryYongHuForInt(yhm, zt);
-		List<YongHu> yhList=yongHuService.queryYongHuList(yhm, zt, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", yhList);
-		
-		return jsonMap;
-	}
-
-	@RequestMapping(value="/queryHaoMaList")
-	@ResponseBody
-	public Map<String, Object> queryHaoMaList(String hm,String pdh,Integer ztId,int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count = publicService.queryHaoMaForInt(hm, pdh, ztId);
-		List<HaoMa> hmList=publicService.queryHaoMaList(hm, pdh, ztId, page, rows, sort, order);
-		
-		jsonMap.put("total", count);
-		jsonMap.put("rows", hmList);
 		
 		return jsonMap;
 	}
@@ -616,7 +134,7 @@ public class MainController {
 
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		List<HaoMaZhuangTai> hmztList=publicService.queryHaoMaZhuangTaiCBBList();
+		List<HaoMaZhuangTai> hmztList=haoMaZhuangTaiService.queryHaoMaZhuangTaiCBBList();
 		
 		jsonMap.put("rows", hmztList);
 		
@@ -629,7 +147,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		List<JueSe> jsList=publicService.queryJueSeByIds(ids);
+		List<JueSe> jsList=jueSeService.queryJueSeByIds(ids);
 
 		jsonMap.put("total", jsList.size());
 		jsonMap.put("rows", jsList);
@@ -643,7 +161,7 @@ public class MainController {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		List<ShouHuoDanWei> shdwList=publicService.queryShouHuoDanWeiByIds(ids);
+		List<ShouHuoDanWei> shdwList=shouHuoDanWeiService.queryShouHuoDanWeiByIds(ids);
 
 		jsonMap.put("total", shdwList.size());
 		jsonMap.put("rows", shdwList);

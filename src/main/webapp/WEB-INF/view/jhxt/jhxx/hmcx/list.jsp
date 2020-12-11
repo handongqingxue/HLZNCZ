@@ -101,7 +101,7 @@ function initZXGHLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"号码查询-列表",
-		url:path+"main/queryHaoMaList",
+		url:path+"main/jhxt/queryHaoMaList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

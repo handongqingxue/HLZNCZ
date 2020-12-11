@@ -1,15 +1,20 @@
 package com.hlzncz.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hlzncz.entity.*;
 import com.hlzncz.service.*;
+import com.hlzncz.util.JsonUtil;
+import com.hlzncz.util.PlanResult;
 
 import net.sf.json.JSONArray;
 
@@ -563,5 +568,206 @@ public class DDGLController {
 		request.setAttribute("cysj", cysj);
 		
 		return moduleName+"/ddtb/ddtb/detail";
+	}
+
+	@RequestMapping(value="/newDingDanZongHeGuanLi")
+	@ResponseBody
+	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=dingDanService.newDingDanZongHeGuanLi(dd);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建订单成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建订单失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/newWoYaoXiaDan")
+	@ResponseBody
+	public Map<String, Object> newWoYaoXiaDan(DingDan dd) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=dingDanService.newWoYaoXiaDan(dd);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建订单成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建订单失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/deleteWoYaoXiaDan",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteWoYaoXiaDan(String wybms) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=dingDanService.deleteDingDan(wybms);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除我要下单失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除我要下单成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/editDingDan")
+	@ResponseBody
+	public Map<String, Object> editDingDan(DingDan dd) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=dingDanService.editDingDan(dd);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑订单成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑订单失败！");
+		}
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/queryWoYaoXiaDanList")
+	@ResponseBody
+	public Map<String, Object> queryWoYaoXiaDanList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = dingDanService.queryWoYaoXiaDanForInt(ddh,ddztId);
+		List<DingDan> wyxdList=dingDanService.queryWoYaoXiaDanList(ddh, ddztId, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", wyxdList);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/tongGuoDingDanShenHe",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String tongGuoDingDanShenHe(String wybms) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=dingDanService.updateDingDanZT(DingDan.YI_XIA_DAN,wybms);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("通过订单审核失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("通过订单审核成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/tuiHuiDingDanShenHe",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String tuiHuiDingDanShenHe(String wybms) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=dingDanService.updateDingDanZT(DingDan.BIAN_JI_ZHONG,wybms);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("退回订单审核失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("退回订单审核成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/queryDingDanShenHeList")
+	@ResponseBody
+	public Map<String, Object> queryDingDanShenHeList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = dingDanService.queryDingDanShenHeForInt(ddh,ddztId);
+		List<DingDan> ddshList=dingDanService.queryDingDanShenHeList(ddh, ddztId, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", ddshList);
+		
+		return jsonMap;
+	}
+
+	/**
+	 * 订单管理-综合管理查询
+	 * @param ddh
+	 * @param ddztId
+	 * @param cph
+	 * @param jcsjs
+	 * @param jcsje
+	 * @param jhysrq
+	 * @param yss
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryDDGLZHGLList")
+	@ResponseBody
+	public Map<String, Object> queryDDGLZHGLList(String ddh,String ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,String clzt,
+			int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = dingDanService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
+			List<DingDan> zhglList=dingDanService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss,clzt, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", zhglList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/queryDDGLZHGLYCCLList")
+	@ResponseBody
+	public Map<String, Object> queryDDGLZHGLYCCLList(String ddh,String ddztId,String cph,String jhysrq,String clzt,
+			int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = dingDanService.queryDDGLZHGLYCCLForInt(ddh,ddztId,cph,jhysrq,clzt);
+			List<DingDan> ycclList=dingDanService.queryDDGLZHGLYCCLList(ddh, ddztId,cph,jhysrq,clzt, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", ycclList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
 	}
 }

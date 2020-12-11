@@ -48,4 +48,10 @@ public class ShouHuoDanWeiServiceImpl implements ShouHuoDanWeiService {
 		// TODO Auto-generated method stub
 		return shouHuoDanWeiDao.selectShouHuoDanWeiById(id);
 	}
+
+	@Override
+	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids) {
+		// TODO Auto-generated method stub
+		return shouHuoDanWeiDao.queryShouHuoDanWeiByIds(ids);
+	}
 }

@@ -47,4 +47,36 @@
 		#{glddBm}
 		</foreach>
 	</update>
+	<select id="queryZJZXHZJGLZJBGForInt" resultType="java.lang.Integer">
+		select count(*) from zhi_jian_bao_gao zjbg,ding_dan dd,ding_dan_zhuang_tai ddzt,che_liang cl where zjbg.glddBm=dd.wybm and ddzt.id=dd.ddztId and dd.cyclId=cl.id
+		<if test="jl!=''&amp;jl!=null">
+			and zjbg.jl=#{jl}
+		</if>
+		<if test="ddh!=''&amp;ddh!=null">
+			and dd.ddh like CONCAT('%',#{ddh},'%')
+		</if>
+		<if test="ddztId!=''&amp;ddztId!=null">
+			and dd.ddztId in (#{ddztId})
+		</if>
+		<if test="cph!=''&amp;cph!=null">
+			and cl.cph like CONCAT('%',#{cph},'%')
+		</if>
+	</select>
+	<select id="queryZJZXHZJGLZJBGList" resultType="com.hlzncz.entity.ZhiJianBaoGao">
+		select zjbg.id,zjbg.bjsj,dd.ddh,ddzt.mc ddztmc,zjbg.jl from zhi_jian_bao_gao zjbg,ding_dan dd,ding_dan_zhuang_tai ddzt,che_liang cl where zjbg.glddBm=dd.wybm and ddzt.id=dd.ddztId and dd.cyclId=cl.id
+		<if test="jl!=''&amp;jl!=null">
+			and zjbg.jl=#{jl}
+		</if>
+		<if test="ddh!=''&amp;ddh!=null">
+			and dd.ddh like CONCAT('%',#{ddh},'%')
+		</if>
+		<if test="ddztId!=''&amp;ddztId!=null">
+			and dd.ddztId in (#{ddztId})
+		</if>
+		<if test="cph!=''&amp;cph!=null">
+			and cl.cph like CONCAT('%',#{cph},'%')
+		</if>
+		order by zjbg.bjsj desc
+		limit #{rowNum},#{rows}
+	</select>
 </mapper>

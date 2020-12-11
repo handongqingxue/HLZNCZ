@@ -48,7 +48,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"队列管理-列表",
-		url:path+"main/queryDuiLieList",
+		url:path+"main/jcxx/queryDuiLieList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

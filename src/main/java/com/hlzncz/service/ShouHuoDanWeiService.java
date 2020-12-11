@@ -15,4 +15,6 @@ public interface ShouHuoDanWeiService {
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order);
 
 	public ShouHuoDanWei selectShouHuoDanWeiById(String id);
+
+	public List<ShouHuoDanWei> queryShouHuoDanWeiByIds(String ids);
 }

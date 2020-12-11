@@ -79,7 +79,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"质检报告-列表",
-		url:path+"main/queryZJZXHZJGLZJBGList",
+		url:path+"main/zjzxh/queryZJZXHZJGLZJBGList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

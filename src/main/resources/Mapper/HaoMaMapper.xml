@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlzncz.dao.HaoMaMapper">
+	<select id="queryHaoMaForInt" resultType="java.lang.Integer">
+		select count(*) from hao_ma where 1=1
+		<if test="hm!=''&amp;hm!=null">
+			and hm like CONCAT('%',#{hm},'%')
+		</if> 
+		<if test="pdh!=''&amp;pdh!=null">
+			and pdh like CONCAT('%',#{pdh},'%')
+		</if> 
+		<if test="ztId!=''&amp;ztId!=null">
+			and ztId=#{ztId}
+		</if> 
+	</select>
+	<select id="queryHaoMaList" resultType="com.hlzncz.entity.HaoMa">
+		select * from hao_ma where 1=1
+		<if test="hm!=''&amp;hm!=null">
+			and hm like CONCAT('%',#{hm},'%')
+		</if> 
+		<if test="pdh!=''&amp;pdh!=null">
+			and pdh like CONCAT('%',#{pdh},'%')
+		</if> 
+		<if test="ztId!=''&amp;ztId!=null">
+			and ztId=#{ztId}
+		</if>
+		 limit ${param4},${param5}
+	</select>
+</mapper>

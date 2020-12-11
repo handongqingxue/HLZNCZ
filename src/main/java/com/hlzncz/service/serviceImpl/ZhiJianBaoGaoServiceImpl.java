@@ -95,4 +95,17 @@ public class ZhiJianBaoGaoServiceImpl implements ZhiJianBaoGaoService {
 		
 		return count;
 	}
+
+	@Override
+	public int queryZJZXHZJGLZJBGForInt(String jl, String ddh, String ddztId, String cph) {
+		// TODO Auto-generated method stub
+		return zhiJianBaoGaoDao.queryZJZXHZJGLZJBGForInt(jl, ddh, ddztId, cph);
+	}
+
+	@Override
+	public List<DingDan> queryZJZXHZJGLZJBGList(String jl, String ddh, String ddztId, String cph, int page, int rows,
+			String sort, String order) {
+		// TODO Auto-generated method stub
+		return zhiJianBaoGaoDao.queryZJZXHZJGLZJBGList(jl, ddh, ddztId, cph, (page-1)*rows, rows, sort, order);
+	}
 }

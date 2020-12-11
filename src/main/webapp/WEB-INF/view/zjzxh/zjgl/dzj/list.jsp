@@ -48,7 +48,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"待质检-列表",
-		url:path+"main/queryDDGLZHGLList",
+		url:path+"main/ddgl/queryDDGLZHGLList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

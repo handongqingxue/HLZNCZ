@@ -17,4 +17,9 @@ public interface ZhiJianBaoGaoMapper {
 	public ZhiJianBaoGao selectZhiJianBaoGaoById(@Param("id") String id);
 
 	public int updateZhiJianBaoGaoJLByGlddBms(@Param("jl") Integer jl, @Param("glddBmList") List<String> glddBmList);
+
+	public int queryZJZXHZJGLZJBGForInt(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph);
+
+	public List<DingDan> queryZJZXHZJGLZJBGList(@Param("jl") String jl, @Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, 
+			@Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 }
