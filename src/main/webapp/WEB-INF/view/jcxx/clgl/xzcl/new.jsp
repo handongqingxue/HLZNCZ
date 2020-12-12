@@ -25,6 +25,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
@@ -186,7 +187,7 @@ function newCheLiang(flag){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/newCheLiang",
+		url:jcxxPath+"newCheLiang",
 		dataType: "json",
 		data:formData,
 		cache: false,

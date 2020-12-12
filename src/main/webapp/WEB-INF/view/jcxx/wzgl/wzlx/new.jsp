@@ -22,6 +22,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
@@ -92,7 +93,7 @@ function newWuZiLeiXing(){
 	var bz=$("#bz").val();
 	var px=$("#px").val();
 	
-	$.post(path+"main/newWuZiLeiXing",
+	$.post(jcxxPath+"newWuZiLeiXing",
 		{mc:mc,bz:bz,px:px},
 		function(data){
 			if(data.message=="ok"){

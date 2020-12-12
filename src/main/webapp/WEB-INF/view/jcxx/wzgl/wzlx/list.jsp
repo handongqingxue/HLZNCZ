@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 $(function(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
@@ -19,7 +20,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/wzgl/wzlx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jcxxPath+"wzgl/wzlx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -40,7 +41,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"物资类型-列表",
-		url:path+"main/jcxx/queryWuZiLeiXingList",
+		url:jcxxPath+"queryWuZiLeiXingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -51,8 +52,8 @@ $(function(){
             {field:"bz",title:"备注",width:200},
 			{field:"px",title:"排序",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzlx/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/wzgl/wzlx/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+jcxxPath+"wzgl/wzlx/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jcxxPath+"wzgl/wzlx/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -109,7 +110,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteWuZiLeiXing",
+			$.post(jcxxPath + "deleteWuZiLeiXing",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

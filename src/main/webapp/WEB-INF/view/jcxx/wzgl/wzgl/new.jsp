@@ -49,6 +49,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -174,7 +175,7 @@ function initWZLXTab(){
 	});
 	
 	wzlxTab=$("#wzlx_tab").datagrid({
-		url:path+"main/queryWuZiLeiXingList",
+		url:jcxxPath+"queryWuZiLeiXingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("#select_wzlx_div"),
 		singleSelect:true,
@@ -259,7 +260,7 @@ function newWuZi(){
 	var mc=$("#new_div #mc").val();
 	var wzlxId=$("#new_div #wzlx_hid").val();
 	
-	$.post(path+"main/newWuZi",
+	$.post(jcxxPath+"newWuZi",
 		{mc:mc,wzlxId:wzlxId},
 		function(data){
 			if(data.message=="ok"){

@@ -235,6 +235,8 @@
 		<if test="bz!=''&amp;bz!=null">
 			and bz like CONCAT('%',#{bz},'%')
 		</if> 
+		order by zcrq desc 
+		limit #{rowNum},#{rows}
 	</select>
 	<select id="selectCheLiangById" resultType="com.hlzncz.entity.CheLiang">
 		select * from che_liang where id=#{0}

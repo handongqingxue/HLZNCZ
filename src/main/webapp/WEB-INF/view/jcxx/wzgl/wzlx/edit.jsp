@@ -22,6 +22,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var edNum=0;
@@ -93,7 +94,7 @@ function editWuZiLeiXing(){
 	var bz=$("#bz").val();
 	var px=$("#px").val();
 	
-	$.post(path+"main/editWuZiLeiXing",
+	$.post(jcxxPath+"editWuZiLeiXing",
 		{id:id,mc:mc,bz:bz,px:px},
 		function(data){
 			if(data.message=="ok"){
