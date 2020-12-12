@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var zjzxhPath=path+'zjzxh/';
 $(function(){
 	initZJJGCBB();
 	initDDZTCBB();
@@ -61,7 +62,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/zjzxh/zjgl/zjbg/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=zjzxhPath+"zjgl/zjbg/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -79,7 +80,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"质检报告-列表",
-		url:path+"main/zjzxh/queryZJZXHZJGLZJBGList",
+		url:zjzxhPath+"queryZJZXHZJGLZJBGList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -101,8 +102,8 @@ function initTab1(){
 				return str;
 			}},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/zjbg/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/zjbg/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+zjzxhPath+"zjgl/zjbg/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+zjzxhPath+"zjgl/zjbg/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

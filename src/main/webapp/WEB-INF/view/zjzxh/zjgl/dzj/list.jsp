@@ -7,6 +7,8 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
+var zjzxhPath=path+'zjzxh/';
 var defaultDdztId='${requestScope.ddztId}';
 $(function(){
 	initSearchLB();
@@ -48,7 +50,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"待质检-列表",
-		url:path+"main/ddgl/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -74,8 +76,8 @@ function initTab1(){
             {field:"jhysrq",title:"计划运输日期",width:200},
             {field:"ddztmc",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/zjzxh/zjgl/dzj/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\""+zjzxhPath+"zjgl/dzj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+zjzxhPath+"zjgl/dzj/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -132,7 +134,7 @@ function tongGuoByWybms() {
 			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/tongGuoZhiJian",
+			$.post(zjzxhPath + "tongGuoZhiJian",
 				{wybms:wybms},
 				function(result){
 					if(result.status==1){

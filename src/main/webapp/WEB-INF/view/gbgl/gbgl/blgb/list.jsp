@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
 $(function(){
 	initZXZTCBB();
 	initSearchLB();
@@ -94,7 +95,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"补录过磅-列表",
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

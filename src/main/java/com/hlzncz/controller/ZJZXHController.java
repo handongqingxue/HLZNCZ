@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hlzncz.entity.*;
 import com.hlzncz.service.*;
 import com.hlzncz.util.FileUploadUtils;
+import com.hlzncz.util.JsonUtil;
+import com.hlzncz.util.PlanResult;
 
 import net.sf.json.JSONObject;
 
@@ -274,5 +276,26 @@ public class ZJZXHController {
 			e.printStackTrace();
 		}
 		return jsonMap;
+	}
+
+	@RequestMapping(value="/tongGuoZhiJian",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String tongGuoZhiJian(String wybms) {
+		int count=dingDanService.updateDingDanZT(DingDan.DAI_YI_JIAN_SHANG_BANG, wybms);
+		zhiJianBaoGaoService.updateZhiJianBaoGaoJLByGlddBms(ZhiJianBaoGao.HE_GE, wybms);
+		PlanResult plan=new PlanResult();
+
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("质检失败！");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("质检成功！");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 }

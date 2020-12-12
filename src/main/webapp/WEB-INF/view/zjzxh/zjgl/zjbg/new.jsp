@@ -93,6 +93,8 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
+var zjzxhPath=path+'zjzxh/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -357,7 +359,7 @@ function initSelectGLDDTab(){
 	});
 	
 	selectGLDDTab=$("#select_gldd_tab").datagrid({
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#select_gldd_toolbar",
 		width:setFitWidthInParent("body","select_gldd_tab"),
 		singleSelect:true,
@@ -458,7 +460,7 @@ function newZhiJianBaoGao(){
 	var jl=jlCBB.combobox("getValue");
 	var glddBm=glddTab.datagrid("getData").rows[0].wybm;
 	
-	$.post(path+"main/newZhiJianBaoGao",
+	$.post(zjzxhPath+"newZhiJianBaoGao",
 		{jl:jl,glddBm:glddBm},
 		function(data){
 			if(data.message=="ok"){

@@ -65,6 +65,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var zjzxhPath=path+'zjzxh/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -345,7 +346,7 @@ function editZhiJianBaoGao(){
 	var jl=jlCBB.combobox("getValue");
 	var glddBm=glddTab.datagrid("getData").rows[0].wybm;
 	
-	$.post(path+"main/editZhiJianBaoGao",
+	$.post(zjzxhPath+"editZhiJianBaoGao",
 		{jl:jl,glddBm:glddBm},
 		function(data){
 			if(data.message=="ok"){
