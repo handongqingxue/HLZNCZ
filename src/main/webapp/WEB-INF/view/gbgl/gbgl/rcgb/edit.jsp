@@ -181,6 +181,9 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
+var gbglPath=path+'gbgl/';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -689,7 +692,7 @@ function initSelectGLDDPZTab(){
 	});
 	
 	selectGLDDPZTab=$("#select_glddpz_tab").datagrid({
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#select_glddpz_toolbar",
 		width:setFitWidthInParent("body","select_glddpz_tab"),
 		singleSelect:true,
@@ -965,7 +968,7 @@ function initSelectGLDDMZTab(){
 	});
 	
 	selectGLDDMZTab=$("#select_glddmz_tab").datagrid({
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#select_glddmz_toolbar",
 		width:setFitWidthInParent("body","select_glddmz_tab"),
 		singleSelect:true,
@@ -1183,7 +1186,7 @@ function editGBCLCheLiang(){
 	var formData = new FormData($("#form2")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/editCheLiang",
+		url:jcxxPath+"editCheLiang",
 		dataType: "json",
 		data:formData,
 		cache: false,
@@ -1289,7 +1292,7 @@ function editZongHeChaXun(){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/editGuoBang",
+		url:gbglPath+"editGuoBang",
 		dataType: "json",
 		data:formData,
 		cache: false,

@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var gbglPath=path+'gbgl/';
 var defaultGbbq='${requestScope.gbbq}';
 $(function(){
 	initGBSJSDTB();
@@ -46,7 +47,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/gbgl/gbgl/ccgb/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=gbglPath+"gbgl/ccgb/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -72,7 +73,7 @@ function initOutputLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"出厂过磅-列表",
-		url:path+"main/gbgl/queryGBGLGBGLZHCXList",
+		url:gbglPath+"queryGBGLGBGLZHCXList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		queryParams:{gbbq:defaultGbbq},
@@ -121,8 +122,8 @@ function initTab1(){
             {field:"zp3",title:"照片3",width:200},
             {field:"gbsj",title:"过磅时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/gbgl/gbgl/ccgb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/gbgl/gbgl/ccgb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+gbglPath+"gbgl/ccgb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+gbglPath+"gbgl/ccgb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -179,7 +180,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteGuoBang",
+			$.post(gbglPath + "deleteGuoBang",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

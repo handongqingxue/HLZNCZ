@@ -8,6 +8,7 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var ddglPath=path+'ddgl/';
+var gbglPath=path+'gbgl/';
 $(function(){
 	initZXZTCBB();
 	initSearchLB();
@@ -68,7 +69,7 @@ function tjgbByWybms(){
 	}
 	wybms=wybms.substring(1);
 	
-	$.post(path+"main/tiJiaoGuoBang",
+	$.post(gbglPath+"tiJiaoGuoBang",
 		{wybms:wybms},
 		function(result){
 			if(result.status==1){
@@ -118,8 +119,8 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"ddztmc",title:"执行状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\"${pageContext.request.contextPath}/ddgl/zhgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/ddgl/zhgl/zhgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

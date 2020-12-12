@@ -74,26 +74,6 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping(value="/tiJiaoGuoBang",produces="plain/text; charset=UTF-8")
-	@ResponseBody
-	public String tiJiaoGuoBang(String wybms) {
-		int count=dingDanService.tiJiaoGuoBang(wybms);
-		PlanResult plan=new PlanResult();
-		
-		String json;
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("提交过磅失败");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("提交过磅成功");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-
 	@RequestMapping(value="/queryDingDanZhuangTaiCBBList")
 	@ResponseBody
 	public Map<String, Object> queryDingDanZhuangTaiCBBList() {
