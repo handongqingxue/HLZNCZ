@@ -19,7 +19,7 @@ import com.hlzncz.util.PlanResult;
 import net.sf.json.JSONArray;
 
 @Controller
-@RequestMapping("/main/ddgl")
+@RequestMapping("/"+DDGLController.MODULE_NAME)
 public class DDGLController {
 
 	@Autowired
@@ -40,14 +40,14 @@ public class DDGLController {
 	private SiJiService siJiService;
 	@Autowired
 	private DingDanYiChangService dingDanYiChangService;
-	private static final String moduleName="ddgl";
+	public static final String MODULE_NAME="ddgl";
 
 	@RequestMapping(value="/wddd/wyxd/new")
 	public String goDdglWdddWyxdNew(HttpServletRequest request) {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/wddd/wyxd/new";
+		return MODULE_NAME+"/wddd/wyxd/new";
 	}
 
 	@RequestMapping(value="/wddd/wyxd/edit")
@@ -77,7 +77,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/wddd/wyxd/edit";
+		return MODULE_NAME+"/wddd/wyxd/edit";
 	}
 
 	@RequestMapping(value="/wddd/wyxd/list")
@@ -85,7 +85,7 @@ public class DDGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/wddd/wyxd/list";
+		return MODULE_NAME+"/wddd/wyxd/list";
 	}
 
 	@RequestMapping(value="/wddd/wyxd/detail")
@@ -115,7 +115,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wyxd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/wddd/wyxd/detail";
+		return MODULE_NAME+"/wddd/wyxd/detail";
 	}
 
 	@RequestMapping(value="/wddd/dsh/list")
@@ -125,7 +125,7 @@ public class DDGLController {
 
 		request.setAttribute("ddztId", DingDan.DAI_SHEN_HE);
 		
-		return moduleName+"/wddd/dsh/list";
+		return MODULE_NAME+"/wddd/dsh/list";
 	}
 
 	@RequestMapping(value="/wddd/dsh/detail")
@@ -155,7 +155,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dsh.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/wddd/dsh/detail";
+		return MODULE_NAME+"/wddd/dsh/detail";
 	}
 
 	@RequestMapping(value="/wddd/wddd/list")
@@ -163,7 +163,7 @@ public class DDGLController {
 		
 		publicService.selectNav(request);
 
-		return moduleName+"/wddd/wddd/list";
+		return MODULE_NAME+"/wddd/wddd/list";
 	}
 
 	@RequestMapping(value="/wddd/wddd/detail")
@@ -193,7 +193,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wddd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/wddd/wddd/detail";
+		return MODULE_NAME+"/wddd/wddd/detail";
 	}
 
 	@RequestMapping(value="/zhgl/ddsh/edit")
@@ -223,7 +223,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/ddsh/edit";
+		return MODULE_NAME+"/zhgl/ddsh/edit";
 	}
 
 	@RequestMapping(value="/zhgl/ddsh/new")
@@ -231,7 +231,7 @@ public class DDGLController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/zhgl/ddsh/new";
+		return MODULE_NAME+"/zhgl/ddsh/new";
 	}
 
 	@RequestMapping(value="/zhgl/ddsh/list")
@@ -241,7 +241,7 @@ public class DDGLController {
 		
 		request.setAttribute("zxztId", DingDan.DAI_SHEN_HE);
 		
-		return moduleName+"/zhgl/ddsh/list";
+		return MODULE_NAME+"/zhgl/ddsh/list";
 	}
 
 	@RequestMapping(value="/zhgl/ddsh/detail")
@@ -270,7 +270,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/ddsh/detail";
+		return MODULE_NAME+"/zhgl/ddsh/detail";
 	}
 
 	@RequestMapping(value="/zhgl/zjpd/edit")
@@ -300,7 +300,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/zjpd/edit";
+		return MODULE_NAME+"/zhgl/zjpd/edit";
 	}
 
 	@RequestMapping(value="/zhgl/zjpd/list")
@@ -310,7 +310,7 @@ public class DDGLController {
 		
 		request.setAttribute("ddztId", DingDan.YI_XIA_DAN);
 		
-		return moduleName+"/zhgl/zjpd/list";
+		return MODULE_NAME+"/zhgl/zjpd/list";
 	}
 
 	@RequestMapping(value="/zhgl/zjpd/detail")
@@ -339,7 +339,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(zjpd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/zjpd/detail";
+		return MODULE_NAME+"/zhgl/zjpd/detail";
 	}
 
 	@RequestMapping(value="/zhgl/zhgl/new")
@@ -347,7 +347,7 @@ public class DDGLController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/zhgl/zhgl/new";
+		return MODULE_NAME+"/zhgl/zhgl/new";
 	}
 
 	@RequestMapping(value="/zhgl/zhgl/edit")
@@ -376,7 +376,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/zhgl/edit";
+		return MODULE_NAME+"/zhgl/zhgl/edit";
 	}
 
 	@RequestMapping(value="/zhgl/zhgl/list")
@@ -384,7 +384,7 @@ public class DDGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/zhgl/zhgl/list";
+		return MODULE_NAME+"/zhgl/zhgl/list";
 	}
 
 	@RequestMapping(value="/zhgl/zhgl/detail")
@@ -413,7 +413,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/zhgl/detail";
+		return MODULE_NAME+"/zhgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/zhgl/yccl/edit")
@@ -446,7 +446,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/zhgl/yccl/edit";
+		return MODULE_NAME+"/zhgl/yccl/edit";
 	}
 
 	@RequestMapping(value="/zhgl/yccl/list")
@@ -456,7 +456,7 @@ public class DDGLController {
 		
 		request.setAttribute("clzt", DingDanYiChang.DAI_CHU_LI);
 		
-		return moduleName+"/zhgl/yccl/list";
+		return MODULE_NAME+"/zhgl/yccl/list";
 	}
 
 	@RequestMapping(value="/zhgl/yccl/detail")
@@ -497,7 +497,7 @@ public class DDGLController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/ddtb/ddtb/new";
+		return MODULE_NAME+"/ddtb/ddtb/new";
 	}
 
 	@RequestMapping(value="/ddtb/ddtb/edit")
@@ -527,7 +527,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/ddtb/ddtb/edit";
+		return MODULE_NAME+"/ddtb/ddtb/edit";
 	}
 
 	@RequestMapping(value="/ddtb/ddtb/list")
@@ -537,7 +537,7 @@ public class DDGLController {
 		
 		request.setAttribute("zxztId", DingDan.YI_WAN_CHENG+","+DingDan.DAI_JIAN_YAN+","+DingDan.DAI_LI_CHANG);
 		
-		return moduleName+"/ddtb/ddtb/list";
+		return MODULE_NAME+"/ddtb/ddtb/list";
 	}
 
 	@RequestMapping(value="/ddtb/ddtb/detail")
@@ -567,7 +567,7 @@ public class DDGLController {
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
 		request.setAttribute("cysj", cysj);
 		
-		return moduleName+"/ddtb/ddtb/detail";
+		return MODULE_NAME+"/ddtb/ddtb/detail";
 	}
 
 	@RequestMapping(value="/newDingDanZongHeGuanLi")

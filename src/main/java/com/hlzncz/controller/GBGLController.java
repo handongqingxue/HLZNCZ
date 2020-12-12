@@ -22,7 +22,7 @@ import com.hlzncz.util.PlanResult;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/main/gbgl")
+@RequestMapping("/"+GBGLController.MODULE_NAME)
 public class GBGLController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class GBGLController {
 	private CheLiangService cheLiangService;
 	@Autowired
 	private GuoBangService guoBangService;
-	private static final String moduleName="gbgl";
+	public static final String MODULE_NAME="gbgl";
 
 	@RequestMapping(value="/gbgl/blgb/list")
 	public String goGbglGbglBlgbList(HttpServletRequest request) {
@@ -41,7 +41,7 @@ public class GBGLController {
 		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.ZAI_ZHONG_BIAO_QIAN);
 		
-		return moduleName+"/gbgl/blgb/list";
+		return MODULE_NAME+"/gbgl/blgb/list";
 	}
 
 	@RequestMapping(value="/gbgl/zhcx/new")
@@ -49,7 +49,7 @@ public class GBGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/gbgl/zhcx/new";
+		return MODULE_NAME+"/gbgl/zhcx/new";
 	}
 
 	@RequestMapping(value="/gbgl/zhcx/edit")
@@ -69,7 +69,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/zhcx/edit";
+		return MODULE_NAME+"/gbgl/zhcx/edit";
 	}
 
 	@RequestMapping(value="/gbgl/zhcx/list")
@@ -77,7 +77,7 @@ public class GBGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/gbgl/zhcx/list";
+		return MODULE_NAME+"/gbgl/zhcx/list";
 	}
 
 	@RequestMapping(value="/gbgl/zhcx/detail")
@@ -97,7 +97,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/zhcx/detail";
+		return MODULE_NAME+"/gbgl/zhcx/detail";
 	}
 
 	@RequestMapping(value="/gbgl/zzgb/new")
@@ -105,7 +105,7 @@ public class GBGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/gbgl/zzgb/new";
+		return MODULE_NAME+"/gbgl/zzgb/new";
 	}
 
 	@RequestMapping(value="/gbgl/zzgb/edit")
@@ -125,7 +125,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/zzgb/edit";
+		return MODULE_NAME+"/gbgl/zzgb/edit";
 	}
 
 	@RequestMapping(value="/gbgl/zzgb/list")
@@ -134,7 +134,7 @@ public class GBGLController {
 		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.ZAI_ZHONG_BIAO_QIAN);
 		
-		return moduleName+"/gbgl/zzgb/list";
+		return MODULE_NAME+"/gbgl/zzgb/list";
 	}
 
 	@RequestMapping(value="/gbgl/zzgb/detail")
@@ -154,7 +154,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/zzgb/detail";
+		return MODULE_NAME+"/gbgl/zzgb/detail";
 	}
 
 	@RequestMapping(value="/gbgl/pzgb/new")
@@ -162,7 +162,7 @@ public class GBGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/gbgl/pzgb/new";
+		return MODULE_NAME+"/gbgl/pzgb/new";
 	}
 
 	@RequestMapping(value="/gbgl/pzgb/edit")
@@ -182,7 +182,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/pzgb/edit";
+		return MODULE_NAME+"/gbgl/pzgb/edit";
 	}
 
 	@RequestMapping(value="/gbgl/pzgb/list")
@@ -191,7 +191,7 @@ public class GBGLController {
 		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.PI_ZHONG_BIAO_QIAN);
 		
-		return moduleName+"/gbgl/pzgb/list";
+		return MODULE_NAME+"/gbgl/pzgb/list";
 	}
 
 	@RequestMapping(value="/gbgl/pzgb/detail")
@@ -211,7 +211,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/pzgb/detail";
+		return MODULE_NAME+"/gbgl/pzgb/detail";
 	}
 
 	@RequestMapping(value="/gbgl/rcgb/new")
@@ -219,7 +219,7 @@ public class GBGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/gbgl/rcgb/new";
+		return MODULE_NAME+"/gbgl/rcgb/new";
 	}
 
 	@RequestMapping(value="/gbgl/rcgb/edit")
@@ -239,7 +239,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/rcgb/edit";
+		return MODULE_NAME+"/gbgl/rcgb/edit";
 	}
 
 	@RequestMapping(value="/gbgl/rcgb/list")
@@ -248,7 +248,7 @@ public class GBGLController {
 		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.RU_CHANG_BIAO_QIAN);
 		
-		return moduleName+"/gbgl/rcgb/list";
+		return MODULE_NAME+"/gbgl/rcgb/list";
 	}
 
 	@RequestMapping(value="/gbgl/rcgb/detail")
@@ -268,7 +268,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/rcgb/detail";
+		return MODULE_NAME+"/gbgl/rcgb/detail";
 	}
 
 	@RequestMapping(value="/gbgl/ccgb/new")
@@ -276,7 +276,7 @@ public class GBGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/gbgl/ccgb/new";
+		return MODULE_NAME+"/gbgl/ccgb/new";
 	}
 
 	@RequestMapping(value="/gbgl/ccgb/edit")
@@ -296,7 +296,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/ccgb/edit";
+		return MODULE_NAME+"/gbgl/ccgb/edit";
 	}
 
 	@RequestMapping(value="/gbgl/ccgb/list")
@@ -305,7 +305,7 @@ public class GBGLController {
 		publicService.selectNav(request);
 		request.setAttribute("gbbq", GuoBang.CHU_CHANG_BIAO_QIAN);
 		
-		return moduleName+"/gbgl/ccgb/list";
+		return MODULE_NAME+"/gbgl/ccgb/list";
 	}
 
 	@RequestMapping(value="/gbgl/ccgb/detail")
@@ -325,7 +325,7 @@ public class GBGLController {
 		DingDan mzdd=dingDanService.selectDingDanByWybm(gb.getPzddbm());
 		request.setAttribute("mzdd", mzdd);
 		
-		return moduleName+"/gbgl/ccgb/detail";
+		return MODULE_NAME+"/gbgl/ccgb/detail";
 	}
 	
 	/**

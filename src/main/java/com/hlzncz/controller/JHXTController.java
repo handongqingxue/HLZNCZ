@@ -15,7 +15,7 @@ import com.hlzncz.entity.*;
 import com.hlzncz.service.*;
 
 @Controller
-@RequestMapping("/main/jhxt")
+@RequestMapping("/"+JHXTController.MODULE_NAME)
 public class JHXTController {
 
 	@Autowired
@@ -26,14 +26,14 @@ public class JHXTController {
 	private HaoMaService haoMaService;
 	@Autowired
 	private ShouHuoDanWeiService shouHuoDanWeiService;
-	private static final String moduleName="jhxt";
+	public static final String MODULE_NAME="jhxt";
 
 	@RequestMapping(value="/jhxx/hmcx/new")
 	public String goHmcxNew(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/jhxx/hmcx/new";
+		return MODULE_NAME+"/jhxx/hmcx/new";
 	}
 
 	@RequestMapping(value="/jhxx/hmcx/list")
@@ -41,7 +41,7 @@ public class JHXTController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/jhxx/hmcx/list";
+		return MODULE_NAME+"/jhxx/hmcx/list";
 	}
 	
 	@RequestMapping(value="/pzgl/dlgl/new")
@@ -49,7 +49,7 @@ public class JHXTController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/pzgl/dlgl/new";
+		return MODULE_NAME+"/pzgl/dlgl/new";
 	}
 
 	@RequestMapping(value="/pzgl/dlgl/edit")
@@ -63,7 +63,7 @@ public class JHXTController {
 		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		return moduleName+"/pzgl/dlgl/edit";
+		return MODULE_NAME+"/pzgl/dlgl/edit";
 	}
 
 	@RequestMapping(value="/pzgl/dlgl/list")
@@ -71,7 +71,7 @@ public class JHXTController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/pzgl/dlgl/list";
+		return MODULE_NAME+"/pzgl/dlgl/list";
 	}
 
 	@RequestMapping(value="/pzgl/dlgl/detail")
@@ -85,7 +85,7 @@ public class JHXTController {
 		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		return moduleName+"/pzgl/dlgl/detail";
+		return MODULE_NAME+"/pzgl/dlgl/detail";
 	}
 
 	@RequestMapping(value="/queryHaoMaList")

@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
 var defaultDdztId='${requestScope.ddztId}';
 $(function(){
 	initSearchLB();
@@ -38,7 +39,7 @@ function initZJPDLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"直接排队-列表",
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -65,8 +66,8 @@ function initTab1(){
             {field:"jhysrq",title:"计划运输日期",width:200},
             {field:"crksj",title:"出入库时间",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/zjpd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/zjpd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\""+ddglPath+"zhgl/zjpd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"zhgl/zjpd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

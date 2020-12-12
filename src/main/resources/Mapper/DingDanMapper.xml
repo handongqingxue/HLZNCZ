@@ -217,7 +217,8 @@
 		<if test="ddztId!=''&amp;ddztId!=null">
 			and dd.ddztId=#{ddztId}
 		</if>
-		 limit ${param3},${param4}
+		order by dd.bjsj desc 
+		limit ${param3},${param4}
 	</select>
 	<select id="queryDingDanShenHeForInt" resultType="java.lang.Integer">
 		select count(*) from ding_dan dd left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id where 1=1
@@ -236,7 +237,8 @@
 		<if test="ddztId!=''&amp;ddztId!=null">
 			and dd.ddztId=#{ddztId}
 		</if>
-		 limit ${param3},${param4}
+		order by dd.bjsj desc 
+		limit ${param3},${param4}
 	</select>
 	<select id="queryDDGLZHGLForInt" resultType="java.lang.Integer">
 		select count(*) from ding_dan dd left join che_liang cl on dd.cyclId=cl.id left join yun_shu_shang yss on dd.yssId=yss.id left join ding_dan_zhuang_tai ddzt on dd.ddztId=ddzt.id where 1=1

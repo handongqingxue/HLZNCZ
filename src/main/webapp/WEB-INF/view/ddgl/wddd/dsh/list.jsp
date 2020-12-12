@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
 var defaultDdztId='${requestScope.ddztId}';
 $(function(){
 	initSearchLB();
@@ -27,7 +28,7 @@ function initSearchLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"待审核-列表",
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -50,7 +51,7 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"ddztmc",title:"执行状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/dsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>";
+            	var str="<a href=\""+ddglPath+"wddd/dsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>";
             	return str;
             }}
 	    ]],

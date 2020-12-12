@@ -22,7 +22,7 @@ import com.hlzncz.util.PlanResult;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/main/jcxx")
+@RequestMapping("/"+JCXXController.MODULE_NAME)
 public class JCXXController {
 
 	@Autowired
@@ -51,14 +51,14 @@ public class JCXXController {
 	private KaPianShenLingService kaPianShenLingService;
 	@Autowired
 	private KaPianWeiHuService kaPianWeiHuService;
-	private static final String moduleName="jcxx";
+	public static final String MODULE_NAME="jcxx";
 
 	@RequestMapping(value="/wzgl/wzlx/new")
 	public String goWzlxNew(HttpServletRequest request) {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/wzgl/wzlx/new";
+		return MODULE_NAME+"/wzgl/wzlx/new";
 	}
 
 	@RequestMapping(value="/wzgl/wzlx/edit")
@@ -69,7 +69,7 @@ public class JCXXController {
 		WuZiLeiXing wzlx=wuZiLeiXingService.selectWuZiLeiXingById(id);
 		request.setAttribute("wzlx", wzlx);
 		
-		return moduleName+"/wzgl/wzlx/edit";
+		return MODULE_NAME+"/wzgl/wzlx/edit";
 	}
 
 	@RequestMapping(value="/wzgl/wzlx/list")
@@ -77,7 +77,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/wzgl/wzlx/list";
+		return MODULE_NAME+"/wzgl/wzlx/list";
 	}
 
 	@RequestMapping(value="/wzgl/wzlx/detail")
@@ -88,7 +88,7 @@ public class JCXXController {
 		WuZiLeiXing wzlx=wuZiLeiXingService.selectWuZiLeiXingById(id);
 		request.setAttribute("wzlx", wzlx);
 		
-		return moduleName+"/wzgl/wzlx/detail";
+		return MODULE_NAME+"/wzgl/wzlx/detail";
 	}
 
 	@RequestMapping(value="/wzgl/wzgl/new")
@@ -96,7 +96,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/wzgl/wzgl/new";
+		return MODULE_NAME+"/wzgl/wzgl/new";
 	}
 
 	@RequestMapping(value="/wzgl/wzgl/edit")
@@ -107,7 +107,7 @@ public class JCXXController {
 		WuZi wz=wuZiService.selectWuZiById(id);
 		request.setAttribute("wz", wz);
 		
-		return moduleName+"/wzgl/wzgl/edit";
+		return MODULE_NAME+"/wzgl/wzgl/edit";
 	}
 
 	@RequestMapping(value="/wzgl/wzgl/list")
@@ -115,7 +115,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/wzgl/wzgl/list";
+		return MODULE_NAME+"/wzgl/wzgl/list";
 	}
 
 	@RequestMapping(value="/wzgl/wzgl/detail")
@@ -126,7 +126,7 @@ public class JCXXController {
 		WuZi wz=wuZiService.selectWuZiById(id);
 		request.setAttribute("wz", wz);
 		
-		return moduleName+"/wzgl/wzgl/detail";
+		return MODULE_NAME+"/wzgl/wzgl/detail";
 	}
 
 	@RequestMapping(value="/clgl/xzcl/new")
@@ -134,7 +134,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/clgl/xzcl/new";
+		return MODULE_NAME+"/clgl/xzcl/new";
 	}
 
 	@RequestMapping(value="/clgl/xzcl/edit")
@@ -145,7 +145,7 @@ public class JCXXController {
 		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return moduleName+"/clgl/xzcl/edit";
+		return MODULE_NAME+"/clgl/xzcl/edit";
 	}
 
 	@RequestMapping(value="/clgl/xzcl/list")
@@ -155,7 +155,7 @@ public class JCXXController {
 
 		request.setAttribute("shzt", CheLiang.BIAN_JI_ZHONG);
 		
-		return moduleName+"/clgl/xzcl/list";
+		return MODULE_NAME+"/clgl/xzcl/list";
 	}
 
 	@RequestMapping(value="/clgl/xzcl/detail")
@@ -166,7 +166,7 @@ public class JCXXController {
 		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return moduleName+"/clgl/xzcl/detail";
+		return MODULE_NAME+"/clgl/xzcl/detail";
 	}
 
 	@RequestMapping(value="/clgl/clsh/new")
@@ -174,7 +174,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/clgl/clsh/new";
+		return MODULE_NAME+"/clgl/clsh/new";
 	}
 
 	@RequestMapping(value="/clgl/clsh/edit")
@@ -186,7 +186,7 @@ public class JCXXController {
 		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return moduleName+"/clgl/clsh/edit";
+		return MODULE_NAME+"/clgl/clsh/edit";
 	}
 
 	@RequestMapping(value="/clgl/clsh/list")
@@ -196,7 +196,7 @@ public class JCXXController {
 
 		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE);
 		
-		return moduleName+"/clgl/clsh/list";
+		return MODULE_NAME+"/clgl/clsh/list";
 	}
 
 	@RequestMapping(value="/clgl/clsh/detail")
@@ -207,7 +207,7 @@ public class JCXXController {
 		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return moduleName+"/clgl/clsh/detail";
+		return MODULE_NAME+"/clgl/clsh/detail";
 	}
 
 	@RequestMapping(value="/clgl/clcx/new")
@@ -215,7 +215,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/clgl/clcx/new";
+		return MODULE_NAME+"/clgl/clcx/new";
 	}
 
 	@RequestMapping(value="/clgl/clcx/list")
@@ -225,7 +225,7 @@ public class JCXXController {
 
 		request.setAttribute("shzt", CheLiang.DAI_SHEN_HE+","+CheLiang.SHEN_HE_TONG_GUO);
 		
-		return moduleName+"/clgl/clcx/list";
+		return MODULE_NAME+"/clgl/clcx/list";
 	}
 
 	@RequestMapping(value="/clgl/zhgl/new")
@@ -233,7 +233,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/clgl/zhgl/new";
+		return MODULE_NAME+"/clgl/zhgl/new";
 	}
 	
 	@RequestMapping(value="/clgl/zhgl/edit")
@@ -244,7 +244,7 @@ public class JCXXController {
 		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return moduleName+"/clgl/zhgl/edit";
+		return MODULE_NAME+"/clgl/zhgl/edit";
 	}
 
 	@RequestMapping(value="/clgl/zhgl/list")
@@ -252,7 +252,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/clgl/zhgl/list";
+		return MODULE_NAME+"/clgl/zhgl/list";
 	}
 
 	@RequestMapping(value="/clgl/zhgl/detail")
@@ -263,7 +263,7 @@ public class JCXXController {
 		CheLiang cl=cheLiangService.selectCheLiangById(id);
 		request.setAttribute("cl", cl);
 		
-		return moduleName+"/clgl/zhgl/detail";
+		return MODULE_NAME+"/clgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/sjgl/tjsj/new")
@@ -271,7 +271,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/sjgl/tjsj/new";
+		return MODULE_NAME+"/sjgl/tjsj/new";
 	}
 
 	@RequestMapping(value="/sjgl/tjsj/edit")
@@ -282,7 +282,7 @@ public class JCXXController {
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return moduleName+"/sjgl/tjsj/edit";
+		return MODULE_NAME+"/sjgl/tjsj/edit";
 	}
 
 	@RequestMapping(value="/sjgl/tjsj/list")
@@ -292,7 +292,7 @@ public class JCXXController {
 
 		request.setAttribute("shzt", SiJi.BIAN_JI_ZHONG);
 		
-		return moduleName+"/sjgl/tjsj/list";
+		return MODULE_NAME+"/sjgl/tjsj/list";
 	}
 
 	@RequestMapping(value="/sjgl/tjsj/detail")
@@ -303,7 +303,7 @@ public class JCXXController {
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return moduleName+"/sjgl/tjsj/detail";
+		return MODULE_NAME+"/sjgl/tjsj/detail";
 	}
 
 	@RequestMapping(value="/sjgl/xxsh/edit")
@@ -314,7 +314,7 @@ public class JCXXController {
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return moduleName+"/sjgl/xxsh/edit";
+		return MODULE_NAME+"/sjgl/xxsh/edit";
 	}
 
 	@RequestMapping(value="/sjgl/xxsh/list")
@@ -324,7 +324,7 @@ public class JCXXController {
 
 		request.setAttribute("shzt", SiJi.DAI_SHEN_HE);
 		
-		return moduleName+"/sjgl/xxsh/list";
+		return MODULE_NAME+"/sjgl/xxsh/list";
 	}
 
 	@RequestMapping(value="/sjgl/xxsh/detail")
@@ -335,7 +335,7 @@ public class JCXXController {
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return moduleName+"/sjgl/xxsh/detail";
+		return MODULE_NAME+"/sjgl/xxsh/detail";
 	}
 
 	@RequestMapping(value="/sjgl/zhgl/new")
@@ -343,7 +343,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/sjgl/zhgl/new";
+		return MODULE_NAME+"/sjgl/zhgl/new";
 	}
 
 	@RequestMapping(value="/sjgl/zhgl/edit")
@@ -357,7 +357,7 @@ public class JCXXController {
 		YongHu glyh=yongHuService.selectYongHuById(String.valueOf(sj.getGlyhId()));
 		request.setAttribute("glyh", glyh);
 		
-		return moduleName+"/sjgl/zhgl/edit";
+		return MODULE_NAME+"/sjgl/zhgl/edit";
 	}
 
 	@RequestMapping(value="/sjgl/zhgl/list")
@@ -365,7 +365,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/sjgl/zhgl/list";
+		return MODULE_NAME+"/sjgl/zhgl/list";
 	}
 
 	@RequestMapping(value="/sjgl/zhgl/detail")
@@ -379,7 +379,7 @@ public class JCXXController {
 		YongHu glyh=yongHuService.selectYongHuById(String.valueOf(sj.getGlyhId()));
 		request.setAttribute("glyh", glyh);
 		
-		return moduleName+"/sjgl/zhgl/detail";
+		return MODULE_NAME+"/sjgl/zhgl/detail";
 	}
 
 	@RequestMapping(value="/dwgl/fhdw/new")
@@ -387,7 +387,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/dwgl/fhdw/new";
+		return MODULE_NAME+"/dwgl/fhdw/new";
 	}
 
 	@RequestMapping(value="/dwgl/fhdw/edit")
@@ -398,7 +398,7 @@ public class JCXXController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(id);
 		request.setAttribute("fhdw", fhdw);
 		
-		return moduleName+"/dwgl/fhdw/edit";
+		return MODULE_NAME+"/dwgl/fhdw/edit";
 	}
 
 	@RequestMapping(value="/dwgl/fhdw/list")
@@ -406,7 +406,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/dwgl/fhdw/list";
+		return MODULE_NAME+"/dwgl/fhdw/list";
 	}
 
 	@RequestMapping(value="/dwgl/fhdw/detail")
@@ -417,7 +417,7 @@ public class JCXXController {
 		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(id);
 		request.setAttribute("fhdw", fhdw);
 		
-		return moduleName+"/dwgl/fhdw/detail";
+		return MODULE_NAME+"/dwgl/fhdw/detail";
 	}
 
 	@RequestMapping(value="/dwgl/dlshdw/edit")
@@ -432,7 +432,7 @@ public class JCXXController {
 		DuiLie ssdl=duiLieService.selectDuiLieById(String.valueOf(shdw.getDlId()));
 		request.setAttribute("ssdl", ssdl);
 		
-		return moduleName+"/dwgl/dlshdw/edit";
+		return MODULE_NAME+"/dwgl/dlshdw/edit";
 	}
 
 	@RequestMapping(value="/dwgl/dlshdw/list")
@@ -442,7 +442,7 @@ public class JCXXController {
 		
 		request.setAttribute("ywdl", ShouHuoDanWei.YOU_DUI_LIE);
 		
-		return moduleName+"/dwgl/dlshdw/list";
+		return MODULE_NAME+"/dwgl/dlshdw/list";
 	}
 
 	@RequestMapping(value="/dwgl/dlshdw/detail")
@@ -457,7 +457,7 @@ public class JCXXController {
 		DuiLie ssdl=duiLieService.selectDuiLieById(String.valueOf(shdw.getDlId()));
 		request.setAttribute("ssdl", ssdl);
 		
-		return moduleName+"/dwgl/dlshdw/detail";
+		return MODULE_NAME+"/dwgl/dlshdw/detail";
 	}
 
 	@RequestMapping(value="/dwgl/wdlshdw/edit")
@@ -469,7 +469,7 @@ public class JCXXController {
 		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 		
-		return moduleName+"/dwgl/wdlshdw/edit";
+		return MODULE_NAME+"/dwgl/wdlshdw/edit";
 	}
 
 	@RequestMapping(value="/dwgl/wdlshdw/list")
@@ -479,7 +479,7 @@ public class JCXXController {
 		
 		request.setAttribute("ywdl", ShouHuoDanWei.WU_DUI_LIE);
 		
-		return moduleName+"/dwgl/wdlshdw/list";
+		return MODULE_NAME+"/dwgl/wdlshdw/list";
 	}
 
 	@RequestMapping(value="/dwgl/wdlshdw/detail")
@@ -491,7 +491,7 @@ public class JCXXController {
 		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(id);
 		request.setAttribute("shdw", shdw);
 		
-		return moduleName+"/dwgl/wdlshdw/detail";
+		return MODULE_NAME+"/dwgl/wdlshdw/detail";
 	}
 
 	@RequestMapping(value="/dwgl/qbshdw/new")
@@ -499,7 +499,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/dwgl/qbshdw/new";
+		return MODULE_NAME+"/dwgl/qbshdw/new";
 	}
 
 	@RequestMapping(value="/dwgl/qbshdw/edit")
@@ -513,7 +513,7 @@ public class JCXXController {
 		DuiLie ssdl=duiLieService.selectDuiLieById(String.valueOf(shdw.getDlId()));
 		request.setAttribute("ssdl", ssdl);
 		
-		return moduleName+"/dwgl/qbshdw/edit";
+		return MODULE_NAME+"/dwgl/qbshdw/edit";
 	}
 
 	@RequestMapping(value="/dwgl/qbshdw/list")
@@ -521,7 +521,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/dwgl/qbshdw/list";
+		return MODULE_NAME+"/dwgl/qbshdw/list";
 	}
 
 	@RequestMapping(value="/dwgl/qbshdw/detail")
@@ -535,7 +535,7 @@ public class JCXXController {
 		DuiLie ssdl=duiLieService.selectDuiLieById(String.valueOf(shdw.getDlId()));
 		request.setAttribute("ssdl", ssdl);
 		
-		return moduleName+"/dwgl/qbshdw/detail";
+		return MODULE_NAME+"/dwgl/qbshdw/detail";
 	}
 
 	@RequestMapping(value="/dwgl/yss/new")
@@ -543,7 +543,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/dwgl/yss/new";
+		return MODULE_NAME+"/dwgl/yss/new";
 	}
 
 	@RequestMapping(value="/dwgl/yss/edit")
@@ -554,7 +554,7 @@ public class JCXXController {
 		YunShuShang yss=yunShuShangService.selectYunShuShangById(id);
 		request.setAttribute("yss", yss);
 		
-		return moduleName+"/dwgl/yss/edit";
+		return MODULE_NAME+"/dwgl/yss/edit";
 	}
 
 	@RequestMapping(value="/dwgl/yss/list")
@@ -562,7 +562,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/dwgl/yss/list";
+		return MODULE_NAME+"/dwgl/yss/list";
 	}
 
 	@RequestMapping(value="/dwgl/yss/detail")
@@ -573,7 +573,7 @@ public class JCXXController {
 		YunShuShang yss=yunShuShangService.selectYunShuShangById(id);
 		request.setAttribute("yss", yss);
 		
-		return moduleName+"/dwgl/yss/detail";
+		return MODULE_NAME+"/dwgl/yss/detail";
 	}
 
 	@RequestMapping(value="/ckgl/ckgl/new")
@@ -581,7 +581,7 @@ public class JCXXController {
 
 		publicService.selectNav(request);
 		
-		return moduleName+"/ckgl/ckgl/new";
+		return MODULE_NAME+"/ckgl/ckgl/new";
 	}
 
 	@RequestMapping(value="/ckgl/ckgl/edit")
@@ -592,7 +592,7 @@ public class JCXXController {
 		CangKu ck=cangKuService.selectCangKuById(id);
 		request.setAttribute("ck", ck);
 		
-		return moduleName+"/ckgl/ckgl/edit";
+		return MODULE_NAME+"/ckgl/ckgl/edit";
 	}
 	
 	@RequestMapping(value="/ckgl/ckgl/list")
@@ -600,7 +600,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/ckgl/ckgl/list";
+		return MODULE_NAME+"/ckgl/ckgl/list";
 	}
 
 	@RequestMapping(value="/ckgl/ckgl/detail")
@@ -611,7 +611,7 @@ public class JCXXController {
 		CangKu ck=cangKuService.selectCangKuById(id);
 		request.setAttribute("ck", ck);
 		
-		return moduleName+"/ckgl/ckgl/detail";
+		return MODULE_NAME+"/ckgl/ckgl/detail";
 	}
 
 	@RequestMapping(value="/kpgl/kpsl/new")
@@ -619,7 +619,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/kpgl/kpsl/new";
+		return MODULE_NAME+"/kpgl/kpsl/new";
 	}
 
 	@RequestMapping(value="/kpgl/kpsl/edit")
@@ -630,7 +630,7 @@ public class JCXXController {
 		KaPianShenLing kpsl=kaPianShenLingService.selectKaPianShenLingById(id);
 		request.setAttribute("kpsl", kpsl);
 		
-		return moduleName+"/kpgl/kpsl/edit";
+		return MODULE_NAME+"/kpgl/kpsl/edit";
 	}
 
 	@RequestMapping(value="/kpgl/kpsl/list")
@@ -638,7 +638,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/kpgl/kpsl/list";
+		return MODULE_NAME+"/kpgl/kpsl/list";
 	}
 
 	@RequestMapping(value="/kpgl/kpsl/detail")
@@ -649,7 +649,7 @@ public class JCXXController {
 		KaPianShenLing kpsl=kaPianShenLingService.selectKaPianShenLingById(id);
 		request.setAttribute("kpsl", kpsl);
 		
-		return moduleName+"/kpgl/kpsl/detail";
+		return MODULE_NAME+"/kpgl/kpsl/detail";
 	}
 	
 	@RequestMapping(value="/kpgl/kpwh/new")
@@ -657,7 +657,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/kpgl/kpwh/new";
+		return MODULE_NAME+"/kpgl/kpwh/new";
 	}
 
 	@RequestMapping(value="/kpgl/kpwh/edit")
@@ -668,7 +668,7 @@ public class JCXXController {
 		KaPianWeiHu kpwh=kaPianWeiHuService.selectKaPianWeiHuById(id);
 		request.setAttribute("kpwh", kpwh);
 		
-		return moduleName+"/kpgl/kpwh/edit";
+		return MODULE_NAME+"/kpgl/kpwh/edit";
 	}
 
 	@RequestMapping(value="/kpgl/kpwh/list")
@@ -676,7 +676,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/kpgl/kpwh/list";
+		return MODULE_NAME+"/kpgl/kpwh/list";
 	}
 
 	@RequestMapping(value="/kpgl/kpwh/detail")
@@ -687,7 +687,7 @@ public class JCXXController {
 		KaPianWeiHu kpwh=kaPianWeiHuService.selectKaPianWeiHuById(id);
 		request.setAttribute("kpwh", kpwh);
 		
-		return moduleName+"/kpgl/kpwh/detail";
+		return MODULE_NAME+"/kpgl/kpwh/detail";
 	}
 	
 	@RequestMapping(value="/jhpz/dlgl/new")
@@ -695,7 +695,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/jhpz/dlgl/new";
+		return MODULE_NAME+"/jhpz/dlgl/new";
 	}
 
 	@RequestMapping(value="/jhpz/dlgl/edit")
@@ -709,7 +709,7 @@ public class JCXXController {
 		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		return moduleName+"/jhpz/dlgl/edit";
+		return MODULE_NAME+"/jhpz/dlgl/edit";
 	}
 	
 	@RequestMapping(value="/jhpz/dlgl/list")
@@ -717,7 +717,7 @@ public class JCXXController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/jhpz/dlgl/list";
+		return MODULE_NAME+"/jhpz/dlgl/list";
 	}
 
 	@RequestMapping(value="/jhpz/dlgl/detail")
@@ -731,7 +731,7 @@ public class JCXXController {
 		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dl.getShdwId()));
 		request.setAttribute("shdw", shdw);
 		
-		return moduleName+"/jhpz/dlgl/detail";
+		return MODULE_NAME+"/jhpz/dlgl/detail";
 	}
 	
 	@RequestMapping(value="/newWuZiLeiXing")

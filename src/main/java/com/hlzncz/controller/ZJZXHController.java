@@ -20,7 +20,7 @@ import com.hlzncz.util.FileUploadUtils;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/main/zjzxh")
+@RequestMapping("/"+ZJZXHController.MODULE_NAME)
 public class ZJZXHController {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class ZJZXHController {
 	private YongHuService yongHuService;
 	@Autowired
 	private ZhiJianBaoGaoService zhiJianBaoGaoService;
-	private static final String moduleName="zjzxh";
+	public static final String MODULE_NAME="zjzxh";
 
 	@RequestMapping(value="/zxhgl/dzxh/edit")
 	public String goZjzxhZxhglDzxhEdit(HttpServletRequest request) {
@@ -57,7 +57,7 @@ public class ZJZXHController {
 		YongHu sjyh=yongHuService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
 		request.setAttribute("sjyh", sjyh);
 		
-		return moduleName+"/zxhgl/dzxh/edit";
+		return MODULE_NAME+"/zxhgl/dzxh/edit";
 	}
 
 	@RequestMapping(value="/zxhgl/dzxh/list")
@@ -67,7 +67,7 @@ public class ZJZXHController {
 		
 		request.setAttribute("ddztId", DingDan.DAI_ZHUANG_XIE_HUO);
 		
-		return moduleName+"/zxhgl/dzxh/list";
+		return MODULE_NAME+"/zxhgl/dzxh/list";
 	}
 
 	@RequestMapping(value="/zxhgl/dzxh/detail")
@@ -90,7 +90,7 @@ public class ZJZXHController {
 		YongHu sjyh=yongHuService.selectYongHuById(String.valueOf(cysj.getGlyhId()));
 		request.setAttribute("sjyh", sjyh);
 		
-		return moduleName+"/zxhgl/dzxh/detail";
+		return MODULE_NAME+"/zxhgl/dzxh/detail";
 	}
 
 	@RequestMapping(value="/zjgl/dzj/edit")
@@ -104,7 +104,7 @@ public class ZJZXHController {
 		ZhiJianBaoGao zjbg=zhiJianBaoGaoService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
 		request.setAttribute("zjbg", zjbg);
 		
-		return moduleName+"/zjgl/dzj/edit";
+		return MODULE_NAME+"/zjgl/dzj/edit";
 	}
 
 	@RequestMapping(value="/zjgl/dzj/list")
@@ -114,7 +114,7 @@ public class ZJZXHController {
 		
 		request.setAttribute("ddztId", DingDan.DAI_JIAN_YAN);
 		
-		return moduleName+"/zjgl/dzj/list";
+		return MODULE_NAME+"/zjgl/dzj/list";
 	}
 
 	@RequestMapping(value="/zjgl/dzj/detail")
@@ -128,7 +128,7 @@ public class ZJZXHController {
 		ZhiJianBaoGao zjbg=zhiJianBaoGaoService.selectZhiJianBaoGaoByGlddBm(String.valueOf(dd.getWybm()));
 		request.setAttribute("zjbg", zjbg);
 		
-		return moduleName+"/zjgl/dzj/detail";
+		return MODULE_NAME+"/zjgl/dzj/detail";
 	}
 
 	@RequestMapping(value="/zjgl/zjbg/new")
@@ -136,7 +136,7 @@ public class ZJZXHController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/zjgl/zjbg/new";
+		return MODULE_NAME+"/zjgl/zjbg/new";
 	}
 
 	@RequestMapping(value="/zjgl/zjbg/edit")
@@ -150,7 +150,7 @@ public class ZJZXHController {
 		DingDan gldd=dingDanService.selectDingDanByWybm(zjbg.getGlddBm());
 		request.setAttribute("gldd", gldd);
 		
-		return moduleName+"/zjgl/zjbg/edit";
+		return MODULE_NAME+"/zjgl/zjbg/edit";
 	}
 
 	@RequestMapping(value="/zjgl/zjbg/list")
@@ -158,7 +158,7 @@ public class ZJZXHController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/zjgl/zjbg/list";
+		return MODULE_NAME+"/zjgl/zjbg/list";
 	}
 
 	@RequestMapping(value="/zjgl/zjbg/detail")
@@ -172,7 +172,7 @@ public class ZJZXHController {
 		DingDan gldd=dingDanService.selectDingDanByWybm(zjbg.getGlddBm());
 		request.setAttribute("gldd", gldd);
 		
-		return moduleName+"/zjgl/zjbg/detail";
+		return MODULE_NAME+"/zjgl/zjbg/detail";
 	}
 	
 	@RequestMapping(value="/queryZJZXHZJGLZJBGList")

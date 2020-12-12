@@ -22,21 +22,21 @@ import com.hlzncz.util.PlanResult;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/main/xtgl")
+@RequestMapping("/"+XTGLController.MODULE_NAME)
 public class XTGLController {
 
 	@Autowired
 	private PublicService publicService;
 	@Autowired
 	private YongHuService yongHuService;
-	private static final String moduleName="xtgl";
+	public static final String MODULE_NAME="xtgl";
 
 	@RequestMapping(value="/yhqx/yhgl/new")
 	public String goXtglYhqxYhglNew(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/yhqx/yhgl/new";
+		return MODULE_NAME+"/yhqx/yhgl/new";
 	}
 
 	@RequestMapping(value="/yhqx/yhgl/edit")
@@ -47,7 +47,7 @@ public class XTGLController {
 		YongHu yh=yongHuService.selectYongHuById(id);
 		request.setAttribute("yh", yh);
 		
-		return moduleName+"/yhqx/yhgl/edit";
+		return MODULE_NAME+"/yhqx/yhgl/edit";
 	}
 	
 	@RequestMapping(value="/yhqx/yhgl/list")
@@ -55,7 +55,7 @@ public class XTGLController {
 		
 		publicService.selectNav(request);
 		
-		return moduleName+"/yhqx/yhgl/list";
+		return MODULE_NAME+"/yhqx/yhgl/list";
 	}
 
 	@RequestMapping(value="/newYongHu")

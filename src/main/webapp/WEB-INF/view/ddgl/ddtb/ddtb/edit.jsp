@@ -405,6 +405,8 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -879,7 +881,7 @@ function initSelectYSSTab(){
 	});
 	
 	selectYSSTab=$("#select_yss_tab").datagrid({
-		url:path+"main/queryYunShuShangList",
+		url:jcxxPath+"queryYunShuShangList",
 		toolbar:"#select_yss_toolbar",
 		width:setFitWidthInParent("body","select_yss_tab"),
 		singleSelect:true,
@@ -1106,7 +1108,7 @@ function initSelectYSWLTab(){
 	});
 	
 	selectYSWLTab=$("#select_yswl_tab").datagrid({
-		url:path+"main/queryWuZiList",
+		url:jcxxPath+"queryWuZiList",
 		toolbar:"#select_yswl_toolbar",
 		width:setFitWidthInParent("body","select_yswl_tab"),
 		singleSelect:true,
@@ -1334,7 +1336,7 @@ function initSelectFHDWTab(){
 	});
 	
 	selectFHDWTab=$("#select_fhdw_tab").datagrid({
-		url:path+"main/queryFaHuoDanWeiList",
+		url:jcxxPath+"queryFaHuoDanWeiList",
 		toolbar:"#select_fhdw_toolbar",
 		width:setFitWidthInParent("body","select_fhdw_tab"),
 		singleSelect:true,
@@ -1562,7 +1564,7 @@ function initSelectSHDWTab(){
 	});
 	
 	selectSHDWTab=$("#select_shdw_tab").datagrid({
-		url:path+"main/queryShouHuoDanWeiList",
+		url:jcxxPath+"queryShouHuoDanWeiList",
 		toolbar:"#select_shdw_toolbar",
 		width:setFitWidthInParent("body","select_shdw_tab"),
 		singleSelect:true,
@@ -1797,7 +1799,7 @@ function initSelectCYCLTab(){
 	});
 	
 	selectCYCLTab=$("#select_cycl_tab").datagrid({
-		url:path+"main/queryCheLiangList",
+		url:jcxxPath+"queryCheLiangList",
 		toolbar:"#select_cycl_toolbar",
 		width:setFitWidthInParent("body","select_cycl_tab"),
 		singleSelect:true,
@@ -2063,7 +2065,7 @@ function initSelectCYSJTab(){
 	});
 	
 	selectCYSJTab=$("#select_cysj_tab").datagrid({
-		url:path+"main/querySiJiList",
+		url:jcxxPath+"querySiJiList",
 		toolbar:"#select_cysj_toolbar",
 		width:setFitWidthInParent("body","select_cysj_tab"),
 		singleSelect:true,

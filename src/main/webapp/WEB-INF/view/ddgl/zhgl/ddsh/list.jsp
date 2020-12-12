@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
 var defaultZxztId='${requestScope.zxztId}';
 $(function(){
 	initZXZTCBB();
@@ -55,7 +56,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/ddgl/zhgl/ddsh/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=ddglPath+"zhgl/ddsh/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -91,7 +92,7 @@ function initTuiHuiLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"订单审核-列表",
-		url:path+"main/queryDingDanShenHeList",
+		url:ddglPath+"queryDingDanShenHeList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -115,8 +116,8 @@ function initTab1(){
             {field:"jhysrq",title:"计划运输日期",width:200},
             {field:"ddztmc",title:"订单状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/zhgl/ddsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\""+ddglPath+"zhgl/ddsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"zhgl/ddsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -173,7 +174,7 @@ function tongGuoByWybms() {
 			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/tongGuoDingDanShenHe",
+			$.post(ddglPath + "tongGuoDingDanShenHe",
 				{wybms:wybms},
 				function(result){
 					if(result.status==1){
@@ -206,7 +207,7 @@ function tuiHuiByWybms() {
 			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/tuiHuiDingDanShenHe",
+			$.post(ddglPath + "tuiHuiDingDanShenHe",
 				{wybms:wybms},
 				function(result){
 					if(result.status==1){

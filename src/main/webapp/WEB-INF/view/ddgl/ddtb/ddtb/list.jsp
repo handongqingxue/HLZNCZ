@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var ddglPath=path+'ddgl/';
 var defaultZxztId='${requestScope.zxztId}';
 $(function(){
 	initZXZTCBB();
@@ -52,7 +53,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/ddgl/ddtb/ddtb/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=ddglPath+"ddtb/ddtb/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -60,7 +61,7 @@ function initAddLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"订单填报-列表",
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -86,8 +87,8 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"sjzl",title:"实际重量",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/ddtb/ddtb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/ddtb/ddtb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	var str="<a href=\""+ddglPath+"ddtb/ddtb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"ddtb/ddtb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
