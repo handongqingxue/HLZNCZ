@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 $(function(){
 	zyztCBB=$("#zyzt").combobox({
 		valueField:"value",
@@ -25,7 +26,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/ckgl/ckgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jcxxPath+"ckgl/ckgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -46,7 +47,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"仓库管理-列表",
-		url:path+"main/jcxx/queryCangKuList",
+		url:jcxxPath+"queryCangKuList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -57,8 +58,8 @@ $(function(){
             {field:"wz",title:"位置",width:200},
             {field:"bz",title:"备注",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/ckgl/ckgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+jcxxPath+"ckgl/ckgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jcxxPath+"ckgl/ckgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -115,7 +116,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteCangKu",
+			$.post(jcxxPath + "deleteCangKu",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

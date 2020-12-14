@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 $(function(){
 	zyztCBB=$("#zyzt").combobox({
 		valueField:"value",
@@ -25,7 +26,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/dwgl/yss/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jcxxPath+"dwgl/yss/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -46,7 +47,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"运输商-列表",
-		url:path+"main/jcxx/queryYunShuShangList",
+		url:jcxxPath+"queryYunShuShangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -55,8 +56,8 @@ $(function(){
 			{field:"mc",title:"名称",width:200},
             {field:"bjsj",title:"编辑时间",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/yss/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/dwgl/yss/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+jcxxPath+"dwgl/yss/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jcxxPath+"dwgl/yss/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -113,7 +114,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteYuShuShang",
+			$.post(jcxxPath + "deleteYuShuShang",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

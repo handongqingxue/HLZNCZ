@@ -93,6 +93,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var edNum=0;
@@ -364,7 +365,7 @@ function initSelectSSDLTab(){
 	});
 	
 	selectSSDLTab=$("#select_ssdl_tab").datagrid({
-		url:path+"main/queryDuiLieList",
+		url:jcxxPath+"queryDuiLieList",
 		toolbar:"#select_ssdl_toolbar",
 		width:setFitWidthInParent("body","select_ssdl_tab"),
 		singleSelect:true,

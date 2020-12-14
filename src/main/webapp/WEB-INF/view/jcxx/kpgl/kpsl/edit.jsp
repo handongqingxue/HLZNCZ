@@ -22,6 +22,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var edNum=0;
@@ -122,7 +123,7 @@ function editKaPianShenLing(){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/editKaPianShenLing",
+		url:jcxxPath+"editKaPianShenLing",
 		dataType: "json",
 		data:formData,
 		cache: false,

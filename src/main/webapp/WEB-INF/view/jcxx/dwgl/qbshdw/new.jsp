@@ -92,6 +92,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -415,7 +416,7 @@ function initSelectSSDLTab(){
 	});
 	
 	selectSSDLTab=$("#select_ssdl_tab").datagrid({
-		url:path+"main/queryDuiLieList",
+		url:jcxxPath+"queryDuiLieList",
 		toolbar:"#select_ssdl_toolbar",
 		width:setFitWidthInParent("body","select_ssdl_tab"),
 		singleSelect:true,
@@ -572,7 +573,7 @@ function newShouHuoDanWei(){
 	if(total>0)
 		dlId=ssdlTabData.rows[0].id;
 	
-	$.post(path+"main/newShouHuoDanWei",
+	$.post(jcxxPath+"newShouHuoDanWei",
 		{dwmc:dwmc,dlId:dlId},
 		function(data){
 			if(data.message=="ok"){

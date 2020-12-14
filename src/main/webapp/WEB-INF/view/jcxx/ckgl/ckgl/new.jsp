@@ -22,6 +22,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
@@ -105,7 +106,7 @@ function newCangKu(){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/newCangKu",
+		url:jcxxPath+"newCangKu",
 		dataType: "json",
 		data:formData,
 		cache: false,

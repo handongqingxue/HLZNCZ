@@ -92,6 +92,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -427,7 +428,7 @@ function initSelectSHDWTab(){
 	});
 	
 	selectSHDWTab=$("#select_shdw_tab").datagrid({
-		url:path+"main/queryShouHuoDanWeiList",
+		url:jcxxPath+"queryShouHuoDanWeiList",
 		toolbar:"#select_shdw_toolbar",
 		width:setFitWidthInParent("#select_shdw_div","select_shdw_tab"),
 		singleSelect:true,
@@ -561,7 +562,7 @@ function newDuiLie(){
 	if(total>0)
 		shdwId=shdwTabData.rows[0].id;
 	
-	$.post(path+"main/newDuiLie",
+	$.post(jcxxPath+"newDuiLie",
 		{mc:mc,dm:dm,jhyz:jhyz,jhxs:jhxs,zt:zt,shdwId:shdwId},
 		function(data){
 			if(data.message=="ok"){

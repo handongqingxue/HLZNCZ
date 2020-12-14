@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 $(function(){
 	
 	$("#search_but").linkbutton({
@@ -20,7 +21,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/kpgl/kpsl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jcxxPath+"kpgl/kpsl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -41,7 +42,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"卡片申领-列表",
-		url:path+"main/jcxx/queryKaPianShenLingList",
+		url:jcxxPath+"queryKaPianShenLingList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -52,8 +53,8 @@ $(function(){
             	return value?"成功":"失败";
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jcxx/kpgl/kpsl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jcxx/kpgl/kpsl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+jcxxPath+"kpgl/kpsl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jcxxPath+"kpgl/kpsl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -110,7 +111,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteKaPianShenLing",
+			$.post(jcxxPath + "deleteKaPianShenLing",
 				{ids:ids},
 				function(result){
 					if(result.status==1){
