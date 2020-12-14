@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlzncz.dao.PublicMapper">
 	<select id="selectParCaiDan" resultType="com.hlzncz.entity.CaiDan">
-		select id,mc,lj,jb,px,sjId from cai_dan where jb=1
+		select id,mc,lj,jb,px,sjId from cai_dan where jb=1 order by px
 	</select>
 	<select id="selectChildCaiDan" resultType="com.hlzncz.entity.CaiDan">
 		select id,mc,lj,jb,px,sjId from cai_dan where sjId=#{0} order by px

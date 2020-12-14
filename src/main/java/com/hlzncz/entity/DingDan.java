@@ -174,6 +174,14 @@ public class DingDan implements Serializable {
 		this.wlxxId = wlxxId;
 	}
 
+	public String getWlmc() {
+		return wlmc;
+	}
+
+	public void setWlmc(String wlmc) {
+		this.wlmc = wlmc;
+	}
+
 	public Integer getFhdwId() {
 		return fhdwId;
 	}
@@ -182,12 +190,28 @@ public class DingDan implements Serializable {
 		this.fhdwId = fhdwId;
 	}
 
+	public String getFhdwmc() {
+		return fhdwmc;
+	}
+
+	public void setFhdwmc(String fhdwmc) {
+		this.fhdwmc = fhdwmc;
+	}
+	
 	public Integer getShdwId() {
 		return shdwId;
 	}
 
 	public void setShdwId(Integer shdwId) {
 		this.shdwId = shdwId;
+	}
+
+	public String getShdwmc() {
+		return shdwmc;
+	}
+
+	public void setShdwmc(String shdwmc) {
+		this.shdwmc = shdwmc;
 	}
 
 	public Integer getCyclId() {
@@ -245,8 +269,11 @@ public class DingDan implements Serializable {
 	private Integer yssId;//运输商id
 	private String yssmc;
 	private Integer wlxxId;//物料信息id
+	private String wlmc;
 	private Integer fhdwId;//发货单位id
+	private String fhdwmc;
 	private Integer shdwId;//收货单位id
+	private String shdwmc;
 	private Integer cyclId;//承运车辆id
 	private String cph;
 	private Integer cysjId;//承运司机id

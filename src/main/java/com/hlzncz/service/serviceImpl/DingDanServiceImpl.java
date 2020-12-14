@@ -139,4 +139,18 @@ public class DingDanServiceImpl implements DingDanService {
 		return count;
 	}
 
+	@Override
+	public int queryBqglWgjcYbwjForInt(String ddh, String cph, String jhysrq, String wlmc, String fhdwmc,
+			String shdwmc) {
+		// TODO Auto-generated method stub
+		return dingDanDao.queryBqglWgjcYbwjForInt(ddh, cph, jhysrq, wlmc, fhdwmc, shdwmc);
+	}
+
+	@Override
+	public List<DingDan> queryBqglWgjcYbwjList(String ddh, String cph, String jhysrq, String wlmc, String fhdwmc,
+			String shdwmc, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return dingDanDao.queryBqglWgjcYbwjList(ddh, cph, jhysrq, wlmc, fhdwmc,shdwmc,(page-1)*rows, rows, sort, order);
+	}
+
 }

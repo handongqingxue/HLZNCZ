@@ -40,4 +40,10 @@ public interface DingDanService {
 	public DingDan selectDingDanByWybm(String wybm);
 
 	public int updateDingDanZT(Integer ddztId, String wybms);
+
+	public int queryBqglWgjcYbwjForInt(String ddh, String cph, String jhysrq, String wlmc, String fhdwmc,
+			String shdwmc);
+
+	public List<DingDan> queryBqglWgjcYbwjList(String ddh, String cph, String jhysrq, String wlmc, String fhdwmc,
+			String shdwmc, int page, int rows, String sort, String order);
 }

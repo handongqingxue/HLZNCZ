@@ -38,4 +38,10 @@ public interface DingDanMapper {
 			 @Param("jhysrq") String jhysrq, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
+
+	public int queryBqglWgjcYbwjForInt(@Param("ddh") String ddh, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wzmc, @Param("fhdwmc") String fhdwmc,
+			@Param("shdwmc") String shdwmc);
+
+	public List<DingDan> queryBqglWgjcYbwjList(@Param("ddh") String ddh, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wlmc, @Param("fhdwmc") String fhdwmc,
+			@Param("shdwmc") String shdwmc, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 }
