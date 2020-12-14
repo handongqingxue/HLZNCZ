@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
 var defaultShzt='${requestScope.shzt}';
 $(function(){
 	initCLLXCBB();
@@ -67,7 +68,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jcxx/clgl/clcx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jcxxPath+"clgl/clcx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -75,7 +76,7 @@ function initAddLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"车辆查询-列表",
-		url:path+"main/jcxx/queryCheLiangList",
+		url:jcxxPath+"queryCheLiangList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

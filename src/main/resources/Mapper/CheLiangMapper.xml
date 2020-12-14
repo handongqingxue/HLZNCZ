@@ -202,15 +202,17 @@
 		<if test="cllx!=''&amp;cllx!=null">
 			and cllx=#{cllx}
 		</if> 
-		<if test="sfzy!=null">
+		<if test="sfzy!=''&amp;sfzy!=null">
 			and sfzy=#{sfzy}
 		</if> 
 		<if test="pfjd!=''&amp;pfjd!=null">
 			and pfjd=#{pfjd}
 		</if> 
-		<if test="shzt!=''&amp;shzt!=null">
-			and shzt in(#{shzt})
-		</if> 
+		<if test="shztList!=null">
+			<foreach collection="shztList" item="shzt" open=" and shzt in(" separator="," close=")">
+			#{shzt}
+			</foreach>
+		</if>
 		<if test="bz!=''&amp;bz!=null">
 			and bz like CONCAT('%',#{bz},'%')
 		</if> 
@@ -223,15 +225,17 @@
 		<if test="cllx!=''&amp;cllx!=null">
 			and cllx=#{cllx}
 		</if>  
-		<if test="sfzy!=null">
+		<if test="sfzy!=''&amp;sfzy!=null">
 			and sfzy=#{sfzy}
 		</if> 
 		<if test="pfjd!=''&amp;pfjd!=null">
 			and pfjd=#{pfjd}
 		</if> 
-		<if test="shzt!=''&amp;shzt!=null">
-			and shzt in(#{shzt})
-		</if> 
+		<if test="shztList!=null">
+			<foreach collection="shztList" item="shzt" open=" and shzt in(" separator="," close=")">
+			#{shzt}
+			</foreach>
+		</if>
 		<if test="bz!=''&amp;bz!=null">
 			and bz like CONCAT('%',#{bz},'%')
 		</if> 

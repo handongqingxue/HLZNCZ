@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.hlzncz.dao.*;
 import com.hlzncz.entity.*;
@@ -49,13 +50,19 @@ public class CheLiangServiceImpl implements CheLiangService {
 	@Override
 	public int queryCheLiangForInt(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz) {
 		// TODO Auto-generated method stub
-		return cheLiangDao.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shzt,bz);
+		List<String> shztList = null;
+		if(!StringUtils.isEmpty(shzt))
+			shztList = Arrays.asList(shzt.split(","));
+		return cheLiangDao.queryCheLiangForInt(cph,cllx,sfzy,pfjd,shztList,bz);
 	}
 
 	@Override
 	public List<CheLiang> queryCheLiangList(String cph, Integer cllx, Boolean sfzy, Integer pfjd, String shzt, String bz, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return cheLiangDao.queryCheLiangList(cph, cllx, sfzy, pfjd, shzt, bz, (page-1)*rows, rows, sort, order);
+		List<String> shztList = null;
+		if(!StringUtils.isEmpty(shzt))
+			shztList = Arrays.asList(shzt.split(","));
+		return cheLiangDao.queryCheLiangList(cph, cllx, sfzy, pfjd, shztList, bz, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

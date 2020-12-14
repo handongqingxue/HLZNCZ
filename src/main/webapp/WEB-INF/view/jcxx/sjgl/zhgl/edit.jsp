@@ -50,6 +50,8 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
+var xtglPath=path+'xtgl/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
@@ -356,7 +358,7 @@ function initSelectGLYHTab(){
 	});
 	
 	selectGLYHTab=$("#select_glyh_tab").datagrid({
-		url:path+"main/queryYongHuList",
+		url:xtglPath+"queryYongHuList",
 		toolbar:"#select_glyh_toolbar",
 		width:setFitWidthInParent("body","select_glyh_tab"),
 		singleSelect:true,
@@ -474,7 +476,7 @@ function editSiJi(){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:path+"main/editSiJi",
+		url:jcxxPath+"editSiJi",
 		dataType: "json",
 		data:formData,
 		cache: false,

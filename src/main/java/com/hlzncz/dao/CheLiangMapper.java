@@ -16,9 +16,9 @@ public interface CheLiangMapper {
 
 	public int editCheLiang(CheLiang cl);
 
-	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shzt") String shzt, @Param("bz") String bz);
+	public int queryCheLiangForInt(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shztList") List<String> shztList, @Param("bz") String bz);
 
-	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shzt") String shzt, @Param("bz") String bz, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+	public List<CheLiang> queryCheLiangList(@Param("cph") String cph, @Param("cllx") Integer cllx, @Param("sfzy") Boolean sfzy, @Param("pfjd") Integer pfjd, @Param("shztList") List<String> shztList, @Param("bz") String bz, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public CheLiang selectCheLiangById(String id);
 }
