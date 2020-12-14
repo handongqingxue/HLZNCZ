@@ -47,7 +47,7 @@ function initTHLB(){
 
 function initTab1(){
 	tab1=$("#tab1").datagrid({
-		title:"信息审核-列表",
+		title:"司机审核-列表",
 		url:jcxxPath+"querySiJiList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
@@ -61,8 +61,8 @@ function initTab1(){
 			{field:"zgzyxqz",title:"资格证有效期至",width:200},
 			{field:"jzyxqz",title:"驾证有效期至",width:200},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\""+jcxxPath+"sjgl/xxsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\""+jcxxPath+"sjgl/xxsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+jcxxPath+"sjgl/sjsh/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jcxxPath+"sjgl/sjsh/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

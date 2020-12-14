@@ -90,7 +90,7 @@ function setFitWidthInParent(parent,self){
 <body>
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">信息审核-详情</div>
+	<div class="page_location_div">司机审核-详情</div>
 	
 	<div id="detail_div">
 		<input type="hidden" id="id" name="id" value="${requestScope.sj.id }"/>

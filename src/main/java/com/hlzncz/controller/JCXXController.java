@@ -306,36 +306,44 @@ public class JCXXController {
 		return MODULE_NAME+"/sjgl/tjsj/detail";
 	}
 
-	@RequestMapping(value="/sjgl/xxsh/edit")
-	public String goJcxxSjglXxshEdit(HttpServletRequest request) {
+	@RequestMapping(value="/sjgl/sjsh/edit")
+	public String goJcxxSjglSjshEdit(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return MODULE_NAME+"/sjgl/xxsh/edit";
+		return MODULE_NAME+"/sjgl/sjsh/edit";
 	}
 
-	@RequestMapping(value="/sjgl/xxsh/list")
-	public String goJcxxSjglXxshList(HttpServletRequest request) {
+	@RequestMapping(value="/sjgl/sjsh/list")
+	public String goJcxxSjglSjshList(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 
 		request.setAttribute("shzt", SiJi.DAI_SHEN_HE);
 		
-		return MODULE_NAME+"/sjgl/xxsh/list";
+		return MODULE_NAME+"/sjgl/sjsh/list";
 	}
 
-	@RequestMapping(value="/sjgl/xxsh/detail")
-	public String goJcxxSjglXxshDetail(HttpServletRequest request) {
+	@RequestMapping(value="/sjgl/sjsh/detail")
+	public String goJcxxSjglSjshDetail(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		String id = request.getParameter("id");
 		SiJi sj=siJiService.selectSiJiById(id);
 		request.setAttribute("sj", sj);
 		
-		return MODULE_NAME+"/sjgl/xxsh/detail";
+		return MODULE_NAME+"/sjgl/sjsh/detail";
+	}
+
+	@RequestMapping(value="/sjgl/xxcx/list")
+	public String goJcxxSjglXxcxList(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		
+		return MODULE_NAME+"/sjgl/xxcx/list";
 	}
 
 	@RequestMapping(value="/sjgl/zhgl/new")
