@@ -10,6 +10,8 @@ public interface ShouHuoDanWeiService {
 	
 	public int deleteShouHuoDanWei(String ids);
 
+	public int editShouHuoDanWei(ShouHuoDanWei shdw);
+
 	public int queryShouHuoDanWeiForInt(String dwmc,Boolean ywdl);
 
 	public List<ShouHuoDanWei> queryShouHuoDanWeiList(String dwmc, Boolean ywdl, int page, int rows, String sort, String order);

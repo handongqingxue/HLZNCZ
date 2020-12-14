@@ -1,5 +1,6 @@
 package com.hlzncz.service.serviceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,15 @@ public class DuiLieServiceImpl implements DuiLieService {
 	public int newDuiLie(DuiLie dl) {
 		// TODO Auto-generated method stub
 		return duiLieDao.newDuiLie(dl);
+	}
+
+	@Override
+	public int deleteDuiLie(String ids) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count = duiLieDao.deleteDuiLie(idList);
+		return count;
 	}
 
 	@Override

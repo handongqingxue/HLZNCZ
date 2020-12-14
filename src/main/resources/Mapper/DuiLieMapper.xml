@@ -47,6 +47,12 @@
 			</if>
 		</trim>
 	</insert>
+	<delete id="deleteDuiLie">
+		delete from dui_lie where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 	<update id="editDuiLie" parameterType="com.hlzncz.entity.DuiLie">
 		update dui_lie set 
 		<trim suffixOverrides=",">

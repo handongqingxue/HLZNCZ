@@ -30,6 +30,12 @@ public class ShouHuoDanWeiServiceImpl implements ShouHuoDanWeiService {
 		count = shouHuoDanWeiDao.deleteShouHuoDanWei(idList);
 		return count;
 	}
+	
+	@Override
+	public int editShouHuoDanWei(ShouHuoDanWei shdw) {
+		// TODO Auto-generated method stub
+		return shouHuoDanWeiDao.editShouHuoDanWei(shdw);
+	}
 
 	@Override
 	public int queryShouHuoDanWeiForInt(String dwmc,Boolean ywdl) {

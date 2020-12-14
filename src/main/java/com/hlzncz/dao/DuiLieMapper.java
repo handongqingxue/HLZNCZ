@@ -10,6 +10,8 @@ public interface DuiLieMapper {
 
 	public int newDuiLie(DuiLie dl);
 
+	public int deleteDuiLie(List<String> idList);
+
 	public int editDuiLie(DuiLie dl);
 
 	public int queryDuiLieForInt(@Param("mc") String mc, @Param("dm") String dm, @Param("zt") Integer zt);

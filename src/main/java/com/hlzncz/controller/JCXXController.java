@@ -1369,6 +1369,24 @@ public class JCXXController {
 		}
 		return json;
 	}
+	
+	@RequestMapping(value="/editShouHuoDanWei")
+	@ResponseBody
+	public Map<String, Object> editShouHuoDanWei(ShouHuoDanWei shdw) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=shouHuoDanWeiService.editShouHuoDanWei(shdw);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "修改收货单位成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "修改收货单位失败！");
+		}
+		return jsonMap;
+	}
 
 	@RequestMapping(value="/queryShouHuoDanWeiList")
 	@ResponseBody
@@ -1711,6 +1729,26 @@ public class JCXXController {
 			jsonMap.put("info", "创建队列失败！");
 		}
 		return jsonMap;
+	}
+
+	@RequestMapping(value="/deleteDuiLie",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteDuiLie(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=duiLieService.deleteDuiLie(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除队列失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除队列成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 
 	@RequestMapping(value="/editDuiLie")

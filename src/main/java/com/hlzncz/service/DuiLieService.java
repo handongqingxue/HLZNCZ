@@ -9,6 +9,8 @@ public interface DuiLieService {
 
 	public int newDuiLie(DuiLie dl);
 
+	public int deleteDuiLie(String ids);
+
 	public int editDuiLie(DuiLie dl);
 
 	public int queryDuiLieForInt(String mc, String dm, Integer zt);
