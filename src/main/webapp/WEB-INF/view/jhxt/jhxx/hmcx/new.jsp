@@ -277,6 +277,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jhxtPath=path+'jhxt/';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;

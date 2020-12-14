@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jhxtPath=path+'jhxt/';
 var defaultZxztId='${requestScope.zxztId}';
 $(function(){
 	initZTCBB();
@@ -65,7 +66,7 @@ function initAddLB(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jhxt/jhxx/hmcx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jhxtPath+"jhxx/hmcx/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 }
@@ -101,7 +102,7 @@ function initZXGHLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"号码查询-列表",
-		url:path+"main/jhxt/queryHaoMaList",
+		url:jhxtPath+"queryHaoMaList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

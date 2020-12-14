@@ -7,6 +7,8 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var jcxxPath=path+'jcxx/';
+var jhxtPath=path+'jhxt/';
 $(function(){
 	ztCBB=$("#zt").combobox({
 		valueField:"value",
@@ -27,7 +29,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/jhxt/pzgl/dlgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=jhxtPath+"pzgl/dlgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -48,7 +50,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"队列管理-列表",
-		url:path+"main/jcxx/queryDuiLieList",
+		url:jcxxPath+"queryDuiLieList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -86,8 +88,8 @@ $(function(){
 				return str;
 			}},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/jhxt/pzgl/dlgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/jhxt/pzgl/dlgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
+            	var str="<a href=\""+jhxtPath+"pzgl/dlgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jhxtPath+"pzgl/dlgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
