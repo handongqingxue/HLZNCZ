@@ -71,6 +71,39 @@
 		#{id}
 		</foreach>
 	</delete>
+	<update id="editYongHu" parameterType="com.hlzncz.entity.YongHu">
+		update yong_hu set 
+		<trim suffixOverrides=",">
+			<if test="yhm!=null">
+				yhm=#{yhm},
+			</if>
+			<if test="nc!=null">
+				nc=#{nc},
+			</if>
+			<if test="tx!=null">
+				tx=#{tx},
+			</if>
+			<if test="sm!=null">
+				sm=#{sm},
+			</if>
+			<if test="zt!=null">
+				zt=#{zt},
+			</if>
+			<if test="ysmm!=null">
+				ysmm=#{ysmm},
+			</if>
+			<if test="js!=null">
+				js=#{js},
+			</if>
+			<if test="zjjsId!=null">
+				zjjsId=#{zjjsId},
+			</if>
+			<if test="role!=null">
+				role=#{role},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
 	<select id="queryYongHuForInt" resultType="java.lang.Integer">
 		select count(*) from yong_hu where 1=1
 		<if test="yhm!=''&amp;yhm!=null">

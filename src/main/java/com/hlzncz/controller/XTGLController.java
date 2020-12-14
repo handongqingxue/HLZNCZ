@@ -58,6 +58,17 @@ public class XTGLController {
 		return MODULE_NAME+"/yhqx/yhgl/list";
 	}
 
+	@RequestMapping(value="/yhqx/yhgl/detail")
+	public String goXtglYhqxYhglDetail(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		String id = request.getParameter("id");
+		YongHu yh=yongHuService.selectYongHuById(id);
+		request.setAttribute("yh", yh);
+		
+		return MODULE_NAME+"/yhqx/yhgl/detail";
+	}
+
 	@RequestMapping(value="/newYongHu")
 	@ResponseBody
 	public Map<String, Object> newYongHu(YongHu yh,
@@ -121,6 +132,51 @@ public class XTGLController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
+	}
+
+	@RequestMapping(value="/editYongHu")
+	@ResponseBody
+	public Map<String, Object> editYongHu(YongHu yh,
+			@RequestParam(value="tx_file",required=false) MultipartFile tx_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			MultipartFile[] fileArr=new MultipartFile[3];
+			fileArr[0]=tx_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								yh.setTx(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=yongHuService.editYongHu(yh);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "修改用户信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "修改用户信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
 	}
 
 	@RequestMapping(value="/queryYongHuList")

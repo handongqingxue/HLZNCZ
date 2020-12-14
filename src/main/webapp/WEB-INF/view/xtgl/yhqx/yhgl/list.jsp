@@ -136,7 +136,7 @@ function deleteByIds() {
 			ids=ids.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/deleteYongHu",
+			$.post(xtglPath + "deleteYongHu",
 				{ids:ids},
 				function(result){
 					if(result.status==1){

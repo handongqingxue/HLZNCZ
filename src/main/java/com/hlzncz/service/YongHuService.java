@@ -10,6 +10,8 @@ public interface YongHuService {
 
 	public int deleteYongHu(String ids);
 
+	public int editYongHu(YongHu yh);
+
 	public int queryYongHuForInt(String yhm, Integer zt);
 
 	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order);

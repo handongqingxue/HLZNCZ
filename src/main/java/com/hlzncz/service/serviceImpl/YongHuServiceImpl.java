@@ -32,6 +32,12 @@ public class YongHuServiceImpl implements YongHuService {
 	}
 
 	@Override
+	public int editYongHu(YongHu yh) {
+		// TODO Auto-generated method stub
+		return yongHuDao.editYongHu(yh);
+	}
+
+	@Override
 	public int queryYongHuForInt(String yhm, Integer zt) {
 		// TODO Auto-generated method stub
 		return yongHuDao.queryYongHuForInt(yhm,zt);
