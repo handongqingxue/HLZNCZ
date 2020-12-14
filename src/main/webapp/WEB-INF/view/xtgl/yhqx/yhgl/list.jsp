@@ -7,6 +7,7 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var xtglPath=path+'xtgl/';
 $(function(){
 	ztCBB=$("#zt").combobox({
 		valueField:"value",
@@ -27,7 +28,7 @@ $(function(){
 	$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=path+"main/xtgl/yhqx/yhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
+			location.href=xtglPath+"yhqx/yhgl/new?fnid="+'${param.fnid}'+"&snid="+'${param.snid}';
 		}
 	});
 	
@@ -48,7 +49,7 @@ $(function(){
 
 	tab1=$("#tab1").datagrid({
 		title:"用户管理-列表",
-		url:path+"main/queryYongHuList",
+		url:xtglPath+"queryYongHuList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
