@@ -32,7 +32,7 @@ function initYWCZXLB(){
 	$("#ywczx_but").linkbutton({
 		iconCls:"icon-ok",
 		onClick:function(){
-			
+			yiWanChengZhuangXie();
 		}
 	});
 }
@@ -115,10 +115,10 @@ function reSizeCol(){
 	cols.css("width",width/colCount+"px");
 }
 
-function tongGuoByWybms() {
+function yiWanChengZhuangXie() {
 	var rows=tab1.datagrid("getSelections");
 	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要通过的信息！","warning");
+		$.messager.alert("提示","请选择要装卸的信息！","warning");
 		return false;
 	}
 	
@@ -131,7 +131,7 @@ function tongGuoByWybms() {
 			wybms=wybms.substring(1);
 			
 			$.ajaxSetup({async:false});
-			$.post(path + "main/tongGuoDingDanShenHe",
+			$.post(zjzxhPath + "yiWanChengZhuangXie",
 				{wybms:wybms},
 				function(result){
 					if(result.status==1){

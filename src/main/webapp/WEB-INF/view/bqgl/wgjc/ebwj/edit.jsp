@@ -113,7 +113,7 @@ function initEditDialog(){
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
-           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
+           {text:"已完成装卸",id:"ok_but",iconCls:"icon-save",handler:function(){
         	   	checkEdit();
            }}
         ]
