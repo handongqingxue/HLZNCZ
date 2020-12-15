@@ -39,9 +39,9 @@ public interface DingDanMapper {
 
 	public int updateDingDanZT(@Param("ddztId") Integer ddztId, @Param("wybmList") List<String> wybmList);
 
-	public int queryBqglWgjcYbwjForInt(@Param("ddh") String ddh, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wzmc, @Param("fhdwmc") String fhdwmc,
+	public int queryBqglWgjcYbwjForInt(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wzmc, @Param("fhdwmc") String fhdwmc,
 			@Param("shdwmc") String shdwmc);
 
-	public List<DingDan> queryBqglWgjcYbwjList(@Param("ddh") String ddh, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wlmc, @Param("fhdwmc") String fhdwmc,
+	public List<DingDan> queryBqglWgjcYbwjList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wlmc, @Param("fhdwmc") String fhdwmc,
 			@Param("shdwmc") String shdwmc, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 }

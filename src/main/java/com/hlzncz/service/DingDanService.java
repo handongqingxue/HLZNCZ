@@ -41,9 +41,9 @@ public interface DingDanService {
 
 	public int updateDingDanZT(Integer ddztId, String wybms);
 
-	public int queryBqglWgjcYbwjForInt(String ddh, String cph, String jhysrq, String wlmc, String fhdwmc,
+	public int queryBqglWgjcYbwjForInt(String ddh, String ddztId, String cph, String jhysrq, String wlmc, String fhdwmc,
 			String shdwmc);
 
-	public List<DingDan> queryBqglWgjcYbwjList(String ddh, String cph, String jhysrq, String wlmc, String fhdwmc,
+	public List<DingDan> queryBqglWgjcYbwjList(String ddh, String ddztId, String cph, String jhysrq, String wlmc, String fhdwmc,
 			String shdwmc, int page, int rows, String sort, String order);
 }

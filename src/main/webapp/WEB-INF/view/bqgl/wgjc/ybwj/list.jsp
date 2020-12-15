@@ -7,11 +7,13 @@
 <%@include file="../../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var zjzxhPath=path+'zjzxh/';
 var bqglPath=path+'bqgl/';
+var defaultDdztId='${requestScope.ddztId}';
 $(function(){
 	initJHYSRQDTB();
 	initSearchLB();
-	initZjtgLB();
+	initZJTGLB();
 	initTab1();
 });
 
@@ -36,11 +38,11 @@ function initSearchLB(){
 	});
 }
 
-function initZjtgLB(){
+function initZJTGLB(){
 	$("#zjtg_but").linkbutton({
 		iconCls:"icon-ok",
 		onClick:function(){
-			alert("未开发");
+			tongGuoByWybms();
 		}
 	});
 }
@@ -53,6 +55,7 @@ function initTab1(){
 		width:setFitWidthInParent("body"),
 		pagination:true,
 		pageSize:10,
+		queryParams:{ddztId:defaultDdztId},
 		columns:[[
 			{field:"ddh",title:"订单号",width:200},
 			{field:"wlmc",title:"物资名称",width:200},
@@ -76,7 +79,7 @@ function initTab1(){
             {field:"ddztmc",title:"订单状态",width:200},
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\""+bqglPath+"zhgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>";
+            	var str="<a href=\""+bqglPath+"wgjc/ybwj/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>";
             	return str;
             }}
 	    ]],
@@ -115,6 +118,39 @@ function reSizeCol(){
 	cols=$(".datagrid-btable tr").eq(0).find("td");
 	colCount=cols.length;
 	cols.css("width",width/colCount+"px");
+}
+
+function tongGuoByWybms() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要通过的信息！","warning");
+		return false;
+	}
+	
+	$.messager.confirm("提示","确定要通过吗？",function(r){
+		if(r){
+			var wybms = "";
+			for (var i = 0; i < rows.length; i++) {
+				wybms += "," + rows[i].wybm;
+			}
+			wybms=wybms.substring(1);
+			
+			$.ajaxSetup({async:false});
+			$.post(zjzxhPath + "tongGuoZhiJian",
+				{wybms:wybms},
+				function(result){
+					if(result.status==1){
+						alert(result.msg);
+						location.href = location.href;
+					}
+					else{
+						alert(result.msg);
+					}
+				}
+			,"json");
+			
+		}
+	});
 }
 
 function setFitWidthInParent(o){
