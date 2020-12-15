@@ -23,6 +23,7 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var ddglPath=path+'ddgl/';
+var bqglPath=path+'bqgl/';
 var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
@@ -114,7 +115,7 @@ function initEditDialog(){
 		left:dialogLeft,
 		buttons:[
            {text:"已完成装卸",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   	checkEdit();
+        	   editErBangWaiJian();
            }}
         ]
 	});
@@ -700,6 +701,28 @@ function initCYSJTab(){
 	loadCYSJTabData(rows);
 }
 
+function editErBangWaiJian(){
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:bqglPath+"editErBangWaiJian",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -735,7 +758,7 @@ function initWindowMarginLeft(){
 
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
-		<input type="hidden" id="wybm" name="wybm" value="${requestScope.dd.wybm }"/>
+		<input type="hidden" id="ddbm" name="ddbm" value="${requestScope.dd.wybm }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">

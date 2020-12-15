@@ -9,12 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hlzncz.entity.*;
 import com.hlzncz.service.*;
+import com.hlzncz.util.FileUploadUtils;
 import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/"+BQGLController.MODULE_NAME)
@@ -162,6 +167,51 @@ public class BQGLController {
 			e.printStackTrace();
 		}
 		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editErBangWaiJian")
+	@ResponseBody
+	public Map<String, Object> editErBangWaiJian(BangDan bd,
+			@RequestParam(value="dfbdzp_file",required=false) MultipartFile dfbdzp_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=dfbdzp_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								bd.setDfbdzp(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=bangDanService.editErBangWaiJian(bd);
+			count=dingDanService.updateDingDanZT(DingDan.DAI_ER_JIAN_SHANG_BANG,bd.getDdbm());
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑二磅外检成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑二磅外检失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return jsonMap;
 	}
 }

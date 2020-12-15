@@ -6,4 +6,6 @@ public interface BangDanService {
 
 	BangDan selectBangDanByDdbm(String wybm);
 
+	int editErBangWaiJian(BangDan bd);
+
 }

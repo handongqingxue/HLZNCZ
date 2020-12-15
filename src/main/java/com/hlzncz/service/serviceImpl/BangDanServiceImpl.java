@@ -19,4 +19,13 @@ public class BangDanServiceImpl implements BangDanService {
 		return bangDanDao.selectBangDanByDdbm(wybm);
 	}
 
+	@Override
+	public int editErBangWaiJian(BangDan bd) {
+		// TODO Auto-generated method stub
+		if(bangDanDao.selectBangDanByDdbm(bd.getDdbm())==null)
+			return bangDanDao.insertErBangWaiJian(bd);
+		else
+			return bangDanDao.editErBangWaiJian(bd);
+	}
+
 }

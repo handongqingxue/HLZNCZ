@@ -3,6 +3,107 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlzncz.dao.BangDanMapper">
+	<insert id="insertErBangWaiJian">
+		insert into bang_dan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bs!=null">
+				bs,
+			</if>
+			<if test="ks!=null">
+				ks,
+			</if>
+			<if test="jszl!=null">
+				jszl,
+			</if>
+			<if test="dfgbjz!=null">
+				dfgbjz,
+			</if>
+			<if test="dfgbpz!=null">
+				dfgbpz,
+			</if>
+			<if test="dfgbmz!=null">
+				dfgbmz,
+			</if>
+			<if test="dfbdzp!=null">
+				dfbdzp,
+			</if>
+			<if test="dfgbsj!=null">
+				dfgbsj,
+			</if>
+			<if test="bz!=null">
+				bz,
+			</if>
+			<if test="ddbm!=null">
+				ddbm,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bs!=null">
+				#{bs},
+			</if>
+			<if test="ks!=null">
+				#{ks},
+			</if>
+			<if test="jszl!=null">
+				#{jszl},
+			</if>
+			<if test="dfgbjz!=null">
+				#{dfgbjz},
+			</if>
+			<if test="dfgbpz!=null">
+				#{dfgbpz},
+			</if>
+			<if test="dfgbmz!=null">
+				#{dfgbmz},
+			</if>
+			<if test="dfbdzp!=null">
+				#{dfbdzp},
+			</if>
+			<if test="dfgbsj!=null">
+				#{dfgbsj},
+			</if>
+			<if test="bz!=null">
+				#{bz},
+			</if>
+			<if test="ddbm!=null">
+				#{ddbm},
+			</if>
+		</trim>
+	</insert>
+	<update id="editErBangWaiJian" parameterType="com.hlzncz.entity.BangDan">
+		update bang_dan set 
+		<trim suffixOverrides=",">
+			<if test="bs!=null">
+				bs=#{bs},
+			</if>
+			<if test="ks!=null">
+				ks=#{ks},
+			</if>
+			<if test="jszl!=null">
+				jszl=#{jszl},
+			</if>
+			<if test="dfgbjz!=null">
+				dfgbjz=#{dfgbjz},
+			</if>
+			<if test="dfgbpz!=null">
+				dfgbpz=#{dfgbpz},
+			</if>
+			<if test="dfgbmz!=null">
+				dfgbmz=#{dfgbmz},
+			</if>
+			<if test="dfbdzp!=null">
+				dfbdzp=#{dfbdzp},
+			</if>
+			<if test="dfgbsj!=null">
+				dfgbsj=#{dfgbsj},
+			</if>
+			<if test="bz!=null">
+				bz=#{bz},
+			</if>
+		</trim>
+		 where ddbm=#{ddbm}
+	</update>
 	<select id="selectBangDanByDdbm" resultType="com.hlzncz.entity.BangDan">
 		select * from bang_dan where ddbm=#{0}
 	</select>

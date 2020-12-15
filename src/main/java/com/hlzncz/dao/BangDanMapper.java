@@ -6,4 +6,8 @@ public interface BangDanMapper {
 
 	BangDan selectBangDanByDdbm(String wybm);
 
+	int editErBangWaiJian(BangDan bd);
+
+	int insertErBangWaiJian(BangDan bd);
+
 }
