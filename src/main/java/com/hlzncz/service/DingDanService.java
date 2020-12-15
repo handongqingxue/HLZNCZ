@@ -46,4 +46,9 @@ public interface DingDanService {
 
 	public List<DingDan> queryBqglWgjcYbwjList(String ddh, String ddztId, String cph, String jhysrq, String wlmc, String fhdwmc,
 			String shdwmc, int page, int rows, String sort, String order);
+
+	public int queryBqglWgjcEbwjForInt(String ddh, String ddztId, String cph);
+
+	public List<DingDan> queryBqglWgjcEbwjList(String ddh, String ddztId, String cph, int page, int rows, String sort,
+			String order);
 }

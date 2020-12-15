@@ -44,4 +44,9 @@ public interface DingDanMapper {
 
 	public List<DingDan> queryBqglWgjcYbwjList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jhysrq") String jhysrq, @Param("wlmc") String wlmc, @Param("fhdwmc") String fhdwmc,
 			@Param("shdwmc") String shdwmc, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+
+	public int queryBqglWgjcEbwjForInt(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph);
+
+	public List<DingDan> queryBqglWgjcEbwjList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort,
+			String order);
 }

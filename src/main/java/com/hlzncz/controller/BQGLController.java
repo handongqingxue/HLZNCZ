@@ -34,10 +34,12 @@ public class BQGLController {
 	private CheLiangService cheLiangService;
 	@Autowired
 	private SiJiService siJiService;
+	@Autowired
+	private BangDanService bangDanService;
 	public static final String MODULE_NAME="bqgl";
 
 	@RequestMapping(value="/wgjc/ybwj/list")
-	public String goWzlxList(HttpServletRequest request) {
+	public String goBqglWgjcYbwjList(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		
@@ -47,13 +49,16 @@ public class BQGLController {
 	}
 
 	@RequestMapping(value="/wgjc/ybwj/detail")
-	public String goDdglZhglZhglDetail(HttpServletRequest request) {
+	public String goBqglWgjcYbwjDetail(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		String wybm = request.getParameter("wybm");
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
 
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
+		
 		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
 		request.setAttribute("yss", yss);
 
@@ -74,6 +79,16 @@ public class BQGLController {
 		
 		return MODULE_NAME+"/wgjc/ybwj/detail";
 	}
+
+	@RequestMapping(value="/wgjc/ebwj/list")
+	public String goBqglWgjcEbwjList(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		
+		request.setAttribute("ddztId", DingDan.DAI_ZHUANG_XIE_HUO);
+		
+		return MODULE_NAME+"/wgjc/ebwj/list";
+	}
 	
 	@RequestMapping(value="/queryBqglWgjcYbwjList")
 	@ResponseBody
@@ -84,10 +99,30 @@ public class BQGLController {
 		
 		try {
 			int count = dingDanService.queryBqglWgjcYbwjForInt(ddh,ddztId,cph,jhysrq,wlmc,fhdwmc,shdwmc);
-			List<DingDan> zhglList=dingDanService.queryBqglWgjcYbwjList(ddh, ddztId,cph,jhysrq,wlmc,fhdwmc,shdwmc, page, rows, sort, order);
+			List<DingDan> ybwjList=dingDanService.queryBqglWgjcYbwjList(ddh, ddztId,cph,jhysrq,wlmc,fhdwmc,shdwmc, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
-			jsonMap.put("rows", zhglList);
+			jsonMap.put("rows", ybwjList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/queryBqglWgjcEbwjList")
+	@ResponseBody
+	public Map<String, Object> queryBqglWgjcEbwjList(String ddh,String ddztId,String cph,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = dingDanService.queryBqglWgjcEbwjForInt(ddh,ddztId,cph);
+			List<DingDan> ybwjList=dingDanService.queryBqglWgjcEbwjList(ddh, ddztId,cph, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", ybwjList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
