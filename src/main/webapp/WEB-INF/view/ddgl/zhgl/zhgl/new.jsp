@@ -593,7 +593,7 @@ function initNewDialog(){
 	$("#new_div").dialog({
 		title:"基本信息",
 		width:setFitWidthInParent("body","new_div"),
-		height:380,
+		height:580,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -608,10 +608,9 @@ function initNewDialog(){
 	$("#new_div table td").css("padding-left","50px");
 	$("#new_div table td").css("padding-right","20px");
 	$("#new_div table td").css("font-size","15px");
-	for(var i=0;i<4;i++){
-		$("#new_div table tr").eq(i).css("height","45px");
-	}
-	$("#new_div table tr").eq(4).css("height","90px");
+	$("#new_div table tr").each(function(i){
+		$(this).css("height",(i==4?90:45)+"px");
+	});
 
 	$(".panel.window").css("margin-top","20px");
 	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
@@ -633,6 +632,7 @@ function initNewDialog(){
 	initLXLXCBB();
 	initNewDivDDZTCBB();
 	initJHYSRQDB();
+	initNewDivDFGBSJDTB();
 }
 
 function initBJSJDB(){
@@ -653,6 +653,16 @@ function initJHYSRQDB(){
         }
     });
 	jhysrqDB.datebox('textbox').attr('placeholder', '请选择计划运输日期');
+}
+
+function initNewDivDFGBSJDTB(){
+	nddfgbsjDTB=$("#new_div #dfgbsj_dtb").datetimebox({
+        required:false,
+        onSelect:function(){
+        	$("#new_div #dfgbsj").val(nddfgbsjDTB.datetimebox("getValue"));
+        }
+	});
+	nddfgbsjDTB.datetimebox('textbox').attr('placeholder', '请选择对方过磅时间');
 }
 
 function initLXLXCBB(){
@@ -687,7 +697,7 @@ function initNewDivDDZTCBB(){
 }
 
 function initYSSDialog(){
-	dialogTop+=420;//230
+	dialogTop+=620;//230
 	yssDialog=$("#yss_div").dialog({
 		title:"运输商",
 		width:setFitWidthInParent("body","yss_div"),
@@ -3008,6 +3018,62 @@ function initWindowMarginLeft(){
 			</td>
 			<td>
 				<textarea id="bz" name="bz" rows="3" cols="15"></textarea>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				结算重量
+			</td>
+			<td>
+				<input type="number" id="jszl" name="jszl" placeholder="请输入结算重量" style="width: 180px;height:30px;"/>
+			</td>
+			<td align="right">
+				包数
+			</td>
+			<td>
+				<input type="text" id="bs" name="bs" placeholder="请输入包数" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				块数
+			</td>
+			<td>
+				<input type="text" id="ks" name="ks" placeholder="请输入块数" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right">
+				对方过磅净重
+			</td>
+			<td>
+				<input type="text" id="dfgbjz" name="dfgbjz" placeholder="无需输入" disabled="disabled" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方过磅皮重
+			</td>
+			<td>
+				<input type="number" id="dfgbpz" name="dfgbpz" placeholder="请输入对方过磅皮重" style="width: 180px;height:30px;"/>
+			</td>
+			<td align="right">
+				对方过磅毛重
+			</td>
+			<td>
+				<input type="number" id="dfgbmz" name="dfgbmz" placeholder="请输入对方过磅毛重" style="width: 180px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方榜单照片
+			</td>
+			<td>
+				<input type="file" name="dfbdzp_file"/>
+			</td>
+			<td align="right">
+				对方过磅时间
+			</td>
+			<td>
+				<input id="dfgbsj_dtb"/>
 			</td>
 		  </tr>
 		</table>

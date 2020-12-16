@@ -699,6 +699,16 @@ public class DDGLController {
 		return json;
 	}
 
+	/**
+	 * 综合管理-订单管理-订单审核查询（这个方法暂时不用了，调用订单综合查询的接口）
+	 * @param ddh
+	 * @param ddztId
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
 	@RequestMapping(value="/queryDingDanShenHeList")
 	@ResponseBody
 	public Map<String, Object> queryDingDanShenHeList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {

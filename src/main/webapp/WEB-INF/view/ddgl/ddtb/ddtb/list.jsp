@@ -44,7 +44,8 @@ function initSearchLB(){
 		onClick:function(){
 			var ddh=$("#toolbar #ddh").val();
 			var zxzt=zxztCBB.combobox("getValue");
-			tab1.datagrid("load",{ddh:ddh,ddztId:zxzt});
+			var cph=$("#toolbar #cph").val();
+			tab1.datagrid("load",{ddh:ddh,ddztId:zxzt,cph:cph});
 		}
 	});
 }
@@ -144,6 +145,8 @@ function setFitWidthInParent(o){
 			<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">执行状态：</span>
 			<input id="zxzt"/>
+			<span style="margin-left: 13px;">车牌号：</span>
+			<input type="text" id="cph" placeholder="请输入车牌号" style="width: 120px;height: 25px;"/>
 			<a id="search_but" style="margin-left: 13px;">查询</a>
 			<a id="add_but">添加</a>
 		</div>

@@ -47,7 +47,11 @@ function initSearchLB(){
 		onClick:function(){
 			var ddh=$("#toolbar #ddh").val();
 			var zxzt=zxztCBB.combobox("getValue");
-			tab1.datagrid("load",{ddh:ddh,ddztId:zxzt});
+			var wzmc=$("#toolbar #wzmc").val();
+			var yss=$("#toolbar #yss").val();
+			var fhdwmc=$("#toolbar #fhdwmc").val();
+			var shdwmc=$("#toolbar #shdwmc").val();
+			tab1.datagrid("load",{ddh:ddh,ddztId:zxzt,wzmc:wzmc,yss:yss,fhdwmc:fhdwmc,shdwmc:shdwmc});
 		}
 	});
 }
@@ -92,7 +96,8 @@ function initTuiHuiLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"订单审核-列表",
-		url:ddglPath+"queryDingDanShenHeList",
+		url:ddglPath+"queryDDGLZHGLList",
+		//url:ddglPath+"queryDingDanShenHeList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -100,6 +105,11 @@ function initTab1(){
 		queryParams:{ddztId:defaultZxztId},
 		columns:[[
 			{field:"ddh",title:"订单号",width:200},
+			{field:"cph",title:"车牌号",width:200},
+			{field:"wlmc",title:"物资名称",width:200},
+			{field:"yssmc",title:"运输商",width:200},
+			{field:"fhdwmc",title:"发货单位",width:200},
+			{field:"shdwmc",title:"收货单位",width:200},
             {field:"lxlx",title:"流向类型",width:200,formatter:function(value,row){
             	var str;
             	switch (value) {
@@ -124,7 +134,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{ddh:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:6});
+				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:11});
 				data.total=0;
 			}
 			
@@ -235,16 +245,28 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:32px;">
-			<span style="margin-left: 13px;">订单号：</span>
-			<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
-			<span style="margin-left: 13px;">执行状态：</span>
-			<input id="zxzt"/>
-			<a id="search_but" style="margin-left: 13px;">查询</a>
-			<a id="add_but">添加</a>
-			<a id="output_but">导出</a>
-			<a id="tongGuo_but">通过</a>
-			<a id="tuiHui_but">退回</a>
+		<div id="toolbar" style="height:64px;">
+			<div style="height:32px;">
+				<span style="margin-left: 13px;">订单号：</span>
+				<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">执行状态：</span>
+				<input id="zxzt"/>
+				<span style="margin-left: 13px;">物资名称：</span>
+				<input type="text" id="wzmc" placeholder="请输入物资名称" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">运输商：</span>
+				<input type="text" id="yss" placeholder="请输入运输商" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">发货单位：</span>
+				<input type="text" id="fhdwmc" placeholder="请输入发货单位" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">收货单位：</span>
+				<input type="text" id="shdwmc" placeholder="请输入收货单位" style="width: 120px;height: 25px;"/>
+			</div>
+			<div style="height:32px;">
+				<a id="search_but" style="margin-left: 13px;">查询</a>
+				<a id="add_but">添加</a>
+				<a id="output_but">导出</a>
+				<a id="tongGuo_but">通过</a>
+				<a id="tuiHui_but">退回</a>
+			</div>
 		</div>
 		<table id="tab1">
 		</table>

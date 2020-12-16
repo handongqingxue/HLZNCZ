@@ -550,7 +550,7 @@ function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","edit_div"),
-		height:325,
+		height:575,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -565,7 +565,9 @@ function initEditDialog(){
 	$("#edit_div table td").css("padding-left","50px");
 	$("#edit_div table td").css("padding-right","20px");
 	$("#edit_div table td").css("font-size","15px");
-	$("#edit_div table tr").css("height","45px");
+	$("#edit_div table tr").each(function(i){
+		$(this).css("height",(i==4?90:45)+"px");
+	});
 
 	$(".panel.window").eq(edNum).css("margin-top","20px");
 	$(".panel.window .panel-title").eq(edNum).css("color","#000");
@@ -587,6 +589,7 @@ function initEditDialog(){
 	initEditDivBJSJDTB();
 	initEditDivDDZTCBB();
 	initEditDivJHYSRQDB();
+	initEditDivDFGBSJDTB();
 }
 
 function initEditDivLXLXCBB(){
@@ -646,8 +649,18 @@ function initEditDivJHYSRQDB(){
 	edjhysrqDB.datebox("setValue",'${requestScope.dd.jhysrq }');
 }
 
+function initEditDivDFGBSJDTB(){
+	eddfgbsjDTB=$("#edit_div #dfgbsj_dtb").datetimebox({
+        required:false,
+        onSelect:function(){
+        	$("#edit_div #dfgbsj").val(eddfgbsjDTB.datetimebox("getValue"));
+        }
+	});
+	eddfgbsjDTB.datetimebox("setValue",'${requestScope.bd.dfgbsj }');
+}
+
 function initYSSDialog(){
-	dialogTop+=350;//360
+	dialogTop+=600;//360
 	yssDialog=$("#yss_div").dialog({
 		title:"运输商",
 		width:setFitWidthInParent("body","yss_div"),
@@ -2766,8 +2779,70 @@ function initWindowMarginLeft(){
 				<input type="hidden" id="jhysrq" name="jhysrq" value="${requestScope.dd.jhysrq }"/>
 			</td>
 			<td align="right">
+				备注
 			</td>
 			<td>
+				<textarea id="bz" name="bz" rows="3" cols="15" placeholder="请输入备注">${requestScope.dd.bz }</textarea>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				结算重量
+			</td>
+			<td>
+				<input type="number" id="jszl" name="jszl" value="${requestScope.bd.jszl }" placeholder="请输入结算重量" style="width: 180px;height:30px;"/>
+			</td>
+			<td align="right">
+				包数
+			</td>
+			<td>
+				<input type="text" id="bs" name="bs" value="${requestScope.bd.bs }" placeholder="请输入包数" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				块数
+			</td>
+			<td>
+				<input type="text" id="ks" name="ks" value="${requestScope.bd.ks }" placeholder="请输入块数" style="width: 150px;height:30px;"/>
+			</td>
+			<td align="right">
+				对方过磅净重
+			</td>
+			<td>
+				<input type="text" id="dfgbjz" name="dfgbjz" placeholder="无需输入" disabled="disabled" style="width: 150px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方过磅皮重
+			</td>
+			<td>
+				<input type="number" id="dfgbpz" name="dfgbpz" value="${requestScope.bd.dfgbpz }" placeholder="请输入对方过磅皮重" style="width: 180px;height:30px;"/>
+			</td>
+			<td align="right">
+				对方过磅毛重
+			</td>
+			<td>
+				<input type="number" id="dfgbmz" name="dfgbmz" value="${requestScope.bd.dfgbmz }" placeholder="请输入对方过磅毛重" style="width: 180px;height:30px;"/>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方榜单照片
+			</td>
+			<td>
+				<input type="file" name="dfbdzp_file"/>
+				<div>
+					${requestScope.bd.dfbdzp }
+				</div>
+			</td>
+			<td align="right">
+				对方过磅时间
+			</td>
+			<td>
+				<input id="dfgbsj_dtb"/>
+				<input type="hidden" id="dfgbsj" name="dfgbsj" value="${requestScope.bd.dfgbsj }"/>
 			</td>
 		  </tr>
 		</table>
