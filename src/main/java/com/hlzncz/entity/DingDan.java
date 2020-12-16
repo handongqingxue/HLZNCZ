@@ -258,6 +258,14 @@ public class DingDan implements Serializable {
 		this.bz = bz;
 	}
 
+	public String getDdbz() {
+		return ddbz;
+	}
+
+	public void setDdbz(String ddbz) {
+		this.ddbz = ddbz;
+	}
+
 	private String ddh;//订单号
 	private Integer lxlx;//流向类型
 	private Float yzxzl;//预装卸重量
@@ -283,6 +291,20 @@ public class DingDan implements Serializable {
 	private Integer cysjId;//承运司机id
 	private Integer xdyhId;
 	private String bz;//备注
+	private String ddbz;//备注（这个属性在其他类里也有bz字段重名时才用）
+	
+	/**
+	 * 创建订单唯一编码
+	 * @return
+	 */
+	public static String createWybm() {
+		String wybm = "";
+        Random random = new Random();
+        for (int i = 0; i < 18; i++) {
+        	wybm += String.valueOf(random.nextInt(10));
+        }
+        return wybm;
+	}
 
 	public static void main(String[] args) {
 		

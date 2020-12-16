@@ -2431,11 +2431,11 @@ function checkNew(){
 }
 
 function newDingDanZongHeGuanLi(){
+	/*
 	var sjzl=$("#new_div #sjzl").val();
 	var ddztId=jbxxDDZTCBB.combobox("getValue");
 	var jhysrq=jhysrqDB.datebox("getValue");
 	var yzxzl=$("#new_div #yzxzl").val();
-	var sjzl=$("#new_div #sjzl").val();
 	var lxlx=lxlxCBB.combobox("getValue");
 	var yssId=yssTab.datagrid("getData").rows[0].id;
 	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
@@ -2447,7 +2447,7 @@ function newDingDanZongHeGuanLi(){
 	var bz=$("#new_div #bz").val();
 	
 	$.post(ddglPath+"newDingDanZongHeGuanLi",
-		{sjzl:sjzl,ddztId:ddztId,jhysrq:jhysrq,yzxzl:yzxzl,sjzl:sjzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,xdyhId:xdyhId,bz:bz},
+		{sjzl:sjzl,ddztId:ddztId,jhysrq:jhysrq,yzxzl:yzxzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,xdyhId:xdyhId,bz:bz},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -2458,6 +2458,49 @@ function newDingDanZongHeGuanLi(){
 			}
 		}
 	,"json");
+	*/
+
+	var ddztId=jbxxDDZTCBB.combobox("getValue");
+	$("#new_div #ddztId").val(ddztId);
+	var jhysrq=jhysrqDB.datebox("getValue");
+	$("#new_div #jhysrq").val(jhysrq);
+	var lxlx=lxlxCBB.combobox("getValue");
+	$("#new_div #lxlx").val(lxlx);
+	var yssId=yssTab.datagrid("getData").rows[0].id;
+	$("#new_div #yssId").val(yssId);
+	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
+	$("#new_div #wlxxId").val(wlxxId);
+	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
+	$("#new_div #fhdwId").val(fhdwId);
+	var shdwId=shdwTab.datagrid("getData").rows[0].id;
+	$("#new_div #shdwId").val(shdwId);
+	var cyclId=cyclTab.datagrid("getData").rows[0].id;
+	$("#new_div #cyclId").val(cyclId);
+	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	$("#new_div #cysjId").val(cysjId);
+
+	var dfgbsj=nddfgbsjDTB.datebox("getValue");
+	$("#new_div #dfgbsj").val(dfgbsj);
+	
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:ddglPath+"newDingDanZongHeGuanLi",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
 }
 
 //验证计划运输日期
@@ -2946,6 +2989,13 @@ function initWindowMarginLeft(){
 
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="yssId" name="yssId"/>
+		<input type="hidden" id="wlxxId" name="wlxxId"/>
+		<input type="hidden" id="fhdwId" name="fhdwId"/>
+		<input type="hidden" id="shdwId" name="shdwId"/>
+		<input type="hidden" id="cyclId" name="cyclId"/>
+		<input type="hidden" id="cysjId" name="cysjId"/>
+		<input type="hidden" id="xdyhId" name="xdyhId" value="${sessionScope.yongHu.id}"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -3017,7 +3067,7 @@ function initWindowMarginLeft(){
 				备注
 			</td>
 			<td>
-				<textarea id="bz" name="bz" rows="3" cols="15"></textarea>
+				<textarea id="bz" name="ddbz" rows="3" cols="15"></textarea>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -3074,6 +3124,7 @@ function initWindowMarginLeft(){
 			</td>
 			<td>
 				<input id="dfgbsj_dtb"/>
+				<input type="hidden" id="dfgbsj" name="dfgbsj"/>
 			</td>
 		  </tr>
 		</table>

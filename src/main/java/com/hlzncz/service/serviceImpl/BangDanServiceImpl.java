@@ -23,9 +23,15 @@ public class BangDanServiceImpl implements BangDanService {
 	public int editErBangWaiJian(BangDan bd) {
 		// TODO Auto-generated method stub
 		if(bangDanDao.selectBangDanByDdbm(bd.getDdbm())==null)
-			return bangDanDao.insertErBangWaiJian(bd);
+			return bangDanDao.newErBangWaiJian(bd);
 		else
 			return bangDanDao.editErBangWaiJian(bd);
+	}
+
+	@Override
+	public int newErBangWaiJian(BangDan bd) {
+		// TODO Auto-generated method stub
+		return bangDanDao.newErBangWaiJian(bd);
 	}
 
 }

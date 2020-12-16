@@ -8,6 +8,6 @@ public interface BangDanMapper {
 
 	int editErBangWaiJian(BangDan bd);
 
-	int insertErBangWaiJian(BangDan bd);
+	int newErBangWaiJian(BangDan bd);
 
 }

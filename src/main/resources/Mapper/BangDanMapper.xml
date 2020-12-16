@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlzncz.dao.BangDanMapper">
-	<insert id="insertErBangWaiJian">
+	<insert id="newErBangWaiJian">
 		insert into bang_dan
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="bs!=null">

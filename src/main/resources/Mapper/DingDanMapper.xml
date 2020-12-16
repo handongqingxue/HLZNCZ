@@ -52,6 +52,9 @@
 			<if test="bz!=null">
 				bz,
 			</if>
+			<if test="ddbz!=null">
+				bz,
+			</if>
 		</trim>
 		values
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -99,6 +102,9 @@
 				#{xdyhId},
 			</if>
 			<if test="bz!=null">
+				#{bz},
+			</if>
+			<if test="ddbz!=null">
 				#{bz},
 			</if>
 		</trim>

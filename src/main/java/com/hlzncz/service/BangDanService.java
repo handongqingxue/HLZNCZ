@@ -8,4 +8,6 @@ public interface BangDanService {
 
 	int editErBangWaiJian(BangDan bd);
 
+	int newErBangWaiJian(BangDan bd);
+
 }

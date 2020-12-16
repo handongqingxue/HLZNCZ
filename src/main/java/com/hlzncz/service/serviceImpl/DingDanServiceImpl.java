@@ -22,11 +22,7 @@ public class DingDanServiceImpl implements DingDanService {
 	@Override
 	public int newDingDanZongHeGuanLi(DingDan dd) {
 		// TODO Auto-generated method stub
-		String wybm = "";
-        Random random = new Random();
-        for (int i = 0; i < 18; i++) {
-        	wybm += String.valueOf(random.nextInt(10));
-        }
+		String wybm = DingDan.createWybm();
         dd.setWybm(wybm);
         dd.setDdh("DD"+wybm);
 		return dingDanDao.newWoYaoXiaDan(dd);
@@ -35,11 +31,7 @@ public class DingDanServiceImpl implements DingDanService {
 	@Override
 	public int newWoYaoXiaDan(DingDan dd) {
 		// TODO Auto-generated method stub
-		String wybm = "";
-        Random random = new Random();
-        for (int i = 0; i < 18; i++) {
-        	wybm += String.valueOf(random.nextInt(10));
-        }
+		String wybm = DingDan.createWybm();
         dd.setWybm(wybm);
         dd.setDdh("DD"+wybm);
         dd.setDdztId(DingDan.DAI_SHEN_HE);

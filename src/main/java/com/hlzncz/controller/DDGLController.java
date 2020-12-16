@@ -8,15 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hlzncz.entity.*;
 import com.hlzncz.service.*;
+import com.hlzncz.util.FileUploadUtils;
 import com.hlzncz.util.JsonUtil;
 import com.hlzncz.util.PlanResult;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/"+DDGLController.MODULE_NAME)
@@ -40,6 +47,8 @@ public class DDGLController {
 	private SiJiService siJiService;
 	@Autowired
 	private DingDanYiChangService dingDanYiChangService;
+	@Autowired
+	private BangDanService bangDanService;
 	public static final String MODULE_NAME="ddgl";
 
 	@RequestMapping(value="/wddd/wyxd/new")
@@ -572,18 +581,46 @@ public class DDGLController {
 
 	@RequestMapping(value="/newDingDanZongHeGuanLi")
 	@ResponseBody
-	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd) {
+	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd,BangDan bd,
+			@RequestParam(value="dfbdzp_file",required=false) MultipartFile dfbdzp_file,
+			HttpServletRequest request) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		
-		int count=dingDanService.newDingDanZongHeGuanLi(dd);
-		if(count>0) {
-			jsonMap.put("message", "ok");
-			jsonMap.put("info", "创建订单成功！");
-		}
-		else {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "创建订单失败！");
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=dfbdzp_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								bd.setDfbdzp(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=dingDanService.newDingDanZongHeGuanLi(dd);
+			bd.setDdbm(dd.getWybm());
+			count=bangDanService.newErBangWaiJian(bd);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建订单成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建订单失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return jsonMap;
 	}
