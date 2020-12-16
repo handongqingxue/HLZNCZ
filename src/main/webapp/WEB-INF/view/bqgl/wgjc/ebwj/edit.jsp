@@ -191,15 +191,7 @@ function initYSSDialog(){
 }
 
 function initYSSTab(){
-	yssChooseLB=$("#yss_div #choose_but").linkbutton({
-		iconCls:"icon-edit",
-		onClick:function(){
-			openSelectYSSDialog(1);
-		}
-	});
-	
 	yssTab=$("#yss_tab").datagrid({
-		toolbar:"#yss_toolbar",
 		width:setFitWidthInParent("body","yss_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -251,10 +243,6 @@ function initYSSTab(){
 
 function loadYSSTabData(rows){
 	var rowsLength=rows.length;
-	if(rowsLength>0)
-		yssChooseLB.linkbutton("disable");
-	else
-		yssChooseLB.linkbutton("enable");
 	var obj = {"total":rowsLength,"rows":rows};
 	yssTab.datagrid('loadData',obj);
 }
@@ -322,7 +310,6 @@ function initWLXXDialog(){
 
 function initWLXXTab(){
 	wlxxTab=$("#wlxx_tab").datagrid({
-		toolbar:"#wlxx_toolbar",
 		width:setFitWidthInParent("body","wlxx_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -405,7 +392,6 @@ function initFHDWDialog(){
 
 function initFHDWTab(){
 	fhdwTab=$("#fhdw_tab").datagrid({
-		toolbar:"#fhdw_toolbar",
 		width:setFitWidthInParent("body","fhdw_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -487,7 +473,6 @@ function initSHDWDialog(){
 
 function initSHDWTab(){
 	shdwTab=$("#shdw_tab").datagrid({
-		toolbar:"#shdw_toolbar",
 		width:setFitWidthInParent("body","shdw_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -569,7 +554,6 @@ function initCYCLDialog(){
 
 function initCYCLTab(){
 	cyclTab=$("#cycl_tab").datagrid({
-		toolbar:"#cycl_toolbar",
 		width:setFitWidthInParent("body","cycl_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -649,7 +633,6 @@ function initCYSJDialog(){
 
 function initCYSJTab(){
 	cysjTab=$("#cysj_tab").datagrid({
-		toolbar:"#cysj_toolbar",
 		width:setFitWidthInParent("body","cysj_tab"),
 		singleSelect:true,
 		pagination:true,
@@ -836,44 +819,26 @@ function initWindowMarginLeft(){
 	</div>
 	
 	<div id="yss_div">
-		<div id="yss_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="yss_tab"></table>
 	</div>
 	
 	<div id="wlxx_div">
-		<div id="wlxx_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="wlxx_tab"></table>
 	</div>
 	
 	<div id="fhdw_div">
-		<div id="fhdw_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="fhdw_tab"></table>
 	</div>
 	
 	<div id="shdw_div">
-		<div id="shdw_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="shdw_tab"></table>
 	</div>
 	
 	<div id="cycl_div">
-		<div id="cycl_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="cycl_tab"></table>
 	</div>
 	
 	<div id="cysj_div">
-		<div id="cysj_toolbar" style="height:32px;line-height:32px;">
-			<a id="choose_but" style="margin-left: 13px;">选择</a>
-		</div>
 		<table id="cysj_tab"></table>
 	</div>
 </div>

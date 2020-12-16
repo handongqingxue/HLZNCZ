@@ -731,14 +731,14 @@ public class DDGLController {
 	 */
 	@RequestMapping(value="/queryDDGLZHGLList")
 	@ResponseBody
-	public Map<String, Object> queryDDGLZHGLList(String ddh,String ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,String clzt,
-			int page,int rows,String sort,String order) {
+	public Map<String, Object> queryDDGLZHGLList(String ddh,String ddztId,String cph,String jcsjs,String jcsje,String jhysrq,String yss,
+			String wzmc,String fhdwmc,String shdwmc,String sjxm,String sjsfz,String clzt,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = dingDanService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss);
-			List<DingDan> zhglList=dingDanService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss,clzt, page, rows, sort, order);
+			int count = dingDanService.queryDDGLZHGLForInt(ddh,ddztId,cph,jcsjs,jcsje,jhysrq,yss,wzmc,fhdwmc,shdwmc,sjxm,sjsfz);
+			List<DingDan> zhglList=dingDanService.queryDDGLZHGLList(ddh, ddztId,cph,jcsjs,jcsje,jhysrq,yss,wzmc,fhdwmc,shdwmc,sjxm,sjsfz,clzt, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", zhglList);

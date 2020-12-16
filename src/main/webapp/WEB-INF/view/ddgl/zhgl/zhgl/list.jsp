@@ -65,7 +65,12 @@ function initSearchLB(){
 			var cph=$("#toolbar #cph").val();
 			var jhysrq=jhysrqDB.datebox("getValue");
 			var yss=$("#toolbar #yss").val();
-			tab1.datagrid("load",{ddh:ddh,ddztId:ddzt,cph:cph,jhysrq:jhysrq,yss:yss});
+			var wzmc=$("#toolbar #wzmc").val();
+			var fhdwmc=$("#toolbar #fhdwmc").val();
+			var shdwmc=$("#toolbar #shdwmc").val();
+			var sjxm=$("#toolbar #sjxm").val();
+			var sjsfz=$("#toolbar #sjsfz").val();
+			tab1.datagrid("load",{ddh:ddh,ddztId:ddzt,cph:cph,jhysrq:jhysrq,yss:yss,wzmc:wzmc,fhdwmc:fhdwmc,shdwmc:shdwmc,sjxm:sjxm,sjsfz:sjsfz});
 		}
 	});
 }
@@ -99,8 +104,11 @@ function initTab1(){
 		pageSize:10,
 		columns:[[
 			{field:"ddh",title:"订单号",width:200},
+			{field:"wlmc",title:"物资名称",width:200},
 			{field:"cph",title:"车牌号",width:200},
 			{field:"yssmc",title:"运输商",width:200},
+			{field:"fhdwmc",title:"发货单位",width:200},
+			{field:"shdwmc",title:"收货单位",width:200},
             {field:"lxlx",title:"流向类型",width:200,formatter:function(value,row){
             	var str;
             	switch (value) {
@@ -128,7 +136,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{ddh:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:11});
+				$(this).datagrid("mergeCells",{index:0,field:"ddh",colspan:14});
 				data.total=0;
 			}
 			
@@ -173,7 +181,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:64px;">
+		<div id="toolbar" style="height:96px;">
 			<div style="height:32px;">
 				<span style="margin-left: 13px;">订单号：</span>
 				<input type="text" id="ddh" placeholder="请输入订单号" style="width: 120px;height: 25px;"/>
@@ -191,6 +199,18 @@ function setFitWidthInParent(o){
 				<input id="jhysrq_db"/>
 				<span style="margin-left: 13px;">运输商：</span>
 				<input type="text" id="yss" placeholder="请输入运输商" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">物资名称：</span>
+				<input type="text" id="wzmc" placeholder="请输入物资名称" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">发货单位：</span>
+				<input type="text" id="fhdwmc" placeholder="请输入发货单位" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">收货单位：</span>
+				<input type="text" id="shdwmc" placeholder="请输入收货单位" style="width: 120px;height: 25px;"/>
+			</div>
+			<div style="height:32px;">
+				<span style="margin-left: 13px;">司机姓名：</span>
+				<input type="text" id="sjxm" placeholder="请输入司机姓名" style="width: 120px;height: 25px;"/>
+				<span style="margin-left: 13px;">司机身份证：</span>
+				<input type="text" id="sjsfz" placeholder="请输入司机身份证" style="width: 120px;height: 25px;"/>
 				<a id="search_but" style="margin-left: 13px;">查询</a>
 				<a id="add_but">添加</a>
 				<a id="output_but">导出</a>

@@ -25,10 +25,10 @@ public interface DingDanService {
 			String order);
 
 	public int queryDDGLZHGLForInt(String ddh, String ddztId, String cph, String jcsjs, String jcsje, String jhysrq,
-			String yss);
+			String yss,String wzmc,String fhdwmc,String shdwmc,String sjxm,String sjsfz);
 
 	public List<DingDan> queryDDGLZHGLList(String ddh, String ddztId, String cph, String jcsjs, String jcsje,
-			String jhysrq, String yss, String clzt, int page, int rows, String sort, String order);
+			String jhysrq, String yss,String wzmc,String fhdwmc,String shdwmc,String sjxm,String sjsfz, String clzt, int page, int rows, String sort, String order);
 
 	public int tiJiaoGuoBang(String wybms);
 
