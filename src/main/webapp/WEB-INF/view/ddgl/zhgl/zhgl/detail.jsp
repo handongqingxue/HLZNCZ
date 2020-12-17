@@ -424,7 +424,7 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","detail_div"),
-		height:300,
+		height:500,
 		top:dialogTop,
 		left:dialogLeft,
 	});
@@ -449,7 +449,7 @@ function initDetailDialog(){
 }
 
 function initYSSDialog(){
-	dialogTop+=320;//330
+	dialogTop+=520;//330
 	yssDialog=$("#yss_div").dialog({
 		title:"运输商",
 		width:setFitWidthInParent("body","yss_div"),
@@ -2030,8 +2030,66 @@ function initWindowMarginLeft(){
 				<span>${requestScope.dd.jhysrq }</span>
 			</td>
 			<td align="right">
+				备注
 			</td>
 			<td>
+				<span>${requestScope.dd.bz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				结算重量
+			</td>
+			<td>
+				<span>${requestScope.bd.jszl }</span>
+			</td>
+			<td align="right">
+				包数
+			</td>
+			<td>
+				<span>${requestScope.bd.bs }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				块数
+			</td>
+			<td>
+				<span>${requestScope.bd.ks }</span>
+			</td>
+			<td align="right">
+				对方过磅净重
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbjz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方过磅皮重
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbpz }</span>
+			</td>
+			<td align="right">
+				对方过磅毛重
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbmz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方榜单照片
+			</td>
+			<td>
+				<span>${requestScope.bd.dfbdzp }</span>
+			</td>
+			<td align="right">
+				对方过磅时间
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbsj }</span>
 			</td>
 		  </tr>
 		</table>

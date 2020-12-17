@@ -424,7 +424,7 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"基本属性组",
 		width:setFitWidthInParent("body","detail_div"),
-		height:200,
+		height:500,
 		top:dialogTop,
 		left:dialogLeft,
 	});
@@ -449,7 +449,7 @@ function initDetailDialog(){
 }
 
 function initYSSDialog(){
-	dialogTop+=220;//230
+	dialogTop+=520;//230
 	yssDialog=$("#yss_div").dialog({
 		title:"运输商",
 		width:setFitWidthInParent("body","yss_div"),
@@ -1978,19 +1978,13 @@ function initWindowMarginLeft(){
 				<span>${requestScope.wddd.ddh }</span>
 			</td>
 			<td align="right" style="width:15%;">
-				计划运输日期
+				预装卸重量
 			</td>
 			<td style="width:30%;">
-				<span>${requestScope.wddd.jhysrq }</span>
+				<span>${requestScope.wddd.yzxzl }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right">
-				预装卸重量
-			</td>
-			<td>
-				<span>${requestScope.wddd.yzxzl }</span>
-			</td>
 			<td align="right">
 				流向类型
 			</td>
@@ -2003,6 +1997,110 @@ function initWindowMarginLeft(){
 					取运
 				</c:if>
 				</span>
+			</td>
+			<td align="right">
+				编辑时间
+			</td>
+			<td>
+				<span>${requestScope.wddd.bjsj }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				二维码
+			</td>
+			<td>
+				<span>${requestScope.wddd.ewm }</span>
+			</td>
+			<td align="right">
+				实际重量
+			</td>
+			<td>
+				<span>${requestScope.wddd.sjzl }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				重量差额比
+			</td>
+			<td>
+				<span>${requestScope.wddd.zlceb }</span>
+			</td>
+			<td align="right">
+				订单状态
+			</td>
+			<td>
+				<span>${requestScope.wddd.ddztmc }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				包数
+			</td>
+			<td>
+				<span>${requestScope.bd.bs }</span>
+			</td>
+			<td align="right">
+				块数
+			</td>
+			<td>
+				<span>${requestScope.bd.ks }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				毛重
+			</td>
+			<td>
+				<span></span>
+			</td>
+			<td align="right">
+				皮重
+			</td>
+			<td>
+				<span></span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方过磅净重
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbjz }</span>
+			</td>
+			<td align="right">
+				对方过磅毛重
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbmz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				对方榜单照片
+			</td>
+			<td>
+				<span>${requestScope.bd.dfbdzp }</span>
+			</td>
+			<td align="right">
+				对方过磅皮重
+			</td>
+			<td>
+				<span>${requestScope.bd.dfgbpz }</span>
+			</td>
+		  </tr>
+		  <tr style="border-bottom: #CAD9EA solid 1px;">
+			<td align="right">
+				备注
+			</td>
+			<td>
+				<span>${requestScope.wddd.bz }</span>
+			</td>
+			<td align="right">
+				
+			</td>
+			<td>
+				<span></span>
 			</td>
 		  </tr>
 		</table>

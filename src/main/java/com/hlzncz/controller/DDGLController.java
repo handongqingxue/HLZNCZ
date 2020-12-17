@@ -184,6 +184,9 @@ public class DDGLController {
 		DingDan wddd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("wddd", wddd);
 		
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
+		
 		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(wddd.getYssId()));
 		request.setAttribute("yss", yss);
 		
@@ -406,6 +409,9 @@ public class DDGLController {
 		String wybm = request.getParameter("wybm");
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
+		
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
 
 		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
 		request.setAttribute("yss", yss);
