@@ -366,6 +366,9 @@ public class DDGLController {
 		String wybm = request.getParameter("wybm");
 		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
 		request.setAttribute("dd", dd);
+		
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
 
 		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
 		request.setAttribute("yss", yss);
@@ -677,6 +680,52 @@ public class DDGLController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "±à¼­¶©µ¥Ê§°Ü£¡");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editDingDanZongHeGuanLi")
+	@ResponseBody
+	public Map<String, Object> editDingDanZongHeGuanLi(DingDan dd,BangDan bd,
+			@RequestParam(value="dfbdzp_file",required=false) MultipartFile dfbdzp_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=dfbdzp_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("³É¹¦".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								bd.setDfbdzp(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=dingDanService.editDingDan(dd);
+			bd.setDdbm(dd.getWybm());
+			count=bangDanService.editErBangWaiJian(bd);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "ÐÞ¸Ä¶©µ¥³É¹¦£¡");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "ÐÞ¸Ä¶©µ¥Ê§°Ü£¡");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return jsonMap;
 	}

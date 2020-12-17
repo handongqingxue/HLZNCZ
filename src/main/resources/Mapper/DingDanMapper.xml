@@ -105,7 +105,7 @@
 				#{bz},
 			</if>
 			<if test="ddbz!=null">
-				#{bz},
+				#{ddbz},
 			</if>
 		</trim>
 	</insert>
@@ -156,6 +156,12 @@
 			</if>
 			<if test="cysjId!=null">
 				cysjId=#{cysjId},
+			</if>
+			<if test="bz!=null">
+				bz=#{bz},
+			</if>
+			<if test="ddbz!=null">
+				bz=#{ddbz},
 			</if>
 		</trim>
 		where wybm=#{wybm}

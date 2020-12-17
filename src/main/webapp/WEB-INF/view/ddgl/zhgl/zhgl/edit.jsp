@@ -626,7 +626,7 @@ function initEditDivDDZTCBB(){
 			for(var i=0;i<rows.length;i++){
 				data.push({"value":rows[i].id,"text":rows[i].mc});
 			}
-			ssddDDZTCBB=$("#edit_div #ddzt_cbb").combobox({
+			edDDZTCBB=$("#edit_div #ddzt_cbb").combobox({
 				valueField:"value",
 				textField:"text",
 				data:data,
@@ -2394,6 +2394,201 @@ function deleteCYSJTabRow(){
 	loadCYSJTabData([]);
 }
 
+function checkEdit(){
+	if(checkJHYSRQ()){
+		if(checkYZXZL()){
+			if(checkLXLX()){
+				if(checkYSSId()){
+					if(checkWLXXId()){
+						if(checkFHDWId()){
+							if(checkSHDWId()){
+								if(checkCYCLId()){
+									if(checkCYSJId()){
+										editDingDanZongHeGuanLi();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function editDingDanZongHeGuanLi(){
+	var ddztId=edDDZTCBB.combobox("getValue");
+	$("#edit_div #ddztId").val(ddztId);
+	var jhysrq=edjhysrqDB.datebox("getValue");
+	$("#edit_div #jhysrq").val(jhysrq);
+	var lxlx=edlxlxCBB.combobox("getValue");
+	$("#edit_div #lxlx").val(lxlx);
+	var yssId=yssTab.datagrid("getData").rows[0].id;
+	$("#edit_div #yssId").val(yssId);
+	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
+	$("#edit_div #wlxxId").val(wlxxId);
+	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
+	$("#edit_div #fhdwId").val(fhdwId);
+	var shdwId=shdwTab.datagrid("getData").rows[0].id;
+	$("#edit_div #shdwId").val(shdwId);
+	var cyclId=cyclTab.datagrid("getData").rows[0].id;
+	$("#edit_div #cyclId").val(cyclId);
+	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	$("#edit_div #cysjId").val(cysjId);
+
+	var dfgbsj=eddfgbsjDTB.datebox("getValue");
+	$("#edit_div #dfgbsj").val(dfgbsj);
+	
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:ddglPath+"editDingDanZongHeGuanLi",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
+}
+
+//验证计划运输日期
+function checkJHYSRQ(){
+	var jhysrq = edjhysrqDB.datebox("getValue");
+	if(jhysrq==null||jhysrq==""){
+	  	alert("请选择计划运输日期");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证预装卸重量
+function checkYZXZL(){
+	var yzxzl = $("#edit_div #yzxzl").val();
+	if(yzxzl==null||yzxzl==""){
+	  	alert("请输入预装卸重量");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证流向类型
+function checkLXLX(){
+	var lxlx=edlxlxCBB.combobox("getValue");
+	if(lxlx==null||lxlx==""){
+	  	alert("请选择流向类型");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证运输商
+function checkYSSId(){
+	var yssTabData=yssTab.datagrid("getData");
+	var total=yssTabData.total;
+	var yssId=null;
+	if(total>0)
+		yssId=yssTabData.rows[0].id;
+	
+	if(yssId==null){
+		alert("请选择运输商");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证物料信息
+function checkWLXXId(){
+	var wlxxTabData=wlxxTab.datagrid("getData");
+	var total=wlxxTabData.total;
+	var wlxxId=null;
+	if(total>0)
+		wlxxId=wlxxTabData.rows[0].id;
+	
+	if(wlxxId==null){
+		alert("请选择物料信息");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证发货单位
+function checkFHDWId(){
+	var fhdwTabData=fhdwTab.datagrid("getData");
+	var total=fhdwTabData.total;
+	var fhdwId=null;
+	if(total>0)
+		fhdwId=fhdwTabData.rows[0].id;
+	
+	if(fhdwId==null){
+		alert("请选择发货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证收货单位
+function checkSHDWId(){
+	var shdwTabData=shdwTab.datagrid("getData");
+	var total=shdwTabData.total;
+	var shdwId=null;
+	if(total>0)
+		shdwId=shdwTabData.rows[0].id;
+	
+	if(shdwId==null){
+		alert("请选择收货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运车辆
+function checkCYCLId(){
+	var cyclTabData=cyclTab.datagrid("getData");
+	var total=cyclTabData.total;
+	var cyclId=null;
+	if(total>0)
+		cyclId=cyclTabData.rows[0].id;
+	
+	if(cyclId==null){
+		alert("请选择承运车辆");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运司机
+function checkCYSJId(){
+	var cysjTabData=cysjTab.datagrid("getData");
+	var total=cysjTabData.total;
+	var cysjId=null;
+	if(total>0)
+		cysjId=cysjTabData.rows[0].id;
+	
+	if(cysjId==null){
+		alert("请选择承运司机");
+	  	return false;
+	}
+	else
+		return true;
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -2782,7 +2977,7 @@ function initWindowMarginLeft(){
 				备注
 			</td>
 			<td>
-				<textarea id="bz" name="bz" rows="3" cols="15" placeholder="请输入备注">${requestScope.dd.bz }</textarea>
+				<textarea id="bz" name="ddbz" rows="3" cols="15" placeholder="请输入备注">${requestScope.dd.bz }</textarea>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">

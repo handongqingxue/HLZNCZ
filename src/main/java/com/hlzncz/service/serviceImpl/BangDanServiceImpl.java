@@ -22,7 +22,7 @@ public class BangDanServiceImpl implements BangDanService {
 	@Override
 	public int editErBangWaiJian(BangDan bd) {
 		// TODO Auto-generated method stub
-		if(bangDanDao.selectBangDanByDdbm(bd.getDdbm())==null)
+		if(bangDanDao.selectBangDanByDdbm(bd.getDdbm())==null)//这是先判断一下订单关联的磅单是否存在，不存在的话先生成。有些以前的老订单可能不存在磅单
 			return bangDanDao.newErBangWaiJian(bd);
 		else
 			return bangDanDao.editErBangWaiJian(bd);
