@@ -72,7 +72,7 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"ddztmc",title:"执行状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\""+ddglPath+"wddd/wyxd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	var str="<a href=\""+ddglPath+"wddd/bdtb/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"wddd/bdtb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
