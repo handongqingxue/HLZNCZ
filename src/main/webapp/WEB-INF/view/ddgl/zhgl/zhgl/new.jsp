@@ -3031,7 +3031,7 @@ function initWindowMarginLeft(){
 				二维码
 			</td>
 			<td>
-			
+				<input type="file" name="ewm_file"/>
 			</td>
 			<td align="right">
 				实际重量

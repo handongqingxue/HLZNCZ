@@ -591,13 +591,15 @@ public class DDGLController {
 	@RequestMapping(value="/newDingDanZongHeGuanLi")
 	@ResponseBody
 	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd,BangDan bd,
+			@RequestParam(value="ewm_file",required=false) MultipartFile ewm_file,
 			@RequestParam(value="dfbdzp_file",required=false) MultipartFile dfbdzp_file,
 			HttpServletRequest request) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		try {
-			MultipartFile[] fileArr=new MultipartFile[1];
-			fileArr[0]=dfbdzp_file;
+			MultipartFile[] fileArr=new MultipartFile[2];
+			fileArr[0]=ewm_file;
+			fileArr[1]=dfbdzp_file;
 			for (int i = 0; i < fileArr.length; i++) {
 				String jsonStr = null;
 				if(fileArr[i]!=null) {
@@ -608,6 +610,9 @@ public class DDGLController {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
 							switch (i) {
 							case 0:
+								dd.setEwm(dataJO.get("src").toString());
+								break;
+							case 1:
 								bd.setDfbdzp(dataJO.get("src").toString());
 								break;
 							}
@@ -693,13 +698,15 @@ public class DDGLController {
 	@RequestMapping(value="/editDingDanZongHeGuanLi")
 	@ResponseBody
 	public Map<String, Object> editDingDanZongHeGuanLi(DingDan dd,BangDan bd,
+			@RequestParam(value="ewm_file",required=false) MultipartFile ewm_file,
 			@RequestParam(value="dfbdzp_file",required=false) MultipartFile dfbdzp_file,
 			HttpServletRequest request) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		try {
-			MultipartFile[] fileArr=new MultipartFile[1];
-			fileArr[0]=dfbdzp_file;
+			MultipartFile[] fileArr=new MultipartFile[2];
+			fileArr[0]=ewm_file;
+			fileArr[1]=dfbdzp_file;
 			for (int i = 0; i < fileArr.length; i++) {
 				String jsonStr = null;
 				if(fileArr[i]!=null) {
@@ -710,6 +717,9 @@ public class DDGLController {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
 							switch (i) {
 							case 0:
+								dd.setEwm(dataJO.get("src").toString());
+								break;
+							case 1:
 								bd.setDfbdzp(dataJO.get("src").toString());
 								break;
 							}
@@ -728,6 +738,50 @@ public class DDGLController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "修改订单失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editDingDanTianBao")
+	@ResponseBody
+	public Map<String, Object> editDingDanTianBao(DingDan dd,
+			@RequestParam(value="ewm_file",required=false) MultipartFile ewm_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=ewm_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								dd.setEwm(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=dingDanService.editDingDan(dd);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "修改订单填报成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "修改订单填报失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

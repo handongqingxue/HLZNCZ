@@ -28,6 +28,9 @@
 			<if test="lxlx!=null">
 				lxlx,
 			</if>
+			<if test="ewm!=null">
+				ewm,
+			</if>
 			<if test="yssId!=null">
 				yssId,
 			</if>
@@ -79,6 +82,9 @@
 			</if>
 			<if test="lxlx!=null">
 				#{lxlx},
+			</if>
+			<if test="ewm!=null">
+				#{ewm},
 			</if>
 			<if test="yssId!=null">
 				#{yssId},
@@ -138,6 +144,9 @@
 			</if>
 			<if test="sjzl!=null">
 				sjzl=#{sjzl},
+			</if>
+			<if test="ewm!=null">
+				ewm=#{ewm},
 			</if>
 			<if test="yssId!=null">
 				yssId=#{yssId},

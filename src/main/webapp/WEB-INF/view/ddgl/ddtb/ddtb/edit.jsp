@@ -679,7 +679,7 @@ function initEditDialog(){
 }
 
 function initLXLXCBB(){
-	ndlxlxCBB=$("#edit_div #lxlx_cbb").combobox({
+	edlxlxCBB=$("#edit_div #lxlx_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[
@@ -2473,6 +2473,167 @@ function saveSelectCYSJ(){
 	openSelectCYSJDialog(0);
 }
 
+function checkEdit(){
+	if(checkYSSId()){
+		if(checkYSWLId()){
+			if(checkFHDWId()){
+				if(checkSHDWId()){
+					if(checkCYCLId()){
+						if(checkCYSJId()){
+							editDingDanTianBao();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function editDingDanTianBao(){
+	var ddztId=ssddDDZTCBB.combobox("getValue");
+	$("#edit_div #ddztId").val(ddztId);
+	var lxlx=edlxlxCBB.combobox("getValue");
+	$("#edit_div #lxlx").val(lxlx);
+	var yssId=yssTab.datagrid("getData").rows[0].id;
+	$("#edit_div #yssId").val(yssId);
+	var wlxxId=yswlTab.datagrid("getData").rows[0].id;
+	$("#edit_div #wlxxId").val(wlxxId);
+	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
+	$("#edit_div #fhdwId").val(fhdwId);
+	var shdwId=shdwTab.datagrid("getData").rows[0].id;
+	$("#edit_div #shdwId").val(shdwId);
+	var cyclId=cyclTab.datagrid("getData").rows[0].id;
+	$("#edit_div #cyclId").val(cyclId);
+	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	$("#edit_div #cysjId").val(cysjId);
+	$("#edit_div #bz").val($("#tbxx_div #bz").val());
+
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:ddglPath+"editDingDanTianBao",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
+}
+
+//验证运输商
+function checkYSSId(){
+	var yssTabData=yssTab.datagrid("getData");
+	var total=yssTabData.total;
+	var yssId=null;
+	if(total>0)
+		yssId=yssTabData.rows[0].id;
+	
+	if(yssId==null){
+		alert("请选择运输商");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证运输物料
+function checkYSWLId(){
+	var yswlTabData=yswlTab.datagrid("getData");
+	var total=yswlTabData.total;
+	var yswlId=null;
+	if(total>0)
+		yswlId=yswlTabData.rows[0].id;
+	
+	if(yswlId==null){
+		alert("请选择运输物料");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证发货单位
+function checkFHDWId(){
+	var fhdwTabData=fhdwTab.datagrid("getData");
+	var total=fhdwTabData.total;
+	var fhdwId=null;
+	if(total>0)
+		fhdwId=fhdwTabData.rows[0].id;
+	
+	if(fhdwId==null){
+		alert("请选择发货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证收货单位
+function checkSHDWId(){
+	var shdwTabData=shdwTab.datagrid("getData");
+	var total=shdwTabData.total;
+	var shdwId=null;
+	if(total>0)
+		shdwId=shdwTabData.rows[0].id;
+	
+	if(shdwId==null){
+		alert("请选择收货单位");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运车辆
+function checkCYCLId(){
+	var cyclTabData=cyclTab.datagrid("getData");
+	var total=cyclTabData.total;
+	var cyclId=null;
+	if(total>0)
+		cyclId=cyclTabData.rows[0].id;
+	
+	if(cyclId==null){
+		alert("请选择承运车辆");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证承运司机
+function checkCYSJId(){
+	var cysjTabData=cysjTab.datagrid("getData");
+	var total=cysjTabData.total;
+	var cysjId=null;
+	if(total>0)
+		cysjId=cysjTabData.rows[0].id;
+	
+	if(cysjId==null){
+		alert("请选择承运司机");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+function synchSJZL(tagId,value){
+	if(tagId=="edit_div"){
+		$("#tbxx_div #sjzl").val(value);
+	}
+	else if(tagId=="tbxx_div"){
+		$("#edit_div #sjzl").val(value);
+	}
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -2481,9 +2642,9 @@ function setFitWidthInParent(parent,self){
 	case "sssj_div":
 	case "ssdl_div":
 	case "select_sssj_tab":
-	case "wlxx_div":
+	case "yswl_div":
 	case "select_wlxx_tab":
-	case "edit_wlxx_div":
+	case "edit_yswl_div":
 	case "fhdw_div":
 	case "select_fhdw_tab":
 	case "edit_fhdw_div":
@@ -2822,7 +2983,6 @@ function setFitWidthInParent(parent,self){
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
 	<div class="page_location_div">订单填报-修改</div>
-	
 	<div id="tbxx_div">
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2830,13 +2990,13 @@ function setFitWidthInParent(parent,self){
 				实际重量
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="sjzl" name="sjzl" value="${requestScope.dd.sjzl }" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
+				<input type="number" id="sjzl" value="${requestScope.dd.sjzl }" placeholder="请输入实际重量" style="width: 150px;height:30px;" onkeyup="synchSJZL('tbxx_div',this.value);"/>
 			</td>
 			<td align="right" style="width:15%;">
 				备注
 			</td>
 			<td style="width:30%;">
-				<textarea rows="3" cols="20" id="bz" name="bz" value="${requestScope.dd.bz }" placeholder="请输入备注"></textarea>
+				<textarea rows="3" cols="20" id="bz" placeholder="请输入备注">${requestScope.dd.bz }</textarea>
 			</td>
 		  </tr>
 		</table>
@@ -2844,7 +3004,15 @@ function setFitWidthInParent(parent,self){
 	
 	<!-- 基本信息 start -->
 	<div id="edit_div">
-	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
+		<input type="hidden" id="wybm" name="wybm" value="${requestScope.dd.wybm }"/>
+		<input type="hidden" id="bz" name="bz" value="${requestScope.dd.bz }"/>
+		<input type="hidden" id="yssId" name="yssId" value="${requestScope.dd.yssId }"/>
+		<input type="hidden" id="wlxxId" name="wlxxId" value="${requestScope.dd.wlxxId }"/>
+		<input type="hidden" id="fhdwId" name="fhdwId" value="${requestScope.dd.fhdwId }"/>
+		<input type="hidden" id="shdwId" name="shdwId" value="${requestScope.dd.shdwId }"/>
+		<input type="hidden" id="cyclId" name="cyclId" value="${requestScope.dd.cyclId }"/>
+		<input type="hidden" id="cysjId" name="cysjId" value="${requestScope.dd.cysjId }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -2872,7 +3040,7 @@ function setFitWidthInParent(parent,self){
 			</td>
 			<td>
 				<input id="lxlx_cbb"/>
-				<input type="hidden" id="lxlx" name="lxlx"/>
+				<input type="hidden" id="lxlx" name="lxlx" value="${requestScope.dd.lxlx }"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2886,7 +3054,10 @@ function setFitWidthInParent(parent,self){
 				二维码
 			</td>
 			<td>
-				<input type="text" id="ewm" name="ewm" placeholder="请输入二维码" style="width: 150px;height:30px;"/>
+				<input type="file" name="ewm_file"/>
+				<div>
+					${requestScope.dd.ewm }
+				</div>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2894,13 +3065,13 @@ function setFitWidthInParent(parent,self){
 				实际重量
 			</td>
 			<td>
-				<input type="text" id="sjzl" name="sjzl" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
+				<input type="number" id="sjzl" name="sjzl" value="${requestScope.dd.sjzl }" placeholder="请输入实际重量" style="width: 150px;height:30px;" onkeyup="synchSJZL('edit_div',this.value);"/>
 			</td>
 			<td align="right">
 				重量差额比
 			</td>
 			<td>
-				<input type="text" id="zlceb" name="zlceb" disabled="disabled" placeholder="无需输入" style="width: 150px;height:30px;"/>
+				<input type="text" id="zlceb" value="${requestScope.dd.zlceb }" disabled="disabled" placeholder="无需输入" style="width: 150px;height:30px;"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2909,7 +3080,7 @@ function setFitWidthInParent(parent,self){
 			</td>
 			<td>
 				<input id="ddzt_cbb"/>
-				<input type="hidden" id="ddzt" name="ddzt"/>
+				<input type="hidden" id="ddztId" name="ddztId" value="${requestScope.dd.ddztId }"/>
 			</td>
 			<td align="right">
 			</td>

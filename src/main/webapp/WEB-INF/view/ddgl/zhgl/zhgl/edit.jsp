@@ -2903,6 +2903,12 @@ function initWindowMarginLeft(){
 	<div id="edit_div">
 	<form id="form1" name="form1" method="post" onsubmit="return checkEdit();" enctype="multipart/form-data">
 		<input type="hidden" id="wybm" name="wybm" value="${requestScope.dd.wybm }"/>
+		<input type="hidden" id="yssId" name="yssId" value="${requestScope.dd.yssId }"/>
+		<input type="hidden" id="wlxxId" name="wlxxId" value="${requestScope.dd.wlxxId }"/>
+		<input type="hidden" id="fhdwId" name="fhdwId" value="${requestScope.dd.fhdwId }"/>
+		<input type="hidden" id="shdwId" name="shdwId" value="${requestScope.dd.shdwId }"/>
+		<input type="hidden" id="cyclId" name="cyclId" value="${requestScope.dd.cyclId }"/>
+		<input type="hidden" id="cysjId" name="cysjId" value="${requestScope.dd.cysjId }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -2939,6 +2945,7 @@ function initWindowMarginLeft(){
 				二维码
 			</td>
 			<td>
+				<input type="file" name="ewm_file"/>
 				<div>
 					${requestScope.dd.ewm }
 				</div>
