@@ -78,7 +78,7 @@ function initRemoveLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"我要下单-列表",
-		url:path+"ddgl/queryWoYaoXiaDanList",
+		url:ddglPath+"queryWoYaoXiaDanList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,

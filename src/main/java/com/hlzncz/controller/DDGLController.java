@@ -167,6 +167,38 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/dsh/detail";
 	}
 
+	@RequestMapping(value="/wddd/bdtb/edit")
+	public String goBqglWgjcEbwjEdit(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
+		
+		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=wuZiService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return MODULE_NAME+"/wddd/bdtb/edit";
+	}
+
 	@RequestMapping(value="/wddd/bdtb/list")
 	public String goDdglWdddBdtbList(HttpServletRequest request) {
 		
@@ -790,6 +822,50 @@ public class DDGLController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "修改订单填报失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editBangDanTianBao")
+	@ResponseBody
+	public Map<String, Object> editBangDanTianBao(BangDan bd,
+			@RequestParam(value="dfbdzp_file",required=false) MultipartFile dfbdzp_file,
+			HttpServletRequest request) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=dfbdzp_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						jsonStr = FileUploadUtils.appUploadContentImg(request,fileArr[i],"");
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								bd.setDfbdzp(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=bangDanService.editErBangWaiJian(bd);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑磅单填报成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑磅单填报失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

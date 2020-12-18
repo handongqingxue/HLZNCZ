@@ -47,7 +47,7 @@ function initSearchLB(){
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"磅单填报-列表",
-		url:path+"ddgl/queryWDDDBDTBList",
+		url:ddglPath+"queryWDDDBDTBList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body"),
 		pagination:true,
@@ -73,7 +73,7 @@ function initTab1(){
             {field:"ddztmc",title:"执行状态",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\""+ddglPath+"wddd/wyxd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"wddd/wyxd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"wddd/bdtb/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],

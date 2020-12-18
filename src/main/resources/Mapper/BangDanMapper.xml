@@ -15,7 +15,7 @@
 			<if test="jszl!=null">
 				jszl,
 			</if>
-			<if test="dfgbjz!=null">
+			<if test="dfgbmz!=null&amp;dfgbpz!=null">
 				dfgbjz,
 			</if>
 			<if test="dfgbpz!=null">
@@ -48,8 +48,8 @@
 			<if test="jszl!=null">
 				#{jszl},
 			</if>
-			<if test="dfgbjz!=null">
-				#{dfgbjz},
+			<if test="dfgbmz!=null&amp;dfgbpz!=null">
+				#{dfgbmz}-#{dfgbpz},
 			</if>
 			<if test="dfgbpz!=null">
 				#{dfgbpz},
@@ -83,8 +83,8 @@
 			<if test="jszl!=null">
 				jszl=#{jszl},
 			</if>
-			<if test="dfgbjz!=null">
-				dfgbjz=#{dfgbjz},
+			<if test="dfgbmz!=null&amp;dfgbpz!=null">
+				dfgbjz=#{dfgbmz}-#{dfgbpz},
 			</if>
 			<if test="dfgbpz!=null">
 				dfgbpz=#{dfgbpz},
