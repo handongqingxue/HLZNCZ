@@ -2399,6 +2399,71 @@ function editCYCLTabRow(){
 	openEditCYCLDialog(1);
 }
 
+function checkNew(){
+	if(checkYSSId()){
+		if(checkYSWLId()){
+			if(checkFHDWId()){
+				if(checkSHDWId()){
+					if(checkCYCLId()){
+						if(checkCYSJId()){
+							newDingDanTianBao();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function newDingDanTianBao(){
+	var ddztId=ssddDDZTCBB.combobox("getValue");
+	$("#new_div #ddztId").val(ddztId);
+	var lxlx=edlxlxCBB.combobox("getValue");
+	$("#new_div #lxlx").val(lxlx);
+	var yssId=yssTab.datagrid("getData").rows[0].id;
+	$("#new_div #yssId").val(yssId);
+	var wlxxId=yswlTab.datagrid("getData").rows[0].id;
+	$("#new_div #wlxxId").val(wlxxId);
+	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
+	$("#new_div #fhdwId").val(fhdwId);
+	var shdwId=shdwTab.datagrid("getData").rows[0].id;
+	$("#new_div #shdwId").val(shdwId);
+	var cyclId=cyclTab.datagrid("getData").rows[0].id;
+	$("#new_div #cyclId").val(cyclId);
+	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	$("#new_div #cysjId").val(cysjId);
+	$("#new_div #bz").val($("#tbxx_div #bz").val());
+
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:ddglPath+"newDingDanTianBao",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
+}
+
+function synchSJZL(tagId,value){
+	if(tagId=="new_div"){
+		$("#tbxx_div #sjzl").val(value);
+	}
+	else if(tagId=="tbxx_div"){
+		$("#new_div #sjzl").val(value);
+	}
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -2756,13 +2821,13 @@ function setFitWidthInParent(parent,self){
 				实际重量
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="sjzl" name="sjzl" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
+				<input type="text" id="sjzl" placeholder="请输入实际重量" style="width: 150px;height:30px;" onkeyup="synchSJZL('tbxx_div',this.value);"/>
 			</td>
 			<td align="right" style="width:15%;">
 				备注
 			</td>
 			<td style="width:30%;">
-				<textarea rows="3" cols="20" id="bz" name="bz" placeholder="请输入备注"></textarea>
+				<textarea rows="3" cols="20" id="bz" placeholder="请输入备注"></textarea>
 			</td>
 		  </tr>
 		</table>
@@ -2771,6 +2836,13 @@ function setFitWidthInParent(parent,self){
 	<!-- 基本信息 start -->
 	<div id="new_div">
 	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="bz" name="bz"/>
+		<input type="hidden" id="yssId" name="yssId"/>
+		<input type="hidden" id="wlxxId" name="wlxxId"/>
+		<input type="hidden" id="fhdwId" name="fhdwId"/>
+		<input type="hidden" id="shdwId" name="shdwId"/>
+		<input type="hidden" id="cyclId" name="cyclId"/>
+		<input type="hidden" id="cysjId" name="cysjId"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
 			<td align="right" style="width:15%;">
@@ -2812,7 +2884,7 @@ function setFitWidthInParent(parent,self){
 				二维码
 			</td>
 			<td>
-				<input type="text" id="ewm" name="ewm" placeholder="请输入二维码" style="width: 150px;height:30px;"/>
+				<input type="file" name="ewm_file"/>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -2820,7 +2892,7 @@ function setFitWidthInParent(parent,self){
 				实际重量
 			</td>
 			<td>
-				<input type="text" id="sjzl" name="sjzl" placeholder="请输入实际重量" style="width: 150px;height:30px;"/>
+				<input type="text" id="sjzl" name="sjzl" placeholder="请输入实际重量" style="width: 150px;height:30px;" onkeyup="synchSJZL('new_div',this.value);"/>
 			</td>
 			<td align="right">
 				重量差额比

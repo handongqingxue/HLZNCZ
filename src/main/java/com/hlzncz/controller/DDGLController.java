@@ -167,6 +167,14 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/dsh/detail";
 	}
 
+	@RequestMapping(value="/wddd/bdtb/list")
+	public String goDdglWdddBdtbList(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+
+		return MODULE_NAME+"/wddd/bdtb/list";
+	}
+
 	@RequestMapping(value="/wddd/wddd/list")
 	public String goDdglWdddWdddList(HttpServletRequest request) {
 		
@@ -801,6 +809,31 @@ public class DDGLController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", wyxdList);
+		
+		return jsonMap;
+	}
+	
+	/**
+	 * 订单管理-我的订单-磅单填报查询
+	 * @param ddh
+	 * @param ddztId
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryWDDDBDTBList")
+	@ResponseBody
+	public Map<String, Object> queryWDDDBDTBList(String ddh,Integer ddztId,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = dingDanService.queryWDDDBDTBForInt(ddh,ddztId);
+		List<DingDan> bdtbList=dingDanService.queryWDDDBDTBList(ddh, ddztId, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", bdtbList);
 		
 		return jsonMap;
 	}

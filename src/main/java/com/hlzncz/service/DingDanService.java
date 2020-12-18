@@ -19,6 +19,10 @@ public interface DingDanService {
 	public List<DingDan> queryWoYaoXiaDanList(String ddh, Integer ddztId, int page, int rows, String sort,
 			String order);
 
+	public int queryWDDDBDTBForInt(String ddh, Integer ddztId);
+
+	public List<DingDan> queryWDDDBDTBList(String ddh, Integer ddztId, int page, int rows, String sort, String order);
+
 	public int queryDingDanShenHeForInt(String ddh, Integer ddztId);
 
 	public List<DingDan> queryDingDanShenHeList(String ddh, Integer ddztId, int page, int rows, String sort,

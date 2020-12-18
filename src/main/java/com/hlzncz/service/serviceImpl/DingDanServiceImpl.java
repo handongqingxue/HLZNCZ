@@ -65,6 +65,18 @@ public class DingDanServiceImpl implements DingDanService {
 		// TODO Auto-generated method stub
 		return dingDanDao.queryWoYaoXiaDanList(ddh, ddztId, (page-1)*rows, rows, sort, order);
 	}
+
+	@Override
+	public int queryWDDDBDTBForInt(String ddh, Integer ddztId) {
+		// TODO Auto-generated method stub
+		return dingDanDao.queryWDDDBDTBForInt(ddh,ddztId);
+	}
+
+	@Override
+	public List<DingDan> queryWDDDBDTBList(String ddh, Integer ddztId, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return dingDanDao.queryWDDDBDTBList(ddh,ddztId,(page-1)*rows, rows, sort, order);
+	}
 	
 	@Override
 	public int queryDingDanShenHeForInt(String ddh, Integer ddztId) {

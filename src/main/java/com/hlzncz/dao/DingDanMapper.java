@@ -18,6 +18,10 @@ public interface DingDanMapper {
 
 	public List<DingDan> queryWoYaoXiaDanList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
 
+	public int queryWDDDBDTBForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
+
+	public List<DingDan> queryWDDDBDTBList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+
 	public int queryDingDanShenHeForInt(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId);
 
 	public List<DingDan> queryDingDanShenHeList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
