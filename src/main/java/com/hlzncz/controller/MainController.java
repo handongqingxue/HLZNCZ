@@ -60,12 +60,21 @@ public class MainController {
 	@Autowired
 	private DingDanZhuangTaiService dingDanZhuangTaiService;
 	
+	/**
+	 * 跳转到登录页
+	 * @return
+	 */
 	@RequestMapping(value="/goLogin")
 	public String goLogin() {
 		
 		return "login";
 	}
 	
+	/**
+	 * 跳转到首页
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/goIndex")
 	public String goIndex(HttpServletRequest request) {
 		
@@ -74,6 +83,10 @@ public class MainController {
 		return "index";
 	}
 
+	/**
+	 * 查询订单状态下拉框信息
+	 * @return
+	 */
 	@RequestMapping(value="/queryDingDanZhuangTaiCBBList")
 	@ResponseBody
 	public Map<String, Object> queryDingDanZhuangTaiCBBList() {
@@ -87,6 +100,10 @@ public class MainController {
 		return jsonMap;
 	}
 
+	/**
+	 * 查询号码状态下拉框信息
+	 * @return
+	 */
 	@RequestMapping(value="/queryHaoMaZhuangTaiCBBList")
 	@ResponseBody
 	public Map<String, Object> queryHaoMaZhuangTaiCBBList() {
@@ -154,6 +171,14 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 登录
+	 * @param model
+	 * @param yhm
+	 * @param ysmm
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String login(Model model,String yhm,String ysmm,HttpServletRequest request) {

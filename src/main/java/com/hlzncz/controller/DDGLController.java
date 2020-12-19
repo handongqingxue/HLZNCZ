@@ -51,6 +51,11 @@ public class DDGLController {
 	private BangDanService bangDanService;
 	public static final String MODULE_NAME="ddgl";
 
+	/**
+	 * 跳转到订单管理-我的订单-我要下单-创建页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/wyxd/new")
 	public String goDdglWdddWyxdNew(HttpServletRequest request) {
 
@@ -59,6 +64,11 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/wyxd/new";
 	}
 
+	/**
+	 * 跳转到订单管理-我的订单-我要下单-修改页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/wyxd/edit")
 	public String goDdglWdddWyxdEdit(HttpServletRequest request) {
 		
@@ -89,6 +99,11 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/wyxd/edit";
 	}
 
+	/**
+	 * 跳转到订单管理-我的订单-我要下单-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/wyxd/list")
 	public String goDdglWdddWyxdList(HttpServletRequest request) {
 		
@@ -97,6 +112,11 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/wyxd/list";
 	}
 
+	/**
+	 * 跳转到订单管理-我的订单-我要下单-详情页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/wyxd/detail")
 	public String goDdglWdddWyxdDetail(HttpServletRequest request) {
 		
@@ -127,6 +147,11 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/wyxd/detail";
 	}
 
+	/**
+	 * 跳转到订单管理-我的订单-待审核-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/dsh/list")
 	public String goDdglWdddDshList(HttpServletRequest request) {
 		
@@ -137,6 +162,11 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/dsh/list";
 	}
 
+	/**
+	 * 跳转到订单管理-我的订单-待审核-详情页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/dsh/detail")
 	public String goDdglWdddDshDetail(HttpServletRequest request) {
 		
@@ -167,48 +197,13 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/dsh/detail";
 	}
 
-	@RequestMapping(value="/wddd/bdtb/detail")
-	public String goBqglWgjcEbwjDetail(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-		String wybm = request.getParameter("wybm");
-		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
-		request.setAttribute("dd", dd);
-
-		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
-		request.setAttribute("bd", bd);
-		
-		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
-		request.setAttribute("yss", yss);
-
-		WuZi wlxx=wuZiService.selectWuZiById(String.valueOf(dd.getWlxxId()));
-		request.setAttribute("wlxx", wlxx);
-		
-		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
-		request.setAttribute("fhdw", fhdw);
-		
-		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
-		request.setAttribute("shdw", shdw);
-
-		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
-		request.setAttribute("cycl", cycl);
-		
-		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
-		request.setAttribute("cysj", cysj);
-		
-		return MODULE_NAME+"/wddd/bdtb/detail";
-	}
-
-	@RequestMapping(value="/wddd/bdtb/list")
-	public String goDdglWdddBdtbList(HttpServletRequest request) {
-		
-		publicService.selectNav(request);
-
-		return MODULE_NAME+"/wddd/bdtb/list";
-	}
-
+	/**
+	 * 跳转到订单管理-我的订单-磅单填报-修改页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/bdtb/edit")
-	public String goBqglWgjcEbwjEdit(HttpServletRequest request) {
+	public String goDdglWdddBdtbEdit(HttpServletRequest request) {
 		
 		publicService.selectNav(request);
 		String wybm = request.getParameter("wybm");
@@ -239,6 +234,61 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/bdtb/edit";
 	}
 
+	/**
+	 *  跳转到订单管理-我的订单-磅单填报-列表页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/wddd/bdtb/list")
+	public String goDdglWdddBdtbList(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+
+		return MODULE_NAME+"/wddd/bdtb/list";
+	}
+
+	/**
+	 * 跳转到订单管理-我的订单-磅单填报-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/wddd/bdtb/detail")
+	public String goDdglWdddBdtbDetail(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		String wybm = request.getParameter("wybm");
+		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
+		
+		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi wlxx=wuZiService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("wlxx", wlxx);
+		
+		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+		
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+		
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return MODULE_NAME+"/wddd/bdtb/detail";
+	}
+
+	/**
+	 * 跳转到订单管理-我的订单-我的订单-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/wddd/list")
 	public String goDdglWdddWdddList(HttpServletRequest request) {
 		
@@ -247,6 +297,11 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/wddd/list";
 	}
 
+	/**
+	 * 跳转到订单管理-我的订单-我的订单-详情页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/wddd/wddd/detail")
 	public String goDdglWdddWdddDetail(HttpServletRequest request) {
 		
@@ -280,6 +335,24 @@ public class DDGLController {
 		return MODULE_NAME+"/wddd/wddd/detail";
 	}
 
+	/**
+	 * 跳转到订单管理-综合管理-订单审核-创建页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/zhgl/ddsh/new")
+	public String goDdglZhglDdshNew(HttpServletRequest request) {
+
+		publicService.selectNav(request);
+		
+		return MODULE_NAME+"/zhgl/ddsh/new";
+	}
+
+	/**
+	 * 跳转到订单管理-综合管理-订单审核-修改页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/zhgl/ddsh/edit")
 	public String goDdglZhglDdshEdit(HttpServletRequest request) {
 		
@@ -310,14 +383,11 @@ public class DDGLController {
 		return MODULE_NAME+"/zhgl/ddsh/edit";
 	}
 
-	@RequestMapping(value="/zhgl/ddsh/new")
-	public String goDdglZhglDdshNew(HttpServletRequest request) {
-
-		publicService.selectNav(request);
-		
-		return MODULE_NAME+"/zhgl/ddsh/new";
-	}
-
+	/**
+	 * 跳转到订单管理-综合管理-订单审核-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/zhgl/ddsh/list")
 	public String goDdglZhglDdshList(HttpServletRequest request) {
 		
@@ -328,6 +398,11 @@ public class DDGLController {
 		return MODULE_NAME+"/zhgl/ddsh/list";
 	}
 
+	/**
+	 * 跳转到订单管理-综合管理-订单审核-详情页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/zhgl/ddsh/detail")
 	public String goDdglZhglDdshDetail(HttpServletRequest request) {
 		
@@ -357,6 +432,11 @@ public class DDGLController {
 		return MODULE_NAME+"/zhgl/ddsh/detail";
 	}
 
+	/**
+	 * 跳转到订单管理-综合管理-直接排队-修改页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/zhgl/zjpd/edit")
 	public String goDdglZhglZjpdEdit(HttpServletRequest request) {
 		
@@ -387,6 +467,11 @@ public class DDGLController {
 		return MODULE_NAME+"/zhgl/zjpd/edit";
 	}
 
+	/**
+	 * 跳转到订单管理-综合管理-直接排队-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/zhgl/zjpd/list")
 	public String goDdglZhglZjpdList(HttpServletRequest request) {
 		
@@ -397,6 +482,11 @@ public class DDGLController {
 		return MODULE_NAME+"/zhgl/zjpd/list";
 	}
 
+	/**
+	 * 跳转到订单管理-综合管理-直接排队-详情页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/zhgl/zjpd/detail")
 	public String goDdglZhglZjpdDetail(HttpServletRequest request) {
 		
