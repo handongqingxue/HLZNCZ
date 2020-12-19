@@ -69,7 +69,7 @@ function initTab1(){
             {field:"yzxzl",title:"预装卸重量",width:200},
             {field:"sjzl",title:"实际重量",width:200},
             {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\""+ddglPath+"zhgl/zhgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
+            	var str="<a href=\""+ddglPath+"ddtb/bdgl/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
             	+"&nbsp;|&nbsp;<a href=\""+ddglPath+"ddtb/bdgl/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
             	return str;
             }}

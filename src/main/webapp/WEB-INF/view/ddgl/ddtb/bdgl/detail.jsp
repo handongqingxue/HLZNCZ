@@ -28,7 +28,7 @@ var jcxxPath=path+'jcxx/';
 var dialogTop=10;
 var dialogLeft=20;
 var showZIndex=9999;
-var edNum=0;
+var ddNum=0;
 var yssdNum=1;
 var wlxxdNum=2;
 var fhdwdNum=3;
@@ -36,7 +36,7 @@ var shdwdNum=4;
 var cycldNum=5;
 var cysjdNum=6;
 $(function(){
-	initEditDialog();
+	initDetailDialog();
 	
 	initYSSDialog();//1.运输商窗口
 
@@ -55,8 +55,8 @@ $(function(){
 
 function initDialogPosition(){
 	//基本属性组
-	var edpw=$("body").find(".panel.window").eq(edNum);
-	var edws=$("body").find(".window-shadow").eq(edNum);
+	var ddpw=$("body").find(".panel.window").eq(ddNum);
+	var ddws=$("body").find(".window-shadow").eq(ddNum);
 
 	//运输商
 	var yssdpw=$("body").find(".panel.window").eq(yssdNum);
@@ -83,8 +83,8 @@ function initDialogPosition(){
 	var cysjdws=$("body").find(".window-shadow").eq(cysjdNum);
 
 	var ccDiv=$("#center_con_div");
-	ccDiv.append(edpw);
-	ccDiv.append(edws);
+	ccDiv.append(ddpw);
+	ccDiv.append(ddws);
 
 	ccDiv.append(yssdpw);
 	ccDiv.append(yssdws);
@@ -105,58 +105,40 @@ function initDialogPosition(){
 	ccDiv.append(cysjdws);
 }
 
-function initEditDialog(){
+function initDetailDialog(){
 	dialogTop+=20;
-	$("#edit_div").dialog({
+	$("#detail_div").dialog({
 		title:"填报信息",
-		width:setFitWidthInParent("body","edit_div"),
+		width:setFitWidthInParent("body","detail_div"),
 		height:385,
 		top:dialogTop,
-		left:dialogLeft,
-		buttons:[
-           {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	   editBangDanTianBao();
-           }}
-        ]
+		left:dialogLeft
 	});
 
-	$("#edit_div table").css("width",(setFitWidthInParent("body","edit_div_table"))+"px");
-	$("#edit_div table").css("magin","-100px");
-	$("#edit_div table td").css("padding-left","50px");
-	$("#edit_div table td").css("padding-right","20px");
-	$("#edit_div table td").css("font-size","15px");
-	$("#edit_div table tr").each(function(i){
+	$("#detail_div table").css("width",(setFitWidthInParent("body","detail_div_table"))+"px");
+	$("#detail_div table").css("magin","-100px");
+	$("#detail_div table td").css("padding-left","50px");
+	$("#detail_div table td").css("padding-right","20px");
+	$("#detail_div table td").css("font-size","15px");
+	$("#detail_div table tr").each(function(i){
 		$(this).css("height",(i==3?90:45)+"px");
 	});
 
-	$(".panel.window").eq(edNum).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(edNum).css("color","#000");
-	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
+	$(".panel.window").eq(ddNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ddNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ddNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ddNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(edNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
+	$(".window-shadow").eq(ddNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ddNum).css("border-color","#ddd");
 
-	$("#edit_div #ok_but").css("left","45%");
-	$("#edit_div #ok_but").css("position","absolute");
+	$("#detail_div #ok_but").css("left","45%");
+	$("#detail_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-
-	initEditDivBJSJDTB();
-}
-
-function initEditDivBJSJDTB(){
-	edbjsjDTB=$("#edit_div #bjsj_dtb").datetimebox({
-        required:false,
-        disabled:true,
-        onSelect:function(){
-        	$("#edit_div #bjsj").val(edbjsjDTB.datetimebox("getValue"));
-        }
-	});
-	edbjsjDTB.datetimebox("setValue",'${requestScope.dd.bjsj }');
 }
 
 function initYSSDialog(){
@@ -684,36 +666,14 @@ function initCYSJTab(){
 	loadCYSJTabData(rows);
 }
 
-function editBangDanTianBao(){
-	var formData = new FormData($("#form1")[0]);
-	$.ajax({
-		type:"post",
-		url:ddglPath+"editDingDanZongHeGuanLi",
-		dataType: "json",
-		data:formData,
-		cache: false,
-		processData: false,
-		contentType: false,
-		success: function (data){
-			if(data.message=="ok"){
-				alert(data.info);
-				history.go(-1);
-			}
-			else{
-				alert(data.info);
-			}
-		}
-	});
-}
-
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
-	case "edit_div":
+	case "detail_div":
 	case "yss_div":
 		space=340;
 		break;
-	case "edit_div_table":
+	case "detail_div_table":
 	case "panel_window":
 	case "yss_tab":
 		space=355;
@@ -731,16 +691,14 @@ function initWindowMarginLeft(){
 	return ((editDivWidth-pwWidth)/2)+"px";
 }
 </script>
-<title>修改</title>
+<title>详情</title>
 </head>
 <body>
-
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">磅单管理-修改</div>
+	<div class="page_location_div">磅单管理-详情</div>
 
-	<div id="edit_div">
-	<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+	<div id="detail_div">
 		<input type="hidden" id="wybm" name="wybm" value="${requestScope.dd.wybm }"/>
 		<table>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -748,13 +706,13 @@ function initWindowMarginLeft(){
 				对方过磅皮重
 			</td>
 			<td style="width:30%;">
-				<input type="number" id="dfgbpz" name="dfgbpz" value="${requestScope.bd.dfgbpz }" placeholder="请输入对方过磅皮重" style="width: 180px;height:30px;"/>
+				<span>${requestScope.bd.dfgbpz }</span>
 			</td>
 			<td align="right" style="width:15%;">
 				对方过磅毛重
 			</td>
 			<td style="width:30%;">
-				<input type="number" id="dfgbmz" name="dfgbmz" value="${requestScope.bd.dfgbmz }" placeholder="请输入对方过磅毛重" style="width: 180px;height:30px;"/>
+				<span>${requestScope.bd.dfgbmz }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -762,13 +720,13 @@ function initWindowMarginLeft(){
 				包数
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="bs" name="bs" value="${requestScope.bd.bs }" placeholder="请输入包数" style="width: 180px;height:30px;"/>
+				<span>${requestScope.bd.bs }</span>
 			</td>
 			<td align="right" style="width:15%;">
 				块数
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="ks" name="ks" value="${requestScope.bd.ks }" placeholder="请输入块数" style="width: 180px;height:30px;"/>
+				<span>${requestScope.bd.ks }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -776,13 +734,12 @@ function initWindowMarginLeft(){
 				对方过磅净重
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="dfgbjz" name="dfgbjz" value="${requestScope.bd.dfgbjz }" placeholder="无需输入" disabled="disabled" style="width: 150px;height:30px;"/>
+				<span>${requestScope.bd.dfgbjz }</span>
 			</td>
 			<td align="right" style="width:15%;">
 				对方榜单照片
 			</td>
 			<td style="width:30%;">
-				<input type="file" name="dfbdzp_file"/>
 				<div>
 					${requestScope.bd.dfbdzp }
 				</div>
@@ -793,13 +750,13 @@ function initWindowMarginLeft(){
 				备注
 			</td>
 			<td style="width:30%;">
-				<textarea id="bz" name="ddbz" rows="3" cols="20" placeholder="请输入备注">${requestScope.dd.bz }</textarea>
+				<span>${requestScope.dd.bz }</span>
 			</td>
 			<td align="right" style="width:15%;">
 				订单号
 			</td>
 			<td style="width:30%;">
-				<input type="text" id="ddh" name="ddh" value="${requestScope.dd.ddh }" placeholder="请输入车牌号" disabled="disabled" style="width: 180px;height:30px;"/>
+				<span>${requestScope.dd.ddh }</span>
 			</td>
 		  </tr>
 		  <tr style="border-bottom: #CAD9EA solid 1px;">
@@ -807,7 +764,7 @@ function initWindowMarginLeft(){
 				编辑时间
 			</td>
 			<td style="width:30%;">
-				<input id="bjsj_dtb"/>
+				<span>${requestScope.dd.bjsj }</span>
 			</td>
 			<td align="right" style="width:15%;">
 			</td>
@@ -815,7 +772,6 @@ function initWindowMarginLeft(){
 			</td>
 		  </tr>
 		</table>
-	</form>
 	</div>
 	
 	<div id="yss_div">
