@@ -26,10 +26,10 @@ public interface DingDanMapper {
 
 	public List<DingDan> queryDingDanShenHeList(@Param("ddh") String ddh, @Param("ddztId") Integer ddztId, int i, int rows, String sort, String order);
 
-	public int queryDDGLZHGLForInt(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jcsjs") String jcsjs, @Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss,
+	public int queryDDGLZHGLForInt(@Param("ddh") String ddh, @Param("ddztIdList") List<String> ddztIdList, @Param("cph") String cph, @Param("jcsjs") String jcsjs, @Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss,
 			@Param("wzmc") String wzmc,@Param("fhdwmc") String fhdwmc,@Param("shdwmc") String shdwmc,@Param("sjxm") String sjxm,@Param("sjsfz") String sjsfz);
 
-	public List<DingDan> queryDDGLZHGLList(@Param("ddh") String ddh, @Param("ddztId") String ddztId, @Param("cph") String cph, @Param("jcsjs") String jcsjs, @Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss,
+	public List<DingDan> queryDDGLZHGLList(@Param("ddh") String ddh, @Param("ddztIdList") List<String> ddztIdList, @Param("cph") String cph, @Param("jcsjs") String jcsjs, @Param("jcsje") String jcsje, @Param("jhysrq") String jhysrq, @Param("yss") String yss,
 			@Param("wzmc") String wzmc,@Param("fhdwmc") String fhdwmc,@Param("shdwmc") String shdwmc,@Param("sjxm") String sjxm,@Param("sjsfz") String sjsfz, @Param("clzt") String clzt, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
 
 	public DingDan selectDingDanByWybm(@Param("wybm") String wybm);

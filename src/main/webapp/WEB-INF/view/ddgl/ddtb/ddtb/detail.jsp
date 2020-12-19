@@ -1965,7 +1965,7 @@ function setFitWidthInParent(parent,self){
 
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">订单填报-修改</div>
+	<div class="page_location_div">订单填报-详情</div>
 	
 	<div id="tbxx_div">
 		<table>

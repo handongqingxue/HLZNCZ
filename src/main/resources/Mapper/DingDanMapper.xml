@@ -289,8 +289,10 @@
 		<if test="ddh!=''&amp;ddh!=null">
 			and dd.ddh like CONCAT('%',#{ddh},'%')
 		</if>
-		<if test="ddztId!=''&amp;ddztId!=null">
-			and dd.ddztId in (#{ddztId})
+		<if test="ddztIdList!=null">
+			<foreach collection="ddztIdList" item="ddztId" open="and dd.ddztId in (" separator="," close=")">
+			#{ddztId}
+			</foreach>
 		</if>
 		<if test="cph!=''&amp;cph!=null">
 			and cl.cph like CONCAT('%',#{cph},'%')
@@ -323,8 +325,10 @@
 		<if test="ddh!=''&amp;ddh!=null">
 			and dd.ddh like CONCAT('%',#{ddh},'%')
 		</if>
-		<if test="ddztId!=''&amp;ddztId!=null">
-			and dd.ddztId in (#{ddztId})
+		<if test="ddztIdList!=null">
+			<foreach collection="ddztIdList" item="ddztId" open="and dd.ddztId in (" separator="," close=")">
+			#{ddztId}
+			</foreach>
 		</if>
 		<if test="cph!=''&amp;cph!=null">
 			and cl.cph like CONCAT('%',#{cph},'%')

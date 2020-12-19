@@ -660,6 +660,49 @@ public class DDGLController {
 		return MODULE_NAME+"/ddtb/ddtb/detail";
 	}
 
+	@RequestMapping(value="/ddtb/bdgl/edit")
+	public String goDdglDdtbBdglEdit(HttpServletRequest request) {
+
+		publicService.selectNav(request);
+		
+		String wybm = request.getParameter("wybm");
+		DingDan dd=dingDanService.selectDingDanByWybm(wybm);
+		request.setAttribute("dd", dd);
+
+		BangDan bd=bangDanService.selectBangDanByDdbm(wybm);
+		request.setAttribute("bd", bd);
+
+		YunShuShang yss=yunShuShangService.selectYunShuShangById(String.valueOf(dd.getYssId()));
+		request.setAttribute("yss", yss);
+
+		WuZi yswl=wuZiService.selectWuZiById(String.valueOf(dd.getWlxxId()));
+		request.setAttribute("yswl", yswl);
+
+		FaHuoDanWei fhdw=faHuoDanWeiService.selectFaHuoDanWeiById(String.valueOf(dd.getFhdwId()));
+		request.setAttribute("fhdw", fhdw);
+
+		ShouHuoDanWei shdw=shouHuoDanWeiService.selectShouHuoDanWeiById(String.valueOf(dd.getShdwId()));
+		request.setAttribute("shdw", shdw);
+
+		CheLiang cycl=cheLiangService.selectCheLiangById(String.valueOf(dd.getCyclId()));
+		request.setAttribute("cycl", cycl);
+
+		SiJi cysj=siJiService.selectSiJiById(String.valueOf(dd.getCysjId()));
+		request.setAttribute("cysj", cysj);
+		
+		return MODULE_NAME+"/ddtb/bdgl/edit";
+	}
+
+	@RequestMapping(value="/ddtb/bdgl/list")
+	public String goDdglDdtbBdglList(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		
+		request.setAttribute("ddztId", DingDan.DAI_YI_JIAN_SHANG_BANG+","+DingDan.DAI_ER_JIAN_SHANG_BANG+","+DingDan.DAI_LI_CHANG);
+		
+		return MODULE_NAME+"/ddtb/bdgl/list";
+	}
+
 	@RequestMapping(value="/newDingDanZongHeGuanLi")
 	@ResponseBody
 	public Map<String, Object> newDingDanZongHeGuanLi(DingDan dd,BangDan bd,
