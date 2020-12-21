@@ -13,4 +13,6 @@ public interface HaoMaService {
 			String order);
 
 	public int newHaoMaChaXun(HaoMa hm);
+
+	public HaoMa selectHaoMaById(String id);
 }

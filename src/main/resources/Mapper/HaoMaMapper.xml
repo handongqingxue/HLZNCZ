@@ -96,4 +96,7 @@
 			</if>
 		</trim>
 	</insert>
+	<select id="selectHaoMaById" resultType="com.hlzncz.entity.HaoMa">
+		select * from hao_ma where id=#{id}
+	</select>
 </mapper>

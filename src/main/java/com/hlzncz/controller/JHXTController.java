@@ -25,6 +25,10 @@ public class JHXTController {
 	@Autowired
 	private HaoMaService haoMaService;
 	@Autowired
+	private SiJiService siJiService;
+	@Autowired
+	private YongHuService yongHuService;
+	@Autowired
 	private ShouHuoDanWeiService shouHuoDanWeiService;
 	public static final String MODULE_NAME="jhxt";
 
@@ -34,6 +38,20 @@ public class JHXTController {
 		publicService.selectNav(request);
 		
 		return MODULE_NAME+"/jhxx/hmcx/new";
+	}
+
+	@RequestMapping(value="/jhxx/hmcx/edit")
+	public String goJhxtJhxxHmcxEdit(HttpServletRequest request) {
+		
+		publicService.selectNav(request);
+		String id = request.getParameter("id");
+		HaoMa hm=haoMaService.selectHaoMaById(id);
+		request.setAttribute("hm", hm);
+
+		YongHu sssj=yongHuService.selectYongHuById(String.valueOf(hm.getSssjId()));
+		request.setAttribute("sssj", sssj);
+		
+		return MODULE_NAME+"/jhxx/hmcx/edit";
 	}
 
 	@RequestMapping(value="/jhxx/hmcx/list")

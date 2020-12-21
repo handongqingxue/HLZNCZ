@@ -33,4 +33,10 @@ public class HaoMaServiceImpl implements HaoMaService {
 		// TODO Auto-generated method stub
 		return haoMaDao.newHaoMaChaXun(hm);
 	}
+
+	@Override
+	public HaoMa selectHaoMaById(String id) {
+		// TODO Auto-generated method stub
+		return haoMaDao.selectHaoMaById(id);
+	}
 }

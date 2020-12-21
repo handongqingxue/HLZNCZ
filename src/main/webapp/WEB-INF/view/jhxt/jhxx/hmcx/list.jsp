@@ -85,7 +85,7 @@ function initZXJHLB(){
 	$("#zxjh_but").linkbutton({
 		iconCls:"icon-ok",
 		onClick:function(){
-			tongGuoByWybms();
+			alert("未开发");
 		}
 	});
 }
@@ -94,7 +94,7 @@ function initZXGHLB(){
 	$("#zxgh_but").linkbutton({
 		iconCls:"icon-back",
 		onClick:function(){
-			tuiHuiByWybms();
+			alert("未开发");
 		}
 	});
 }
@@ -126,9 +126,9 @@ function initTab1(){
             }},
             {field:"ztmc",title:"状态",width:200},
             {field:"ddztmc",title:"叫号次数",width:200},
-            {field:"wybm",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">详情</a>"
-            	+"&nbsp;|&nbsp;<a href=\"${pageContext.request.contextPath}/main/ddgl/wddd/wyxd/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&wybm="+value+"\">修改</a>";
+            {field:"id",title:"操作",width:150,formatter:function(value,row){
+            	var str="<a href=\""+jhxtPath+"jhxx/hmcx/detail?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">详情</a>"
+            	+"&nbsp;|&nbsp;<a href=\""+jhxtPath+"jhxx/hmcx/edit?fnid="+'${param.fnid}'+"&snid="+'${param.snid}'+"&id="+value+"\">修改</a>";
             	return str;
             }}
 	    ]],
@@ -167,72 +167,6 @@ function reSizeCol(){
 	cols=$(".datagrid-btable tr").eq(0).find("td");
 	colCount=cols.length;
 	cols.css("width",width/colCount+"px");
-}
-
-function tongGuoByWybms() {
-	var rows=tab1.datagrid("getSelections");
-	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要通过的信息！","warning");
-		return false;
-	}
-	
-	$.messager.confirm("提示","确定要通过吗？",function(r){
-		if(r){
-			var wybms = "";
-			for (var i = 0; i < rows.length; i++) {
-				wybms += "," + rows[i].wybm;
-			}
-			wybms=wybms.substring(1);
-			
-			$.ajaxSetup({async:false});
-			$.post(path + "main/tongGuoDingDanShenHe",
-				{wybms:wybms},
-				function(result){
-					if(result.status==1){
-						alert(result.msg);
-						location.href = location.href;
-					}
-					else{
-						alert(result.msg);
-					}
-				}
-			,"json");
-			
-		}
-	});
-}
-
-function tuiHuiByWybms() {
-	var rows=tab1.datagrid("getSelections");
-	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要退回的信息！","warning");
-		return false;
-	}
-	
-	$.messager.confirm("提示","确定要退回吗？",function(r){
-		if(r){
-			var wybms = "";
-			for (var i = 0; i < rows.length; i++) {
-				wybms += "," + rows[i].wybm;
-			}
-			wybms=wybms.substring(1);
-			
-			$.ajaxSetup({async:false});
-			$.post(path + "main/tuiHuiDingDanShenHe",
-				{wybms:wybms},
-				function(result){
-					if(result.status==1){
-						alert(result.msg);
-						location.href = location.href;
-					}
-					else{
-						alert(result.msg);
-					}
-				}
-			,"json");
-			
-		}
-	});
 }
 
 function setFitWidthInParent(o){

@@ -3584,7 +3584,7 @@ function initWindowMarginLeft(){
 
 <%@include file="../../../inc/nav.jsp"%>
 <div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">号码查询-详情</div>
+	<div class="page_location_div">号码查询-创建</div>
 	
 	<!-- 新字段组 start -->
 	<div id="new_div">
