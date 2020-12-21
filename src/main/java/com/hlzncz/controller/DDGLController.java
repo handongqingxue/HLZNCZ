@@ -49,6 +49,8 @@ public class DDGLController {
 	private DingDanYiChangService dingDanYiChangService;
 	@Autowired
 	private BangDanService bangDanService;
+	@Autowired
+	private YongHuService yongHuService;
 	public static final String MODULE_NAME="ddgl";
 
 	/**
@@ -331,6 +333,9 @@ public class DDGLController {
 		
 		SiJi cysj=siJiService.selectSiJiById(String.valueOf(wddd.getCysjId()));
 		request.setAttribute("cysj", cysj);
+		
+		YongHu xdyh=yongHuService.selectYongHuById(String.valueOf(wddd.getXdyhId()));
+		request.setAttribute("xdyh", xdyh);
 		
 		return MODULE_NAME+"/wddd/wddd/detail";
 	}

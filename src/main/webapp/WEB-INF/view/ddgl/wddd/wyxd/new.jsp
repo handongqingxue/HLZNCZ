@@ -2398,9 +2398,10 @@ function newWoYaoXiaDan(){
 	var shdwId=shdwTab.datagrid("getData").rows[0].id;
 	var cyclId=cyclTab.datagrid("getData").rows[0].id;
 	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	var xdyhId='${sessionScope.yongHu.id}';
 	
 	$.post(ddglPath+"newWoYaoXiaDan",
-		{jhysrq:jhysrq,yzxzl:yzxzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId},
+		{jhysrq:jhysrq,yzxzl:yzxzl,lxlx:lxlx,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId,xdyhId:xdyhId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);

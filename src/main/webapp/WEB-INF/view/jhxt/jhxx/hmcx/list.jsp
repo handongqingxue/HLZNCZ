@@ -246,7 +246,7 @@ function setFitWidthInParent(o){
 <div class="layui-layout layui-layout-admin">
 	<%@include file="../../../inc/nav.jsp"%>
 	<div id="tab1_div" style="margin-top:20px;margin-left: 308px;">
-		<div id="toolbar" style="height:32px;line-height:32px;">
+		<div id="toolbar" style="height:32px;">
 			<span style="margin-left: 13px;">号码：</span>
 			<input type="text" id="hm" placeholder="号码" style="width: 120px;height: 25px;"/>
 			<span style="margin-left: 13px;">排队号：</span>

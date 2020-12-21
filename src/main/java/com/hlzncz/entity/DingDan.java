@@ -289,7 +289,7 @@ public class DingDan implements Serializable {
 	private Integer cyclId;//承运车辆id
 	private String cph;
 	private Integer cysjId;//承运司机id
-	private Integer xdyhId;
+	private Integer xdyhId;//下单用户id
 	private String bz;//备注
 	private String ddbz;//备注（这个属性在其他类里也有bz字段重名时才用）
 	
