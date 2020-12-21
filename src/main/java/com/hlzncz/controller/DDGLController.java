@@ -337,6 +337,9 @@ public class DDGLController {
 		YongHu xdyh=yongHuService.selectYongHuById(String.valueOf(wddd.getXdyhId()));
 		request.setAttribute("xdyh", xdyh);
 		
+		YongHu sjyh=yongHuService.selectSiJiYongHuById(String.valueOf(wddd.getCysjId()));
+		request.setAttribute("sjyh", sjyh);
+		
 		return MODULE_NAME+"/wddd/wddd/detail";
 	}
 

@@ -126,6 +126,9 @@
 	<select id="selectYongHuById" resultType="com.hlzncz.entity.YongHu">
 		select * from yong_hu where id=#{id}
 	</select>
+	<select id="selectSiJiYongHuById" resultType="com.hlzncz.entity.YongHu">
+		select yh.* from yong_hu yh,si_ji sj where yh.id=sj.glyhId and sj.id=#{id}
+	</select>
 	<select id="getYongHu" resultType="com.hlzncz.entity.YongHu">
 		select * from yong_hu where yhm=#{yhm} and ysmm=#{ysmm}
 	</select>

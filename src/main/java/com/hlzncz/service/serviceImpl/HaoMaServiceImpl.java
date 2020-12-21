@@ -27,4 +27,10 @@ public class HaoMaServiceImpl implements HaoMaService {
 		// TODO Auto-generated method stub
 		return haoMaDao.queryHaoMaList(hm, pdh, ztId, (page-1)*rows, rows, sort, order);
 	}
+
+	@Override
+	public int newHaoMaChaXun(HaoMa hm) {
+		// TODO Auto-generated method stub
+		return haoMaDao.newHaoMaChaXun(hm);
+	}
 }

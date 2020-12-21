@@ -11,4 +11,6 @@ public interface HaoMaService {
 
 	public List<HaoMa> queryHaoMaList(String hm, String pdh, Integer ztId, int page, int rows, String sort,
 			String order);
+
+	public int newHaoMaChaXun(HaoMa hm);
 }

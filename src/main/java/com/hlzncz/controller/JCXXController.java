@@ -1791,4 +1791,30 @@ public class JCXXController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/selectWuZiById")
+	@ResponseBody
+	public Map<String, Object> selectWuZiById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		WuZi wz=wuZiService.selectWuZiById(id);
+
+		jsonMap.put("wz", wz);
+		
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/selectCheLiangById")
+	@ResponseBody
+	public Map<String, Object> selectCheLiangById(String id) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		CheLiang cl=cheLiangService.selectCheLiangById(id);
+
+		jsonMap.put("cl", cl);
+		
+		return jsonMap;
+	}
 }

@@ -39,6 +39,12 @@ public class HaoMa implements Serializable {
 	public void setZtId(Integer ztId) {
 		this.ztId = ztId;
 	}
+	public String getZtmc() {
+		return ztmc;
+	}
+	public void setZtmc(String ztmc) {
+		this.ztmc = ztmc;
+	}
 	public Integer getFl() {
 		return fl;
 	}
@@ -69,21 +75,22 @@ public class HaoMa implements Serializable {
 	public void setSsdlId(Integer ssdlId) {
 		this.ssdlId = ssdlId;
 	}
-	public Integer getSsddId() {
-		return ssddId;
+	public String getSsddBm() {
+		return ssddBm;
 	}
-	public void setSsddId(Integer ssddId) {
-		this.ssddId = ssddId;
+	public void setSsddBm(String ssddBm) {
+		this.ssddBm = ssddBm;
 	}
 	private String hm;//号码
 	private String prsj;//排入时间
 	private Integer pdh;//排队号	
 	private Integer ztId;//状态 1.排队中2.已完成3.已过号4.取消5.叫号中6.受理中
+	private String ztmc;//状态名称
 	private Integer fl;//分类
 	private String ewm;//二维码
 	private String ksjhsj;//开始叫号时间
 	private Integer sssjId;//所属司机id
 	private Integer ssdlId;//所属队列id
-	private Integer ssddId;//所属订单id
+	private String ssddBm;//所属订单编码
 
 }

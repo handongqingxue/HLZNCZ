@@ -54,4 +54,10 @@ public class YongHuServiceImpl implements YongHuService {
 		// TODO Auto-generated method stub
 		return yongHuDao.selectYongHuById(id);
 	}
+
+	@Override
+	public YongHu selectSiJiYongHuById(String id) {
+		// TODO Auto-generated method stub
+		return yongHuDao.selectSiJiYongHuById(id);
+	}
 }

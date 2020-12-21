@@ -278,6 +278,9 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var jhxtPath=path+'jhxt/';
+var xtglPath=path+'xtgl/';
+var jcxxPath=path+'jcxx/';
+var ddglPath=path+'ddgl/';
 var dialogTop=10;
 var dialogLeft=20;
 var ndNum=0;
@@ -537,7 +540,7 @@ function initNewDialog(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 
 	initPRSJDB();
-	initZTCBB();
+	initNewDivZTCBB();
 	initFLCBB();
 	iniKSJHSJDB();
 }
@@ -553,7 +556,7 @@ function initPRSJDB(){
 	prsjDB.datebox('textbox').attr('placeholder', '请选择排入时间');
 }
 
-function initZTCBB(){
+function initNewDivZTCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择状态"});
 	$.post(path+"main/queryHaoMaZhuangTaiCBBList",
@@ -562,7 +565,7 @@ function initZTCBB(){
 			for(var i=0;i<rows.length;i++){
 				data.push({"value":rows[i].id,"text":rows[i].mc});
 			}
-			ztCBB=$("#zt_cbb").combobox({
+			ztCBB=$("#new_div #zt_cbb").combobox({
 				valueField:"value",
 				textField:"text",
 				//multiple:true,
@@ -797,7 +800,7 @@ function initSelectSSSJTab(){
 	});
 	
 	selectSSSJTab=$("#select_sssj_tab").datagrid({
-		url:path+"main/queryYongHuList",
+		url:xtglPath+"queryYongHuList",
 		toolbar:"#select_sssj_toolbar",
 		width:setFitWidthInParent("body","select_sssj_tab"),
 		singleSelect:true,
@@ -1336,7 +1339,7 @@ function initSelectSSDLTab(){
 	});
 	
 	selectSSDLTab=$("#select_ssdl_tab").datagrid({
-		url:path+"main/queryDuiLieList",
+		url:jcxxPath+"queryDuiLieList",
 		toolbar:"#select_ssdl_toolbar",
 		width:setFitWidthInParent("body","select_ssdl_tab"),
 		singleSelect:true,
@@ -1691,7 +1694,7 @@ function initSelectSSDDTab(){
 	});
 	
 	selectSSDDTab=$("#select_ssdd_tab").datagrid({
-		url:path+"main/queryDDGLZHGLList",
+		url:ddglPath+"queryDDGLZHGLList",
 		toolbar:"#select_ssdd_toolbar",
 		width:setFitWidthInParent("body","select_ssdd_tab"),
 		singleSelect:true,
@@ -2651,15 +2654,6 @@ function openDetailSSDDPHXXDialog(flag){
 	}
 }
 
-
-
-
-
-
-
-
-
-
 function deleteSSDLTabRow(){
 	ssdlTab.datagrid("deleteRow",0);
 	loadSSDLTabData([]);
@@ -2726,7 +2720,7 @@ function detailSSDDTabRow(){
 	
 	$("#detail_ssdd_yss_dialog_div #id").val(row.yssId);
 	
-	$.post(path+"main/selectYunShuShangById",
+	$.post(jcxxPath+"selectYunShuShangById",
 		{id:row.yssId},
 		function(result){
 			var yss=result.yss;
@@ -2738,7 +2732,7 @@ function detailSSDDTabRow(){
 		}
 	,"json");
 
-	$.post(path+"main/selectWuZiById",
+	$.post(jcxxPath+"selectWuZiById",
 		{id:row.wlxxId},
 		function(result){
 			var wz=result.wz;
@@ -2750,7 +2744,7 @@ function detailSSDDTabRow(){
 		}
 	,"json");
 
-	$.post(path+"main/selectFaHuoDanWeiById",
+	$.post(jcxxPath+"selectFaHuoDanWeiById",
 		{id:row.fhdwId},
 		function(result){
 			var fhdw=result.fhdw;
@@ -2762,7 +2756,7 @@ function detailSSDDTabRow(){
 		}
 	,"json");
 
-	$.post(path+"main/selectShouHuoDanWeiById",
+	$.post(jcxxPath+"selectShouHuoDanWeiById",
 		{id:row.shdwId},
 		function(result){
 			var shdw=result.shdw;
@@ -2775,7 +2769,7 @@ function detailSSDDTabRow(){
 	,"json");
 
 	//承运车辆
-	$.post(path+"main/selectCheLiangById",
+	$.post(jcxxPath+"selectCheLiangById",
 		{id:row.cyclId},
 		function(result){
 			var cl=result.cl;
@@ -2788,7 +2782,7 @@ function detailSSDDTabRow(){
 	,"json");
 
 	//承运司机
-	$.post(path+"main/selectSiJiById",
+	$.post(jcxxPath+"selectSiJiById",
 		{id:row.cysjId},
 		function(result){
 			var sj=result.sj;
@@ -2926,16 +2920,14 @@ function saveSelectSSDD(){
 
 function checkNew(){
 	if(checkPRSJ()){
-		if(checkYZXZL()){
-			if(checkFL()){
-				if(checkYSSId()){
-					if(checkWLXXId()){
-						if(checkFHDWId()){
-							if(checkSHDWId()){
-								if(checkCYCLId()){
-									if(checkCYSJId()){
-										newWoYaoXiaDan();
-									}
+		if(checkPdh()){
+			if(checkZT()){
+				if(checkFL()){
+					if(checkKSJHSJ()){
+						if(checkSSSJId()){
+							if(checkSSDLId()){
+								if(checkSSDDBm()){
+									newHaoMaChaXun();
 								}
 							}
 						}
@@ -2946,19 +2938,20 @@ function checkNew(){
 	}
 }
 
-function newWoYaoXiaDan(){
+function newHaoMaChaXun(){
+	var hm=$("#new_div #hm").val();
 	var prsj=prsjDB.datebox("getValue");
-	var yzxzl=$("#new_div #yzxzl").val();
+	var pdh=$("#new_div #pdh").val();
+	var ztId=ztCBB.combobox("getValue");
 	var fl=flCBB.combobox("getValue");
-	var yssId=sssjTab.datagrid("getData").rows[0].id;
-	var wlxxId=wlxxTab.datagrid("getData").rows[0].id;
-	var fhdwId=fhdwTab.datagrid("getData").rows[0].id;
-	var shdwId=shdwTab.datagrid("getData").rows[0].id;
-	var cyclId=cyclTab.datagrid("getData").rows[0].id;
-	var cysjId=cysjTab.datagrid("getData").rows[0].id;
+	var ewm=$("#new_div #ewm").val();
+	var ksjhsj=ksjhsjDB.datebox("getValue");
+	var sssjId=sssjTab.datagrid("getData").rows[0].id;
+	var ssdlId=ssdlTab.datagrid("getData").rows[0].id;
+	var ssddBm=ssddTab.datagrid("getData").rows[0].wybm;
 	
-	$.post(path+"main/newWoYaoXiaDan",
-		{prsj:prsj,yzxzl:yzxzl,fl:fl,yssId:yssId,wlxxId:wlxxId,fhdwId:fhdwId,shdwId:shdwId,cyclId:cyclId,cysjId:cysjId},
+	$.post(jhxtPath+"newHaoMaChaXun",
+		{hm:hm,prsj:prsj,pdh:pdh,ztId:ztId,fl:fl,ewm:ewm,ksjhsj:ksjhsj,sssjId:sssjId,ssdlId:ssdlId,ssddBm:ssddBm},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
@@ -2982,11 +2975,22 @@ function checkPRSJ(){
 		return true;
 }
 
-//验证预装卸重量
-function checkYZXZL(){
-	var yzxzl = $("#new_div #yzxzl").val();
-	if(yzxzl==null||yzxzl==""){
-	  	alert("请输入预装卸重量");
+//验证排队号
+function checkPdh(){
+	var pdh = $("#new_div #pdh").val();
+	if(pdh==null||pdh==""){
+	  	alert("请输入排队号");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证状态
+function checkZT(){
+	var zt=ztCBB.combobox("getValue");
+	if(zt==null||zt==""){
+	  	alert("请选择状态");
 	  	return false;
 	}
 	else
@@ -3004,96 +3008,59 @@ function checkFL(){
 		return true;
 }
 
-//验证运输商
-function checkYSSId(){
+//验证开始叫号时间
+function checkKSJHSJ(){
+	var ksjhsj = ksjhsjDB.datebox("getValue");
+	if(ksjhsj==null||ksjhsj==""){
+	  	alert("请选择开始叫号时间");
+	  	return false;
+	}
+	else
+		return true;
+}
+
+//验证所属司机
+function checkSSSJId(){
 	var sssjTabData=sssjTab.datagrid("getData");
 	var total=sssjTabData.total;
-	var yssId=null;
+	var sssjId=null;
 	if(total>0)
-		yssId=sssjTabData.rows[0].id;
+		sssjId=sssjTabData.rows[0].id;
 	
-	if(yssId==null){
-		alert("请选择运输商");
+	if(sssjId==null){
+		alert("请选择所属司机");
 	  	return false;
 	}
 	else
 		return true;
 }
 
-//验证物料信息
-function checkWLXXId(){
-	var wlxxTabData=wlxxTab.datagrid("getData");
-	var total=wlxxTabData.total;
-	var wlxxId=null;
+//验证所属队列
+function checkSSDLId(){
+	var ssdlTabData=ssdlTab.datagrid("getData");
+	var total=ssdlTabData.total;
+	var ssdlId=null;
 	if(total>0)
-		wlxxId=wlxxTabData.rows[0].id;
+		ssdlId=ssdlTabData.rows[0].id;
 	
-	if(wlxxId==null){
-		alert("请选择物料信息");
+	if(ssdlId==null){
+		alert("请选择所属队列");
 	  	return false;
 	}
 	else
 		return true;
 }
 
-//验证发货单位
-function checkFHDWId(){
-	var fhdwTabData=fhdwTab.datagrid("getData");
-	var total=fhdwTabData.total;
-	var fhdwId=null;
+//验证所属订单
+function checkSSDDBm(){
+	var ssddTabData=ssddTab.datagrid("getData");
+	var total=ssddTabData.total;
+	var ssddBm=null;
 	if(total>0)
-		fhdwId=fhdwTabData.rows[0].id;
+		ssddBm=ssddTabData.rows[0].wybm;
 	
-	if(fhdwId==null){
-		alert("请选择发货单位");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证收货单位
-function checkSHDWId(){
-	var shdwTabData=shdwTab.datagrid("getData");
-	var total=shdwTabData.total;
-	var shdwId=null;
-	if(total>0)
-		shdwId=shdwTabData.rows[0].id;
-	
-	if(shdwId==null){
-		alert("请选择收货单位");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证承运车辆
-function checkCYCLId(){
-	var cyclTabData=cyclTab.datagrid("getData");
-	var total=cyclTabData.total;
-	var cyclId=null;
-	if(total>0)
-		cyclId=cyclTabData.rows[0].id;
-	
-	if(cyclId==null){
-		alert("请选择承运车辆");
-	  	return false;
-	}
-	else
-		return true;
-}
-
-//验证承运司机
-function checkCYSJId(){
-	var cysjTabData=cysjTab.datagrid("getData");
-	var total=cysjTabData.total;
-	var cysjId=null;
-	if(total>0)
-		cysjId=cysjTabData.rows[0].id;
-	
-	if(cysjId==null){
-		alert("请选择承运司机");
+	if(ssddBm==null){
+		alert("请选择所属订单");
 	  	return false;
 	}
 	else
@@ -3643,7 +3610,7 @@ function initWindowMarginLeft(){
 				排队号
 			</td>
 			<td>
-				<input type="number" id="yzxzl" name="yzxzl" placeholder="请输入排队号" style="width: 150px;height:30px;"/>
+				<input type="number" id="pdh" name="pdh" placeholder="请输入排队号" style="width: 150px;height:30px;"/>
 			</td>
 			<td align="right">
 				状态

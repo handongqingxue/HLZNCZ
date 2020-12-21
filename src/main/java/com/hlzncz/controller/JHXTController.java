@@ -88,6 +88,24 @@ public class JHXTController {
 		return MODULE_NAME+"/pzgl/dlgl/detail";
 	}
 
+	@RequestMapping(value="/newHaoMaChaXun")
+	@ResponseBody
+	public Map<String, Object> newHaoMaChaXun(HaoMa hm) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=haoMaService.newHaoMaChaXun(hm);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建号码查询成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建号码查询失败！");
+		}
+		return jsonMap;
+	}
+
 	@RequestMapping(value="/queryHaoMaList")
 	@ResponseBody
 	public Map<String, Object> queryHaoMaList(String hm,String pdh,Integer ztId,int page,int rows,String sort,String order) {

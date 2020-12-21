@@ -17,4 +17,6 @@ public interface YongHuService {
 	public List<YongHu> queryYongHuList(String yhm, Integer zt, int page, int rows, String sort, String order);
 
 	public YongHu selectYongHuById(String id);
+
+	public YongHu selectSiJiYongHuById(String id);
 }

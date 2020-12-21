@@ -12,4 +12,6 @@ public interface HaoMaMapper {
 	public int queryHaoMaForInt(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId);
 
 	public List<HaoMa> queryHaoMaList(@Param("hm") String hm, @Param("pdh") String pdh, @Param("ztId") Integer ztId, int i, int rows, String sort, String order);
+
+	public int newHaoMaChaXun(HaoMa hm);
 }

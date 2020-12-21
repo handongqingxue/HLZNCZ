@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlzncz.dao.HaoMaMapper">
 	<select id="queryHaoMaForInt" resultType="java.lang.Integer">
-		select count(*) from hao_ma where 1=1
+		select count(*) from hao_ma hm,hao_ma_zhuang_tai hmzt where hm.ztId=hmzt.id
 		<if test="hm!=''&amp;hm!=null">
 			and hm like CONCAT('%',#{hm},'%')
 		</if> 
@@ -16,7 +16,7 @@
 		</if> 
 	</select>
 	<select id="queryHaoMaList" resultType="com.hlzncz.entity.HaoMa">
-		select * from hao_ma where 1=1
+		select hm.*,hmzt.mc ztmc from hao_ma hm,hao_ma_zhuang_tai hmzt where hm.ztId=hmzt.id
 		<if test="hm!=''&amp;hm!=null">
 			and hm like CONCAT('%',#{hm},'%')
 		</if> 
@@ -28,4 +28,72 @@
 		</if>
 		 limit ${param4},${param5}
 	</select>
+	<insert id="newHaoMaChaXun" parameterType="com.hlzncz.entity.YongHu">
+		insert into hao_ma
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="hm!=null">
+				hm,
+			</if>
+			<if test="prsj!=null">
+				prsj,
+			</if>
+			<if test="pdh!=null">
+				pdh,
+			</if>
+			<if test="ztId!=null">
+				ztId,
+			</if>
+			<if test="fl!=null">
+				fl,
+			</if>
+			<if test="ewm!=null">
+				ewm,
+			</if>
+			<if test="ksjhsj!=null">
+				ksjhsj,
+			</if>
+			<if test="sssjId!=null">
+				sssjId,
+			</if>
+			<if test="ssdlId!=null">
+				ssdlId,
+			</if>
+			<if test="ssddBm!=null">
+				ssddBm,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="hm!=null">
+				#{hm},
+			</if>
+			<if test="prsj!=null">
+				#{prsj},
+			</if>
+			<if test="pdh!=null">
+				#{pdh},
+			</if>
+			<if test="ztId!=null">
+				#{ztId},
+			</if>
+			<if test="fl!=null">
+				#{fl},
+			</if>
+			<if test="ewm!=null">
+				#{ewm},
+			</if>
+			<if test="ksjhsj!=null">
+				#{ksjhsj},
+			</if>
+			<if test="sssjId!=null">
+				#{sssjId},
+			</if>
+			<if test="ssdlId!=null">
+				#{ssdlId},
+			</if>
+			<if test="ssddBm!=null">
+				#{ssddBm},
+			</if>
+		</trim>
+	</insert>
 </mapper>

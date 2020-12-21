@@ -19,6 +19,8 @@ public interface YongHuMapper {
 	public List<YongHu> queryYongHuList(@Param("yhm") String yhm, @Param("zt") Integer zt, int i, int rows, String sort, String order);
 
 	public YongHu selectYongHuById(@Param("id") String id);
+
+	public YongHu selectSiJiYongHuById(@Param("id") String id);
 	
 	//通过用户信息查询用户
 	public YongHu getYongHu(YongHu yh);
